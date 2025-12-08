@@ -3,220 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eyoub Belkhiri - DÉVELOPPEUR CYBERPUNK</title>
+    <title>Eyoub Belkhiri - DÉVELOPPEUR WEB</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         /* ----------------------------------- */
-        /* NOUVEAUX STYLES GLOBAUX - CYBERPUNK */
+        /* NOUVEAUX STYLES GLOBAUX - MINIMALISTE NOIR & BLANC */
         /* ----------------------------------- */
         :root {
-            --color-primary: #00FFFF; /* Cyan Électrique */
-            --color-secondary: #FF0077; /* Magenta Néon */
-            --color-bg-dark: #0F0F0F; /* Fond très sombre */
-            --color-card-dark: #1A1A1A; /* Fond des cartes */
-            --color-text: #E0E0E0;
-            --color-glitch: #FF00FF; /* Pour les effets */
+            --color-main: #333333; /* Gris foncé pour le texte principal */
+            --color-accent: #000000; /* Noir pour les accents / titres */
+            --color-bg-dark: #0A0A0A; /* Fond très sombre */
+            --color-bg-light: #F8F8F8; /* Fond des sections claires */
+            --color-card: #1C1C1C; /* Fond des cartes sombre */
+            --color-text-dark: #FFFFFF; /* Texte sur fond sombre */
+            --color-text-light: #333333; /* Texte sur fond clair */
+            --color-border: #444444;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: var(--color-bg-dark); color: var(--color-text); overflow-x: hidden; }
-
-        /* Animations */
-        @keyframes neon-glow { 0%, 100% { text-shadow: 0 0 5px var(--color-primary), 0 0 10px var(--color-primary); } 50% { text-shadow: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary); } }
-        @keyframes pulse-border { 0%, 100% { box-shadow: 0 0 5px var(--color-secondary), 0 0 10px var(--color-secondary); } 50% { box-shadow: 0 0 10px var(--color-secondary), 0 0 15px var(--color-secondary); } }
-        @keyframes scanline { 0% { background-position: 0% 0; } 100% { background-position: 100% 100%; } }
-
-        /* Utilitaires visuels */
-        .glitch-text { font-family: 'Space Mono', monospace; animation: neon-glow 1.5s ease-in-out infinite alternate; }
+        body { font-family: 'Poppins', sans-serif; background: var(--color-bg-dark); color: var(--color-text-dark); overflow-x: hidden; }
 
         /* ----------------------------------- */
         /* SECTIONS & TITRES */
         /* ----------------------------------- */
         section { padding: 120px 0; position:relative; }
         .section-dark { background: var(--color-bg-dark); }
-        .section-secondary { background: #151515; }
+        .section-light { background: var(--color-bg-light); color: var(--color-text-light); }
 
         .section-title { text-align:center; margin-bottom: 80px; }
-        .section-title h2 { font-size: 4rem; font-weight: 900; color: #fff; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 5px; font-family: 'Space Mono', monospace; }
-        .section-title p { color: var(--color-secondary); font-size: 1.2rem; font-weight: 600; letter-spacing: 1px; }
-        .section-title::after { content:''; display: block; width: 80px; height: 4px; background-color: var(--color-primary); margin: 15px auto 0; border-radius: 2px; box-shadow: 0 0 10px var(--color-primary); }
+        .section-title h2 { font-size: 3rem; font-weight: 700; color: var(--color-accent); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 3px; }
+        .section-title p { color: var(--color-main); font-size: 1.1rem; font-weight: 400; letter-spacing: 1px; }
+        /* Ligne de séparation subtile */
+        .section-dark .section-title h2, .section-dark .section-title p { color: var(--color-text-dark); }
+        .section-title::after { content:''; display: block; width: 60px; height: 3px; background-color: var(--color-accent); margin: 15px auto 0; }
+        .section-dark .section-title::after { background-color: #FFFFFF; }
 
         /* ----------------------------------- */
         /* NAV & BOUTONS */
         /* ----------------------------------- */
-        .navbar-custom { background: rgba(15, 15, 15, 0.95); backdrop-filter: blur(5px); border-bottom: 1px solid var(--color-primary); }
-        .navbar-brand { font-weight: 700; color: #fff !important; font-size: 1.8rem; font-family: 'Space Mono', monospace; }
-        .navbar-nav .nav-link { color: var(--color-text) !important; margin: 0 15px; font-weight: 500; transition: color 0.3s ease, text-shadow 0.3s; }
-        .navbar-nav .nav-link:hover { color: var(--color-primary) !important; text-shadow: 0 0 5px var(--color-primary); }
-
+        .navbar-custom { background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(5px); border-bottom: 1px solid var(--color-border); }
+        .navbar-brand { font-weight: 700; color: #fff !important; font-size: 1.6rem; }
+        .navbar-nav .nav-link { color: var(--color-text-dark) !important; margin: 0 15px; font-weight: 500; transition: color 0.3s ease; }
+        .navbar-nav .nav-link:hover { color: #FFFFFF !important; font-weight: 600; }
+        
+        /* Bouton Principal - Noir sur Blanc */
         .btn-custom { 
-            background-color: var(--color-primary); 
-            color: var(--color-bg-dark) !important; 
-            border: none; 
-            padding: 14px 40px; 
-            border-radius: 4px; 
-            font-weight: 700; 
+            background-color: var(--color-accent); 
+            color: #FFFFFF !important; 
+            border: 2px solid var(--color-accent); 
+            padding: 12px 35px; 
+            border-radius: 0; /* Carré minimaliste */
+            font-weight: 600; 
             text-decoration: none; 
             display: inline-block; 
             margin: 10px; 
-            transition: all 0.4s ease; 
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            transition: all 0.3s ease; 
             text-transform: uppercase;
             letter-spacing: 1px;
-            border: 2px solid transparent;
         }
         .btn-custom:hover { 
-            transform: translateY(-3px) scale(1.02); 
-            box-shadow: 0 0 25px var(--color-primary), 0 0 40px rgba(0, 255, 255, 0.3); 
-            background-color: #33FFFF;
-            border-color: #fff;
+            background-color: #333333; 
+            border-color: #333333; 
+            transform: translateY(-2px); 
         }
 
+        /* Bouton Secondaire - Blanc sur Noir */
         .btn-secondary-custom {
             background-color: transparent;
-            color: var(--color-secondary) !important;
-            border: 2px solid var(--color-secondary);
-            box-shadow: 0 0 10px rgba(255, 0, 119, 0.5);
+            color: var(--color-text-dark) !important;
+            border: 2px solid var(--color-text-dark);
         }
         .btn-secondary-custom:hover {
-            background-color: var(--color-secondary);
-            color: #fff !important;
-            box-shadow: 0 0 20px var(--color-secondary), 0 0 30px rgba(255, 0, 119, 0.3);
-            transform: translateY(-3px);
+            background-color: var(--color-text-dark);
+            color: var(--color-bg-dark) !important;
+            border-color: var(--color-text-dark);
         }
 
         /* ----------------------------------- */
         /* HERO */
         /* ----------------------------------- */
         .hero { height: 100vh; background: var(--color-bg-dark); }
-        .hero-content { animation: none; }
         .profile-img { 
-            width: 200px; height: 200px; border-radius: 50%; 
-            border: 5px solid var(--color-primary); margin: 0 auto 30px; 
-            box-shadow: 0 0 30px var(--color-primary), inset 0 0 10px var(--color-primary);
+            width: 180px; height: 180px; border-radius: 50%; 
+            border: 3px solid #666; margin: 0 auto 30px; 
             object-fit: cover;
-            animation: pulse-border 2s ease-in-out infinite alternate;
+            transition: border-color 0.4s;
         }
-        .hero h1 { font-size: 6rem; font-weight: 900; line-height: 1.1; margin-bottom: 10px; font-family: 'Space Mono', monospace; }
-        .hero h1 span { color: var(--color-secondary); animation: neon-glow 1.5s ease-in-out infinite alternate; }
-        .hero p { font-size: 1.8rem; font-weight: 300; margin-bottom: 50px; opacity: 0.9; color: var(--color-primary); }
+        .profile-img:hover { border-color: #FFFFFF; }
+        .hero h1 { font-size: 5rem; font-weight: 900; line-height: 1.1; margin-bottom: 10px; }
+        .hero h1 span { color: #888888; }
+        .hero p { font-size: 1.5rem; font-weight: 300; margin-bottom: 50px; opacity: 0.8; color: #CCCCCC; }
 
         /* ----------------------------------- */
         /* ABOUT & SKILLS */
         /* ----------------------------------- */
-        .about-text p { font-size: 1.05rem; line-height: 1.8; color: #ccc; margin-bottom: 20px; }
-        .about-text p strong { color: var(--color-primary); }
+        .about-text p { font-size: 1rem; line-height: 1.7; color: var(--color-text-light); margin-bottom: 20px; }
+        .about-text p strong { color: var(--color-accent); font-weight: 600; }
+        .section-dark .about-text p { color: #CCCCCC; }
+        .section-dark .about-text p strong { color: #FFFFFF; }
+        .section-dark h3 { color: #FFFFFF !important; }
         
         .skill-item { 
-            background: var(--color-card-dark); padding: 30px; 
-            border-radius: 8px; box-shadow: 0 0 10px rgba(0, 255, 255, 0.1); 
-            transition: transform 0.4s, box-shadow 0.4s;
-            border: 1px solid var(--color-primary);
-            position: relative;
-            overflow: hidden;
+            background: var(--color-card); padding: 30px; 
+            border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); 
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid #666; /* Accent subtil */
         }
-        .skill-item:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--color-primary), 0 0 30px rgba(0, 255, 255, 0.4); }
-        .skill-item i { font-size: 3rem; color: var(--color-secondary); margin-bottom: 15px; text-shadow: 0 0 5px var(--color-secondary); }
-        .skill-item h4 { font-weight: 700; color: var(--color-primary); margin-bottom: 5px; font-family: 'Space Mono', monospace; }
-        .skill-item p { color: #aaa; font-size: 0.9rem; }
+        .skill-item:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0,0,0,0.4); border-left-color: #FFFFFF; }
+        .skill-item i { font-size: 2.5rem; color: #AAAAAA; margin-bottom: 15px; }
+        .skill-item h4 { font-weight: 700; color: #FFFFFF; margin-bottom: 5px; }
+        .skill-item p { color: #AAAAAA; font-size: 0.9rem; }
+        .section-light .skill-item { 
+            background: #FFFFFF; color: var(--color-text-light); 
+            border-left-color: #AAAAAA; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .section-light .skill-item i { color: #555555; }
+        .section-light .skill-item h4 { color: var(--color-accent); }
+        .section-light .skill-item:hover { border-left-color: var(--color-accent); }
+
 
         /* ----------------------------------- */
         /* CV - APERCU INTEGRÉ */
         /* ----------------------------------- */
-        .cv-section { background: #1A1A1A; }
+        .cv-section { background: var(--color-bg-light); color: var(--color-text-light); }
         .cv-container { display: flex; gap: 40px; align-items: stretch; }
-        
-        /* Ajustement de la taille de l'aperçu */
         .cv-preview { 
-            flex: 2; /* Prend plus de place que le panneau de téléchargement */
-            background: #fff; border-radius: 10px; overflow: hidden; 
-            box-shadow: 0 0 20px rgba(255, 0, 119, 0.5); 
-            border: 2px solid var(--color-secondary);
+            flex: 2; 
+            background: #FFFFFF; border-radius: 4px; overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+            border: 1px solid #DDDDDD;
         }
-        .cv-preview iframe { width: 100%; height: 800px; border: none; } /* AUGMENTÉ */
-
+        .cv-preview iframe { width: 100%; height: 800px; border: none; }
         .cv-download-card { 
-            background: var(--color-bg-dark); border-radius: 10px; 
+            background: var(--color-accent); border-radius: 4px; 
             padding: 40px; flex: 1; text-align: center; 
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-            border: 2px solid var(--color-primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             display: flex; flex-direction: column; justify-content: center;
         }
-        .cv-icon { font-size: 4rem; margin-bottom: 20px; color: var(--color-primary); text-shadow: 0 0 10px var(--color-primary); }
-        .cv-download-card h3 { color: #fff; font-family: 'Space Mono', monospace; }
+        .cv-icon { font-size: 4rem; margin-bottom: 20px; color: #FFFFFF; }
+        .cv-download-card h3 { color: #FFFFFF; font-weight: 600; }
+        .cv-download-card p { color: #CCCCCC; }
+        .cv-download-card .btn-custom { 
+            background: #FFFFFF; 
+            color: var(--color-accent) !important; 
+            border-color: #FFFFFF;
+        }
+        .cv-download-card .btn-custom:hover { 
+            background: #EEEEEE; 
+            border-color: #EEEEEE;
+        }
 
         /* ----------------------------------- */
         /* PROJETS */
         /* ----------------------------------- */
-        .projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:50px; }
+        .projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:40px; }
         .project-card { 
-            background: var(--color-card-dark); border-radius: 10px; 
-            overflow: hidden; box-shadow: 0 5px 25px rgba(0,0,0,0.7); 
-            transition: transform 0.4s, box-shadow 0.4s;
-            border: 1px solid #333;
+            background: var(--color-card); border-radius: 4px; 
+            overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.2); 
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--color-border);
         }
         .project-card:hover { 
-            transform: translateY(-10px) scale(1.02); 
-            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.3);
-            border-color: var(--color-primary);
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border-color: #FFFFFF;
         }
-        .project-img { width:100%; height:250px; background: linear-gradient(135deg, #1A1A1A, #2A2A2A); display:flex; align-items:center; justify-content:center; color: var(--color-secondary); font-size:5rem; border-bottom: 3px solid var(--color-secondary); }
-        .project-content { padding: 30px 25px; }
-        .project-content h4 { color:var(--color-primary); margin-bottom:15px; font-size:1.6rem; font-weight: 700; font-family: 'Space Mono', monospace; }
-        .project-content p { color:#bbb; line-height:1.7; margin-bottom:25px; font-size: 0.95rem; }
-        .project-tags { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
-        .tag { background-color: rgba(255, 0, 119, 0.15); color: var(--color-secondary); padding: 5px 14px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--color-secondary); }
+        .project-img { width:100%; height:200px; background: #222222; display:flex; align-items:center; justify-content:center; color: #888888; font-size:4rem; border-bottom: 1px solid #444; }
+        .project-content { padding: 25px; }
+        .project-content h4 { color:#FFFFFF; margin-bottom:10px; font-size:1.4rem; font-weight: 700; }
+        .project-content p { color:#AAAAAA; line-height:1.6; margin-bottom:20px; font-size: 0.9rem; }
+        .project-tags { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:15px; }
+        .tag { background-color: #333333; color: #FFFFFF; padding: 4px 12px; border-radius: 2px; font-size: 0.8rem; font-weight: 500; }
         
         .btn-project-secondary { 
-            background: transparent; border: 2px solid var(--color-secondary); 
-            color: var(--color-secondary); padding: 10px 25px; 
-            border-radius: 4px; text-decoration:none; display:inline-block; 
-            margin-right: 15px; transition: all 0.3s ease; font-weight: 600;
-            font-size: 0.9rem;
+            background: transparent; border: 1px solid #AAAAAA; 
+            color: #AAAAAA; padding: 8px 20px; 
+            border-radius: 2px; text-decoration:none; display:inline-block; 
+            margin-right: 10px; transition: all 0.3s ease; font-weight: 500;
+            font-size: 0.85rem;
             text-transform: uppercase;
         }
-        .btn-project-secondary:hover { background: var(--color-secondary); color: var(--color-bg-dark); transform: translateY(-2px); box-shadow: 0 0 15px var(--color-secondary); }
+        .btn-project-secondary:hover { background: #AAAAAA; color: var(--color-bg-dark) !important; border-color: #AAAAAA; }
 
         /* ----------------------------------- */
         /* CONTACT - FORMULAIRE */
         /* ----------------------------------- */
-        .contact-form-container { max-width: 800px; margin: 0 auto; background: #1A1A1A; padding: 50px; border-radius: 10px; box-shadow: 0 0 30px rgba(0, 255, 255, 0.2); border: 2px solid var(--color-primary); }
+        .contact-form-container { max-width: 700px; margin: 0 auto; background: #FFFFFF; padding: 40px; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
         .form-control { 
-            background: #0F0F0F; border: 1px solid #333; color: var(--color-text); 
-            padding: 15px; border-radius: 4px; transition: all 0.3s ease; 
+            background: #F0F0F0; border: 1px solid #CCCCCC; color: var(--color-text-light); 
+            padding: 12px; border-radius: 2px; transition: all 0.3s ease; 
         }
         .form-control:focus { 
-            background: #111; border-color: var(--color-secondary); color: white; 
-            box-shadow: 0 0 0 0.25rem rgba(255, 0, 119, 0.25); 
+            background: #FFFFFF; border-color: var(--color-accent); 
+            box-shadow: 0 0 0 0.25rem rgba(0,0,0,0.1); 
         }
-        .form-control::placeholder { color: #999; opacity: 0.7; }
-        .alert-message { margin-top: 25px; padding: 15px; border-radius: 4px; text-align: center; font-weight: 700; font-family: 'Space Mono', monospace; }
+        .form-control::placeholder { color: #999; opacity: 1; }
+        .alert-message { margin-top: 25px; padding: 15px; border-radius: 4px; text-align: center; font-weight: 600; font-size: 0.95rem; }
+        .contact-form-container .btn-custom { margin: 0; }
+
 
         /* ----------------------------------- */
         /* FOOTER */
         /* ----------------------------------- */
-        .footer-custom { background: var(--color-bg-dark); color: #333; border-top: 1px solid rgba(0, 255, 255, 0.1); }
-        .footer-custom p { font-family: 'Space Mono', monospace; }
+        .footer-custom { background: var(--color-bg-dark); color: #444; border-top: 1px solid #222; }
+        .footer-custom p { font-size: 0.9rem; }
 
         /* ----------------------------------- */
         /* RESPONSIVE */
         /* ----------------------------------- */
         @media (max-width: 992px) {
             .hero h1 { font-size: 4rem; }
-            .hero p { font-size: 1.4rem; }
+            .hero p { font-size: 1.2rem; }
             .cv-container { flex-direction: column; }
-            .cv-preview iframe { height: 600px; } /* Moins haut sur mobile, mais toujours grand */
-            .section-title h2 { font-size: 3rem; }
+            .cv-preview iframe { height: 600px; }
+            .section-title h2 { font-size: 2.5rem; }
             section { padding: 80px 0; }
             .projects-grid { gap: 30px; }
         }
         @media (max-width: 768px) {
             .hero h1 { font-size: 3rem; }
+            .btn-custom { padding: 10px 25px; }
+            .project-content { padding: 20px; }
         }
 
-        /* Scroll animations */
-        .fade-in { opacity:0; transform:translateY(40px); transition:all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        /* Scroll animations simplifiées */
+        .fade-in { opacity:0; transform:translateY(30px); transition:all 0.8s ease-out; }
         .fade-in.visible { opacity:1; transform:translateY(0); }
     </style>
 </head>
@@ -224,7 +237,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#hero">Eyoub<span class="glitch-text">.dev</span></a>
+            <a class="navbar-brand" href="#hero">Eyoub.dev</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -247,7 +260,7 @@
                     alt="Eyoub Belkhiri" class="profile-img">
                 
                 <h1>Eyoub <span>Belkhiri</span> // Développeur.</h1>
-                <p>ÉTUDIANT BTS SIO SLAM | SYSTÈMES & APPLICATIONS</p>
+                <p>BTS SIO SLAM | Systèmes & Applications</p>
 
                 <a href="#projects" class="btn-custom">VOIR LES PROJETS</a>
                 <a href="#contact" class="btn-custom btn-secondary-custom">ME CONTACTER</a>
@@ -255,16 +268,16 @@
         </div>
     </section>
 
-    <section id="about" class="section-dark">
+    <section id="about" class="section-light">
         <div class="container">
             <div class="section-title fade-in">
-                <h2>// À PROPOS //</h2>
+                <h2>À PROPOS</h2>
                 <p>Mon Parcours et mes Compétences Clés</p>
             </div>
             <div class="row">
                 <div class="col-lg-6 fade-in mb-5 mb-lg-0">
                     <div class="about-text">
-                        <h3 style="color:var(--color-primary);margin-bottom:25px; font-weight:700; letter-spacing: 1px;">&gt; Passionné par l'architecture logicielle</h3>
+                        <h3 style="color:var(--color-accent);margin-bottom:25px; font-weight:700; letter-spacing: 1px;">Passionné par l'architecture logicielle</h3>
                         <p>Bonjour ! Je suis **Eyoub Belkhiri**, actuellement en BTS SIO option SLAM (Solutions Logicielles et Applications Métiers). Mon objectif est de maîtriser l'ensemble de la chaîne de développement, en me concentrant sur la création de solutions **robustes**, **évolutives** et **performantes**, du back-end à l'interface utilisateur.</p>
                         <p>Mon parcours m'a permis d'acquérir des compétences solides en **programmation orientée objet** (POO) et en **gestion de bases de données** complexes. Je suis activement à la recherche d'une **alternance** ou d'un **stage** pour transformer ces connaissances théoriques en solutions concrètes et innovantes. Je suis prêt à relever tous les défis techniques.</p>
                     </div>
@@ -282,11 +295,13 @@
             </div>
         </div>
     </section>
+    
+    <hr>
 
-    <section id="cv" class="section-secondary">
+    <section id="cv" class="section-dark">
         <div class="container">
             <div class="section-title fade-in">
-                <h2>// FICHIER .CV //</h2>
+                <h2>FICHIER .CV</h2>
                 <p>Mon historique de données en détail</p>
             </div>
             <div class="cv-container fade-in">
@@ -296,7 +311,7 @@
 
                 <div class="cv-download-card">
                     <div class="cv-icon"><i class="fas fa-file-invoice"></i></div>
-                    <h3 class="glitch-text">TÉLÉCHARGEMENT SECURE</h3>
+                    <h3>TÉLÉCHARGEMENT</h3>
                     <p class="text-muted">Obtenez la version PDF de mon profil pour une lecture hors-ligne.</p>
                     <a href="CV_Stage.pdf" class="btn-custom mt-4" download>
                         <i class="fas fa-download"></i> TÉLÉCHARGER LE .PDF
@@ -306,84 +321,88 @@
         </div>
     </section>
     
-    <section id="projects" class="section-dark">
+    <hr>
+
+    <section id="projects" class="section-light">
         <div class="container">
             <div class="section-title fade-in">
-                <h2>// PORTFOLIO //</h2>
+                <h2>PORTFOLIO</h2>
                 <p>Mes réalisations techniques récentes</p>
             </div>
             <div class="projects-grid fade-in">
                 <div class="project-card">
-                    <div class="project-img"><i class="fas fa-chart-line"></i></div>
-                    <div class="project-content">
-                        <h4>SYSTÈME DE GESTION SPORTIVE</h4>
-                        <p>Développement d'une plateforme d'administration et d'affichage des statistiques de matchs et classements en temps réel.</p>
+                    <div class="project-img" style="background: #EAEAEA;"><i class="fas fa-chart-line" style="color:#333;"></i></div>
+                    <div class="project-content" style="background: #FFFFFF; color: var(--color-text-light);">
+                        <h4 style="color:var(--color-accent);">SYSTÈME DE GESTION SPORTIVE</h4>
+                        <p style="color:var(--color-main);">Développement d'une plateforme d'administration et d'affichage des statistiques de matchs et classements en temps réel.</p>
                         <div class="project-tags">
-                            <span class="tag">HTML</span>
-                            <span class="tag">CSS/Bootstrap</span>
-                            <span class="tag">PHP</span>
-                            <span class="tag">MYSQL</span>
+                            <span class="tag" style="background: #F0F0F0; color: #555;">HTML</span>
+                            <span class="tag" style="background: #F0F0F0; color: #555;">CSS/Bootstrap</span>
+                            <span class="tag" style="background: #F0F0F0; color: #555;">PHP</span>
+                            <span class="tag" style="background: #F0F0F0; color: #555;">MYSQL</span>
                         </div>
-                        <a href="#" class="btn-project-secondary">CODE SOURCE <i class="fab fa-github"></i></a>
-                        <a href="#" class="btn-project-secondary">DOCUMENTATION</a>
+                        <a href="#" class="btn-project-secondary" style="color:var(--color-main); border-color: #DDD;">CODE SOURCE <i class="fab fa-github"></i></a>
+                        <a href="#" class="btn-project-secondary" style="color:var(--color-main); border-color: #DDD;">DOCUMENTATION</a>
                     </div>
                 </div>
                 <div class="project-card">
-                    <div class="project-img"><i class="fas fa-project-diagram"></i></div>
-                    <div class="project-content">
-                        <h4>ERP INTERNE (Laravel)</h4>
-                        <p>Application web interne pour la gestion optimisée des ressources, des plannings et du suivi des tâches au sein d'une équipe.</p>
+                    <div class="project-img" style="background: #EAEAEA;"><i class="fas fa-project-diagram" style="color:#333;"></i></div>
+                    <div class="project-content" style="background: #FFFFFF; color: var(--color-text-light);">
+                        <h4 style="color:var(--color-accent);">ERP INTERNE (Laravel)</h4>
+                        <p style="color:var(--color-main);">Application web interne pour la gestion optimisée des ressources, des plannings et du suivi des tâches au sein d'une équipe.</p>
                         <div class="project-tags">
-                            <span class="tag">Laravel</span>
-                            <span class="tag">Vue.js</span>
-                            <span class="tag">MySQL</span>
-                            <span class="tag">API REST</span>
+                            <span class="tag" style="background: #F0F0F0; color: #555;">Laravel</span>
+                            <span class="tag" style="background: #F0F0F0; color: #555;">Vue.js</span>
+                            <span class="tag" style="background: #F0F0F0; color: #555;">MySQL</span>
+                            <span class="tag" style="background: #F0F0F0; color: #555;">API REST</span>
                         </div>
-                        <a href="#" class="btn-project-secondary">CODE SOURCE <i class="fab fa-github"></i></a>
-                        <a href="#" class="btn-project-secondary">DOCUMENTATION</a>
+                        <a href="#" class="btn-project-secondary" style="color:var(--color-main); border-color: #DDD;">CODE SOURCE <i class="fab fa-github"></i></a>
+                        <a href="#" class="btn-project-secondary" style="color:var(--color-main); border-color: #DDD;">DOCUMENTATION</a>
                     </div>
                 </div>
                 <div class="project-card">
-                    <div class="project-img"><i class="fas fa-mobile-alt"></i></div>
-                    <div class="project-content">
-                        <h4>APPLICATION MOBILE (Productivité)</h4>
-                        <p>Développement d'une application mobile cross-platform avec synchronisation cloud pour le suivi et l'analyse de la productivité.</p>
+                    <div class="project-img" style="background: #EAEAEA;"><i class="fas fa-mobile-alt" style="color:#333;"></i></div>
+                    <div class="project-content" style="background: #FFFFFF; color: var(--color-text-light);">
+                        <h4 style="color:var(--color-accent);">APPLICATION MOBILE (Productivité)</h4>
+                        <p style="color:var(--color-main);">Développement d'une application mobile cross-platform avec synchronisation cloud pour le suivi et l'analyse de la productivité.</p>
                         <div class="project-tags">
-                            <span class="tag">React Native</span>
-                            <span class="tag">Node.js</span>
-                            <span class="tag">MongoDB</span>
-                            <span class="tag">Firebase</span>
+                            <span class="tag" style="background: #F0F0F0; color: #555;">React Native</span>
+                            <span class="tag" style="background: #F0F0F0; color: #555;">Node.js</span>
+                            <span class="tag" style="background: #F0F0F0; color: #555;">MongoDB</span>
+                            <span class="tag" style="background: #F0F0F0; color: #555;">Firebase</span>
                         </div>
-                        <a href="#" class="btn-project-secondary">CODE SOURCE <i class="fab fa-github"></i></a>
-                        <a href="#" class="btn-project-secondary">DOCUMENTATION</a>
+                        <a href="#" class="btn-project-secondary" style="color:var(--color-main); border-color: #DDD;">CODE SOURCE <i class="fab fa-github"></i></a>
+                        <a href="#" class="btn-project-secondary" style="color:var(--color-main); border-color: #DDD;">DOCUMENTATION</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="section-secondary">
+    <hr>
+    
+    <section id="contact" class="section-dark">
         <div class="container">
             <div class="section-title fade-in">
-                <h2>// CONTACT //</h2>
-                <p>Transmission de données sécurisée</p>
+                <h2>CONTACT</h2>
+                <p>Envoyez votre message</p>
             </div>
             <div class="contact-form-container fade-in">
                 <form id="contactForm">
                     <div class="mb-4">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="&gt; NOM ET PRÉNOM" required>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="NOM ET PRÉNOM" required>
                     </div>
                     <div class="mb-4">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="&gt; ADRESSE EMAIL" required>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="ADRESSE EMAIL" required>
                     </div>
                     <div class="mb-4">
-                        <input type="text" class="form-control" id="subject" name="subject" placeholder="&gt; SUJET DU MESSAGE" required>
+                        <input type="text" class="form-control" id="subject" name="subject" placeholder="SUJET DU MESSAGE" required>
                     </div>
                     <div class="mb-4">
-                        <textarea class="form-control" id="message" name="message" rows="6" placeholder="&gt; VOTRE MESSAGE DÉTAILLÉ" required></textarea>
+                        <textarea class="form-control" id="message" name="message" rows="6" placeholder="VOTRE MESSAGE DÉTAILLÉ" required></textarea>
                     </div>
-                    <button type="submit" class="btn-custom w-100" id="submitButton">
-                        <i class="fas fa-paper-plane"></i> ENVOYER LE FLUX DE DONNÉES
+                    <button type="submit" class="btn-custom w-100" id="submitButton" style="color: #FFFFFF !important;">
+                        <i class="fas fa-paper-plane"></i> ENVOYER LE MESSAGE
                     </button>
                     <div id="formMessage" class="alert-message" style="display: none;"></div>
                 </form>
@@ -393,7 +412,7 @@
     
     <footer class="text-center py-4 footer-custom">
         <div class="container">
-            <p class="mb-0">CODE INITIÉ PAR EYUB BELKHIRI <span style="color:var(--color-secondary);">&gt;</span> 2025</p>
+            <p class="mb-0">DESIGN PAR EYUB BELKHIRI &copy; 2025</p>
         </div>
     </footer>
 
@@ -411,44 +430,34 @@
             window.addEventListener('scroll',handleScrollAnimations);
         });
 
-        /* Script pour l'envoi du formulaire par AJAX */
+        /* Script pour l'envoi du formulaire par AJAX - Simulé ici */
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault(); 
             
             const form = e.target;
-            const formData = new FormData(form);
             const formMessage = document.getElementById('formMessage');
             const submitButton = document.getElementById('submitButton');
 
             formMessage.style.display = 'block';
             formMessage.className = 'alert-message alert alert-info';
-            formMessage.innerHTML = '<i class="fas fa-sync fa-spin"></i> TRANSMISSION EN COURS...';
+            formMessage.innerHTML = '<i class="fas fa-sync fa-spin"></i> ENVOI EN COURS...';
             submitButton.disabled = true;
 
-            // Simule l'envoi AJAX (le fichier send_email.php est nécessaire sur le serveur)
-            fetch('send_email.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
+            // SIMULATION DE L'ENVOI
+            setTimeout(() => {
+                // Remplacer ce bloc par un vrai fetch() vers 'send_email.php'
+                const success = Math.random() > 0.1; // 90% de chance de succès simulé
+
+                if (success) {
                     formMessage.className = 'alert-message alert alert-success';
-                    formMessage.innerHTML = '<i class="fas fa-check-circle"></i> MESSAGE TRANSMIS AVEC SUCCÈS !';
+                    formMessage.innerHTML = '<i class="fas fa-check-circle"></i> MESSAGE ENVOYÉ AVEC SUCCÈS !';
                     form.reset(); 
                 } else {
                     formMessage.className = 'alert-message alert alert-danger';
-                    formMessage.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ERREUR : ${data.message || 'ÉCHEC DE L\'ENVOI (Vérifier la configuration serveur/PHP). Règlez le fichier send_email.php.'}`;
+                    formMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ERREUR D\'ENVOI SIMULÉE. (Veuillez configurer un script côté serveur).';
                 }
-            })
-            .catch(error => {
-                console.error('Erreur lors de l\'envoi:', error);
-                formMessage.className = 'alert-message alert alert-danger';
-                formMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ERREUR DE CONNEXION AU SERVEUR.';
-            })
-            .finally(() => {
                 submitButton.disabled = false;
-            });
+            }, 1500);
         });
     </script>
 </body>
