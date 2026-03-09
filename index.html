@@ -392,89 +392,169 @@
             letter-spacing: 1px;
         }
 
-        /* CV SECTION */
-        #cv {
-            background: var(--cream);
-            color: var(--black);
-            max-width: none;
-            padding: 120px 0;
-        }
-        #cv .inner {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 60px;
-        }
-        #cv .section-eyebrow { color: var(--accent-dark); }
-        #cv .section-eyebrow::before { background: var(--accent-dark); }
-        #cv .section-heading { color: var(--black); }
+   /* CV SECTION */
 
-        .cv-layout { display: grid; grid-template-columns: 1fr 380px; gap: 60px; align-items: start; }
+#cv{
+background:var(--black);
+}
 
-        .cv-frame {
-            background: #fff;
-            border: 1px solid #D8D4CC;
-            overflow: hidden;
-            box-shadow: 20px 20px 60px rgba(0,0,0,0.1);
-        }
-        .cv-frame iframe { width: 100%; height: 720px; border: none; display: block; }
+.cv-layout{
 
-        .cv-sidebar { display: flex; flex-direction: column; gap: 2px; }
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:60px;
 
-        .cv-info-box {
-            padding: 32px;
-            border: 1px solid #D8D4CC;
-            background: #fff;
-        }
-        .cv-info-box h3 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.6rem;
-            color: var(--black);
-            margin-bottom: 10px;
-        }
-        .cv-info-box p {
-            font-size: 0.9rem;
-            color: #777;
-            line-height: 1.6;
-            margin-bottom: 0;
-        }
+}
 
-        .cv-dl-box {
-            padding: 32px;
-            background: var(--black);
-            text-align: center;
-        }
-        .cv-dl-box i {
-            font-size: 2rem;
-            color: var(--accent);
-            margin-bottom: 16px;
-            display: block;
-        }
-        .cv-dl-box h4 {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--white);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-        .cv-dl-box p { font-size: 0.82rem; color: var(--gray-mid); margin-bottom: 24px; }
-        .cv-dl-btn {
-            display: inline-flex;
-            align-items: center; gap: 10px;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            background: var(--accent);
-            color: var(--black);
-            padding: 14px 28px;
-            text-decoration: none;
-            transition: background 0.3s;
-            width: 100%;
-            justify-content: center;
-        }
-        .cv-dl-btn:hover { background: var(--accent-dark); color: var(--black); }
+.cv-preview{
 
+border:1px solid rgba(200,169,110,0.15);
+background:rgba(255,255,255,0.02);
+
+box-shadow:
+0 20px 80px rgba(0,0,0,0.6);
+
+transition:all .4s ease;
+
+}
+
+.cv-preview:hover{
+
+border-color:var(--accent);
+transform:translateY(-6px);
+
+}
+
+.cv-preview-top{
+
+display:flex;
+align-items:center;
+gap:10px;
+
+font-family:'DM Mono', monospace;
+font-size:.7rem;
+
+letter-spacing:3px;
+text-transform:uppercase;
+
+padding:18px 22px;
+
+border-bottom:1px solid rgba(255,255,255,0.06);
+
+color:var(--accent);
+
+}
+
+.cv-preview iframe{
+
+width:100%;
+height:650px;
+border:none;
+
+}
+
+.cv-side{
+
+display:flex;
+flex-direction:column;
+gap:20px;
+
+}
+
+.cv-card{
+
+border:1px solid rgba(255,255,255,0.06);
+padding:35px;
+
+background:rgba(255,255,255,0.02);
+
+transition:all .3s ease;
+
+}
+
+.cv-card:hover{
+
+border-color:rgba(200,169,110,0.25);
+background:rgba(200,169,110,0.04);
+
+}
+
+.cv-card h3{
+
+font-family:'DM Serif Display', serif;
+font-size:1.8rem;
+
+margin-bottom:10px;
+
+}
+
+.cv-card p{
+
+color:var(--gray-light);
+line-height:1.7;
+
+}
+
+.cv-card.download{
+
+text-align:center;
+
+}
+
+.cv-card.download i{
+
+font-size:1.8rem;
+color:var(--accent);
+
+margin-bottom:15px;
+
+}
+
+.cv-card.download h4{
+
+font-family:'DM Mono', monospace;
+
+font-size:.75rem;
+
+letter-spacing:3px;
+text-transform:uppercase;
+
+margin-bottom:8px;
+
+}
+
+.cv-download-btn{
+
+display:inline-flex;
+align-items:center;
+gap:10px;
+
+margin-top:20px;
+
+font-family:'DM Mono', monospace;
+
+font-size:.7rem;
+
+letter-spacing:3px;
+text-transform:uppercase;
+
+background:var(--accent);
+color:var(--black);
+
+padding:14px 28px;
+
+text-decoration:none;
+
+transition:all .3s ease;
+
+}
+
+.cv-download-btn:hover{
+
+background:var(--accent-dark);
+transform:translateY(-2px);
+
+}
         /* PROJECTS */
         #projects {
             background: var(--black);
@@ -1092,34 +1172,60 @@ transform:translateY(-2px);
 
     <div class="divider"></div>
 
-    <!-- CV -->
-    <div id="cv" class="full-section" style="background: var(--cream); color: var(--black);">
-        <div class="inner">
-            <div class="section-eyebrow reveal" style="color:var(--accent-dark);">
-                <span style="background:var(--accent-dark);"></span>Fichier .CV
-            </div>
-            <h2 class="section-heading reveal reveal-d1">Mon historique<br><em style="font-style:italic; color:#888;">de données.</em></h2>
-            <div class="cv-layout reveal reveal-d2">
-                <div class="cv-frame">
-                    <iframe src="CV_Stage.pdf" title="Aperçu du CV Eyoub Belkhiri"></iframe>
-                </div>
-                <div class="cv-sidebar">
-                    <div class="cv-info-box">
-                        <h3>Eyoub Belkhiri</h3>
-                        <p>Développeur Web — BTS SIO SLAM<br>Disponible pour stage et alternance</p>
-                    </div>
-                    <div class="cv-dl-box">
-                        <i class="fas fa-file-invoice"></i>
-                        <h4>Téléchargement PDF</h4>
-                        <p>Version hors-ligne de mon profil complet</p>
-                        <a href="CV_Stage.pdf" class="cv-dl-btn" download>
-                            <i class="fas fa-download"></i> Télécharger .PDF
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   <section id="cv">
+
+<div class="section-eyebrow reveal">Curriculum</div>
+
+<h2 class="section-heading reveal reveal-d1">
+Mon parcours<br>
+<em style="font-style:italic; color:var(--gray-mid);">professionnel.</em>
+</h2>
+
+<div class="cv-layout reveal reveal-d2">
+
+<div class="cv-preview">
+
+<div class="cv-preview-top">
+<i class="fas fa-file-pdf"></i>
+<span>CV Professionnel</span>
+</div>
+
+<iframe src="CV_Stage.pdf"></iframe>
+
+</div>
+
+
+<div class="cv-side">
+
+<div class="cv-card">
+<h3>Eyoub Belkhiri</h3>
+<p>
+Développeur Web en BTS SIO option SLAM.  
+Passionné par le développement d'applications et la création
+de solutions numériques performantes.
+</p>
+</div>
+
+<div class="cv-card download">
+
+<i class="fas fa-download"></i>
+
+<h4>Télécharger mon CV</h4>
+
+<p>Version PDF complète de mon profil.</p>
+
+<a href="CV_Stage.pdf" download class="cv-download-btn">
+Télécharger
+<i class="fas fa-arrow-right"></i>
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
 
     <div class="divider"></div>
 
@@ -1528,6 +1634,7 @@ document.getElementById("projectOverlay").style.display="none"
     </script>
 </body>
 </html>
+
 
 
 
