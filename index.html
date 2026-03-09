@@ -773,6 +773,59 @@
             text-transform: uppercase;
         }
         .mobile-nav a:hover { color: var(--accent); }
+
+        /* OVERLAY PROJET */
+
+.project-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:2000;
+}
+
+.overlay-content{
+background:#111;
+padding:50px;
+max-width:900px;
+width:90%;
+border:1px solid rgba(200,169,110,0.3);
+position:relative;
+}
+
+.overlay-close{
+position:absolute;
+top:20px;
+right:20px;
+font-size:20px;
+cursor:pointer;
+}
+
+.overlay-gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+margin:30px 0;
+}
+
+.overlay-gallery img{
+width:100%;
+border:1px solid rgba(255,255,255,0.1);
+}
+
+.overlay-doc{
+display:inline-block;
+padding:12px 24px;
+background:var(--accent);
+color:black;
+text-decoration:none;
+font-family:'DM Mono', monospace;
+}
     </style>
 </head>
 <body>
@@ -960,6 +1013,9 @@
                 <span class="tag-pill">CSS</span>
                 <span class="tag-pill">MySQL</span>
             </div>
+               <button class="project-link" onclick="openProject('ligue1')">
+        <i class="fas fa-eye"></i> Voir projet
+    </button>
         </div>
 
         <!-- PROJET 3 -->
@@ -979,6 +1035,9 @@
                 <span class="tag-pill">Bootstrap</span>
                 <span class="tag-pill">Web App</span>
             </div>
+               <button class="project-link" onclick="openProject('ligue1')">
+        <i class="fas fa-eye"></i> Voir projet
+    </button>
         </div>
 
         <!-- PROJET 4 -->
@@ -998,6 +1057,9 @@
                 <span class="tag-pill">SQL</span>
                 <span class="tag-pill">Desktop</span>
             </div>
+               <button class="project-link" onclick="openProject('ligue1')">
+        <i class="fas fa-eye"></i> Voir projet
+    </button>
         </div>
 
         <!-- PROJET 5 -->
@@ -1017,6 +1079,9 @@
                 <span class="tag-pill">MySQL</span>
                 <span class="tag-pill">MVC</span>
             </div>
+               <button class="project-link" onclick="openProject('ligue1')">
+        <i class="fas fa-eye"></i> Voir projet
+    </button>
         </div>
 
         <!-- PROJET 6 -->
@@ -1036,6 +1101,9 @@
                 <span class="tag-pill">Automatisation</span>
                 <span class="tag-pill">Data</span>
             </div>
+               <button class="project-link" onclick="openProject('ligue1')">
+        <i class="fas fa-eye"></i> Voir projet
+    </button>
         </div>
 
     </div>
@@ -1070,7 +1138,29 @@
             </div>
         </div>
     </section>
+<!-- PROJECT OVERLAY -->
 
+<div id="projectOverlay" class="project-overlay">
+
+    <div class="overlay-content">
+
+        <span class="overlay-close" onclick="closeProject()">
+            <i class="fas fa-times"></i>
+        </span>
+
+        <h2 id="overlayTitle"></h2>
+
+        <p id="overlayDesc"></p>
+
+        <div id="overlayGallery" class="overlay-gallery"></div>
+
+        <a id="overlayDoc" class="overlay-doc" target="_blank">
+            <i class="fas fa-file-alt"></i> Voir la documentation
+        </a>
+
+    </div>
+
+</div>
     <footer>
         <div class="footer-brand">Eyoub<span>.dev</span> — Design & Code &copy; 2025</div>
         <div class="footer-right">BTS SIO SLAM</div>
@@ -1161,8 +1251,55 @@
                 btn.disabled = false;
             }, 1500);
         });
+        const projects = {
+
+ligue1:{
+title:"Gestion Ligue 1 – Application C#",
+desc:"Application permettant de gérer les clubs, matchs et classements.",
+doc:"docs/ligue1.pdf",
+images:[
+"img/ligue1_1.png",
+"img/ligue1_2.png"
+]
+},
+
+chronophone:{
+title:"Site interne Chronophone",
+desc:"Gestion des réparations et interventions techniques.",
+doc:"docs/chronophone.pdf",
+images:[
+"img/chrono1.png",
+"img/chrono2.png"
+]
+}
+
+}
+
+function openProject(id){
+
+const project = projects[id]
+
+document.getElementById("overlayTitle").innerText = project.title
+document.getElementById("overlayDesc").innerText = project.desc
+document.getElementById("overlayDoc").href = project.doc
+
+const gallery = document.getElementById("overlayGallery")
+gallery.innerHTML=""
+
+project.images.forEach(img=>{
+gallery.innerHTML += `<img src="${img}">`
+})
+
+document.getElementById("projectOverlay").style.display="flex"
+
+}
+
+function closeProject(){
+document.getElementById("projectOverlay").style.display="none"
+}
     </script>
 </body>
 </html>
+
 
 
