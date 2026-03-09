@@ -1341,6 +1341,9 @@ transform:translateY(-2px);
         <a id="overlayDoc" class="overlay-doc" target="_blank">
             <i class="fas fa-file-alt"></i> Voir la documentation
         </a>
+        <a id="overlayDetailsBtn" class="overlay-doc" style="background: transparent; border: 1px solid var(--accent); color: var(--accent); margin-left: 15px;">
+    <i class="fas fa-arrow-right"></i> Voir plus de détails
+</a>
 
     </div>
 
@@ -1500,22 +1503,23 @@ images:[
 }
 
 function openProject(id){
+    const project = projects[id]
 
-const project = projects[id]
+    document.getElementById("overlayTitle").innerText = project.title
+    document.getElementById("overlayDesc").innerText = project.desc
+    document.getElementById("overlayDoc").href = project.doc
 
-document.getElementById("overlayTitle").innerText = project.title
-document.getElementById("overlayDesc").innerText = project.desc
-document.getElementById("overlayDoc").href = project.doc
+    const gallery = document.getElementById("overlayGallery")
+    gallery.innerHTML=""
 
-const gallery = document.getElementById("overlayGallery")
-gallery.innerHTML=""
+    project.images.forEach(img=>{
+        gallery.innerHTML += `<img src="${img}">`
+    })
 
-project.images.forEach(img=>{
-gallery.innerHTML += `<img src="${img}">`
-})
+    // Nouveau : Lien vers la page de détails avec l'ID du projet
+    document.getElementById("overlayDetailsBtn").href = `details.html?project=${id}`
 
-document.getElementById("projectOverlay").style.display="flex"
-
+    document.getElementById("projectOverlay").style.display="flex"
 }
 
 function closeProject(){
@@ -1524,6 +1528,7 @@ document.getElementById("projectOverlay").style.display="none"
     </script>
 </body>
 </html>
+
 
 
 
