@@ -561,19 +561,60 @@
         .project-row:hover .tag-pill { border-color: rgba(200,169,110,0.3); color: var(--accent); }
 
         .project-links { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
-        .project-link {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.65rem;
-            color: var(--gray-mid);
-            text-decoration: none;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: color 0.3s;
-            display: flex; align-items: center; gap: 8px;
-            white-space: nowrap;
-        }
-        .project-link:hover { color: var(--accent); }
-        .project-link i { font-size: 0.7rem; }
+      .project-link{
+font-family:'DM Mono', monospace;
+font-size:0.65rem;
+letter-spacing:2px;
+text-transform:uppercase;
+
+background:transparent;
+border:1px solid rgba(200,169,110,0.25);
+color:var(--gray-light);
+
+padding:10px 18px;
+
+display:flex;
+align-items:center;
+gap:10px;
+
+cursor:none;
+
+transition:all 0.3s ease;
+position:relative;
+overflow:hidden;
+}
+
+.project-link i{
+font-size:0.75rem;
+color:var(--accent);
+transition:transform 0.3s;
+}
+
+.project-link::before{
+content:'';
+position:absolute;
+left:0;
+bottom:0;
+width:100%;
+height:0;
+background:rgba(200,169,110,0.08);
+transition:height 0.3s ease;
+z-index:-1;
+}
+
+.project-link:hover{
+color:var(--accent);
+border-color:var(--accent);
+transform:translateY(-2px);
+}
+
+.project-link:hover::before{
+height:100%;
+}
+
+.project-link:hover i{
+transform:translateX(4px);
+}
 
         /* CONTACT */
         #contact {
@@ -990,10 +1031,13 @@ font-family:'DM Mono', monospace;
                 <span class="tag-pill">SQL</span>
                 <span class="tag-pill">Desktop App</span>
             </div>
-            <div class="project-links">
-    <button class="project-link" onclick="openProject('ligue1')">
-        <i class="fas fa-eye"></i> Voir projet
-    </button>
+          <div class="project-links">
+<button class="project-link" onclick="openProject('ligue1')">
+<i class="fa-solid fa-folder-open"></i>
+<span>Voir projet</span>
+<i class="fa-solid fa-arrow-right"></i>
+</button>
+</div>
 </div>
         </div>
 
@@ -1013,9 +1057,13 @@ font-family:'DM Mono', monospace;
                 <span class="tag-pill">CSS</span>
                 <span class="tag-pill">MySQL</span>
             </div>
-               <button class="project-link" onclick="openProject('ligue1')">
-        <i class="fas fa-eye"></i> Voir projet
-    </button>
+  <div class="project-links">
+<button class="project-link" onclick="openProject('ligue1')">
+<i class="fa-solid fa-folder-open"></i>
+<span>Voir projet</span>
+<i class="fa-solid fa-arrow-right"></i>
+</button>
+</div>
         </div>
 
         <!-- PROJET 3 -->
@@ -1035,9 +1083,13 @@ font-family:'DM Mono', monospace;
                 <span class="tag-pill">Bootstrap</span>
                 <span class="tag-pill">Web App</span>
             </div>
-               <button class="project-link" onclick="openProject('ligue1')">
-        <i class="fas fa-eye"></i> Voir projet
-    </button>
+ <div class="project-links">
+<button class="project-link" onclick="openProject('ligue1')">
+<i class="fa-solid fa-folder-open"></i>
+<span>Voir projet</span>
+<i class="fa-solid fa-arrow-right"></i>
+</button>
+</div>
         </div>
 
         <!-- PROJET 4 -->
@@ -1057,9 +1109,13 @@ font-family:'DM Mono', monospace;
                 <span class="tag-pill">SQL</span>
                 <span class="tag-pill">Desktop</span>
             </div>
-               <button class="project-link" onclick="openProject('ligue1')">
-        <i class="fas fa-eye"></i> Voir projet
-    </button>
+    <div class="project-links">
+<button class="project-link" onclick="openProject('ligue1')">
+<i class="fa-solid fa-folder-open"></i>
+<span>Voir projet</span>
+<i class="fa-solid fa-arrow-right"></i>
+</button>
+</div>
         </div>
 
         <!-- PROJET 5 -->
@@ -1079,9 +1135,13 @@ font-family:'DM Mono', monospace;
                 <span class="tag-pill">MySQL</span>
                 <span class="tag-pill">MVC</span>
             </div>
-               <button class="project-link" onclick="openProject('ligue1')">
-        <i class="fas fa-eye"></i> Voir projet
-    </button>
+<div class="project-links">
+<button class="project-link" onclick="openProject('ligue1')">
+<i class="fa-solid fa-folder-open"></i>
+<span>Voir projet</span>
+<i class="fa-solid fa-arrow-right"></i>
+</button>
+</div>
         </div>
 
         <!-- PROJET 6 -->
@@ -1101,9 +1161,13 @@ font-family:'DM Mono', monospace;
                 <span class="tag-pill">Automatisation</span>
                 <span class="tag-pill">Data</span>
             </div>
-               <button class="project-link" onclick="openProject('ligue1')">
-        <i class="fas fa-eye"></i> Voir projet
-    </button>
+  <div class="project-links">
+<button class="project-link" onclick="openProject('ligue1')">
+<i class="fa-solid fa-folder-open"></i>
+<span>Voir projet</span>
+<i class="fa-solid fa-arrow-right"></i>
+</button>
+</div>
         </div>
 
     </div>
@@ -1300,6 +1364,7 @@ document.getElementById("projectOverlay").style.display="none"
     </script>
 </body>
 </html>
+
 
 
 
