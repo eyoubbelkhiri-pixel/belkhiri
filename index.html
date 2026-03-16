@@ -636,7 +636,7 @@ footer { border-top:1px solid var(--line); padding:30px 72px; display:flex; alig
    YOUR_PUBLIC_KEY, YOUR_SERVICE_ID, YOUR_TEMPLATE_ID
    Template variables : {{from_name}}, {{from_email}}, {{subject}}, {{message}}
 */
-emailjs.init("YOUR_PUBLIC_KEY");
+emailjs.init("uO7hNVrTPBeV0NVx7");
 
 window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('s',scrollY>60));
 function toggleMob(){document.getElementById('mobMenu').classList.toggle('open')}
@@ -657,7 +657,7 @@ document.getElementById('cform').addEventListener('submit',async function(e){
   msg.innerHTML='<i class="fas fa-circle-notch fa-spin"></i>&nbsp; Envoi en cours…';
   btn.disabled=true;
   try{
-    await emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",{from_name:name,from_email:email,subject:subject,message:message,to_email:"eyoubbelkhiri@gmail.com"});
+    await emailjs.send("service_ekaqcev","template_qqixklr",{from_name:name,from_email:email,subject:subject,message:message,to_email:"eyoubbelkhiri@gmail.com"});
     msg.className='fmsg ok';
     msg.innerHTML='<i class="fas fa-check-circle"></i>&nbsp; Message envoyé — Je vous répondrai rapidement !';
     e.target.reset();
