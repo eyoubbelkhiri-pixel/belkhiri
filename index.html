@@ -87,7 +87,7 @@ nav.in{transform:none}
 .d4{transition-delay:.24s}.d5{transition-delay:.3s}.d6{transition-delay:.36s}
 
 /* ══════════════════════════════════════
-   HERO — Living background canvas
+   HERO
    ══════════════════════════════════════ */
 #hero{
   min-height:100vh;display:grid;
@@ -95,10 +95,7 @@ nav.in{transform:none}
   align-items:center;padding:100px 80px 80px;gap:60px;
   position:relative;overflow:hidden;background:var(--bg);z-index:1;
 }
-/* The living hero background canvas */
 #hero-canvas{position:absolute;inset:0;z-index:0;pointer-events:none}
-
-/* Subtle grid overlay */
 .hero-grid-bg{
   position:absolute;inset:0;z-index:0;
   background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
@@ -107,7 +104,6 @@ nav.in{transform:none}
   mask-image:radial-gradient(ellipse 100% 100% at 0% 50%,black 10%,transparent 70%);
   pointer-events:none;
 }
-
 .hero-left{position:relative;z-index:2}
 .hero-avail{
   display:inline-flex;align-items:center;gap:7px;
@@ -137,9 +133,6 @@ nav.in{transform:none}
 @keyframes scrollTrack{0%{transform:translateX(-100%)}50%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
 .h-scroll-label{font-size:.6rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 
-/* ══════════════════════════════════════
-   VIRTUAL ROBOT — drawn with SVG/Canvas in hero
-   ══════════════════════════════════════ */
 .hero-robot-col{
   position:relative;z-index:2;display:flex;align-items:center;justify-content:center;
   opacity:0;transform:translateY(40px) scale(.9);
@@ -147,85 +140,230 @@ nav.in{transform:none}
 }
 @keyframes robotIn{to{opacity:1;transform:translateY(0) scale(1)}}
 
-/* Virtual robot SVG container */
-.vbot-wrap{
-  position:relative;width:340px;height:400px;
-  display:flex;align-items:center;justify-content:center;
-}
-/* Glow rings */
-.vbot-glow{
-  position:absolute;inset:0;
-  background:radial-gradient(circle at 50% 60%, rgba(41,151,255,.12) 0%, transparent 65%);
-  animation:glowBreath 3s ease-in-out infinite;
-}
-@keyframes glowBreath{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
-.vbot-glow2{
-  position:absolute;inset:-20px;
-  background:radial-gradient(circle at 50% 60%, rgba(48,209,88,.05) 0%, transparent 70%);
-  animation:glowBreath 3s 1.5s ease-in-out infinite;
+/* ══ HERO ROBOT GRAND FORMAT ══ */
+.hero-bot-scene {
+  position: relative;
+  width: 420px;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* The virtual robot itself — pure CSS/SVG */
-#virtual-robot-canvas{
-  width:300px;height:360px;
-  /* stop-motion float */
-  animation:vbotFloat .9s steps(6,end) infinite;
+/* Aura atmosphérique */
+.hbot-aura {
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(ellipse 65% 70% at 50% 60%,
+    rgba(41,151,255,.14) 0%,
+    rgba(48,209,88,.04) 50%,
+    transparent 75%);
+  animation: auraBreath 4s ease-in-out infinite;
+  pointer-events: none;
 }
-@keyframes vbotFloat{
-  0%  {transform:translateY(0px)   rotate(0deg)}
-  16% {transform:translateY(-5px)  rotate(-.3deg)}
-  33% {transform:translateY(-9px)  rotate(.2deg)}
-  50% {transform:translateY(-12px) rotate(-.1deg)}
-  66% {transform:translateY(-8px)  rotate(.3deg)}
-  83% {transform:translateY(-3px)  rotate(0deg)}
-  100%{transform:translateY(0px)   rotate(0deg)}
+@keyframes auraBreath {
+  0%,100% { transform: scale(1); opacity: .7; }
+  50%      { transform: scale(1.08); opacity: 1; }
 }
 
-/* Bubble speech */
-.vbot-bubble{
-  position:absolute;top:30px;right:-30px;
-  background:rgba(17,17,17,.92);border:1px solid rgba(41,151,255,.3);
-  border-radius:14px 14px 14px 4px;padding:11px 15px;max-width:180px;
-  box-shadow:0 8px 32px rgba(0,0,0,.5),0 0 0 1px rgba(41,151,255,.08);
-  animation:bubblePop .5s 2.2s var(--spring) both, vbotBubbleStep 5s 3s steps(4,end) infinite;
-  z-index:3;
+/* Anneaux orbitaux */
+.hbot-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(41,151,255,.12);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  animation: hbotSpin 14s linear infinite;
 }
-@keyframes bubblePop{from{opacity:0;transform:scale(.3) translateY(12px)}to{opacity:1;transform:scale(1)}}
-@keyframes vbotBubbleStep{
-  0%  {transform:rotate(0)     translateY(0)}
-  25% {transform:rotate(-1deg) translateY(-2px)}
-  50% {transform:rotate(.8deg) translateY(1px)}
-  75% {transform:rotate(-.5deg)translateY(-1px)}
-  100%{transform:rotate(0)     translateY(0)}
+.hbot-ring2 {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(48,209,88,.07);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  animation: hbotSpin 22s linear infinite reverse;
 }
-.vbot-bubble-l1{font-size:.72rem;font-weight:600;color:var(--pure);letter-spacing:-.02em;margin-bottom:3px}
-.vbot-bubble-l1 .hi{color:var(--blue)}
-.vbot-bubble-l2{font-size:.64rem;font-weight:300;color:var(--mid);line-height:1.45}
-.vbot-bubble-l2 .em{color:var(--green);font-weight:500}
-.vbot-bubble-tail{position:absolute;bottom:-6px;left:14px;width:12px;height:12px;background:rgba(17,17,17,.92);border-right:1px solid rgba(41,151,255,.3);border-bottom:1px solid rgba(41,151,255,.3);transform:rotate(45deg);clip-path:polygon(100% 0,100% 100%,0 100%)}
+@keyframes hbotSpin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+.hbot-ring::before {
+  content: '';
+  position: absolute;
+  top: -4px; left: 50%;
+  transform: translateX(-50%);
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 12px var(--blue);
+}
+.hbot-ring2::before {
+  content: '';
+  position: absolute;
+  top: 50%; right: -4px;
+  transform: translateY(-50%);
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+}
 
-/* orbit ring decoration */
-.vbot-orbit{
-  position:absolute;width:260px;height:260px;border:1px dashed rgba(41,151,255,.1);
-  border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);
-  animation:orbitSpin 12s linear infinite;
+/* SVG hero robot */
+#hero-bot-svg {
+  width: 340px;
+  height: 440px;
+  filter: drop-shadow(0 30px 70px rgba(41,151,255,.3)) drop-shadow(0 0 40px rgba(41,151,255,.12));
+  animation: heroBotFloat 4s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
 }
-.vbot-orbit2{
-  position:absolute;width:320px;height:320px;border:1px dashed rgba(48,209,88,.06);
-  border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);
-  animation:orbitSpin 18s linear infinite reverse;
+@keyframes heroBotFloat {
+  0%,100% { transform: translateY(0px) rotate(0deg); }
+  30%      { transform: translateY(-18px) rotate(-.5deg); }
+  65%      { transform: translateY(-10px) rotate(.4deg); }
+  82%      { transform: translateY(-22px) rotate(-.3deg); }
 }
-@keyframes orbitSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
-/* orbit dot */
-.vbot-orbit::before{
-  content:'';position:absolute;top:-3px;left:50%;width:6px;height:6px;
-  border-radius:50%;background:var(--blue);box-shadow:0 0 8px var(--blue);
-  transform:translateX(-50%);
+
+/* ── Animations internes SVG hero robot cute ── */
+
+/* Antenne */
+.hb-ant-glow { animation: hbAntPulse 2s ease-in-out infinite; }
+@keyframes hbAntPulse {
+  0%,100% { opacity:1; }
+  50%      { opacity:.4; }
 }
-.vbot-orbit2::before{
-  content:'';position:absolute;top:50%;right:-3px;width:5px;height:5px;
-  border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);
-  transform:translateY(-50%);
+.hb-ant-ring { animation: hbAntRing 2s ease-in-out infinite; transform-origin: 170px 18px; }
+@keyframes hbAntRing {
+  0%   { r: 0; opacity: .8; }
+  100% { r: 20; opacity: 0; }
+}
+
+/* Yeux — blink naturel */
+.hb-eye-l { animation: hbBlink 5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.hb-eye-r { animation: hbBlink 5s ease-in-out infinite .1s; transform-box: fill-box; transform-origin: center; }
+@keyframes hbBlink {
+  0%,82%,100% { transform: scaleY(1); }
+  87%          { transform: scaleY(.05); }
+  92%          { transform: scaleY(1); }
+  95%          { transform: scaleY(.05); }
+}
+
+/* Pupilles regard */
+.hb-pupil-l { animation: hbPupilMove 7s ease-in-out infinite; }
+.hb-pupil-r { animation: hbPupilMove 7s ease-in-out infinite .15s; }
+@keyframes hbPupilMove {
+  0%,100% { transform: translate(0,0); }
+  12%     { transform: translate(5px,-3px); }
+  28%     { transform: translate(-4px,2px); }
+  45%     { transform: translate(3px,4px); }
+  62%     { transform: translate(-5px,-2px); }
+  78%     { transform: translate(2px,-4px); }
+}
+
+/* Reflets yeux */
+.hb-shine-l { animation: hbShine 2.5s ease-in-out infinite; }
+.hb-shine-r { animation: hbShine 2.5s ease-in-out infinite .5s; }
+@keyframes hbShine { 0%,100%{opacity:.8;} 50%{opacity:1;} }
+
+/* Joues */
+.hb-cheek-l { animation: hbCheek 3s ease-in-out infinite; }
+.hb-cheek-r { animation: hbCheek 3s ease-in-out infinite .6s; }
+@keyframes hbCheek { 0%,100%{opacity:.35;} 50%{opacity:.65;} }
+
+/* Bouche expression */
+.hb-mouth { animation: hbMouthExpr 8s ease-in-out infinite; }
+@keyframes hbMouthExpr {
+  0%,100% { d: path("M 148 152 Q 170 164 192 152"); }
+  25%     { d: path("M 144 150 Q 170 168 196 150"); }
+  60%     { d: path("M 152 155 Q 170 150 188 155"); }
+}
+
+/* Corps respiration */
+.hb-body { animation: hbBreath 4s ease-in-out infinite; transform-origin: 170px 270px; }
+@keyframes hbBreath { 0%,100%{transform:scaleY(1);} 50%{transform:scaleY(1.018);} }
+
+/* Chest badge pulse */
+.hb-badge { animation: hbBadge 2s ease-in-out infinite; transform-origin: 170px 270px; }
+@keyframes hbBadge { 0%,100%{opacity:.9;transform:scale(1);} 50%{opacity:1;transform:scale(1.06);} }
+
+/* LEDs */
+.hb-led1 { animation: hbLed 1.4s ease-in-out infinite; }
+.hb-led2 { animation: hbLed 1.4s ease-in-out infinite .46s; }
+.hb-led3 { animation: hbLed 1.4s ease-in-out infinite .92s; }
+@keyframes hbLed { 0%,100%{opacity:1;} 50%{opacity:.1;} }
+
+/* Bras swing */
+.hb-arm-l { animation: hbArmSwL 4s ease-in-out infinite; transform-origin: 92px 228px; }
+.hb-arm-r { animation: hbArmSwR 4s ease-in-out infinite; transform-origin: 248px 228px; }
+@keyframes hbArmSwL { 0%,100%{transform:rotate(0deg);} 40%{transform:rotate(-12deg);} 75%{transform:rotate(8deg);} }
+@keyframes hbArmSwR { 0%,100%{transform:rotate(0deg);} 40%{transform:rotate(12deg);} 75%{transform:rotate(-8deg);} }
+
+/* Halo sol */
+.hb-shadow { animation: hbShadowAnim 4s ease-in-out infinite; transform-origin: 170px 420px; }
+@keyframes hbShadowAnim { 0%,100%{transform:scaleX(1);opacity:.4;} 50%{transform:scaleX(.7);opacity:.18;} }
+
+/* Étoiles particules */
+.hb-star { animation: hbStarTwinkle 2.2s ease-in-out infinite; }
+.hb-star:nth-child(2) { animation-delay:.7s; }
+.hb-star:nth-child(3) { animation-delay:1.3s; }
+.hb-star:nth-child(4) { animation-delay:1s; }
+@keyframes hbStarTwinkle { 0%,100%{opacity:.15;transform:scale(.6);} 50%{opacity:1;transform:scale(1.3);} }
+
+/* Bulle de dialogue hero */
+.hero-bot-bubble {
+  position: absolute;
+  top: 44px;
+  right: -20px;
+  background: rgba(10,10,10,.95);
+  border: 1px solid rgba(41,151,255,.28);
+  border-radius: 18px 18px 18px 4px;
+  padding: 14px 18px;
+  max-width: 200px;
+  box-shadow:
+    0 12px 40px rgba(0,0,0,.7),
+    inset 0 1px 0 rgba(255,255,255,.04);
+  z-index: 4;
+  animation: heroBubblePop .6s 2.2s var(--spring) both;
+  backdrop-filter: blur(20px);
+}
+@keyframes heroBubblePop {
+  from { opacity:0; transform: scale(.4) translateY(16px); }
+  to   { opacity:1; transform: scale(1) translateY(0); }
+}
+.hero-bot-bubble::before {
+  content:'';
+  position:absolute;
+  top:0; left:16px; right:16px;
+  height:1px;
+  background: linear-gradient(90deg, transparent, rgba(41,151,255,.5), transparent);
+}
+.hbb-line1 {
+  font-size:.72rem;
+  font-weight:600;
+  color:var(--pure);
+  letter-spacing:-.02em;
+  margin-bottom:4px;
+}
+.hbb-line1 .hi { color: var(--blue); }
+.hbb-line2 {
+  font-size:.65rem;
+  font-weight:300;
+  color:var(--mid);
+  line-height:1.5;
+}
+.hbb-line2 .em { color:var(--green); font-weight:500; }
+.hbb-tail {
+  position:absolute;
+  bottom:-7px; left:16px;
+  width:0; height:0;
+  border-left: 8px solid transparent;
+  border-top: 8px solid rgba(41,151,255,.28);
+}
+.hbb-tail::after {
+  content:'';
+  position:absolute;
+  bottom:0; left:-7px;
+  width:0; height:0;
+  border-left:7px solid transparent;
+  border-top:7px solid rgba(10,10,10,.95);
+  transform:translateY(-7px);
 }
 
 /* ══ SECTION LABEL ══ */
@@ -409,135 +547,930 @@ nav.in{transform:none}
 .fm.ld{background:var(--bg2);border:1px solid var(--line);color:var(--mid)}
 
 /* ══════════════════════════════════════
-   AI ROBOT ASSISTANT — floating
+   AI ROBOT COMPANION — petit robot vivant
    ══════════════════════════════════════ */
-#ai-robot{
-  position:fixed;bottom:28px;right:28px;z-index:8000;
-  display:flex;flex-direction:column;align-items:flex-end;gap:10px;
-  opacity:0;transform:translateY(40px) scale(.8);
-  transition:opacity .7s var(--spring), transform .7s var(--spring);
-  pointer-events:none;
-}
-#ai-robot.show{opacity:1;transform:translateY(0) scale(1);pointer-events:all}
-.robot-chat-bubble{
-  background:rgba(17,17,17,.95);border:1px solid rgba(41,151,255,.25);
-  border-radius:18px 18px 4px 18px;padding:14px 18px;max-width:280px;
-  box-shadow:0 8px 40px rgba(0,0,0,.7),0 0 0 1px rgba(41,151,255,.08);
-  position:relative;
-  animation:bubbleAppear .5s var(--spring) both;
-  backdrop-filter:blur(20px);
-}
-@keyframes bubbleAppear{from{opacity:0;transform:scale(.7) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
-.rcb-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.rcb-name{font-size:.72rem;font-weight:600;color:var(--blue);letter-spacing:.02em}
-.rcb-badge{font-size:.55rem;font-weight:500;letter-spacing:.06em;background:rgba(48,209,88,.12);color:var(--green);border:1px solid rgba(48,209,88,.2);padding:2px 7px;border-radius:980px}
-.rcb-text{font-size:.78rem;font-weight:300;color:var(--light);line-height:1.55}
-.rcb-text .hi{color:var(--blue);font-weight:500}
-.rcb-typing{display:flex;align-items:center;gap:4px;margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
-.rcb-typing span{font-size:.6rem;color:var(--muted)}
-.typing-dot{width:4px;height:4px;border-radius:50%;background:var(--blue);animation:typingBounce 1.4s ease-in-out infinite}
-.typing-dot:nth-child(2){animation-delay:.2s}.typing-dot:nth-child(3){animation-delay:.4s}
-@keyframes typingBounce{0%,80%,100%{transform:scale(0);opacity:.3}40%{transform:scale(1);opacity:1}}
 
-/* Quick action pills */
-.robot-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;opacity:0;transform:translateY(6px);transition:all .4s var(--expo)}
-.robot-actions.show{opacity:1;transform:translateY(0)}
-.ract{
-  font-size:.65rem;font-weight:500;color:var(--blue);
-  background:rgba(41,151,255,.08);border:1px solid rgba(41,151,255,.2);
-  padding:7px 13px;border-radius:980px;cursor:pointer;
-  transition:all .3s var(--spring);white-space:nowrap;
+/* Wrapper global */
+#ai-robot {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 8000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(50px) scale(.7);
+  transition: opacity .8s var(--spring), transform .8s var(--spring);
+  pointer-events: none;
 }
-.ract:hover{background:var(--blue);color:#fff;transform:translateY(-2px);box-shadow:0 4px 16px rgba(41,151,255,.35)}
+#ai-robot.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
 
-/* Robot avatar button */
-.robot-avatar-btn{
-  width:52px;height:52px;border-radius:50%;
-  background:linear-gradient(135deg,#1a2f5a,#0d1f3c);
-  border:2px solid rgba(41,151,255,.35);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;position:relative;overflow:hidden;
-  transition:all .3s var(--spring);flex-shrink:0;
-  animation:robotBtnGlow 2s steps(3,end) infinite;
+/* ── BULLE DE CHAT ── */
+.robot-chat-bubble {
+  background: rgba(10,10,10,.97);
+  border: 1px solid rgba(41,151,255,.2);
+  border-radius: 20px 20px 4px 20px;
+  padding: 16px 18px 14px;
+  max-width: 270px;
+  min-width: 200px;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.8),
+    0 0 0 1px rgba(41,151,255,.06),
+    inset 0 1px 0 rgba(255,255,255,.04);
+  position: relative;
+  backdrop-filter: blur(24px);
+  animation: bubbleIn .5s var(--spring) both;
 }
-@keyframes robotBtnGlow{
-  0%,100%{box-shadow:0 0 0 0 rgba(41,151,255,.4)}
-  33%{box-shadow:0 0 0 5px rgba(41,151,255,.15)}
-  66%{box-shadow:0 0 0 10px rgba(41,151,255,0)}
+@keyframes bubbleIn {
+  from { opacity:0; transform: scale(.6) translateY(16px) translateX(20px); }
+  to   { opacity:1; transform: scale(1) translateY(0) translateX(0); }
 }
-.robot-avatar-btn:hover{border-color:var(--blue);transform:scale(1.1)}
-.rab-notif{position:absolute;top:-2px;right:-2px;width:12px;height:12px;border-radius:50%;background:var(--green);border:2px solid #000;animation:pulseGreen 2.5s ease-in-out infinite}
-.robot-scan{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(41,151,255,.8),transparent);animation:scanLine 1.5s steps(5,end) infinite}
-@keyframes scanLine{0%{top:0;opacity:1}100%{top:calc(100% - 2px);opacity:0}}
-.robot-eyes{display:flex;gap:5px;justify-content:center;margin-bottom:3px}
-.robot-eye{width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 6px rgba(41,151,255,.8);animation:eyeBlinkStop 3s steps(2,end) infinite}
-.robot-eye:nth-child(2){animation-delay:.15s}
-@keyframes eyeBlinkStop{0%,90%{transform:scaleY(1)}95%{transform:scaleY(.15)}100%{transform:scaleY(1)}}
-.robot-mouth{width:10px;height:3px;border-radius:0 0 6px 6px;border:1.5px solid rgba(41,151,255,.6);border-top:none;margin:0 auto;animation:mouthTalk 1.2s steps(2,end) infinite}
-@keyframes mouthTalk{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.7)}}
-.robot-face{display:flex;flex-direction:column;align-items:center;gap:2px}
-.robot-close-btn{position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:50%;background:var(--bg3);border:1px solid var(--line);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.5rem;color:var(--muted);transition:all .2s}
-.robot-close-btn:hover{background:var(--red);color:#fff;border-color:var(--red)}
+/* Ligne lumineuse top */
+.robot-chat-bubble::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 16px; right: 16px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(41,151,255,.5), transparent);
+  border-radius: 1px;
+}
+/* Queue de bulle */
+.rcb-tail {
+  position: absolute;
+  bottom: -8px;
+  right: 18px;
+  width: 0; height: 0;
+  border-left: 8px solid transparent;
+  border-right: 0px solid transparent;
+  border-top: 8px solid rgba(41,151,255,.2);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.5));
+}
+.rcb-tail::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 1px;
+  width: 0; height: 0;
+  border-left: 7px solid transparent;
+  border-top: 7px solid rgba(10,10,10,.97);
+  transform: translateY(-7px) translateX(0);
+}
 
-/* ══ OVERLAY ══ */
-#ov{position:fixed;inset:0;z-index:9000;display:none;background:rgba(0,0,0,0);backdrop-filter:blur(0px);transition:background .5s var(--ease),backdrop-filter .5s;align-items:center;justify-content:center;padding:24px}
-#ov.open{display:flex}
-#ov.vis{background:rgba(0,0,0,.9);backdrop-filter:blur(70px) saturate(150%)}
-.ov-panel{background:transparent;border-radius:28px;max-width:1000px;width:100%;max-height:90vh;display:grid;grid-template-columns:1fr 420px;overflow:hidden;transform:scale(.86) translateY(30px);opacity:0;transition:all .6s var(--spring);box-shadow:0 60px 160px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.06)}
-#ov.vis .ov-panel{transform:scale(1) translateY(0);opacity:1}
-.ov-left{display:flex;flex-direction:column;background:linear-gradient(160deg,#060e1f 0%,#0a1628 50%,#0d1f3c 100%);position:relative;overflow:hidden}
-.ov-left::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 30% 40%,rgba(41,151,255,.08) 0%,transparent 65%)}
-.ov-left::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:40px 40px}
-.ov-img-area{flex:1;min-height:280px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;z-index:1}
-.ov-corner{position:absolute;width:20px;height:20px;opacity:.4}
-.ov-corner.tl{top:14px;left:14px;border-top:1px solid var(--blue);border-left:1px solid var(--blue)}
-.ov-corner.tr{top:14px;right:14px;border-top:1px solid var(--blue);border-right:1px solid var(--blue)}
-.ov-corner.bl{bottom:14px;left:14px;border-bottom:1px solid var(--blue);border-left:1px solid var(--blue)}
-.ov-corner.br{bottom:14px;right:14px;border-bottom:1px solid var(--blue);border-right:1px solid var(--blue)}
-.ov-img-area img{max-width:90%;max-height:90%;object-fit:contain;border-radius:8px;filter:drop-shadow(0 8px 32px rgba(0,0,0,.5));transition:transform .5s var(--expo)}
-.ov-img-area img:hover{transform:scale(1.03)}
-.ov-noimg{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;height:100%}
-.ov-noimg-robot{width:80px;height:80px;opacity:.15}
-.ov-noimg span{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.2)}
-.ov-scanline{position:absolute;left:0;right:0;height:1px;top:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(41,151,255,.6),transparent);animation:ovScan 3.5s linear infinite}
-@keyframes ovScan{0%{top:0;opacity:0}5%{opacity:1}95%{opacity:1}100%{top:100%;opacity:0}}
-.ov-nbtn{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.55);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.5);font-size:.65rem;transition:all .25s var(--spring);z-index:3}
-.ov-nbtn:hover{background:var(--blue);border-color:var(--blue);color:#fff;transform:translateY(-50%) scale(1.1)}
-.ov-nbtn.prev{left:12px}.ov-nbtn.next{right:12px}
-.ov-nbtn:disabled{opacity:.15;pointer-events:none}
-.ov-cnt{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-size:.55rem;font-weight:600;letter-spacing:.08em;background:rgba(0,0,0,.7);backdrop-filter:blur(12px);padding:4px 12px;border-radius:980px;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.08);z-index:3}
-.ov-thumbs{display:flex;gap:6px;padding:14px 16px;background:rgba(0,0,0,.5);border-top:1px solid rgba(255,255,255,.06);min-height:72px;align-items:center;z-index:1;position:relative;overflow-x:auto}
-.ov-thumbs::-webkit-scrollbar{height:0}
-.ov-thumb{width:64px;height:44px;border-radius:8px;overflow:hidden;cursor:pointer;border:2px solid transparent;opacity:.35;transition:all .3s var(--spring);flex-shrink:0}
-.ov-thumb img{width:100%;height:100%;object-fit:cover}
-.ov-thumb.active,.ov-thumb:hover{border-color:var(--blue);opacity:1;transform:scale(1.06)}
-.ov-right{background:var(--bg2);padding:0;overflow-y:auto;display:flex;flex-direction:column;border-left:1px solid rgba(255,255,255,.06)}
-.ov-right::-webkit-scrollbar{width:0}
-.ov-header{padding:20px 24px;border-bottom:1px solid rgba(255,255,255,.06);background:var(--bg3);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0}
-.ov-cat{font-size:.58rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);background:var(--blue-l);padding:4px 10px;border-radius:6px;border:1px solid rgba(41,151,255,.15)}
-.ov-close{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--mid);font-size:.58rem;transition:all .25s var(--spring);flex-shrink:0}
-.ov-close:hover{border-color:var(--white);color:var(--white);background:rgba(255,255,255,.1);transform:rotate(90deg) scale(1.1)}
-.ov-body{padding:24px;display:flex;flex-direction:column;gap:18px;flex:1}
-#ovTitle{font-size:1.55rem;font-weight:600;letter-spacing:-.04em;color:var(--pure);line-height:1.15}
-#ovDesc{font-size:.82rem;color:var(--mid);line-height:1.85;font-weight:300;padding:14px 16px;background:rgba(41,151,255,.04);border-radius:12px;border-left:2px solid rgba(41,151,255,.35)}
-.ov-meta{display:flex;flex-direction:column;gap:3px}
-.ov-mrow{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:var(--bg3);transition:all .25s var(--expo);border:1px solid transparent}
-.ov-mrow:hover{border-color:rgba(255,255,255,.06);background:var(--bg4);transform:translateX(3px)}
-.ov-mrow i{font-size:.6rem;color:var(--blue);width:12px;text-align:center}
-.ov-mrow span{font-size:.78rem;color:var(--soft)}
-.ov-tlabel{font-size:.58rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.ov-tlabel::after{content:'';flex:1;height:1px;background:var(--line)}
-.ov-pills{display:flex;flex-wrap:wrap;gap:6px}
-.ov-pill{font-size:.64rem;font-weight:500;background:var(--blue-l);color:var(--blue);border-radius:8px;padding:6px 13px;border:1px solid rgba(41,151,255,.15);transition:all .3s var(--spring);cursor:default}
-.ov-pill:hover{background:var(--blue);color:#fff;transform:translateY(-2px) scale(1.06);box-shadow:0 4px 14px rgba(41,151,255,.4)}
-.ov-footer{padding:16px 24px;border-top:1px solid rgba(255,255,255,.06);background:var(--bg3);flex-shrink:0}
-.ov-cta{display:flex;align-items:center;justify-content:center;gap:9px;background:var(--blue);color:#fff;padding:13px;border-radius:12px;text-decoration:none;font-size:.82rem;font-weight:500;transition:all .35s var(--spring);border:none;cursor:pointer;width:100%;position:relative;overflow:hidden}
-.ov-cta::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent);transform:translateX(-100%) skewX(-15deg);transition:transform .4s var(--expo)}
-.ov-cta:hover{background:var(--blue-h);transform:translateY(-2px);box-shadow:0 8px 28px rgba(41,151,255,.4)}
-.ov-cta:hover::before{transform:translateX(200%) skewX(-15deg)}
-.ie{animation:imgO .2s var(--expo) forwards}.ii{animation:imgI .3s var(--expo) forwards}
-@keyframes imgO{to{opacity:0;transform:scale(.95)}}
-@keyframes imgI{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:scale(1)}}
+.rcb-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 9px;
+}
+.rcb-status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(48,209,88,.7);
+  animation: pulseGreen 2.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+.rcb-name {
+  font-size: .68rem;
+  font-weight: 600;
+  color: var(--blue);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.rcb-badge {
+  font-size: .52rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  background: rgba(48,209,88,.1);
+  color: var(--green);
+  border: 1px solid rgba(48,209,88,.2);
+  padding: 2px 7px;
+  border-radius: 980px;
+  margin-left: auto;
+}
+.rcb-text {
+  font-size: .78rem;
+  font-weight: 300;
+  color: var(--light);
+  line-height: 1.6;
+}
+.rcb-text .hi { color: var(--blue); font-weight: 500; }
+
+/* Typing indicator */
+.rcb-typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,.05);
+}
+.rcb-typing span { font-size: .58rem; color: var(--muted); }
+.typing-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--blue);
+  animation: typingBounce 1.4s ease-in-out infinite;
+}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes typingBounce {
+  0%,80%,100%{transform:scale(0);opacity:.3}
+  40%{transform:scale(1);opacity:1}
+}
+
+/* Bouton fermer bulle */
+.rcb-close {
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .45rem;
+  color: var(--muted);
+  transition: all .2s;
+  line-height: 1;
+}
+.rcb-close:hover { background: var(--red); color: #fff; border-color: var(--red); }
+
+/* ── BOUTONS D'ACTION ── */
+.robot-actions {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 280px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all .4s var(--expo);
+}
+.robot-actions.show { opacity: 1; transform: translateY(0); }
+.ract {
+  font-size: .62rem;
+  font-weight: 500;
+  color: var(--blue);
+  background: rgba(41,151,255,.08);
+  border: 1px solid rgba(41,151,255,.18);
+  padding: 6px 12px;
+  border-radius: 980px;
+  cursor: pointer;
+  transition: all .3s var(--spring);
+  white-space: nowrap;
+  backdrop-filter: blur(12px);
+}
+.ract:hover {
+  background: var(--blue);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(41,151,255,.4);
+}
+
+/* ══════════════════════════════════
+   ROBOT COMPAGNON SVG ANIMÉ
+   ══════════════════════════════════ */
+.companion-wrap {
+  position: relative;
+  width: 88px;
+  height: 100px;
+  cursor: pointer;
+  flex-shrink: 0;
+  /* Lévitation douce */
+  animation: companionFloat 3s ease-in-out infinite;
+  filter: drop-shadow(0 12px 28px rgba(41,151,255,.35));
+  transition: filter .3s;
+}
+.companion-wrap:hover {
+  filter: drop-shadow(0 16px 36px rgba(41,151,255,.55));
+}
+@keyframes companionFloat {
+  0%,100% { transform: translateY(0px) rotate(0deg); }
+  30%      { transform: translateY(-7px) rotate(-.8deg); }
+  60%      { transform: translateY(-4px) rotate(.5deg); }
+  80%      { transform: translateY(-9px) rotate(-.3deg); }
+}
+
+/* Notification badge */
+.companion-notif {
+  position: absolute;
+  top: 2px; right: 2px;
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: var(--green);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 10px rgba(48,209,88,.7);
+  animation: pulseGreen 2.5s ease-in-out infinite;
+  z-index: 2;
+}
+
+/* SVG robot */
+#companion-svg {
+  width: 88px;
+  height: 100px;
+}
+
+/* Antenne pulse */
+.ant-glow {
+  animation: antPulse 1.8s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes antPulse {
+  0%,100% { r: 3; opacity: 1; }
+  50%      { r: 5; opacity: .6; }
+}
+.ant-ring {
+  animation: antRing 1.8s ease-in-out infinite;
+  transform-origin: 44px 6px;
+}
+@keyframes antRing {
+  0%   { r: 0; opacity: .8; }
+  100% { r: 10; opacity: 0; }
+}
+
+/* Yeux clignotants */
+.eye-l, .eye-r {
+  animation: eyeBlink 4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.eye-r { animation-delay: .08s; }
+@keyframes eyeBlink {
+  0%,88%,100% { transform: scaleY(1); }
+  92%          { transform: scaleY(.08); }
+}
+
+/* Pupilles qui bougent */
+.pupil-l { animation: pupilMove 5s ease-in-out infinite; }
+.pupil-r { animation: pupilMove 5s ease-in-out infinite .15s; }
+@keyframes pupilMove {
+  0%,100% { transform: translate(0,0); }
+  20%     { transform: translate(1.5px,-1px); }
+  40%     { transform: translate(-1px,1px); }
+  60%     { transform: translate(1px,1px); }
+  80%     { transform: translate(-1.5px,-0.5px); }
+}
+
+/* Bouche expression */
+.mouth-path {
+  animation: mouthExpress 6s ease-in-out infinite;
+}
+@keyframes mouthExpress {
+  0%,100% { d: path("M 32 62 Q 44 68 56 62"); }   /* sourire */
+  40%     { d: path("M 32 62 Q 44 72 56 62"); }   /* grand sourire */
+  70%     { d: path("M 35 65 Q 44 62 53 65"); }   /* neutre */
+}
+
+/* Joues */
+.cheek-l, .cheek-r {
+  animation: cheekPulse 3s ease-in-out infinite;
+}
+.cheek-r { animation-delay: .4s; }
+@keyframes cheekPulse {
+  0%,100% { opacity: .3; r: 5; }
+  50%     { opacity: .55; r: 6; }
+}
+
+/* Oreilles / antennes latérales */
+.ear-l { animation: earWiggle 2.5s ease-in-out infinite; transform-origin: 14px 40px; }
+.ear-r { animation: earWiggle 2.5s ease-in-out infinite .3s; transform-origin: 74px 40px; }
+@keyframes earWiggle {
+  0%,100% { transform: rotate(0deg); }
+  25%     { transform: rotate(-6deg); }
+  75%     { transform: rotate(4deg); }
+}
+
+/* Corps respiration */
+.body-core {
+  animation: bodyBreath 3s ease-in-out infinite;
+  transform-origin: 44px 68px;
+}
+@keyframes bodyBreath {
+  0%,100% { transform: scaleY(1); }
+  50%     { transform: scaleY(1.025); }
+}
+
+/* LED ventre */
+.belly-led {
+  animation: bellyBlink 1.4s steps(2,end) infinite;
+}
+@keyframes bellyBlink {
+  0%,100% { opacity: 1; }
+  50%     { opacity: .2; }
+}
+.belly-led2 { animation: bellyBlink 1.4s steps(2,end) infinite .7s; }
+
+/* Halo de base */
+.base-halo {
+  animation: haloBreath 3s ease-in-out infinite;
+  transform-origin: 44px 100px;
+}
+@keyframes haloBreath {
+  0%,100% { transform: scaleX(1); opacity: .5; }
+  50%     { transform: scaleX(1.15); opacity: .8; }
+}
+
+/* Étoiles décoratives orbitales */
+.star-orbit {
+  animation: starOrbit 4s linear infinite;
+  transform-origin: 44px 55px;
+}
+.star-orbit2 {
+  animation: starOrbit 6s linear infinite reverse;
+  transform-origin: 44px 55px;
+}
+@keyframes starOrbit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ══════════════════════════════════════
+   OVERLAY — REDESIGN COMPLET
+   Grand format, immersif, cinématique
+   ══════════════════════════════════════ */
+#ov {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: rgba(0,0,0,0);
+  backdrop-filter: blur(0px);
+  transition: background .5s var(--ease), backdrop-filter .5s;
+}
+#ov.open { display: flex; }
+#ov.vis {
+  background: rgba(0,0,0,.96);
+  backdrop-filter: blur(80px) saturate(150%);
+}
+
+/* Panel principal plein écran */
+.ov-panel {
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  grid-template-rows: 1fr;
+  overflow: hidden;
+  transform: scale(.94) translateY(24px);
+  opacity: 0;
+  transition: all .65s var(--spring);
+  position: relative;
+}
+#ov.vis .ov-panel {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* ── CÔTÉ GAUCHE : zone image cinématique ── */
+.ov-left {
+  position: relative;
+  overflow: hidden;
+  background: #050c1a;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Grille décorative */
+.ov-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(41,151,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(41,151,255,.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  z-index: 0;
+}
+
+/* Gradient radial atmosphérique */
+.ov-left::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 30% 40%, rgba(41,151,255,.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 80%, rgba(48,209,88,.04) 0%, transparent 50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Zone image principale */
+.ov-img-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Coins décoratifs haute qualité */
+.ov-corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  opacity: 0;
+  transition: opacity .6s var(--expo) .3s;
+  z-index: 4;
+}
+#ov.vis .ov-corner { opacity: .6; }
+.ov-corner.tl { top: 20px; left: 20px; border-top: 1.5px solid var(--blue); border-left: 1.5px solid var(--blue); }
+.ov-corner.tr { top: 20px; right: 20px; border-top: 1.5px solid var(--blue); border-right: 1.5px solid var(--blue); }
+.ov-corner.bl { bottom: 80px; left: 20px; border-bottom: 1.5px solid var(--blue); border-left: 1.5px solid var(--blue); }
+.ov-corner.br { bottom: 80px; right: 20px; border-bottom: 1.5px solid var(--blue); border-right: 1.5px solid var(--blue); }
+
+/* Image centrale */
+.ov-img-area img {
+  max-width: 85%;
+  max-height: 85%;
+  object-fit: contain;
+  border-radius: 12px;
+  filter: drop-shadow(0 20px 60px rgba(0,0,0,.8));
+  transition: transform .5s var(--expo), opacity .3s;
+  position: relative;
+  z-index: 2;
+}
+.ov-img-area img:hover { transform: scale(1.02); }
+
+/* Pas d'image : placeholder robot */
+.ov-noimg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  height: 100%;
+  z-index: 2;
+  position: relative;
+}
+.ov-noimg-robot { width: 90px; height: 90px; opacity: .12; }
+.ov-noimg span {
+  font-size: .62rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.18);
+}
+
+/* Ligne de scan animée */
+.ov-scanline {
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  top: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(41,151,255,.5), transparent);
+  animation: ovScan 4s linear infinite;
+}
+@keyframes ovScan {
+  0%   { top: 0; opacity: 0; }
+  5%   { opacity: .8; }
+  92%  { opacity: .8; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Navigations précédent/suivant */
+.ov-nbtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,.1);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: rgba(255,255,255,.45);
+  font-size: .7rem;
+  transition: all .3s var(--spring);
+  z-index: 4;
+}
+.ov-nbtn:hover {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 20px rgba(41,151,255,.4);
+}
+.ov-nbtn.prev { left: 18px; }
+.ov-nbtn.next { right: 18px; }
+.ov-nbtn:disabled { opacity: .15; pointer-events: none; }
+
+/* Compteur image */
+.ov-cnt {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: .58rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  background: rgba(0,0,0,.75);
+  backdrop-filter: blur(16px);
+  padding: 5px 14px;
+  border-radius: 980px;
+  color: rgba(255,255,255,.55);
+  border: 1px solid rgba(255,255,255,.09);
+  z-index: 4;
+}
+
+/* Barre thumbnails */
+.ov-thumbs {
+  display: flex;
+  gap: 8px;
+  padding: 14px 20px;
+  background: rgba(0,0,0,.6);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,.06);
+  min-height: 76px;
+  align-items: center;
+  z-index: 2;
+  position: relative;
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+.ov-thumbs::-webkit-scrollbar { height: 0; }
+.ov-thumb {
+  width: 72px; height: 48px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  opacity: .32;
+  transition: all .3s var(--spring);
+  flex-shrink: 0;
+}
+.ov-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.ov-thumb.active, .ov-thumb:hover {
+  border-color: var(--blue);
+  opacity: 1;
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 4px 14px rgba(41,151,255,.3);
+}
+
+/* Barre supérieure de statut */
+.ov-statusbar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 38px;
+  background: rgba(0,0,0,.7);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 5;
+  flex-shrink: 0;
+}
+.ov-statusbar-l {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ov-sb-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px rgba(48,209,88,.7);
+  animation: pulseGreen 2.5s ease-in-out infinite;
+}
+.ov-sb-label {
+  font-size: .58rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.ov-sb-tag {
+  font-size: .58rem;
+  font-weight: 500;
+  color: var(--blue);
+  background: var(--blue-l);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(41,151,255,.15);
+  letter-spacing: .06em;
+}
+.ov-sb-close {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.04);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--mid);
+  font-size: .55rem;
+  transition: all .25s var(--spring);
+}
+.ov-sb-close:hover {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* Ajustement zone image avec statusbar */
+.ov-left .ov-img-area {
+  margin-top: 38px;
+}
+.ov-left .ov-corner.tl,
+.ov-left .ov-corner.tr { top: 58px; }
+
+/* ── CÔTÉ DROIT : contenu projet ── */
+.ov-right {
+  background: var(--bg1);
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba(255,255,255,.06);
+  overflow: hidden;
+}
+
+/* Header droit */
+.ov-right-header {
+  padding: 24px 32px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg2);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.ov-right-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(41,151,255,.5), transparent);
+}
+.ov-rh-eyebrow {
+  font-size: .58rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ov-rh-eyebrow::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--blue);
+}
+#ovTitle {
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -.045em;
+  color: var(--pure);
+  line-height: 1.1;
+  margin-bottom: 0;
+}
+
+/* Corps scrollable */
+.ov-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.ov-body::-webkit-scrollbar { width: 3px; }
+.ov-body::-webkit-scrollbar-track { background: transparent; }
+.ov-body::-webkit-scrollbar-thumb {
+  background: rgba(41,151,255,.2);
+  border-radius: 3px;
+}
+
+/* Description */
+.ov-desc-block {
+  background: rgba(41,151,255,.04);
+  border: 1px solid rgba(41,151,255,.1);
+  border-left: 2px solid var(--blue);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+#ovDesc {
+  font-size: .83rem;
+  color: var(--mid);
+  line-height: 1.9;
+  font-weight: 300;
+}
+
+/* Section label */
+.ov-section-label {
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.ov-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* Méta infos */
+.ov-meta { display: flex; flex-direction: column; gap: 4px; }
+.ov-mrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: var(--bg2);
+  border: 1px solid transparent;
+  transition: all .25s var(--expo);
+}
+.ov-mrow:hover {
+  border-color: rgba(255,255,255,.06);
+  background: var(--bg3);
+  transform: translateX(4px);
+}
+.ov-mrow-ic {
+  width: 28px; height: 28px;
+  border-radius: 7px;
+  background: var(--blue-l);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all .25s var(--spring);
+}
+.ov-mrow:hover .ov-mrow-ic {
+  background: var(--blue);
+}
+.ov-mrow-ic i {
+  font-size: .58rem;
+  color: var(--blue);
+  transition: color .25s;
+}
+.ov-mrow:hover .ov-mrow-ic i { color: #fff; }
+.ov-mrow span {
+  font-size: .8rem;
+  color: var(--soft);
+}
+
+/* Technologies pills */
+.ov-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.ov-pill {
+  font-size: .68rem;
+  font-weight: 500;
+  background: var(--bg2);
+  color: var(--light);
+  border-radius: 8px;
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  transition: all .3s var(--spring);
+  cursor: default;
+  letter-spacing: -.01em;
+}
+.ov-pill:hover {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 14px rgba(41,151,255,.4);
+}
+
+/* Indicateur de progression / timeline mini */
+.ov-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+.ov-timeline::before {
+  content: '';
+  position: absolute;
+  left: 13px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--blue), rgba(41,151,255,.1));
+}
+.ov-tl-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 10px 0;
+  position: relative;
+}
+.ov-tl-dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--blue);
+  background: var(--bg1);
+  flex-shrink: 0;
+  margin-top: 2px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(41,151,255,.3);
+}
+.ov-tl-content {}
+.ov-tl-label {
+  font-size: .7rem;
+  font-weight: 500;
+  color: var(--light);
+  margin-bottom: 2px;
+}
+.ov-tl-sub {
+  font-size: .65rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* Footer CTA */
+.ov-footer {
+  padding: 20px 32px;
+  border-top: 1px solid var(--line);
+  background: var(--bg2);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ov-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--blue);
+  color: #fff;
+  padding: 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: .83rem;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  transition: all .35s var(--spring);
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.ov-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.14), transparent);
+  transform: translateX(-100%) skewX(-15deg);
+  transition: transform .4s var(--expo);
+}
+.ov-cta:hover {
+  background: var(--blue-h);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(41,151,255,.45);
+}
+.ov-cta:hover::before {
+  transform: translateX(200%) skewX(-15deg);
+}
+.ov-cta i { transition: transform .3s var(--spring); }
+.ov-cta:hover i { transform: translateX(4px) rotate(15deg); }
+
+/* Lien secondaire */
+.ov-secondary-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: .72rem;
+  color: var(--mid);
+  text-decoration: none;
+  transition: color .2s;
+  cursor: pointer;
+}
+.ov-secondary-link:hover { color: var(--blue); }
+
+/* Animations images */
+.ie { animation: imgO .2s var(--expo) forwards; }
+.ii { animation: imgI .3s var(--expo) forwards; }
+@keyframes imgO { to { opacity: 0; transform: scale(.95); } }
+@keyframes imgI { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: scale(1); } }
 
 /* ══ FOOTER ══ */
 footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
@@ -550,9 +1483,11 @@ footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items
   #hero{grid-template-columns:1fr;text-align:center;padding:120px 28px 80px;justify-items:center}
   .h-role{margin-left:auto;margin-right:auto}
   .h-btns{justify-content:center}
-  .vbot-wrap{width:220px;height:260px}
-  #virtual-robot-canvas{width:200px;height:240px}
-  .vbot-bubble{right:-10px;max-width:150px}
+  .hero-bot-scene{width:280px;height:360px}
+  #hero-bot-svg{width:230px;height:300px}
+  .hbot-ring{width:200px!important;height:200px!important}
+  .hbot-ring2{width:260px!important;height:260px!important}
+  .hero-bot-bubble{right:-10px;max-width:155px;font-size:.6rem}
   .h-scroll{left:50%;transform:translateX(-50%)}
 }
 @media(max-width:900px){
@@ -565,8 +1500,13 @@ footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items
   .pl{grid-template-columns:48px 1fr}.pl-right{display:none}
   .contact-split{grid-template-columns:1fr}
   .contact-l,.contact-r{padding:60px 32px}
-  .ov-panel{grid-template-columns:1fr;max-height:96vh}
-  .ov-left{border-right:none;border-bottom:1px solid var(--line)}.ov-img-area{max-height:220px}
+  .ov-panel{grid-template-columns:1fr;grid-template-rows:55vh 1fr;height:100dvh}
+  .ov-left{grid-row:1}
+  .ov-right{grid-row:2;border-left:none;border-top:1px solid rgba(255,255,255,.06)}
+  .ov-right-header{padding:18px 20px 14px}
+  #ovTitle{font-size:1.35rem}
+  .ov-body{padding:20px}
+  .ov-footer{padding:14px 20px}
   .frow{grid-template-columns:1fr}
   footer{flex-direction:column;gap:8px;text-align:center}
   #ai-robot{bottom:16px;right:16px}
@@ -591,38 +1531,219 @@ footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items
   <div class="ld-bar"><div class="ld-progress"></div></div>
 </div>
 
-<!-- AI ROBOT ASSISTANT -->
+<!-- AI ROBOT COMPANION -->
 <div id="ai-robot">
+
+  <!-- Bulle de chat -->
   <div class="robot-chat-bubble" id="robotBubble" style="display:none">
-    <button class="robot-close-btn" onclick="dismissRobot()">✕</button>
+    <button class="rcb-close" onclick="dismissRobot()">✕</button>
     <div class="rcb-header">
-      <span class="rcb-name">AI·BOT</span>
+      <div class="rcb-status-dot"></div>
+      <span class="rcb-name">BYTE</span>
       <span class="rcb-badge">EN LIGNE</span>
     </div>
     <div class="rcb-text" id="robotText">
-      <span class="hi">Salut !</span> Je suis l'assistant d'Eyoub 👋<br>
+      <span class="hi">Salut !</span> Je suis Byte, l'assistant d'Eyoub 👋<br>
       Tu cherches un dev <strong>full-stack</strong> ?
     </div>
     <div class="rcb-typing" id="robotTyping" style="display:none">
       <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
       <span>En train d'écrire…</span>
     </div>
+    <div class="rcb-tail"></div>
   </div>
+
+  <!-- Boutons d'action rapide -->
   <div class="robot-actions" id="robotActions">
     <div class="ract" onclick="navTo('about')">👤 Profil</div>
     <div class="ract" onclick="navTo('projects')">🚀 Projets</div>
     <div class="ract" onclick="navTo('cv')">📄 CV</div>
     <div class="ract" onclick="navTo('contact')">💬 Contact</div>
   </div>
-  <button class="robot-avatar-btn" id="robotBtn" onclick="toggleRobot()">
-    <div class="rab-notif"></div>
-    <div class="robot-scan"></div>
-    <div class="robot-face">
-      <div class="robot-eyes"><div class="robot-eye"></div><div class="robot-eye"></div></div>
-      <div class="robot-mouth"></div>
-    </div>
-  </button>
+
+  <!-- Robot compagnon SVG -->
+  <div class="companion-wrap" id="robotBtn" onclick="toggleRobot()">
+    <div class="companion-notif"></div>
+
+    <svg id="companion-svg" viewBox="0 0 88 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Gradient corps -->
+        <linearGradient id="bodyGrad" x1="22" y1="42" x2="66" y2="94" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#0d1f3c"/>
+          <stop offset="100%" stop-color="#060d1a"/>
+        </linearGradient>
+        <!-- Gradient tête -->
+        <linearGradient id="headGrad" x1="16" y1="16" x2="72" y2="44" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#122040"/>
+          <stop offset="100%" stop-color="#080f1e"/>
+        </linearGradient>
+        <!-- Gradient yeux -->
+        <radialGradient id="eyeGrad" cx="50%" cy="40%" r="50%">
+          <stop offset="0%" stop-color="#60b8ff"/>
+          <stop offset="100%" stop-color="#2997ff"/>
+        </radialGradient>
+        <!-- Glow filtre -->
+        <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="2.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="softglow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <!-- Clip tête -->
+        <clipPath id="headClip">
+          <rect x="16" y="14" width="56" height="34" rx="12"/>
+        </clipPath>
+      </defs>
+
+      <!-- ── HALO BASE ── -->
+      <ellipse class="base-halo" cx="44" cy="97" rx="28" ry="4" fill="rgba(41,151,255,0.18)"/>
+
+      <!-- ── ÉTOILES ORBITALES ── -->
+      <g class="star-orbit">
+        <circle cx="44" cy="20" r="1.5" fill="rgba(41,151,255,0.5)"/>
+      </g>
+      <g class="star-orbit2">
+        <circle cx="44" cy="90" r="1" fill="rgba(48,209,88,0.4)"/>
+      </g>
+
+      <!-- ── ANTENNE ── -->
+      <!-- Tige -->
+      <line x1="44" y1="14" x2="44" y2="6" stroke="#2997ff" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Anneau de propagation -->
+      <circle class="ant-ring" cx="44" cy="6" r="0" stroke="rgba(41,151,255,0.6)" stroke-width="1" fill="none"/>
+      <!-- Boule antenne -->
+      <circle class="ant-glow" cx="44" cy="5" r="3" fill="url(#eyeGrad)" filter="url(#glow)"/>
+
+      <!-- ── TÊTE ── -->
+      <rect x="16" y="14" width="56" height="34" rx="12"
+        fill="url(#headGrad)"
+        stroke="rgba(41,151,255,0.55)" stroke-width="1.2"/>
+      <!-- Reflet vitre -->
+      <rect x="16" y="14" width="56" height="14" rx="12"
+        fill="rgba(255,255,255,0.03)" clip-path="url(#headClip)"/>
+      <!-- Ligne de scan interne tête -->
+      <rect x="17" y="14" width="54" height="2" rx="1" fill="rgba(41,151,255,0.12)"/>
+
+      <!-- ── OREILLES / PORTS LATÉRAUX ── -->
+      <g class="ear-l">
+        <rect x="9" y="24" width="8" height="14" rx="4"
+          fill="#0a1628" stroke="rgba(41,151,255,0.4)" stroke-width="1"/>
+        <rect x="11" y="27" width="4" height="8" rx="2" fill="rgba(41,151,255,0.2)"/>
+      </g>
+      <g class="ear-r">
+        <rect x="71" y="24" width="8" height="14" rx="4"
+          fill="#0a1628" stroke="rgba(41,151,255,0.4)" stroke-width="1"/>
+        <rect x="73" y="27" width="4" height="8" rx="2" fill="rgba(41,151,255,0.2)"/>
+      </g>
+
+      <!-- ── YEUX ── -->
+      <!-- Orbite oeil gauche -->
+      <rect x="21" y="21" width="18" height="14" rx="5" fill="rgba(0,0,0,0.6)" stroke="rgba(41,151,255,0.3)" stroke-width="0.8"/>
+      <!-- Globe oeil gauche -->
+      <g class="eye-l" style="transform-origin:30px 28px">
+        <circle cx="30" cy="28" r="5.5" fill="url(#eyeGrad)" filter="url(#glow)"/>
+        <circle class="pupil-l" cx="30" cy="28" r="2.5" fill="rgba(0,15,50,0.85)"/>
+        <circle cx="32" cy="26" r="1" fill="rgba(255,255,255,0.6)"/>
+      </g>
+
+      <!-- Orbite oeil droit -->
+      <rect x="49" y="21" width="18" height="14" rx="5" fill="rgba(0,0,0,0.6)" stroke="rgba(41,151,255,0.3)" stroke-width="0.8"/>
+      <!-- Globe oeil droit -->
+      <g class="eye-r" style="transform-origin:58px 28px">
+        <circle cx="58" cy="28" r="5.5" fill="url(#eyeGrad)" filter="url(#glow)"/>
+        <circle class="pupil-r" cx="58" cy="28" r="2.5" fill="rgba(0,15,50,0.85)"/>
+        <circle cx="60" cy="26" r="1" fill="rgba(255,255,255,0.6)"/>
+      </g>
+
+      <!-- ── JOUES ── -->
+      <circle class="cheek-l" cx="22" cy="38" r="5" fill="rgba(41,151,255,0.3)"/>
+      <circle class="cheek-r" cx="66" cy="38" r="5" fill="rgba(41,151,255,0.3)"/>
+
+      <!-- ── BOUCHE ── -->
+      <path class="mouth-path" d="M 32 62 Q 44 68 56 62"
+        stroke="rgba(41,151,255,0.85)" stroke-width="1.8"
+        stroke-linecap="round" fill="none" filter="url(#glow)"/>
+
+      <!-- ── NEZ ── -->
+      <rect x="42" y="38" width="4" height="3" rx="1.5" fill="rgba(41,151,255,0.4)"/>
+
+      <!-- ── COU ── -->
+      <rect x="36" y="48" width="16" height="7" rx="3"
+        fill="#0a1628" stroke="rgba(41,151,255,0.3)" stroke-width="1"/>
+      <rect x="39" y="50" width="10" height="3" rx="1.5" fill="rgba(41,151,255,0.15)"/>
+
+      <!-- ── CORPS ── -->
+      <g class="body-core">
+        <rect x="20" y="55" width="48" height="36" rx="10"
+          fill="url(#bodyGrad)"
+          stroke="rgba(41,151,255,0.5)" stroke-width="1.2"/>
+        <!-- Reflet corps -->
+        <rect x="21" y="55" width="46" height="10" rx="10"
+          fill="rgba(255,255,255,0.025)"/>
+
+        <!-- Panel central corps -->
+        <rect x="30" y="61" width="28" height="18" rx="5"
+          fill="rgba(0,0,0,0.4)" stroke="rgba(41,151,255,0.2)" stroke-width="0.8"/>
+
+        <!-- LEDs ventre -->
+        <circle class="belly-led" cx="37" cy="70" r="2.5" fill="#2997ff" filter="url(#glow)"/>
+        <circle class="belly-led2" cx="44" cy="70" r="2.5" fill="#30d158" filter="url(#glow)"/>
+        <circle class="belly-led" cx="51" cy="70" r="2.5" fill="#2997ff" filter="url(#softglow)" style="animation-delay:.3s"/>
+
+        <!-- Barres d'énergie -->
+        <rect x="32" y="64" width="24" height="2" rx="1" fill="rgba(41,151,255,0.1)"/>
+        <rect x="32" y="64" width="16" height="2" rx="1" fill="rgba(41,151,255,0.5)"/>
+
+        <!-- Vis de coin corps -->
+        <circle cx="25" cy="60" r="2" fill="rgba(41,151,255,0.15)" stroke="rgba(41,151,255,0.25)" stroke-width="0.6"/>
+        <circle cx="63" cy="60" r="2" fill="rgba(41,151,255,0.15)" stroke="rgba(41,151,255,0.25)" stroke-width="0.6"/>
+        <circle cx="25" cy="86" r="2" fill="rgba(41,151,255,0.15)" stroke="rgba(41,151,255,0.25)" stroke-width="0.6"/>
+        <circle cx="63" cy="86" r="2" fill="rgba(41,151,255,0.15)" stroke="rgba(41,151,255,0.25)" stroke-width="0.6"/>
+      </g>
+
+      <!-- ── BRAS GAUCHE ── -->
+      <g style="transform-origin:20px 60px; animation: armSwingL 2s ease-in-out infinite">
+        <rect x="8" y="57" width="12" height="24" rx="5"
+          fill="#0a1628" stroke="rgba(41,151,255,0.4)" stroke-width="1"/>
+        <!-- Main gauche -->
+        <rect x="7" y="79" width="14" height="10" rx="4"
+          fill="#0d1f3c" stroke="rgba(41,151,255,0.5)" stroke-width="1"/>
+        <!-- Doigt -->
+        <rect x="8" y="77" width="4" height="5" rx="2"
+          fill="#0d1f3c" stroke="rgba(41,151,255,0.35)" stroke-width="0.8"/>
+      </g>
+
+      <!-- ── BRAS DROIT ── -->
+      <g style="transform-origin:68px 60px; animation: armSwingR 2s ease-in-out infinite">
+        <rect x="68" y="57" width="12" height="24" rx="5"
+          fill="#0a1628" stroke="rgba(41,151,255,0.4)" stroke-width="1"/>
+        <!-- Main droite -->
+        <rect x="67" y="79" width="14" height="10" rx="4"
+          fill="#0d1f3c" stroke="rgba(41,151,255,0.5)" stroke-width="1"/>
+        <!-- Doigt -->
+        <rect x="76" y="77" width="4" height="5" rx="2"
+          fill="#0d1f3c" stroke="rgba(41,151,255,0.35)" stroke-width="0.8"/>
+      </g>
+
+    </svg>
+  </div>
 </div>
+
+<style>
+/* Bras swing (inline car dépend de SVG transform-origin relatif) */
+@keyframes armSwingL {
+  0%,100% { transform: rotate(0deg); }
+  30%     { transform: rotate(-8deg); }
+  70%     { transform: rotate(5deg); }
+}
+@keyframes armSwingR {
+  0%,100% { transform: rotate(0deg); }
+  30%     { transform: rotate(8deg); }
+  70%     { transform: rotate(-5deg); }
+}
+</style>
 
 <!-- MOB MENU -->
 <div class="mob-menu" id="mobMenu">
@@ -649,10 +1770,8 @@ footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items
 
 <!-- ═══ HERO ═══ -->
 <section id="hero">
-  <!-- Living animated background -->
   <canvas id="hero-canvas"></canvas>
   <div class="hero-grid-bg"></div>
-
   <div class="hero-left">
     <div class="hero-avail">
       <div class="avail-dot"></div>
@@ -665,21 +1784,282 @@ footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items
       <a href="#contact" class="btn-out">Me contacter</a>
     </div>
   </div>
-
-  <!-- Virtual robot column -->
   <div class="hero-robot-col">
-    <div class="vbot-wrap">
-      <div class="vbot-glow"></div>
-      <div class="vbot-glow2"></div>
-      <div class="vbot-orbit"></div>
-      <div class="vbot-orbit2"></div>
-      <canvas id="virtual-robot-canvas"></canvas>
-      <div class="vbot-bubble">
-        <div class="vbot-bubble-tail"></div>
+    <div class="hero-bot-scene">
+      <!-- Aura atmosphérique -->
+      <div class="hbot-aura"></div>
+
+      <!-- Anneaux orbitaux -->
+      <div class="hbot-ring" style="width:300px;height:300px"></div>
+      <div class="hbot-ring2" style="width:390px;height:390px"></div>
+
+      <!-- Étoiles particules -->
+      <div class="hb-star" style="position:absolute;top:60px;left:30px;width:5px;height:5px;border-radius:50%;background:rgba(41,151,255,.7);box-shadow:0 0 8px rgba(41,151,255,.8)"></div>
+      <div class="hb-star" style="position:absolute;top:120px;right:20px;width:4px;height:4px;border-radius:50%;background:rgba(48,209,88,.7);box-shadow:0 0 6px rgba(48,209,88,.8)"></div>
+      <div class="hb-star" style="position:absolute;bottom:100px;left:18px;width:3px;height:3px;border-radius:50%;background:rgba(41,151,255,.5);box-shadow:0 0 6px rgba(41,151,255,.6)"></div>
+      <div class="hb-star" style="position:absolute;bottom:150px;right:24px;width:5px;height:5px;border-radius:50%;background:rgba(255,159,10,.6);box-shadow:0 0 8px rgba(255,159,10,.7)"></div>
+
+      <!-- Bulle dialogue -->
+      <div class="hero-bot-bubble">
+        <div class="hbb-line1"><span class="hi">Salut !</span> Je suis Byte 👋</div>
+        <div class="hbb-line2">Dev full-stack <span class="em">disponible</span> et prêt à coder !</div>
+        <div class="hbb-tail"></div>
       </div>
+
+      <!-- Grand robot SVG — style blanc arrondi mignon -->
+      <svg id="hero-bot-svg" viewBox="0 0 340 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- ── Corps blanc / gris ── -->
+          <linearGradient id="hbWhite" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0%"   stop-color="#ffffff"/>
+            <stop offset="100%" stop-color="#cdd8e8"/>
+          </linearGradient>
+          <linearGradient id="hbWhiteHead" x1="0" y1="0" x2=".3" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0%"   stop-color="#ffffff"/>
+            <stop offset="100%" stop-color="#d4dff0"/>
+          </linearGradient>
+          <linearGradient id="hbBlueAccent" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0%"   stop-color="#3baeff"/>
+            <stop offset="100%" stop-color="#1570d4"/>
+          </linearGradient>
+          <linearGradient id="hbBodySide" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+            <stop offset="0%"   stop-color="#b8c8de"/>
+            <stop offset="40%"  stop-color="#ffffff"/>
+            <stop offset="100%" stop-color="#b8c8de"/>
+          </linearGradient>
+          <linearGradient id="hbDark" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0%"   stop-color="#1a1f2e"/>
+            <stop offset="100%" stop-color="#0c0f1a"/>
+          </linearGradient>
+          <linearGradient id="hbEarG" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+            <stop offset="0%"   stop-color="#b0c0d8"/>
+            <stop offset="100%" stop-color="#dde8f5"/>
+          </linearGradient>
+          <!-- ── Yeux ── -->
+          <radialGradient id="hbEyeBg" cx="50%" cy="45%" r="50%">
+            <stop offset="0%"   stop-color="#1e2435"/>
+            <stop offset="100%" stop-color="#0a0d18"/>
+          </radialGradient>
+          <radialGradient id="hbPupilG" cx="40%" cy="35%" r="55%">
+            <stop offset="0%"   stop-color="#2a3050"/>
+            <stop offset="100%" stop-color="#070b14"/>
+          </radialGradient>
+          <!-- ── Visor / visière ── -->
+          <linearGradient id="hbVisor" x1=".1" y1="0" x2=".9" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0%"   stop-color="#1a2545" stop-opacity=".95"/>
+            <stop offset="60%"  stop-color="#0d1428" stop-opacity=".98"/>
+            <stop offset="100%" stop-color="#090e1c" stop-opacity="1"/>
+          </linearGradient>
+          <!-- ── Badge chest ── -->
+          <radialGradient id="hbBadgeG" cx="40%" cy="35%" r="60%">
+            <stop offset="0%"   stop-color="#5cc8ff"/>
+            <stop offset="50%"  stop-color="#2997ff"/>
+            <stop offset="100%" stop-color="#1060cc"/>
+          </radialGradient>
+          <!-- ── Filtres ── -->
+          <filter id="hbShadF" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="rgba(30,60,130,.25)"/>
+          </filter>
+          <filter id="hbGlowB" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="hbGlowS" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="9" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="hbInnerSh" x="-5%" y="-5%" width="110%" height="110%">
+            <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(100,150,220,.18)"/>
+          </filter>
+          <!-- Clips -->
+          <clipPath id="hbHeadC"><ellipse cx="170" cy="122" rx="108" ry="102"/></clipPath>
+          <clipPath id="hbBodyC"><rect x="96" y="224" width="148" height="140" rx="32"/></clipPath>
+          <clipPath id="hbVisorC"><rect x="86" y="72" width="168" height="106" rx="28"/></clipPath>
+        </defs>
+
+        <!-- ══ HALO FOND ══ -->
+        <ellipse cx="170" cy="390" rx="110" ry="16" fill="rgba(41,151,255,0.18)" filter="url(#hbGlowS)"/>
+        <!-- Ombre sol animée -->
+        <ellipse class="hb-shadow" cx="170" cy="410" rx="90" ry="9" fill="rgba(20,50,120,0.22)"/>
+
+        <!-- ══ ANTENNE ══ -->
+        <!-- Tige -->
+        <line x1="170" y1="20" x2="170" y2="44" stroke="#c8d8ee" stroke-width="5" stroke-linecap="round"/>
+        <!-- Boule antenne glow -->
+        <circle cx="170" cy="18" r="10" fill="rgba(41,151,255,0.18)" filter="url(#hbGlowS)"/>
+        <circle class="hb-ant-glow" cx="170" cy="18" r="9" fill="url(#hbBadgeG)"/>
+        <circle cx="170" cy="18" r="5" fill="white" opacity=".5"/>
+        <!-- Anneau propagation -->
+        <circle class="hb-ant-ring" cx="170" cy="18" r="0" stroke="rgba(41,151,255,0.5)" stroke-width="2" fill="none"/>
+
+        <!-- ══ OREILLES / CASQUE LATÉRAL ══ -->
+        <!-- Gauche -->
+        <ellipse cx="64" cy="118" rx="20" ry="26"
+          fill="url(#hbEarG)" stroke="#b0c4de" stroke-width="1.5" filter="url(#hbShadF)"/>
+        <ellipse cx="64" cy="118" rx="12" ry="17" fill="url(#hbBlueAccent)" opacity=".85"/>
+        <circle cx="64" cy="118" r="5" fill="rgba(255,255,255,.5)"/>
+        <!-- Droite -->
+        <ellipse cx="276" cy="118" rx="20" ry="26"
+          fill="url(#hbEarG)" stroke="#b0c4de" stroke-width="1.5" filter="url(#hbShadF)"/>
+        <ellipse cx="276" cy="118" rx="12" ry="17" fill="url(#hbBlueAccent)" opacity=".85"/>
+        <circle cx="276" cy="118" r="5" fill="rgba(255,255,255,.5)"/>
+
+        <!-- ══ TÊTE (grande, ronde, blanche) ══ -->
+        <!-- Ombre portée tête -->
+        <ellipse cx="170" cy="130" rx="108" ry="102" fill="rgba(20,50,130,0.15)" filter="url(#hbGlowS)" transform="translate(0,8)"/>
+        <!-- Corps tête -->
+        <ellipse cx="170" cy="122" rx="108" ry="102"
+          fill="url(#hbWhiteHead)" filter="url(#hbShadF)"/>
+        <!-- Liseré bord tête -->
+        <ellipse cx="170" cy="122" rx="108" ry="102"
+          fill="none" stroke="#c0d0e8" stroke-width="1.5"/>
+        <!-- Reflet haut gauche -->
+        <ellipse cx="130" cy="70" rx="38" ry="22" fill="rgba(255,255,255,0.55)" transform="rotate(-25,130,70)" clip-path="url(#hbHeadC)"/>
+
+        <!-- ══ VISIÈRE / VISOR (fond sombre) ══ -->
+        <rect x="86" y="72" width="168" height="106" rx="28"
+          fill="url(#hbVisor)" filter="url(#hbInnerSh)"/>
+        <!-- Reflet vitre visor -->
+        <rect x="88" y="74" width="72" height="20" rx="14"
+          fill="rgba(255,255,255,0.07)" clip-path="url(#hbVisorC)"/>
+        <!-- Bord visor -->
+        <rect x="86" y="72" width="168" height="106" rx="28"
+          fill="none" stroke="rgba(41,151,255,0.35)" stroke-width="1.2"/>
+
+        <!-- ══ YEUX (grands, ovales, expressifs) ══ -->
+        <!-- Oeil gauche — fond -->
+        <ellipse cx="126" cy="112" rx="30" ry="34" fill="url(#hbEyeBg)"/>
+        <!-- Iris glow -->
+        <ellipse cx="126" cy="112" rx="22" ry="25" fill="rgba(30,50,120,0.5)" filter="url(#hbGlowB)"/>
+        <!-- Globe oeil gauche -->
+        <g class="hb-eye-l" style="transform-origin:126px 112px">
+          <ellipse cx="126" cy="112" rx="20" ry="23" fill="url(#hbPupilG)"/>
+          <!-- Reflet iris bleu -->
+          <ellipse cx="126" cy="112" rx="15" ry="17" fill="none" stroke="rgba(41,151,255,0.25)" stroke-width="1.5"/>
+          <!-- Pupille centrale -->
+          <g class="hb-pupil-l">
+            <circle cx="126" cy="112" r="10" fill="#06090f"/>
+            <!-- Lueur iris -->
+            <circle cx="126" cy="112" r="8" fill="none" stroke="rgba(41,151,255,0.3)" stroke-width="1"/>
+          </g>
+          <!-- Double reflet lumineux -->
+          <circle class="hb-shine-l" cx="134" cy="102" r="5.5" fill="white" opacity=".8"/>
+          <circle cx="120" cy="120" r="2.5" fill="white" opacity=".35"/>
+        </g>
+
+        <!-- Oeil droit — fond -->
+        <ellipse cx="214" cy="112" rx="30" ry="34" fill="url(#hbEyeBg)"/>
+        <ellipse cx="214" cy="112" rx="22" ry="25" fill="rgba(30,50,120,0.5)" filter="url(#hbGlowB)"/>
+        <!-- Globe oeil droit -->
+        <g class="hb-eye-r" style="transform-origin:214px 112px">
+          <ellipse cx="214" cy="112" rx="20" ry="23" fill="url(#hbPupilG)"/>
+          <ellipse cx="214" cy="112" rx="15" ry="17" fill="none" stroke="rgba(41,151,255,0.25)" stroke-width="1.5"/>
+          <g class="hb-pupil-r">
+            <circle cx="214" cy="112" r="10" fill="#06090f"/>
+            <circle cx="214" cy="112" r="8" fill="none" stroke="rgba(41,151,255,0.3)" stroke-width="1"/>
+          </g>
+          <circle class="hb-shine-r" cx="222" cy="102" r="5.5" fill="white" opacity=".8"/>
+          <circle cx="208" cy="120" r="2.5" fill="white" opacity=".35"/>
+        </g>
+
+        <!-- ══ JOUES (roses/bleutées, mignonnes) ══ -->
+        <circle class="hb-cheek-l" cx="94" cy="152" r="18" fill="rgba(41,151,255,0.22)" filter="url(#hbGlowS)"/>
+        <circle class="hb-cheek-r" cx="246" cy="152" r="18" fill="rgba(41,151,255,0.22)" filter="url(#hbGlowS)"/>
+        <!-- Petits traits joues style cute -->
+        <line x1="82" y1="155" x2="92" y2="152" stroke="rgba(41,151,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="82" y1="162" x2="92" y2="159" stroke="rgba(41,151,255,0.4)" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="258" y1="155" x2="248" y2="152" stroke="rgba(41,151,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="258" y1="162" x2="248" y2="159" stroke="rgba(41,151,255,0.4)" stroke-width="1.2" stroke-linecap="round"/>
+
+        <!-- ══ BOUCHE ══ -->
+        <path class="hb-mouth" d="M 148 152 Q 170 164 192 152"
+          stroke="rgba(255,255,255,0.7)" stroke-width="3"
+          stroke-linecap="round" fill="none"/>
+
+        <!-- ══ COU ══ -->
+        <rect x="148" y="216" width="44" height="18" rx="9"
+          fill="#c8d8ee" stroke="#b0c4de" stroke-width="1"/>
+        <rect x="155" y="220" width="30" height="6" rx="3" fill="rgba(255,255,255,0.5)"/>
+        <rect x="155" y="226" width="20" height="4" rx="2" fill="rgba(180,200,230,0.5)"/>
+
+        <!-- ══ CORPS (compact, arrondi, blanc) ══ -->
+        <g class="hb-body">
+          <!-- Ombre corps -->
+          <rect x="96" y="230" width="148" height="140" rx="32"
+            fill="rgba(20,50,130,0.12)" filter="url(#hbGlowS)" transform="translate(0,8)"/>
+          <!-- Corps principal -->
+          <rect x="96" y="224" width="148" height="140" rx="32"
+            fill="url(#hbBodySide)" filter="url(#hbShadF)"/>
+          <!-- Liseré -->
+          <rect x="96" y="224" width="148" height="140" rx="32"
+            fill="none" stroke="#b8ccde" stroke-width="1.5"/>
+          <!-- Reflet haut corps -->
+          <rect x="98" y="226" width="144" height="38" rx="30"
+            fill="rgba(255,255,255,0.55)" clip-path="url(#hbBodyC)"/>
+
+          <!-- Badge / emblème chest (cercle bleu avec croix) -->
+          <g class="hb-badge">
+            <!-- Fond badge -->
+            <circle cx="170" cy="276" r="30" fill="url(#hbBlueAccent)" filter="url(#hbShadF)"/>
+            <circle cx="170" cy="276" r="26" fill="url(#hbBadgeG)"/>
+            <circle cx="170" cy="276" r="22" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+            <!-- Croix / plus médical style -->
+            <rect x="162" y="270" width="16" height="12" rx="3" fill="white" opacity=".9"/>
+            <rect x="165" y="267" width="10" height="18" rx="3" fill="white" opacity=".9"/>
+            <!-- Reflet badge -->
+            <circle cx="163" cy="268" r="5" fill="rgba(255,255,255,0.4)"/>
+          </g>
+
+          <!-- Petites LEDs latérales corps -->
+          <circle class="hb-led1" cx="116" cy="310" r="5" fill="#2997ff" filter="url(#hbGlowB)"/>
+          <circle class="hb-led2" cx="116" cy="326" r="5" fill="#30d158" filter="url(#hbGlowB)"/>
+          <circle class="hb-led3" cx="116" cy="342" r="5" fill="#2997ff" filter="url(#hbGlowB)"/>
+          <!-- Liseré vertical LED -->
+          <rect x="112" y="306" width="8" height="46" rx="4" fill="rgba(41,151,255,0.08)" stroke="rgba(41,151,255,0.15)" stroke-width="1"/>
+
+          <!-- Bande horizontale déco bas corps -->
+          <rect x="108" y="346" width="124" height="8" rx="4" fill="rgba(41,151,255,0.12)" stroke="rgba(41,151,255,0.2)" stroke-width="1"/>
+        </g>
+
+        <!-- ══ BRAS GAUCHE ══ -->
+        <g class="hb-arm-l">
+          <!-- Épaule ronde -->
+          <circle cx="88" cy="242" r="22" fill="url(#hbWhite)" stroke="#b8ccde" stroke-width="1.5" filter="url(#hbShadF)"/>
+          <circle cx="82" cy="234" r="8" fill="rgba(255,255,255,0.6)"/>
+          <!-- Avant-bras -->
+          <rect x="54" y="248" width="40" height="70" rx="18"
+            fill="url(#hbWhite)" stroke="#b8ccde" stroke-width="1.5" filter="url(#hbShadF)"/>
+          <rect x="59" y="256" width="28" height="6" rx="3" fill="rgba(180,200,230,0.5)"/>
+          <!-- Main ronde -->
+          <ellipse cx="74" cy="334" rx="24" ry="20"
+            fill="url(#hbWhite)" stroke="#b8ccde" stroke-width="1.5" filter="url(#hbShadF)"/>
+          <ellipse cx="68" cy="327" rx="9" ry="7" fill="rgba(255,255,255,0.6)"/>
+        </g>
+
+        <!-- ══ BRAS DROIT ══ -->
+        <g class="hb-arm-r">
+          <!-- Épaule ronde -->
+          <circle cx="252" cy="242" r="22" fill="url(#hbWhite)" stroke="#b8ccde" stroke-width="1.5" filter="url(#hbShadF)"/>
+          <circle cx="246" cy="234" r="8" fill="rgba(255,255,255,0.6)"/>
+          <!-- Avant-bras -->
+          <rect x="246" y="248" width="40" height="70" rx="18"
+            fill="url(#hbWhite)" stroke="#b8ccde" stroke-width="1.5" filter="url(#hbShadF)"/>
+          <rect x="253" y="256" width="28" height="6" rx="3" fill="rgba(180,200,230,0.5)"/>
+          <!-- Main ronde -->
+          <ellipse cx="266" cy="334" rx="24" ry="20"
+            fill="url(#hbWhite)" stroke="#b8ccde" stroke-width="1.5" filter="url(#hbShadF)"/>
+          <ellipse cx="260" cy="327" rx="9" ry="7" fill="rgba(255,255,255,0.6)"/>
+        </g>
+
+        <!-- ══ BAS DU CORPS / TRONC INFÉRIEUR ══ -->
+        <!-- Jonction corps-jambes -->
+        <rect x="118" y="355" width="104" height="30" rx="15"
+          fill="#c8d6ea" stroke="#b0c4de" stroke-width="1.2"/>
+        <rect x="126" y="360" width="88" height="12" rx="6" fill="rgba(255,255,255,0.5)"/>
+
+      </svg>
     </div>
   </div>
-
   <div class="h-scroll">
     <div class="scroll-track"><div class="scroll-fill"></div></div>
     <span class="h-scroll-label">Défiler</span>
@@ -876,14 +2256,30 @@ footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items
   </div>
 </section>
 
-<!-- ═══ OVERLAY ═══ -->
+<!-- ═══ OVERLAY — REDESIGN ═══ -->
 <div id="ov">
   <div class="ov-panel">
+
+    <!-- GAUCHE : zone visuelle cinématique -->
     <div class="ov-left">
+      <!-- Barre statut supérieure -->
+      <div class="ov-statusbar">
+        <div class="ov-statusbar-l">
+          <div class="ov-sb-dot"></div>
+          <span class="ov-sb-label">Portfolio</span>
+          <span class="ov-sb-tag" id="ovTag">PROJET</span>
+        </div>
+        <button class="ov-sb-close" onclick="closeOv()"><i class="fas fa-times"></i></button>
+      </div>
+
       <div class="ov-scanline"></div>
+
       <div class="ov-img-area" id="ovImgArea">
-        <div class="ov-corner tl"></div><div class="ov-corner tr"></div>
-        <div class="ov-corner bl"></div><div class="ov-corner br"></div>
+        <div class="ov-corner tl"></div>
+        <div class="ov-corner tr"></div>
+        <div class="ov-corner bl"></div>
+        <div class="ov-corner br"></div>
+
         <div class="ov-noimg" id="ovNoImg">
           <svg class="ov-noimg-robot" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="20" y="28" width="40" height="32" rx="8" fill="none" stroke="white" stroke-width="2"/>
@@ -900,28 +2296,58 @@ footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items
           </svg>
           <span>Aucune capture disponible</span>
         </div>
+
         <img id="ovImg" src="" alt="" style="display:none">
         <div class="ov-cnt" id="ovCount" style="display:none">1/2</div>
         <button class="ov-nbtn prev" id="ovPrev" onclick="chImg(-1)" disabled><i class="fas fa-chevron-left"></i></button>
         <button class="ov-nbtn next" id="ovNext" onclick="chImg(1)" disabled><i class="fas fa-chevron-right"></i></button>
       </div>
+
+      <!-- Thumbnails -->
       <div class="ov-thumbs" id="ovStrip"></div>
     </div>
+
+    <!-- DROITE : infos projet -->
     <div class="ov-right">
-      <div class="ov-header">
-        <div class="ov-cat" id="ovTag">PROJET</div>
-        <button class="ov-close" onclick="closeOv()"><i class="fas fa-times"></i></button>
+      <div class="ov-right-header">
+        <div class="ov-rh-eyebrow" id="ovEyebrow">Projet</div>
+        <h2 id="ovTitle">Titre du projet</h2>
       </div>
+
       <div class="ov-body">
-        <h2 id="ovTitle"></h2>
-        <p id="ovDesc"></p>
-        <div class="ov-meta" id="ovMeta"></div>
-        <div><div class="ov-tlabel">Technologies</div><div class="ov-pills" id="ovTech"></div></div>
+        <!-- Description -->
+        <div>
+          <div class="ov-section-label">Description</div>
+          <div class="ov-desc-block">
+            <p id="ovDesc"></p>
+          </div>
+        </div>
+
+        <!-- Timeline / Détails -->
+        <div>
+          <div class="ov-section-label">Détails</div>
+          <div class="ov-meta" id="ovMeta"></div>
+        </div>
+
+        <!-- Technologies -->
+        <div>
+          <div class="ov-section-label">Technologies utilisées</div>
+          <div class="ov-pills" id="ovTech"></div>
+        </div>
       </div>
+
       <div class="ov-footer">
-        <a id="ovBtn" class="ov-cta" href="#"><i class="fas fa-arrow-right"></i> Voir plus de détails</a>
+        <a id="ovBtn" class="ov-cta" href="#">
+          <i class="fas fa-arrow-right"></i>
+          Voir plus de détails
+        </a>
+        <span class="ov-secondary-link" onclick="closeOv()">
+          <i class="fas fa-times" style="font-size:.55rem"></i>
+          Fermer
+        </span>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -934,9 +2360,7 @@ footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items
 <script>
 emailjs.init("uO7hNVrTPBeV0NVx7");
 
-/* ══════════════════════════════════════
-   AMBIENT BACKGROUND PARTICLES
-   ══════════════════════════════════════ */
+/* ══ AMBIENT BG ══ */
 (function(){
   const c=document.getElementById('ambient-canvas'),ctx=c.getContext('2d');
   let W,H,pts=[];
@@ -949,323 +2373,31 @@ emailjs.init("uO7hNVrTPBeV0NVx7");
   (function loop(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.update();p.draw()});requestAnimationFrame(loop)})();
 })();
 
-/* ══════════════════════════════════════
-   HERO — LIVING BACKGROUND CANVAS
-   Drawing: animated neural network / circuit board
-   ══════════════════════════════════════ */
+/* ══ HERO CANVAS ══ */
 (function(){
   const canvas=document.getElementById('hero-canvas');
   const ctx=canvas.getContext('2d');
   let W,H,nodes=[],t=0;
-  function resize(){
-    W=canvas.width=canvas.offsetWidth;
-    H=canvas.height=canvas.offsetHeight;
-    initNodes();
-  }
-  function initNodes(){
-    nodes=[];
-    const count=Math.floor((W*H)/14000);
-    for(let i=0;i<count;i++){
-      nodes.push({
-        x:Math.random()*W,y:Math.random()*H,
-        vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,
-        r:Math.random()*2+1,
-        pulse:Math.random()*Math.PI*2,
-        pulseSpeed:Math.random()*.02+.008
-      });
-    }
-  }
+  function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight;initNodes()}
+  function initNodes(){nodes=[];const count=Math.floor((W*H)/14000);for(let i=0;i<count;i++){nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*2+1,pulse:Math.random()*Math.PI*2,pulseSpeed:Math.random()*.02+.008})}}
   resize();addEventListener('resize',resize);
-
   let mouseX=W/2,mouseY=H/2;
-  canvas.closest('#hero').addEventListener('mousemove',e=>{
-    const r=canvas.getBoundingClientRect();
-    mouseX=e.clientX-r.left;mouseY=e.clientY-r.top;
-  });
-
+  canvas.closest('#hero').addEventListener('mousemove',e=>{const r=canvas.getBoundingClientRect();mouseX=e.clientX-r.left;mouseY=e.clientY-r.top});
   function loop(){
-    ctx.clearRect(0,0,W,H);
-    t+=.012;
-
-    // Animated gradient mesh background
+    ctx.clearRect(0,0,W,H);t+=.012;
     const grd=ctx.createRadialGradient(W*.15,H*.5,0,W*.15,H*.5,W*.6);
-    grd.addColorStop(0,'rgba(41,151,255,0.07)');
-    grd.addColorStop(.5,'rgba(41,151,255,0.02)');
-    grd.addColorStop(1,'rgba(0,0,0,0)');
+    grd.addColorStop(0,'rgba(41,151,255,0.07)');grd.addColorStop(.5,'rgba(41,151,255,0.02)');grd.addColorStop(1,'rgba(0,0,0,0)');
     ctx.fillStyle=grd;ctx.fillRect(0,0,W,H);
-
-    // Moving wave lines
-    for(let layer=0;layer<3;layer++){
-      ctx.beginPath();
-      const amp=20+layer*12;
-      const freq=.006-layer*.001;
-      const yBase=H*(0.3+layer*.2);
-      const speed=t*(0.4+layer*.15);
-      const alpha=0.04-layer*.01;
-      ctx.strokeStyle=`rgba(41,151,255,${alpha})`;
-      ctx.lineWidth=1;
-      ctx.moveTo(0,yBase);
-      for(let x=0;x<W;x+=4){
-        const y=yBase+Math.sin(x*freq+speed)*amp+Math.cos(x*freq*.7+speed*.8)*amp*.5;
-        ctx.lineTo(x,y);
-      }
-      ctx.stroke();
-    }
-
-    // Update & draw nodes
-    nodes.forEach(n=>{
-      n.x+=n.vx;n.y+=n.vy;
-      n.pulse+=n.pulseSpeed;
-      if(n.x<0||n.x>W)n.vx*=-1;
-      if(n.y<0||n.y>H)n.vy*=-1;
-
-      // Mouse repulsion
-      const dx=n.x-mouseX,dy=n.y-mouseY;
-      const dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist<120){const f=((120-dist)/120)*.8;n.vx+=dx/dist*f*.05;n.vy+=dy/dist*f*.05}
-
-      // Clamp speed
-      const spd=Math.sqrt(n.vx*n.vx+n.vy*n.vy);
-      if(spd>0.8){n.vx=(n.vx/spd)*.8;n.vy=(n.vy/spd)*.8}
-    });
-
-    // Draw connections
-    for(let i=0;i<nodes.length;i++){
-      for(let j=i+1;j<nodes.length;j++){
-        const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y;
-        const d=Math.sqrt(dx*dx+dy*dy);
-        if(d<130){
-          const alpha=(1-d/130)*0.15;
-          // Pulse the line color
-          const pulse=(Math.sin(nodes[i].pulse)+1)*.5;
-          ctx.beginPath();
-          ctx.strokeStyle=`rgba(${pulse>0.5?'48,209,88':'41,151,255'},${alpha})`;
-          ctx.lineWidth=.8;
-          ctx.moveTo(nodes[i].x,nodes[i].y);
-          ctx.lineTo(nodes[j].x,nodes[j].y);
-          ctx.stroke();
-        }
-      }
-    }
-
-    // Draw node dots
-    nodes.forEach(n=>{
-      const glow=(Math.sin(n.pulse)+1)*.5;
-      const alpha=0.3+glow*.4;
-      const radius=n.r*(0.8+glow*.4);
-      // outer glow
-      const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,radius*4);
-      g.addColorStop(0,`rgba(41,151,255,${alpha*.3})`);
-      g.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.fillStyle=g;ctx.beginPath();ctx.arc(n.x,n.y,radius*4,0,Math.PI*2);ctx.fill();
-      // core dot
-      ctx.beginPath();ctx.arc(n.x,n.y,radius,0,Math.PI*2);
-      ctx.fillStyle=`rgba(41,151,255,${alpha})`;ctx.fill();
-    });
-
+    for(let layer=0;layer<3;layer++){ctx.beginPath();const amp=20+layer*12,freq=.006-layer*.001,yBase=H*(0.3+layer*.2),speed=t*(0.4+layer*.15),alpha=0.04-layer*.01;ctx.strokeStyle=`rgba(41,151,255,${alpha})`;ctx.lineWidth=1;ctx.moveTo(0,yBase);for(let x=0;x<W;x+=4){const y=yBase+Math.sin(x*freq+speed)*amp+Math.cos(x*freq*.7+speed*.8)*amp*.5;ctx.lineTo(x,y)}ctx.stroke()}
+    nodes.forEach(n=>{n.x+=n.vx;n.y+=n.vy;n.pulse+=n.pulseSpeed;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;const dx=n.x-mouseX,dy=n.y-mouseY,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){const f=((120-dist)/120)*.8;n.vx+=dx/dist*f*.05;n.vy+=dy/dist*f*.05}const spd=Math.sqrt(n.vx*n.vx+n.vy*n.vy);if(spd>0.8){n.vx=(n.vx/spd)*.8;n.vy=(n.vy/spd)*.8}});
+    for(let i=0;i<nodes.length;i++){for(let j=i+1;j<nodes.length;j++){const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<130){const alpha=(1-d/130)*0.15,pulse=(Math.sin(nodes[i].pulse)+1)*.5;ctx.beginPath();ctx.strokeStyle=`rgba(${pulse>0.5?'48,209,88':'41,151,255'},${alpha})`;ctx.lineWidth=.8;ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.stroke()}}}
+    nodes.forEach(n=>{const glow=(Math.sin(n.pulse)+1)*.5,alpha=0.3+glow*.4,radius=n.r*(0.8+glow*.4),g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,radius*4);g.addColorStop(0,`rgba(41,151,255,${alpha*.3})`);g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(n.x,n.y,radius*4,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(n.x,n.y,radius,0,Math.PI*2);ctx.fillStyle=`rgba(41,151,255,${alpha})`;ctx.fill()});
     requestAnimationFrame(loop);
   }
   loop();
 })();
 
-/* ══════════════════════════════════════
-   VIRTUAL ROBOT — drawn on canvas
-   Detailed robot character with animations
-   ══════════════════════════════════════ */
-(function(){
-  const canvas=document.getElementById('virtual-robot-canvas');
-  const ctx=canvas.getContext('2d');
-  const W=canvas.width=300,H=canvas.height=360;
-  let t=0;
-  // Stop-motion frame tracking
-  let frame=0,frameTimer=0,FRAME_RATE=8; // frames per second for stop-motion
-
-  function drawRobot(t){
-    ctx.clearRect(0,0,W,H);
-    // Discrete stop-motion positions
-    frameTimer++;
-    if(frameTimer>=60/FRAME_RATE){frameTimer=0;frame++}
-    const fi=frame%8;
-    const offsets=[0,-3,-7,-11,-14,-10,-6,-2];
-    const rotates=[0,-.003,.002,-.002,.003,-.001,.002,0];
-    const ty=offsets[fi];
-    const rot=rotates[fi];
-
-    ctx.save();
-    ctx.translate(W/2,H/2+ty);
-    ctx.rotate(rot);
-
-    const B='#2997ff',G='#30d158',DK='#0d1f3c',MID='#1a2f5a',LIGHT='#3aa3ff';
-
-    // ─── BODY ───
-    // Main torso
-    ctx.save();
-    // torso shadow
-    ctx.shadowColor='rgba(41,151,255,0.4)';ctx.shadowBlur=20;
-    roundRect(ctx,-50,-30,100,90,16,'#111');
-    ctx.shadowBlur=0;
-    // torso border
-    roundRect(ctx,-50,-30,100,90,16,null,B,.8);
-    // torso inner gradient
-    const tg=ctx.createLinearGradient(-50,-30,-50,60);
-    tg.addColorStop(0,'rgba(41,151,255,0.08)');tg.addColorStop(1,'rgba(0,0,0,0)');
-    roundRect(ctx,-50,-30,100,90,16,tg);
-    ctx.restore();
-
-    // Chest panel
-    roundRect(ctx,-32,-20,64,45,8,'#0a0a0a');
-    roundRect(ctx,-32,-20,64,45,8,null,B,.3);
-    // Chest lines / circuit
-    ctx.strokeStyle='rgba(41,151,255,0.2)';ctx.lineWidth=1;
-    for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(-25,-12+i*14);ctx.lineTo(25,-12+i*14);ctx.stroke()}
-
-    // Chest "eye" indicator
-    const blink=fi===3||fi===4?0.1:1;
-    ctx.save();
-    ctx.shadowColor=G;ctx.shadowBlur=10*blink;
-    ctx.fillStyle=`rgba(48,209,88,${blink})`;
-    ctx.beginPath();ctx.arc(0,0,5,0,Math.PI*2);ctx.fill();
-    ctx.restore();
-
-    // Power indicators on sides
-    [-42,42-8].forEach((x,i)=>{
-      const active=(frame+i*2)%6<3;
-      ctx.fillStyle=active?`rgba(41,151,255,0.8)`:'rgba(41,151,255,0.15)';
-      ctx.beginPath();ctx.arc(x+4,10,3,0,Math.PI*2);ctx.fill();
-    });
-
-    // ─── HEAD ───
-    ctx.save();
-    ctx.shadowColor='rgba(41,151,255,0.5)';ctx.shadowBlur=18;
-    roundRect(ctx,-38,-100,76,65,18,'#0d1f3c');
-    ctx.shadowBlur=0;
-    roundRect(ctx,-38,-100,76,65,18,null,B,.9);
-    // head inner light
-    const hg=ctx.createLinearGradient(-38,-100,-38,-35);
-    hg.addColorStop(0,'rgba(41,151,255,0.12)');hg.addColorStop(1,'rgba(0,0,0,0)');
-    roundRect(ctx,-38,-100,76,65,18,hg);
-    ctx.restore();
-
-    // Antenna
-    ctx.strokeStyle=B;ctx.lineWidth=2;ctx.lineCap='round';
-    ctx.beginPath();ctx.moveTo(0,-100);ctx.lineTo(0,-120);ctx.stroke();
-    // Antenna tip
-    ctx.save();
-    ctx.shadowColor=B;ctx.shadowBlur=12;
-    ctx.fillStyle=B;ctx.beginPath();ctx.arc(0,-122,4,0,Math.PI*2);ctx.fill();
-    ctx.restore();
-
-    // Antenna pulse ring
-    const pr=(frame%12)/12;
-    ctx.strokeStyle=`rgba(41,151,255,${(1-pr)*.6})`;
-    ctx.lineWidth=1.5;
-    ctx.beginPath();ctx.arc(0,-122,4+pr*12,0,Math.PI*2);ctx.stroke();
-
-    // EYES
-    const eyeBlink=fi===6?0.08:1;
-    const eyeH=14*eyeBlink;
-    const eyeColor=B;
-    [-18,18].forEach(ex=>{
-      // eye socket
-      ctx.fillStyle='rgba(0,0,0,0.6)';
-      roundRect(ctx,ex-11,-84,22,16,5,ctx.fillStyle);
-      // eye glow
-      ctx.save();
-      ctx.shadowColor=eyeColor;ctx.shadowBlur=eyeBlink*10;
-      ctx.fillStyle=eyeColor;
-      ctx.save();
-      ctx.translate(ex,-76-eyeH*.5+8);
-      ctx.scale(1,eyeBlink);
-      ctx.beginPath();ctx.arc(0,0,8,0,Math.PI*2);ctx.fill();
-      ctx.restore();ctx.restore();
-      // eye pupil
-      ctx.fillStyle='rgba(0,30,80,0.8)';
-      ctx.save();ctx.translate(ex,-76);ctx.scale(1,eyeBlink);
-      ctx.beginPath();ctx.arc(1,0,4,0,Math.PI*2);ctx.fill();
-      ctx.restore();
-    });
-
-    // Mouth
-    ctx.strokeStyle=`rgba(41,151,255,0.7)`;ctx.lineWidth=2;ctx.lineCap='round';
-    ctx.beginPath();ctx.arc(0,-58,14,0.1*Math.PI,0.9*Math.PI);ctx.stroke();
-    // Mouth detail dots
-    ctx.fillStyle='rgba(41,151,255,0.5)';
-    [-8,0,8].forEach(x=>{ctx.beginPath();ctx.arc(x,-52,1.5,0,Math.PI*2);ctx.fill()});
-
-    // Head top decoration bar
-    ctx.fillStyle='rgba(41,151,255,0.3)';
-    roundRect(ctx,-28,-100,56,4,2,ctx.fillStyle);
-
-    // ─── ARMS ───
-    // Left arm
-    ctx.save();
-    ctx.translate(-50,10);
-    const armSwingL=fi<4?-0.05:0.05;
-    ctx.rotate(armSwingL);
-    roundRect(ctx,-14,-8,14,50,8,'#111');roundRect(ctx,-14,-8,14,50,8,null,B,.5);
-    // hand
-    ctx.save();ctx.shadowColor=B;ctx.shadowBlur=8;
-    roundRect(ctx,-16,40,18,18,7,'#1a2f5a');
-    ctx.shadowBlur=0;
-    roundRect(ctx,-16,40,18,18,7,null,B,.7);
-    ctx.restore();
-    ctx.restore();
-
-    // Right arm
-    ctx.save();
-    ctx.translate(50,10);
-    const armSwingR=fi<4?0.05:-0.05;
-    ctx.rotate(armSwingR);
-    roundRect(ctx,0,-8,14,50,8,'#111');roundRect(ctx,0,-8,14,50,8,null,B,.5);
-    // hand
-    ctx.save();ctx.shadowColor=B;ctx.shadowBlur=8;
-    roundRect(ctx,-2,40,18,18,7,'#1a2f5a');
-    ctx.shadowBlur=0;
-    roundRect(ctx,-2,40,18,18,7,null,B,.7);
-    ctx.restore();
-    ctx.restore();
-
-    // ─── LEGS ───
-    [-22,22].forEach((lx,li)=>{
-      const legOff=li===0?(fi<4?2:-2):(fi<4?-2:2);
-      ctx.save();ctx.translate(lx,60+legOff);
-      roundRect(ctx,-12,0,24,48,8,'#111');roundRect(ctx,-12,0,24,48,8,null,B,.5);
-      // foot
-      ctx.save();ctx.shadowColor=B;ctx.shadowBlur=6;
-      roundRect(ctx,-14,46,28,16,7,'#1a2f5a');
-      ctx.shadowBlur=0;
-      roundRect(ctx,-14,46,28,16,7,null,B,.7);
-      ctx.restore();ctx.restore();
-    });
-
-    // Ground shadow
-    ctx.save();
-    ctx.translate(0,108+ty*-.3);
-    const sg=ctx.createRadialGradient(0,0,5,0,0,55);
-    sg.addColorStop(0,'rgba(41,151,255,0.12)');sg.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle=sg;ctx.beginPath();ctx.ellipse(0,0,55,12,0,0,Math.PI*2);ctx.fill();
-    ctx.restore();
-
-    ctx.restore();
-    t++;requestAnimationFrame(drawRobot);
-  }
-
-  function roundRect(ctx,x,y,w,h,r,fill,strokeCol,strokeW){
-    ctx.beginPath();
-    ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
-    ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
-    ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
-    ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
-    if(fill){ctx.fillStyle=fill;ctx.fill()}
-    if(strokeCol){ctx.strokeStyle=typeof strokeCol==='string'?strokeCol:'rgba(41,151,255,.8)';ctx.lineWidth=strokeW||1;ctx.stroke()}
-  }
-
-  drawRobot(0);
-})();
-
-/* ══════════════════════════════════════
-   CUSTOM CURSOR
-   ══════════════════════════════════════ */
+/* ══ CURSOR ══ */
 const dot=document.getElementById('cursor-dot'),ring=document.getElementById('cursor-ring');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
@@ -1275,185 +2407,103 @@ document.querySelectorAll('a,button,.bcard,.pl,.proj-featured,.skrow,.ract').for
   el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-grow'));
 });
 
-/* ══════════════════════════════════════
-   SCROLL PROGRESS
-   ══════════════════════════════════════ */
+/* ══ SCROLL ══ */
 const scrollBar=document.getElementById('scrollBar');
 window.addEventListener('scroll',()=>{
   scrollBar.style.width=Math.min((scrollY/(document.body.scrollHeight-innerHeight))*100,100)+'%';
   document.getElementById('navbar').style.background=scrollY>30?'rgba(0,0,0,.88)':'rgba(0,0,0,.72)';
 });
 
-/* ══════════════════════════════════════
-   LOADER
-   ══════════════════════════════════════ */
+/* ══ LOADER ══ */
 window.addEventListener('load',()=>{
   setTimeout(()=>{
     document.getElementById('loader').classList.add('out');
-    setTimeout(()=>{
-      document.getElementById('navbar').classList.add('in');
-      startTypewriter();
-      setTimeout(initRobot,800);
-    },300);
+    setTimeout(()=>{document.getElementById('navbar').classList.add('in');startTypewriter();setTimeout(initRobot,800)},300);
   },1800);
 });
 
-/* ══════════════════════════════════════
-   TYPEWRITER
-   ══════════════════════════════════════ */
+/* ══ TYPEWRITER ══ */
 const twEl=document.getElementById('typewriterEl');
 const twLines=["Développeur Web Full‑Stack · BTS SIO SLAM","Du back-end solide à l'interface soignée.","Je construis des solutions robustes et évolutives."];
 let twLine=0,twChar=0,twDel=false;
 function startTypewriter(){
-  function tick(){
-    const full=twLines[twLine];
-    if(!twDel){
-      twChar++;twEl.textContent=full.slice(0,twChar);
-      if(twChar===full.length){if(twLine<twLines.length-1){twDel=true;setTimeout(tick,1200);return}else return}
-      setTimeout(tick,52);
-    }else{
-      twChar--;twEl.textContent=full.slice(0,twChar);
-      if(twChar===0){twDel=false;twLine++;setTimeout(tick,300);return}
-      setTimeout(tick,30);
-    }
-  }
+  function tick(){const full=twLines[twLine];if(!twDel){twChar++;twEl.textContent=full.slice(0,twChar);if(twChar===full.length){if(twLine<twLines.length-1){twDel=true;setTimeout(tick,1200);return}else return}setTimeout(tick,52)}else{twChar--;twEl.textContent=full.slice(0,twChar);if(twChar===0){twDel=false;twLine++;setTimeout(tick,300);return}setTimeout(tick,30)}}
   setTimeout(tick,1500);
 }
 
-/* ══════════════════════════════════════
-   MOB
-   ══════════════════════════════════════ */
+/* ══ MOB ══ */
 function toggleMob(){document.getElementById('mobMenu').classList.toggle('open')}
 function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
 
-/* ══════════════════════════════════════
-   REVEAL
-   ══════════════════════════════════════ */
+/* ══ REVEAL ══ */
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v')}),{threshold:.07});
 document.querySelectorAll('.r,.rs').forEach(el=>ro.observe(el));
-
-/* Counter anim */
-const cObs=new IntersectionObserver(e=>e.forEach(x=>{
-  if(x.isIntersecting){
-    const el=x.target,tgt=parseInt(el.dataset.count);
-    let c=0;const s=Math.ceil(tgt/20);
-    const ti=setInterval(()=>{c+=s;el.textContent=c>=tgt?tgt+'+':c;if(c>=tgt)clearInterval(ti)},60);
-    cObs.unobserve(el);
-  }
-}),{threshold:.5});
+const cObs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){const el=x.target,tgt=parseInt(el.dataset.count);let c=0;const s=Math.ceil(tgt/20);const ti=setInterval(()=>{c+=s;el.textContent=c>=tgt?tgt+'+':c;if(c>=tgt)clearInterval(ti)},60);cObs.unobserve(el)}}),{threshold:.5});
 document.querySelectorAll('[data-count]').forEach(el=>cObs.observe(el));
+document.querySelectorAll('.bcard').forEach(card=>{card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');card.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%')})});
 
-/* Bento glow follow */
-document.querySelectorAll('.bcard').forEach(card=>{
-  card.addEventListener('mousemove',e=>{
-    const r=card.getBoundingClientRect();
-    card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
-    card.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
-  });
-});
+/* ══ NAV TO ══ */
+function navTo(sectionId){const el=document.getElementById(sectionId);if(!el)return;dismissRobot();const y=el.getBoundingClientRect().top+window.scrollY-60;window.scrollTo({top:y,behavior:'smooth'})}
 
-/* ══════════════════════════════════════
-   NAVIGATION HELPER — smooth scroll to section
-   Used by robot assistant buttons
-   ══════════════════════════════════════ */
-function navTo(sectionId){
-  const el=document.getElementById(sectionId);
-  if(!el)return;
-  // Close robot bubble
-  dismissRobot();
-  // Smooth scroll with offset for nav bar
-  const y=el.getBoundingClientRect().top+window.scrollY-60;
-  window.scrollTo({top:y,behavior:'smooth'});
-}
-
-/* ══════════════════════════════════════
-   AI ROBOT ASSISTANT
-   ══════════════════════════════════════ */
+/* ══ ROBOT ══ */
 const robotMessages=[
   {text:'<span class="hi">Salut !</span> Je suis l\'assistant IA d\'Eyoub 👋<br>Clique sur un bouton pour naviguer !',delay:5000},
   {text:'Eyoub est <strong style="color:var(--green)">disponible</strong> — il cherche un poste de dev full-stack 🚀',delay:6000},
   {text:'Veux voir ses <strong>projets</strong>, son <strong>CV</strong>, ou le <strong>contacter</strong> ? 👇',delay:8000},
 ];
 let rIdx=0,rDismissed=false,rTimer=null;
-function initRobot(){
-  document.getElementById('ai-robot').classList.add('show');
-  setTimeout(showNextMsg,1000);
-}
-function showNextMsg(){
-  if(rDismissed)return;
-  if(rIdx>=robotMessages.length){showActions();return}
-  const b=document.getElementById('robotBubble'),ty=document.getElementById('robotTyping'),tx=document.getElementById('robotText');
-  ty.style.display='flex';tx.style.opacity='.3';b.style.display='block';
-  setTimeout(()=>{
-    ty.style.display='none';tx.style.opacity='1';
-    tx.innerHTML=robotMessages[rIdx].text;
-    const d=robotMessages[rIdx].delay;rIdx++;
-    if(rIdx<robotMessages.length){rTimer=setTimeout(()=>{tx.style.opacity='.3';ty.style.display='flex';setTimeout(showNextMsg,700)},d)}
-    else rTimer=setTimeout(showActions,5000);
-  },800);
-}
+function initRobot(){document.getElementById('ai-robot').classList.add('show');setTimeout(showNextMsg,1000)}
+function showNextMsg(){if(rDismissed)return;if(rIdx>=robotMessages.length){showActions();return}const b=document.getElementById('robotBubble'),ty=document.getElementById('robotTyping'),tx=document.getElementById('robotText');ty.style.display='flex';tx.style.opacity='.3';b.style.display='block';setTimeout(()=>{ty.style.display='none';tx.style.opacity='1';tx.innerHTML=robotMessages[rIdx].text;const d=robotMessages[rIdx].delay;rIdx++;if(rIdx<robotMessages.length){rTimer=setTimeout(()=>{tx.style.opacity='.3';ty.style.display='flex';setTimeout(showNextMsg,700)},d)}else rTimer=setTimeout(showActions,5000)},800)}
 function showActions(){if(!rDismissed)document.getElementById('robotActions').classList.add('show')}
-function toggleRobot(){
-  const b=document.getElementById('robotBubble'),a=document.getElementById('robotActions');
-  if(!b.style.display||b.style.display==='none'){
-    rDismissed=false;b.style.display='block';
-    b.style.animation='bubbleAppear .4s cubic-bezier(.34,1.56,.64,1) both';
-    a.classList.add('show');
-    document.getElementById('robotText').innerHTML='Où veux-tu aller ? 👇';
-    document.getElementById('robotTyping').style.display='none';
-  }else{b.style.display='none';a.classList.remove('show')}
-}
-function dismissRobot(){
-  rDismissed=true;clearTimeout(rTimer);
-  document.getElementById('robotBubble').style.display='none';
-  document.getElementById('robotActions').classList.remove('show');
-}
+function toggleRobot(){const b=document.getElementById('robotBubble'),a=document.getElementById('robotActions');if(!b.style.display||b.style.display==='none'){rDismissed=false;b.style.display='block';b.style.animation='bubbleIn .5s cubic-bezier(.34,1.56,.64,1) both';a.classList.add('show');document.getElementById('robotText').innerHTML='Où veux-tu aller ? 👇';document.getElementById('robotTyping').style.display='none'}else{b.style.display='none';a.classList.remove('show')}}
+function dismissRobot(){rDismissed=true;clearTimeout(rTimer);document.getElementById('robotBubble').style.display='none';document.getElementById('robotActions').classList.remove('show')}
 
-/* ══════════════════════════════════════
-   FORM
-   ══════════════════════════════════════ */
+/* ══ FORM ══ */
 document.getElementById('cform').addEventListener('submit',async function(e){
   e.preventDefault();
   const msg=document.getElementById('fmsg'),btn=document.getElementById('sbtn');
   const name=document.getElementById('fn').value.trim(),email=document.getElementById('fe').value.trim();
   const subject=document.getElementById('fs').value.trim(),message=document.getElementById('fm').value.trim();
   if(!name||!email||!subject||!message)return;
-  msg.style.display='block';msg.className='fm ld';
-  msg.innerHTML='<i class="fas fa-circle-notch fa-spin"></i> Envoi…';btn.disabled=true;
-  try{
-    await emailjs.send("service_ekaqcev","template_qqixklr",{from_name:name,from_email:email,subject,message,to_email:"eyoubbelkhiri@gmail.com"});
-    msg.className='fm ok';msg.innerHTML='<i class="fas fa-check-circle"></i> Message envoyé !';e.target.reset();
-  }catch(err){msg.className='fm ko';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Erreur — Réessayez.'}
+  msg.style.display='block';msg.className='fm ld';msg.innerHTML='<i class="fas fa-circle-notch fa-spin"></i> Envoi…';btn.disabled=true;
+  try{await emailjs.send("service_ekaqcev","template_qqixklr",{from_name:name,from_email:email,subject,message,to_email:"eyoubbelkhiri@gmail.com"});msg.className='fm ok';msg.innerHTML='<i class="fas fa-check-circle"></i> Message envoyé !';e.target.reset()}
+  catch(err){msg.className='fm ko';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Erreur — Réessayez.'}
   btn.disabled=false;
 });
 
-/* ══════════════════════════════════════
-   PROJECTS OVERLAY
-   ══════════════════════════════════════ */
+/* ══ PROJECTS OVERLAY ══ */
 const PD={
-  ligue1:{tag:'C# — DESKTOP',title:'Gestion de la Ligue 1',desc:'Application développée en 1ère année pour la gestion complète du championnat Ligue 1 : clubs, matchs, statistiques et classements. Architecture orientée objet en C#.',meta:[{i:'fa-calendar',v:'1ère année BTS SIO'},{i:'fa-code',v:'Architecture POO'},{i:'fa-desktop',v:'Application Desktop'}],tech:['C#','POO','SQL Server','Visual Studio'],images:[],href:'details.html?project=ligue1'},
-  ligue1web:{tag:'PHP — WEB APP',title:'Gestion Ligue 1 — Version Web',desc:'Refonte complète en site web du projet Ligue 1. Consultation et gestion des données sportives via navigateur avec PHP et MySQL.',meta:[{i:'fa-calendar',v:'1ère année BTS SIO'},{i:'fa-globe',v:'Application Web'},{i:'fa-database',v:'Base MySQL'}],tech:['PHP','HTML','CSS','MySQL','Bootstrap'],images:['ligue1web1.png','ligue1web2.png'],href:'details.html?project=ligue1web'},
-  chronophone:{tag:'PHP — STAGE',title:'Site interne Chronophone',desc:'Stage de 6 semaines chez Chronophone à Bourg-en-Bresse. Application de gestion des interventions techniques et suivi des réparations.',meta:[{i:'fa-building',v:'Chronophone — Bourg-en-Bresse'},{i:'fa-clock',v:'Stage 6 semaines'},{i:'fa-tools',v:'Gestion réparations'}],tech:['PHP','MySQL','Bootstrap'],images:['chrono1.png','chrono2.png'],href:'details.html?project=chronophone'},
-  ada:{tag:'C# — EF',title:'Application ADA Location (C#)',desc:'Application desktop pour ADA Location avec Entity Framework. Gestion complète des véhicules, clients, contrats et réservations via Windows Forms.',meta:[{i:'fa-calendar',v:'2ème année BTS SIO'},{i:'fa-car',v:'Location de véhicules'},{i:'fa-desktop',v:'Desktop App'}],tech:['C#','Entity Framework','SQL Server','Windows Forms'],images:['ada1.png','ada2.png'],href:'details.html?project=ada'},
-  adaweb:{tag:'PHP — MVC',title:'Application Web ADA Location',desc:'Version web du projet ADA avec PHP et ORM Eloquent. Architecture MVC complète pour la gestion des données de location.',meta:[{i:'fa-calendar',v:'2ème année BTS SIO'},{i:'fa-globe',v:'Application Web'},{i:'fa-code-branch',v:'Architecture MVC'}],tech:['PHP','Eloquent ORM','MySQL','MVC','Bootstrap'],images:['adaweb1.png','adaweb2.png'],href:'details.html?project=adaweb'},
-  protherm:{tag:'VBA — STAGE',title:'Gestion articles Protherm71',desc:"Stage de 5 semaines chez Protherm71 à Mâcon. Développement d'outils VBA Excel pour la gestion et l'automatisation d'une base d'articles avec IA.",meta:[{i:'fa-building',v:'Protherm71 — Mâcon'},{i:'fa-clock',v:'Stage 5 semaines'},{i:'fa-robot',v:'IA + Automatisation'}],tech:['Excel','VBA','Automatisation','IA'],images:['interface.png','vba.png'],href:'details.html?project=protherm'}
+  ligue1:{tag:'C# · DESKTOP',eyebrow:'Application Desktop — 1ère année',title:'Gestion de la Ligue 1',desc:'Application développée en 1ère année pour la gestion complète du championnat Ligue 1 : clubs, matchs, statistiques et classements. Architecture orientée objet en C#.',meta:[{i:'fa-calendar-alt',v:'1ère année BTS SIO'},{i:'fa-code',v:'Architecture POO complète'},{i:'fa-desktop',v:'Application Desktop Windows'},{i:'fa-database',v:'SQL Server'}],tech:['C#','POO','SQL Server','Visual Studio','.NET Framework'],images:[],href:'details.html?project=ligue1'},
+  ligue1web:{tag:'PHP · WEB APP',eyebrow:'Application Web — Projet Phare',title:'Gestion Ligue 1 — Version Web',desc:'Refonte complète en site web du projet Ligue 1. Consultation et gestion des données sportives via navigateur avec PHP et MySQL. Interface responsive avec Bootstrap, requêtes SQL optimisées.',meta:[{i:'fa-calendar-alt',v:'1ère année BTS SIO'},{i:'fa-globe',v:'Application Web Responsive'},{i:'fa-database',v:'Base de données MySQL'},{i:'fa-layer-group',v:'Architecture MVC'}],tech:['PHP','HTML5','CSS3','MySQL','Bootstrap','JavaScript'],images:['ligue1web1.png','ligue1web2.png'],href:'details.html?project=ligue1web'},
+  chronophone:{tag:'PHP · STAGE',eyebrow:'Stage 6 semaines — Bourg-en-Bresse',title:'Site interne Chronophone',desc:"Stage de 6 semaines chez Chronophone à Bourg-en-Bresse. Développement d'une application interne de gestion des interventions techniques et suivi complet des réparations de smartphones.",meta:[{i:'fa-building',v:'Chronophone — Bourg-en-Bresse'},{i:'fa-clock',v:'Stage de 6 semaines'},{i:'fa-tools',v:'Gestion réparations & SAV'},{i:'fa-users',v:'Interface techniciens'}],tech:['PHP','MySQL','Bootstrap','HTML/CSS','JavaScript'],images:['chrono1.png','chrono2.png'],href:'details.html?project=chronophone'},
+  ada:{tag:'C# · ENTITY FRAMEWORK',eyebrow:'Application Desktop — 2ème année',title:'ADA Location — Application C#',desc:"Application desktop complète pour ADA Location avec Entity Framework. Gestion avancée des véhicules, clients, contrats et réservations. Interface Windows Forms avec navigation intuitive et validation des données.",meta:[{i:'fa-calendar-alt',v:'2ème année BTS SIO'},{i:'fa-car',v:'Gestion location véhicules'},{i:'fa-desktop',v:'Application Desktop WinForms'},{i:'fa-plug',v:'Entity Framework — Code First'}],tech:['C#','Entity Framework','SQL Server','Windows Forms','LINQ'],images:['ada1.png','ada2.png'],href:'details.html?project=ada'},
+  adaweb:{tag:'PHP · MVC',eyebrow:'Application Web — 2ème année',title:'ADA Location — Version Web',desc:"Version web complète du projet ADA avec PHP et ORM Eloquent. Architecture MVC rigoureuse pour la gestion des données de location avec interface responsive moderne.",meta:[{i:'fa-calendar-alt',v:'2ème année BTS SIO'},{i:'fa-globe',v:'Application Web Full-Stack'},{i:'fa-code-branch',v:'Architecture MVC stricte'},{i:'fa-database',v:'ORM Eloquent — MySQL'}],tech:['PHP','Eloquent ORM','MySQL','MVC','Bootstrap','AJAX'],images:['adaweb1.png','adaweb2.png'],href:'details.html?project=adaweb'},
+  protherm:{tag:'VBA · EXCEL',eyebrow:'Stage 5 semaines — Mâcon',title:'Protherm71 — Gestion articles',desc:"Stage de 5 semaines chez Protherm71 à Mâcon. Développement d'outils VBA Excel avancés pour l'automatisation complète d'une base d'articles avec intégration IA pour la suggestion et catégorisation.",meta:[{i:'fa-building',v:'Protherm71 — Mâcon (71)'},{i:'fa-clock',v:'Stage de 5 semaines'},{i:'fa-robot',v:'Intégration IA — Automatisation'},{i:'fa-file-excel',v:'Excel VBA avancé'}],tech:['Excel','VBA','Automatisation','IA','Macros','API REST'],images:['interface.png','vba.png'],href:'details.html?project=protherm'}
 };
 let imgs=[],idx=0;
+
 function openOv(id){
   const p=PD[id];
   document.getElementById('ovTag').textContent=p.tag;
+  document.getElementById('ovEyebrow').textContent=p.eyebrow;
   document.getElementById('ovTitle').textContent=p.title;
   document.getElementById('ovDesc').textContent=p.desc;
   document.getElementById('ovBtn').href=p.href;
-  document.getElementById('ovMeta').innerHTML=p.meta.map(m=>`<div class="ov-mrow"><i class="fas ${m.i}"></i><span>${m.v}</span></div>`).join('');
+  document.getElementById('ovMeta').innerHTML=p.meta.map(m=>`
+    <div class="ov-mrow">
+      <div class="ov-mrow-ic"><i class="fas ${m.i}"></i></div>
+      <span>${m.v}</span>
+    </div>`).join('');
   document.getElementById('ovTech').innerHTML=p.tech.map(t=>`<span class="ov-pill">${t}</span>`).join('');
   imgs=p.images.filter(Boolean);idx=0;renderImg();
   const strip=document.getElementById('ovStrip');strip.innerHTML='';
   if(imgs.length)imgs.forEach((s,i)=>{strip.innerHTML+=`<div class="ov-thumb${i===0?' active':''}" id="th${i}" onclick="goImg(${i})"><img src="${s}" alt=""></div>`});
-  const ov=document.getElementById('ov');ov.style.display='flex';
+  const ov=document.getElementById('ov');
+  ov.style.display='flex';
   requestAnimationFrame(()=>requestAnimationFrame(()=>ov.classList.add('vis')));
   document.body.style.overflow='hidden';
 }
+
 function renderImg(){
   const img=document.getElementById('ovImg'),no=document.getElementById('ovNoImg'),cnt=document.getElementById('ovCount'),prev=document.getElementById('ovPrev'),next=document.getElementById('ovNext');
   if(!imgs.length){img.style.display='none';no.style.display='flex';cnt.style.display='none';prev.disabled=next.disabled=true;return}
@@ -1463,15 +2513,18 @@ function renderImg(){
   prev.disabled=idx===0;next.disabled=idx===imgs.length-1;
   document.querySelectorAll('.ov-thumb').forEach((t,i)=>t.classList.toggle('active',i===idx));
 }
+
 function chImg(d){
   const img=document.getElementById('ovImg');img.classList.add('ie');
   setTimeout(()=>{img.classList.remove('ie');idx=Math.max(0,Math.min(imgs.length-1,idx+d));renderImg()},180);
 }
 function goImg(i){idx=i;renderImg()}
+
 function closeOv(){
   const ov=document.getElementById('ov');ov.classList.remove('vis');
   setTimeout(()=>{ov.style.display='none';document.body.style.overflow=''},450);
 }
+
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape')closeOv();
   if(e.key==='ArrowRight')chImg(1);
