@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -2168,4 +2169,15 @@ function switchPlan(idx, el) {
   document.querySelectorAll('.plan-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.articles-panel').forEach(p => p.classList.remove('active'));
   el.classList.add('active');
-  document.get
+  document.getElementById('panel-' + idx).classList.add('active');
+}
+
+/* ══ VEILLE — ARTICLE ACCORDION ══ */
+function toggleArticle(el) {
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.articles-panel.active .article-row').forEach(r => r.classList.remove('open'));
+  if (!isOpen) el.classList.add('open');
+}
+</script>
+</body>
+</html>
