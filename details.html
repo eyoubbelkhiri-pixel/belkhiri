@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
-/* ══ VARIABLES (identiques à index) ══ */
 :root{
   --bg:#000;--bg1:#0a0a0a;--bg2:#111;--bg3:#161616;--bg4:#1c1c1e;
   --line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.12);
@@ -30,19 +29,14 @@ body{font-family:var(--sans);background:var(--bg);color:var(--white);overflow-x:
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
 
-/* ══ AMBIENT CANVAS ══ */
 #ambient-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4}
-
-/* ══ SCROLL PROGRESS ══ */
 .scroll-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--blue),rgba(48,209,88,.8));z-index:9100;width:0%;box-shadow:0 0 10px rgba(41,151,255,.5);pointer-events:none;transition:width .1s}
 
-/* ══ CURSOR ══ */
 #cursor-dot{position:fixed;width:6px;height:6px;background:var(--blue);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);mix-blend-mode:difference}
 #cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(41,151,255,.5);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .4s var(--spring),height .4s var(--spring),border-color .3s}
 .cursor-grow #cursor-ring{width:56px;height:56px;border-color:rgba(41,151,255,.8);background:rgba(41,151,255,.04)}
 @media(hover:none){#cursor-dot,#cursor-ring{display:none}}
 
-/* ══ NAV ══ */
 nav{position:fixed;top:0;left:0;right:0;z-index:900;height:50px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.72);backdrop-filter:saturate(180%) blur(24px);border-bottom:1px solid var(--line);transform:translateY(-100%);transition:transform .7s var(--expo)}
 nav.in{transform:none}
 .nav-in{width:100%;max-width:1200px;padding:0 40px;display:flex;align-items:center;justify-content:space-between}
@@ -55,40 +49,34 @@ nav.in{transform:none}
 @keyframes logoDotMorph{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
 .nav-proj-tag{font-size:.58rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);background:var(--blue-l);border:1px solid rgba(41,151,255,.2);padding:4px 10px;border-radius:5px}
 
-/* ══ REVEAL ══ */
 .r{opacity:0;transform:translateY(28px);transition:opacity .9s var(--expo),transform .9s var(--expo)}
 .r.v{opacity:1;transform:none}
-.rl{opacity:0;transform:translateX(-28px);transition:opacity .9s var(--expo),transform .9s var(--expo)}
-.rl.v{opacity:1;transform:none}
 .d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}
-.d4{transition-delay:.24s}.d5{transition-delay:.3s}.d6{transition-delay:.36s}
+.d4{transition-delay:.24s}.d5{transition-delay:.3s}
 
-/* ══ HERO PROJET ══ */
 .proj-hero{min-height:60vh;display:flex;flex-direction:column;justify-content:flex-end;padding:120px 40px 80px;max-width:1200px;margin:0 auto;position:relative;z-index:1}
 .proj-hero-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .proj-hero-grid{position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 100% at 50% 0%,black 20%,transparent 70%);pointer-events:none}
-.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px;opacity:0;transform:translateY(10px);animation:fadeUp .6s 1s var(--expo) forwards}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px;opacity:0;transform:translateY(10px);animation:fadeUp .6s .2s var(--expo) forwards}
 .hero-eyebrow-line{width:24px;height:1px;background:var(--blue)}
 .hero-cat{font-size:.62rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
 .hero-cat-sep{color:var(--muted);font-size:.5rem}
 .hero-year{font-size:.62rem;font-weight:400;letter-spacing:.1em;color:var(--muted)}
-.proj-hero h1{font-size:clamp(2.4rem,5vw,5rem);font-weight:600;letter-spacing:-.055em;line-height:.95;color:var(--pure);margin-bottom:24px;opacity:0;transform:translateY(20px);animation:fadeUp .9s 1.1s var(--expo) forwards}
+.proj-hero h1{font-size:clamp(2.4rem,5vw,5rem);font-weight:600;letter-spacing:-.055em;line-height:.95;color:var(--pure);margin-bottom:24px;opacity:0;transform:translateY(20px);animation:fadeUp .9s .3s var(--expo) forwards}
 .proj-hero h1 em{font-style:italic;font-weight:300;color:var(--mid)}
-.proj-desc-hero{font-size:clamp(.88rem,1.3vw,1.05rem);font-weight:300;color:var(--mid);line-height:1.8;max-width:680px;margin-bottom:44px;opacity:0;animation:fadeUp .7s 1.25s var(--expo) forwards}
-.proj-meta-strip{display:flex;gap:0;width:fit-content;border:1px solid var(--line);border-radius:14px;overflow:hidden;opacity:0;animation:fadeUp .7s 1.35s var(--expo) forwards}
+.proj-desc-hero{font-size:clamp(.88rem,1.3vw,1.05rem);font-weight:300;color:var(--mid);line-height:1.8;max-width:680px;margin-bottom:44px;opacity:0;animation:fadeUp .7s .45s var(--expo) forwards}
+.proj-meta-strip{display:flex;gap:0;width:fit-content;border:1px solid var(--line);border-radius:14px;overflow:hidden;opacity:0;animation:fadeUp .7s .55s var(--expo) forwards}
 .pms-item{padding:16px 28px;border-right:1px solid var(--line);transition:background .2s}
 .pms-item:last-child{border-right:none}
 .pms-item:hover{background:rgba(41,151,255,.04)}
 .pms-label{font-size:.55rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
 .pms-val{font-size:.85rem;font-weight:500;color:var(--pure)}
-.proj-tags-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px;opacity:0;animation:fadeUp .6s 1.45s var(--expo) forwards}
+.proj-tags-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px;opacity:0;animation:fadeUp .6s .65s var(--expo) forwards}
 .ptag{font-size:.6rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:5px 11px;transition:all .3s var(--spring)}
 .ptag:hover{color:var(--blue);border-color:rgba(41,151,255,.3);background:var(--blue-l);transform:translateY(-2px)}
 
-/* ══ DIVIDER ══ */
 hr.divider{height:1px;background:var(--line);border:none;margin:0;position:relative;z-index:1}
 
-/* ══ SECTIONS ══ */
 .section{padding:80px 40px;max-width:1200px;margin:0 auto;position:relative;z-index:1}
 .sec-label{font-size:.62rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;display:flex;align-items:center;gap:10px}
 .sec-label::before{content:'';width:24px;height:1px;background:var(--blue)}
@@ -99,15 +87,13 @@ hr.divider{height:1px;background:var(--line);border:none;margin:0;position:relat
 .sec-body p:last-child{margin-bottom:0}
 .sec-body strong{color:var(--light);font-weight:400}
 
-/* ══ GALERIE ══ */
+/* GALERIE */
 .gallery-controls{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
 .gallery-view-btns{display:flex;gap:4px}
 .gvb{width:32px;height:32px;border-radius:8px;background:var(--bg2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:.65rem;transition:all .25s var(--spring)}
 .gvb.active,.gvb:hover{background:var(--blue-l);border-color:rgba(41,151,255,.3);color:var(--blue)}
 .gallery-count{font-size:.65rem;color:var(--muted);letter-spacing:.08em}
 .gallery-count span{color:var(--blue);font-weight:500}
-
-/* GRID VIEW */
 .gallery-grid{display:grid;gap:3px;transition:all .4s var(--expo)}
 .gallery-grid.cols-1{grid-template-columns:1fr}
 .gallery-grid.cols-2{grid-template-columns:1fr 1fr}
@@ -120,28 +106,15 @@ hr.divider{height:1px;background:var(--line);border:none;margin:0;position:relat
 .gal-item:hover img{transform:scale(1.06);filter:brightness(1.1)}
 .gal-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,rgba(0,0,0,.2) 40%,transparent 70%);opacity:0;transition:opacity .35s;display:flex;flex-direction:column;justify-content:flex-end;padding:18px}
 .gal-item:hover .gal-overlay{opacity:1}
-.gal-overlay-top{position:absolute;top:14px;right:14px;display:flex;gap:6px}
+.gal-overlay-top{position:absolute;top:14px;right:14px}
 .gal-zoom-btn{width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.7);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.8);font-size:.6rem;transition:all .25s var(--spring)}
 .gal-item:hover .gal-zoom-btn{background:var(--blue);border-color:var(--blue);color:#fff;transform:scale(1.1)}
 .gal-caption{font-size:.65rem;font-weight:500;letter-spacing:.06em;color:rgba(255,255,255,.85);text-transform:uppercase}
 .gal-sub{font-size:.58rem;color:rgba(255,255,255,.45);margin-top:2px}
 .gal-idx{position:absolute;top:14px;left:14px;font-size:1.4rem;font-weight:700;letter-spacing:-.05em;color:rgba(255,255,255,.06);line-height:1;user-select:none;transition:color .3s}
 .gal-item:hover .gal-idx{color:rgba(41,151,255,.2)}
-/* empty slot */
-.gal-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:60px;border:1px dashed rgba(41,151,255,.12);background:rgba(41,151,255,.02);border-radius:12px;color:var(--muted)}
-.gal-empty i{font-size:2rem;opacity:.25;color:var(--blue)}
-.gal-empty span{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}
 
-/* ══ UPLOAD ZONE ══ */
-.upload-zone{margin-top:14px;border:1.5px dashed rgba(41,151,255,.2);border-radius:14px;padding:28px;text-align:center;background:rgba(41,151,255,.02);cursor:pointer;transition:all .3s var(--expo);position:relative}
-.upload-zone:hover,.upload-zone.drag{border-color:rgba(41,151,255,.5);background:rgba(41,151,255,.06)}
-.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.upload-icon{font-size:1.4rem;color:var(--blue);opacity:.6;margin-bottom:10px}
-.upload-title{font-size:.78rem;font-weight:500;color:var(--light);margin-bottom:4px}
-.upload-sub{font-size:.65rem;color:var(--muted)}
-.upload-sub span{color:var(--blue)}
-
-/* ══ FEATURES GRID ══ */
+/* FEATURES */
 .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:3px}
 .feat-card{padding:32px 26px;background:var(--bg2);border:1px solid var(--line);border-radius:16px;position:relative;overflow:hidden;transition:all .4s var(--expo);cursor:default}
 .feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);transform:scaleX(0);transition:transform .4s}
@@ -152,30 +125,29 @@ hr.divider{height:1px;background:var(--line);border:none;margin:0;position:relat
 .feat-title{font-size:.88rem;font-weight:600;color:var(--pure);margin-bottom:7px;letter-spacing:-.02em}
 .feat-desc{font-size:.78rem;font-weight:300;color:var(--mid);line-height:1.75}
 
-/* ══ TECH STACK ══ */
+/* TECH */
 .tech-wrap{display:flex;flex-wrap:wrap;gap:8px}
 .tech-pill{display:flex;align-items:center;gap:10px;padding:12px 20px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;transition:all .3s var(--expo)}
 .tech-pill:hover{border-color:rgba(41,151,255,.3);background:var(--bg3);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
 .tech-pill i{font-size:1rem;color:var(--blue)}
 .tech-pill span{font-size:.75rem;font-weight:500;color:var(--light);letter-spacing:.02em}
 
-/* ══ RÉSULTATS ══ */
+/* RÉSULTATS */
 .result-block{background:var(--bg2);border:1px solid var(--line);border-left:2px solid var(--blue);border-radius:0 14px 14px 0;padding:40px 44px;position:relative;overflow:hidden}
 .result-block::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 0% 50%,rgba(41,151,255,.04) 0%,transparent 60%);pointer-events:none}
 .result-text{font-size:.9rem;font-weight:300;color:var(--mid);line-height:2;position:relative;z-index:1}
 .result-text strong{color:var(--light);font-weight:400}
 
-/* ══ STATS ROW ══ */
+/* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:3px;margin-top:40px}
 .stat-card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:22px 20px;display:flex;align-items:center;gap:14px;transition:all .35s var(--expo)}
 .stat-card:hover{border-color:rgba(41,151,255,.2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
 .stat-ic{width:38px;height:38px;border-radius:10px;background:var(--blue-l);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--blue);flex-shrink:0;transition:all .3s var(--spring)}
 .stat-card:hover .stat-ic{background:var(--blue);color:#fff;transform:scale(1.1) rotate(-5deg)}
 .stat-n{font-size:1.6rem;font-weight:600;letter-spacing:-.05em;color:var(--pure);line-height:1}
-.stat-n sub{font-size:.9rem;color:var(--blue);font-weight:400}
 .stat-l{font-size:.62rem;font-weight:300;color:var(--muted);margin-top:3px}
 
-/* ══ CTA SECTION ══ */
+/* CTA */
 .cta-section{padding:60px 40px 100px;max-width:1200px;margin:0 auto;position:relative;z-index:1}
 .cta-inner{background:var(--bg2);border:1px solid var(--line);border-radius:24px;padding:60px;text-align:center;position:relative;overflow:hidden}
 .cta-inner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% -10%,rgba(41,151,255,.07) 0%,transparent 60%);pointer-events:none}
@@ -188,18 +160,15 @@ hr.divider{height:1px;background:var(--line);border:none;margin:0;position:relat
 .btn-fill::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);transform:translateX(-100%) skewX(-15deg);transition:transform .5s var(--expo)}
 .btn-fill:hover{background:var(--blue-h);transform:scale(1.05) translateY(-2px);box-shadow:0 8px 28px rgba(41,151,255,.45)}
 .btn-fill:hover::before{transform:translateX(200%) skewX(-15deg)}
-.btn-fill i{transition:transform .3s var(--spring)}
-.btn-fill:hover i{transform:translateY(2px)}
 .btn-out{display:inline-flex;align-items:center;gap:8px;color:var(--mid);text-decoration:none;padding:13px 28px;border-radius:980px;font-size:.82rem;font-weight:400;border:1px solid var(--line);transition:all .3s var(--spring)}
 .btn-out:hover{border-color:rgba(41,151,255,.4);color:var(--blue);background:var(--blue-l);transform:translateY(-2px)}
 
-/* ══ FOOTER ══ */
 footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1;border-top:1px solid var(--line)}
 .footer-l{font-size:.82rem;font-weight:500;letter-spacing:-.02em;color:var(--muted)}
 .footer-l span{color:var(--blue)}
 .footer-r{font-size:.6rem;letter-spacing:.06em;color:var(--muted)}
 
-/* ══ LIGHTBOX ══ */
+/* LIGHTBOX */
 #lightbox{position:fixed;inset:0;z-index:9500;background:rgba(0,0,0,0);display:none;align-items:center;justify-content:center;backdrop-filter:blur(0px);transition:background .4s,backdrop-filter .4s}
 #lightbox.open{display:flex}
 #lightbox.vis{background:rgba(0,0,0,.97);backdrop-filter:blur(60px) saturate(150%)}
@@ -229,13 +198,12 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
 .lb-thumb.active,.lb-thumb:hover{border-color:var(--blue);opacity:1;transform:scale(1.06) translateY(-2px)}
 .lb-scan{position:absolute;left:0;right:0;height:1px;top:0;z-index:3;background:linear-gradient(90deg,transparent,rgba(41,151,255,.5),transparent);animation:lbScan 3s linear infinite;pointer-events:none}
 @keyframes lbScan{0%{top:0;opacity:0}5%{opacity:.8}92%{opacity:.8}100%{top:100%;opacity:0}}
-/* anim img */
 .lb-img-wrap img.out{animation:imgOut .2s var(--expo) forwards}
 .lb-img-wrap img.in{animation:imgIn .3s var(--expo) forwards}
 @keyframes imgOut{to{opacity:0;transform:scale(.95)}}
 @keyframes imgIn{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:none}}
 
-/* ══ AI ROBOT ══ */
+/* AI ROBOT */
 #ai-robot{position:fixed;bottom:24px;right:24px;z-index:8000;display:flex;flex-direction:column;align-items:flex-end;gap:10px;opacity:0;transform:translateY(40px) scale(.7);transition:opacity .8s var(--spring),transform .8s var(--spring);pointer-events:none}
 #ai-robot.show{opacity:1;transform:none;pointer-events:all}
 .rcb{background:rgba(10,10,10,.97);border:1px solid rgba(41,151,255,.2);border-radius:18px 18px 4px 18px;padding:14px 16px 12px;max-width:240px;box-shadow:0 18px 50px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.04);position:relative;backdrop-filter:blur(20px);animation:bubbleIn .5s var(--spring) both}
@@ -257,7 +225,8 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
 @keyframes compFloat{0%,100%{transform:translateY(0) rotate(0deg)}30%{transform:translateY(-6px) rotate(-.8deg)}60%{transform:translateY(-3px) rotate(.5deg)}80%{transform:translateY(-8px) rotate(-.3deg)}}
 .comp-notif{position:absolute;top:2px;right:2px;width:11px;height:11px;border-radius:50%;background:var(--green);border:2px solid var(--bg);box-shadow:0 0 8px rgba(48,209,88,.7);animation:pulseG 2.5s ease-in-out infinite;z-index:2}
 
-/* ══ RESPONSIVE ══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
 @media(max-width:900px){
   .nav-in,.section,.cta-section,footer{padding-left:24px;padding-right:24px}
   .proj-hero{padding:100px 24px 60px}
@@ -280,16 +249,12 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
 </head>
 <body>
 
-<!-- AMBIENT CANVAS -->
 <canvas id="ambient-canvas"></canvas>
-<!-- SCROLL BAR -->
 <div class="scroll-bar" id="scrollBar"></div>
-<!-- CURSOR -->
 <div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
 
-
-<!-- ══ AI ROBOT BYTE ══ -->
+<!-- AI ROBOT BYTE -->
 <div id="ai-robot">
   <div class="rcb" id="rcbBubble" style="display:none">
     <button class="rcb-close" onclick="dismissBot()">✕</button>
@@ -298,7 +263,7 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
       <span class="rcb-name">BYTE</span>
       <span class="rcb-badge">EN LIGNE</span>
     </div>
-    <div class="rcb-txt" id="rcbText">
+    <div class="rcb-txt">
       <span class="hi">Voici les détails</span> du projet 🚀<br>
       Clique sur une image pour la voir en grand !
     </div>
@@ -312,14 +277,13 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
         <linearGradient id="bG2" x1="16" y1="16" x2="72" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#122040"/><stop offset="100%" stop-color="#080f1e"/></linearGradient>
         <radialGradient id="bEye" cx="50%" cy="40%" r="50%"><stop offset="0%" stop-color="#60b8ff"/><stop offset="100%" stop-color="#2997ff"/></radialGradient>
         <filter id="bGlow"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <clipPath id="bHC"><rect x="16" y="14" width="56" height="34" rx="12"/></clipPath>
       </defs>
       <ellipse cx="44" cy="97" rx="28" ry="4" fill="rgba(41,151,255,0.18)"/>
       <line x1="44" y1="14" x2="44" y2="6" stroke="#2997ff" stroke-width="1.5" stroke-linecap="round"/>
       <circle cx="44" cy="5" r="3" fill="url(#bEye)" filter="url(#bGlow)"/>
       <rect x="16" y="14" width="56" height="34" rx="12" fill="url(#bG2)" stroke="rgba(41,151,255,0.55)" stroke-width="1.2"/>
-      <g><rect x="9" y="24" width="8" height="14" rx="4" fill="#0a1628" stroke="rgba(41,151,255,0.4)" stroke-width="1"/></g>
-      <g><rect x="71" y="24" width="8" height="14" rx="4" fill="#0a1628" stroke="rgba(41,151,255,0.4)" stroke-width="1"/></g>
+      <rect x="9" y="24" width="8" height="14" rx="4" fill="#0a1628" stroke="rgba(41,151,255,0.4)" stroke-width="1"/>
+      <rect x="71" y="24" width="8" height="14" rx="4" fill="#0a1628" stroke="rgba(41,151,255,0.4)" stroke-width="1"/>
       <rect x="21" y="21" width="18" height="14" rx="5" fill="rgba(0,0,0,0.6)" stroke="rgba(41,151,255,0.3)" stroke-width="0.8"/>
       <g style="animation:eyeBlink 4s ease-in-out infinite;transform-box:fill-box;transform-origin:30px 28px"><circle cx="30" cy="28" r="5.5" fill="url(#bEye)" filter="url(#bGlow)"/><circle cx="30" cy="28" r="2.5" fill="rgba(0,15,50,0.85)"/><circle cx="32" cy="26" r="1" fill="rgba(255,255,255,0.6)"/></g>
       <rect x="49" y="21" width="18" height="14" rx="5" fill="rgba(0,0,0,0.6)" stroke="rgba(41,151,255,0.3)" stroke-width="0.8"/>
@@ -341,7 +305,7 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
 </div>
 <style>
 @keyframes eyeBlink{0%,88%,100%{transform:scaleY(1)}92%{transform:scaleY(.08)}}
-@keyframes cheekPulse{0%,100%{opacity:.3;r:5}50%{opacity:.55;r:6}}
+@keyframes cheekPulse{0%,100%{opacity:.3}50%{opacity:.55}}
 @keyframes mouthExpr{0%,100%{d:path("M 32 62 Q 44 68 56 62")}40%{d:path("M 32 62 Q 44 72 56 62")}70%{d:path("M 35 65 Q 44 62 53 65")}}
 @keyframes bodyBreath{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.025)}}
 @keyframes bellyBlink{0%,100%{opacity:1}50%{opacity:.2}}
@@ -349,7 +313,7 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
 @keyframes armR{0%,100%{transform:rotate(0deg)}30%{transform:rotate(8deg)}70%{transform:rotate(-5deg)}}
 </style>
 
-<!-- ══ NAV ══ -->
+<!-- NAV -->
 <nav id="navbar">
   <div class="nav-in">
     <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
@@ -358,7 +322,7 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
   </div>
 </nav>
 
-<!-- ══ HERO ══ -->
+<!-- HERO -->
 <canvas id="hero-canvas" class="proj-hero-canvas"></canvas>
 <div class="proj-hero-grid"></div>
 <div class="proj-hero">
@@ -376,7 +340,7 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
 
 <hr class="divider">
 
-<!-- ══ CONTEXTE ══ -->
+<!-- CONTEXTE -->
 <section class="section">
   <div class="sec-label r">Contexte</div>
   <h2 class="sec-title r d1">Contexte <em>du projet.</em></h2>
@@ -385,46 +349,25 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
 
 <hr class="divider">
 
-<!-- ══ GALERIE ══ -->
+<!-- GALERIE -->
 <section class="section" id="galSection">
   <div class="sec-label r">Visuels</div>
-  <h2 class="sec-title r d1">Aperçu <em>& captures.</em></h2>
-
+  <h2 class="sec-title r d1">Aperçu <em>&amp; captures.</em></h2>
   <div class="gallery-controls r d2">
-    <div class="gallery-count">
-      <span id="imgCount">0</span> image(s) · cliquer pour agrandir
-    </div>
-    <div style="display:flex;align-items:center;gap:10px">
-      <!-- Sélecteur de colonnes -->
-      <div class="gallery-view-btns" id="colBtns">
-        <button class="gvb" title="1 colonne" onclick="setCol(1)"><i class="fas fa-square"></i></button>
-        <button class="gvb active" title="2 colonnes" onclick="setCol(2)"><i class="fas fa-th-large"></i></button>
-        <button class="gvb" title="3 colonnes" onclick="setCol(3)"><i class="fas fa-th"></i></button>
-        <button class="gvb" title="4 colonnes" onclick="setCol(4)"><i class="fas fa-border-all"></i></button>
-      </div>
-      <!-- Bouton ajouter image -->
-      <label class="gvb" title="Ajouter des images" style="width:auto;padding:0 12px;gap:6px;cursor:pointer;border-radius:8px;">
-        <i class="fas fa-plus"></i>
-        <span style="font-size:.6rem;letter-spacing:.06em">Ajouter</span>
-        <input type="file" id="imgUploadInput" accept="image/*" multiple style="display:none" onchange="handleUpload(this)">
-      </label>
+    <div class="gallery-count"><span id="imgCount">0</span> image(s) · cliquer pour agrandir</div>
+    <div class="gallery-view-btns" id="colBtns">
+      <button class="gvb" title="1 colonne" onclick="setCol(1)"><i class="fas fa-square"></i></button>
+      <button class="gvb active" title="2 colonnes" onclick="setCol(2)"><i class="fas fa-th-large"></i></button>
+      <button class="gvb" title="3 colonnes" onclick="setCol(3)"><i class="fas fa-th"></i></button>
+      <button class="gvb" title="4 colonnes" onclick="setCol(4)"><i class="fas fa-border-all"></i></button>
     </div>
   </div>
-
   <div class="gallery-grid cols-2 r d3" id="pGal"></div>
-
-  <!-- Zone de drop / upload étendue -->
-  <div class="upload-zone r d4" id="dropZone">
-    <input type="file" accept="image/*" multiple onchange="handleUpload(this)">
-    <div class="upload-icon"><i class="fas fa-images"></i></div>
-    <div class="upload-title">Glissez vos images ici</div>
-    <div class="upload-sub">ou <span>cliquez pour parcourir</span> · PNG, JPG, WEBP, GIF</div>
-  </div>
 </section>
 
 <hr class="divider">
 
-<!-- ══ FONCTIONNALITÉS ══ -->
+<!-- FONCTIONNALITÉS -->
 <section class="section">
   <div class="sec-label r">Fonctionnalités</div>
   <h2 class="sec-title r d1">Ce que fait <em>l'application.</em></h2>
@@ -433,7 +376,7 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
 
 <hr class="divider">
 
-<!-- ══ TECHNOLOGIES ══ -->
+<!-- TECHNOLOGIES -->
 <section class="section">
   <div class="sec-label r">Stack</div>
   <h2 class="sec-title r d1">Technologies <em>utilisées.</em></h2>
@@ -442,7 +385,7 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
 
 <hr class="divider">
 
-<!-- ══ RÉSULTATS ══ -->
+<!-- RÉSULTATS -->
 <section class="section">
   <div class="sec-label r">Bilan</div>
   <h2 class="sec-title r d1">Résultats &amp; <em>apprentissages.</em></h2>
@@ -452,7 +395,7 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
   <div class="stats-row r d3" id="pStats"></div>
 </section>
 
-<!-- ══ CTA ══ -->
+<!-- CTA -->
 <div class="cta-section r">
   <div class="cta-inner">
     <h2 class="cta-title">Intéressé par <em>ce projet ?</em></h2>
@@ -464,13 +407,13 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
   </div>
 </div>
 
-<!-- ══ FOOTER ══ -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-l"><span>Eyoub</span> Belkhiri — Design & Code © 2025</div>
   <div class="footer-r">BTS SIO SLAM</div>
 </footer>
 
-<!-- ══ LIGHTBOX ══ -->
+<!-- LIGHTBOX -->
 <div id="lightbox">
   <button class="lb-close" onclick="closeLB()"><i class="fas fa-times"></i></button>
   <div class="lb-panel">
@@ -486,10 +429,10 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
         <div class="lb-count" id="lbCount"></div>
       </div>
       <div class="lb-actions">
-        <button class="lb-btn" title="Précédent" id="lbPrevBtn" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
-        <button class="lb-btn" title="Suivant" id="lbNextBtn" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button>
-        <a class="lb-btn" id="lbDl" title="Télécharger" download><i class="fas fa-download"></i></a>
-        <button class="lb-btn" title="Fermer" onclick="closeLB()"><i class="fas fa-times"></i></button>
+        <button class="lb-btn" id="lbPrevBtn" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
+        <button class="lb-btn" id="lbNextBtn" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button>
+        <a class="lb-btn" id="lbDl" download><i class="fas fa-download"></i></a>
+        <button class="lb-btn" onclick="closeLB()"><i class="fas fa-times"></i></button>
       </div>
     </div>
     <div class="lb-strip" id="lbStrip"></div>
@@ -497,340 +440,220 @@ footer{max-width:1200px;margin:0 auto;padding:28px 40px;display:flex;align-items
 </div>
 
 <script>
-/* ══════════════════════════════════════════
-   PROJECT DATA
-══════════════════════════════════════════ */
 const PD = {
   ligue1: {
-    title: "Gestion de la Ligue 1", titleEm: "Application C#",
-    cat: "Application Desktop", year: "2023", type: "App Windows", dur: "8 semaines",
-    tags: ["C#","POO","SQL Server","WinForms","Desktop"],
-    desc: "Application développée en première année de BTS SIO SLAM permettant la gestion complète du championnat de Ligue 1. Clubs, matchs, statistiques et classements en temps réel.",
-    ctx: "<p>Dans le cadre de ma formation en BTS SIO option SLAM, j'ai développé une application de gestion du championnat de Ligue 1. L'objectif était de mettre en pratique les concepts de <strong>programmation orientée objet (POO)</strong> et de conception de bases de données relationnelles.</p><p>L'application devait permettre aux utilisateurs de suivre les performances des équipes, d'enregistrer les résultats des matchs et de générer automatiquement les classements.</p>",
-    images: ["vba.png","interface.png"],
-    imageCaptions: ["Interface principale","Vue base de données"],
-    features: [
-      { icon:"fa-futbol", t:"Gestion des clubs", d:"Ajout, modification et suppression des clubs avec leurs informations détaillées." },
-      { icon:"fa-calendar-alt", t:"Calendrier des matchs", d:"Planification automatique des journées de championnat et saisie des résultats." },
-      { icon:"fa-chart-line", t:"Statistiques avancées", d:"Calcul automatique des statistiques pour chaque joueur et équipe." },
-      { icon:"fa-trophy", t:"Classement dynamique", d:"Mise à jour automatique du classement avec gestion des critères de départage." }
+    title:"Gestion de la Ligue 1",titleEm:"Application C#",
+    cat:"Application Desktop",year:"2023",type:"App Windows",dur:"8 semaines",
+    tags:["C#","POO","SQL Server","WinForms","Desktop"],
+    desc:"Application développée en première année de BTS SIO SLAM permettant la gestion complète du championnat de Ligue 1. Clubs, matchs, statistiques et classements en temps réel.",
+    ctx:"<p>Dans le cadre de ma formation en BTS SIO option SLAM, j'ai développé une application de gestion du championnat de Ligue 1. L'objectif était de mettre en pratique les concepts de <strong>programmation orientée objet (POO)</strong> et de conception de bases de données relationnelles.</p><p>L'application devait permettre aux utilisateurs de suivre les performances des équipes, d'enregistrer les résultats des matchs et de générer automatiquement les classements.</p>",
+    images:["vba.png","interface.png"],
+    imageCaptions:["Interface principale","Vue base de données"],
+    features:[
+      {icon:"fa-futbol",t:"Gestion des clubs",d:"Ajout, modification et suppression des clubs avec leurs informations détaillées."},
+      {icon:"fa-calendar-alt",t:"Calendrier des matchs",d:"Planification automatique des journées de championnat et saisie des résultats."},
+      {icon:"fa-chart-line",t:"Statistiques avancées",d:"Calcul automatique des statistiques pour chaque joueur et équipe."},
+      {icon:"fa-trophy",t:"Classement dynamique",d:"Mise à jour automatique du classement avec gestion des critères de départage."}
     ],
-    tech: [{i:"fab fa-microsoft",n:"C# .NET"},{i:"fas fa-database",n:"SQL Server"},{i:"fas fa-window-maximize",n:"WinForms"},{i:"fas fa-code-branch",n:"Git"}],
-    results: "Ce projet m'a permis de maîtriser les fondamentaux de la <strong>programmation orientée objet</strong> en C#, notamment l'encapsulation, l'héritage et le polymorphisme. J'ai également approfondi mes compétences en modélisation de bases de données (MCD/MLD) et en requêtes SQL complexes. L'application finale était fonctionnelle avec une architecture en couches (UI, Business Logic, Data Access).",
-    stats: [{ic:"fa-code-branch",n:"3",s:"Couches archi"},{ic:"fa-database",n:"12",s:"Tables SQL"},{ic:"fa-star",n:"16",s:"/20 — note"},{ic:"fa-clock",n:"8",s:"Semaines"}],
-    doc: "Rapport.pdf"
+    tech:[{i:"fab fa-microsoft",n:"C# .NET"},{i:"fas fa-database",n:"SQL Server"},{i:"fas fa-window-maximize",n:"WinForms"},{i:"fas fa-code-branch",n:"Git"}],
+    results:"Ce projet m'a permis de maîtriser les fondamentaux de la <strong>programmation orientée objet</strong> en C#, notamment l'encapsulation, l'héritage et le polymorphisme. J'ai également approfondi mes compétences en modélisation de bases de données (MCD/MLD) et en requêtes SQL complexes. L'application finale était fonctionnelle avec une architecture en couches (UI, Business Logic, Data Access).",
+    stats:[{ic:"fa-code-branch",n:"3",s:"Couches archi"},{ic:"fa-database",n:"12",s:"Tables SQL"},{ic:"fa-star",n:"16",s:"/20 — note"},{ic:"fa-clock",n:"8",s:"Semaines"}],
+    doc:"Rapport.pdf"
   },
   ligue1web: {
-    title: "Gestion Ligue 1", titleEm: "Version Web PHP",
-    cat: "Application Web", year: "2024", type: "Site Web Dynamique", dur: "6 semaines",
-    tags: ["PHP","HTML5","CSS3","MySQL","MVC"],
-    desc: "Refonte en version web de l'application de gestion de la Ligue 1. Consultation et gestion des données sportives directement depuis un navigateur, avec une interface responsive et moderne.",
-    ctx: "<p>Suite au succès de la version desktop, j'ai développé une version web de l'application. L'objectif était de rendre l'application accessible depuis n'importe quel appareil connecté, tout en conservant toutes les fonctionnalités de la version C#.</p><p>Ce projet m'a permis de découvrir le <strong>développement web full-stack</strong> avec PHP et MySQL selon une architecture MVC stricte.</p>",
-    images: ["ligue1web1.png","ligue1web2.png","web1.png","web2.png","web3.png"],
-    imageCaptions: ["Vue classement","Détail équipe"],
-    features: [
-      { icon:"fa-desktop", t:"Interface responsive", d:"Design adaptatif fonctionnant sur desktop, tablette et mobile grâce à Bootstrap." },
-      { icon:"fa-user-shield", t:"Authentification", d:"Gestion des utilisateurs avec différents niveaux de droits (admin, utilisateur)." },
-      { icon:"fa-sync-alt", t:"Temps réel", d:"Actualisation automatique des classements et statistiques après chaque match." },
-      { icon:"fa-print", t:"Export de données", d:"Génération de rapports PDF et export Excel des statistiques et classements." }
+    title:"Gestion Ligue 1",titleEm:"Version Web PHP",
+    cat:"Application Web",year:"2024",type:"Site Web Dynamique",dur:"6 semaines",
+    tags:["PHP","HTML5","CSS3","MySQL","MVC"],
+    desc:"Refonte en version web de l'application de gestion de la Ligue 1. Consultation et gestion des données sportives directement depuis un navigateur, avec une interface responsive et moderne.",
+    ctx:"<p>Suite au succès de la version desktop, j'ai développé une version web de l'application. L'objectif était de rendre l'application accessible depuis n'importe quel appareil connecté, tout en conservant toutes les fonctionnalités de la version C#.</p><p>Ce projet m'a permis de découvrir le <strong>développement web full-stack</strong> avec PHP et MySQL selon une architecture MVC stricte.</p>",
+    images:["ligue1web1.png","ligue1web2.png","web1.png","web2.png","web3.png"],
+    imageCaptions:["Vue classement","Détail équipe","Vue matchs","Statistiques","Administration"],
+    features:[
+      {icon:"fa-desktop",t:"Interface responsive",d:"Design adaptatif fonctionnant sur desktop, tablette et mobile grâce à Bootstrap."},
+      {icon:"fa-user-shield",t:"Authentification",d:"Gestion des utilisateurs avec différents niveaux de droits (admin, utilisateur)."},
+      {icon:"fa-sync-alt",t:"Temps réel",d:"Actualisation automatique des classements et statistiques après chaque match."},
+      {icon:"fa-print",t:"Export de données",d:"Génération de rapports PDF et export Excel des statistiques et classements."}
     ],
-    tech: [{i:"fab fa-php",n:"PHP 8"},{i:"fab fa-html5",n:"HTML5"},{i:"fab fa-css3-alt",n:"CSS3"},{i:"fas fa-database",n:"MySQL"},{i:"fab fa-bootstrap",n:"Bootstrap"}],
-    results: "La migration vers le web a été un succès. J'ai appris à structurer une application selon le pattern <strong>MVC</strong>, à sécuriser les données (hashage de mots de passe, protection SQL) et à optimiser les requêtes. Le site a été déployé sur un serveur de test et validé par mes formateurs.",
-    stats: [{ic:"fa-mobile-alt",n:"100%",s:"Responsive"},{ic:"fa-lock",n:"PDO",s:"Sécurisé"},{ic:"fa-layer-group",n:"MVC",s:"Architecture"},{ic:"fa-clock",n:"6",s:"Semaines"}],
-    doc: "ligue1web.pdf"
+    tech:[{i:"fab fa-php",n:"PHP 8"},{i:"fab fa-html5",n:"HTML5"},{i:"fab fa-css3-alt",n:"CSS3"},{i:"fas fa-database",n:"MySQL"},{i:"fab fa-bootstrap",n:"Bootstrap"}],
+    results:"La migration vers le web a été un succès. J'ai appris à structurer une application selon le pattern <strong>MVC</strong>, à sécuriser les données (hashage de mots de passe, protection SQL) et à optimiser les requêtes. Le site a été déployé sur un serveur de test et validé par mes formateurs.",
+    stats:[{ic:"fa-mobile-alt",n:"100%",s:"Responsive"},{ic:"fa-lock",n:"PDO",s:"Sécurisé"},{ic:"fa-layer-group",n:"MVC",s:"Architecture"},{ic:"fa-clock",n:"6",s:"Semaines"}],
+    doc:"ligue1web.pdf"
   },
   chronophone: {
-    title: "Site interne", titleEm: "Chronophone",
-    cat: "Stage Professionnel", year: "2024", type: "Application Métier", dur: "6 semaines",
-    tags: ["PHP","MySQL","Bootstrap","JavaScript","CRUD"],
-    desc: "Développement d'un site interne lors d'un stage de 6 semaines chez Chronophone, entreprise de réparation et vente de smartphones, ordinateurs et tablettes à Bourg-en-Bresse.",
-    ctx: "<p>Durant mon stage chez Chronophone, j'ai été chargé de développer une application web interne pour améliorer la gestion des réparations. L'entreprise utilisait auparavant des fichiers Excel dispersés, source de pertes de données et d'erreurs de suivi.</p><p>Mon objectif : créer une solution <strong>centralisée, intuitive et sécurisée</strong> pour les techniciens et le responsable.</p>",
-    images: ["chrono1.png","chrono2.png"],
-    imageCaptions: ["Dashboard réparations","Fiche client"],
-    features: [
-      { icon:"fa-tools", t:"Gestion des réparations", d:"Suivi complet des interventions : réception, diagnostic, réparation, test et livraison." },
-      { icon:"fa-users", t:"Fichier clients", d:"Base de données clients avec historique des interventions et coordonnées." },
-      { icon:"fa-bell", t:"Notifications", d:"Alertes automatiques lors des changements de statut des réparations." },
-      { icon:"fa-chart-pie", t:"Tableaux de bord", d:"Statistiques sur les réparations : délais moyens, types de pannes, chiffre d'affaires." }
+    title:"Site interne",titleEm:"Chronophone",
+    cat:"Stage Professionnel",year:"2024",type:"Application Métier",dur:"6 semaines",
+    tags:["PHP","MySQL","Bootstrap","JavaScript","CRUD"],
+    desc:"Développement d'un site interne lors d'un stage de 6 semaines chez Chronophone, entreprise de réparation et vente de smartphones, ordinateurs et tablettes à Bourg-en-Bresse.",
+    ctx:"<p>Durant mon stage chez Chronophone, j'ai été chargé de développer une application web interne pour améliorer la gestion des réparations. L'entreprise utilisait auparavant des fichiers Excel dispersés, source de pertes de données et d'erreurs de suivi.</p><p>Mon objectif : créer une solution <strong>centralisée, intuitive et sécurisée</strong> pour les techniciens et le responsable.</p>",
+    images:["chrono1.png","chrono2.png"],
+    imageCaptions:["Dashboard réparations","Fiche client"],
+    features:[
+      {icon:"fa-tools",t:"Gestion des réparations",d:"Suivi complet des interventions : réception, diagnostic, réparation, test et livraison."},
+      {icon:"fa-users",t:"Fichier clients",d:"Base de données clients avec historique des interventions et coordonnées."},
+      {icon:"fa-bell",t:"Notifications",d:"Alertes automatiques lors des changements de statut des réparations."},
+      {icon:"fa-chart-pie",t:"Tableaux de bord",d:"Statistiques sur les réparations : délais moyens, types de pannes, chiffre d'affaires."}
     ],
-    tech: [{i:"fab fa-php",n:"PHP"},{i:"fas fa-database",n:"MySQL"},{i:"fab fa-bootstrap",n:"Bootstrap 5"},{i:"fab fa-js",n:"JavaScript"}],
-    results: "L'application a été <strong>mise en production</strong> à la fin de mon stage et est encore utilisée aujourd'hui. Elle a permis de réduire de <strong>30 %</strong> le temps de traitement des réparations et d'éliminer les erreurs de suivi. Ce stage m'a apporté une expérience concrète du développement en entreprise.",
-    stats: [{ic:"fa-chart-line",n:"-30%",s:"Temps traitement"},{ic:"fa-check-circle",n:"100%",s:"En production"},{ic:"fa-users",n:"3",s:"Utilisateurs"},{ic:"fa-clock",n:"6",s:"Semaines"}],
-    doc: "chronophone.pdf"
+    tech:[{i:"fab fa-php",n:"PHP"},{i:"fas fa-database",n:"MySQL"},{i:"fab fa-bootstrap",n:"Bootstrap 5"},{i:"fab fa-js",n:"JavaScript"}],
+    results:"L'application a été <strong>mise en production</strong> à la fin de mon stage et est encore utilisée aujourd'hui. Elle a permis de réduire de <strong>30 %</strong> le temps de traitement des réparations et d'éliminer les erreurs de suivi.",
+    stats:[{ic:"fa-chart-line",n:"-30%",s:"Temps traitement"},{ic:"fa-check-circle",n:"100%",s:"En production"},{ic:"fa-users",n:"3",s:"Utilisateurs"},{ic:"fa-clock",n:"6",s:"Semaines"}],
+    doc:"chronophone.pdf"
   },
   ada: {
-    title: "ADA Location", titleEm: "Application C#",
-    cat: "Projet Pédagogique", year: "2024", type: "Application Desktop", dur: "10 semaines",
-    tags: ["C#","Entity Framework","SQL Server","WPF","LINQ"],
-    desc: "Projet réalisé en deuxième année de BTS SIO SLAM pour l'agence de location ADA. Application C# utilisant Entity Framework pour la gestion des véhicules, clients, contrats et réservations.",
-    ctx: "<p>Dans le cadre de ma deuxième année, j'ai développé une application de gestion pour une agence de location fictive (ADA). Ce projet visait à approfondir mes compétences en C# et à découvrir l'ORM <strong>Entity Framework</strong>.</p><p>L'application couvre l'ensemble du cycle de location : de la réservation à la facturation, en passant par la gestion du parc automobile.</p>",
-    images: ["ada1.png","ada2.png"],
-    imageCaptions: ["Gestion véhicules","Contrats de location"],
-    features: [
-      { icon:"fa-car", t:"Parc automobile", d:"Inventaire complet des véhicules avec caractéristiques, disponibilité et maintenance." },
-      { icon:"fa-file-contract", t:"Contrats de location", d:"Création, modification et suivi des contrats avec calcul automatique des tarifs." },
-      { icon:"fa-calendar-check", t:"Réservations", d:"Planning interactif pour gérer les réservations et éviter les conflits de dates." },
-      { icon:"fa-euro-sign", t:"Facturation", d:"Génération automatique de factures et suivi des paiements." }
+    title:"ADA Location",titleEm:"Application C#",
+    cat:"Projet Pédagogique",year:"2024",type:"Application Desktop",dur:"10 semaines",
+    tags:["C#","Entity Framework","SQL Server","WPF","LINQ"],
+    desc:"Projet réalisé en deuxième année de BTS SIO SLAM pour l'agence de location ADA. Application C# utilisant Entity Framework pour la gestion des véhicules, clients, contrats et réservations.",
+    ctx:"<p>Dans le cadre de ma deuxième année, j'ai développé une application de gestion pour une agence de location fictive (ADA). Ce projet visait à approfondir mes compétences en C# et à découvrir l'ORM <strong>Entity Framework</strong>.</p><p>L'application couvre l'ensemble du cycle de location : de la réservation à la facturation, en passant par la gestion du parc automobile.</p>",
+    images:["ada1.png","ada2.png"],
+    imageCaptions:["Gestion véhicules","Contrats de location"],
+    features:[
+      {icon:"fa-car",t:"Parc automobile",d:"Inventaire complet des véhicules avec caractéristiques, disponibilité et maintenance."},
+      {icon:"fa-file-contract",t:"Contrats de location",d:"Création, modification et suivi des contrats avec calcul automatique des tarifs."},
+      {icon:"fa-calendar-check",t:"Réservations",d:"Planning interactif pour gérer les réservations et éviter les conflits de dates."},
+      {icon:"fa-euro-sign",t:"Facturation",d:"Génération automatique de factures et suivi des paiements."}
     ],
-    tech: [{i:"fab fa-microsoft",n:"C# .NET"},{i:"fas fa-layer-group",n:"Entity Framework"},{i:"fas fa-database",n:"SQL Server"},{i:"fas fa-desktop",n:"WPF"}],
-    results: "Ce projet m'a permis de maîtriser Entity Framework (<strong>Code First et Database First</strong>), ainsi que LINQ pour les requêtes de données. J'ai également appris à concevoir une interface WPF avec le pattern MVVM. Le projet a été <strong>validé avec 18/20</strong>.",
-    stats: [{ic:"fa-star",n:"18",s:"/20 — note"},{ic:"fa-car",n:"50+",s:"Véhicules gérés"},{ic:"fa-plug",n:"EF",s:"Code First"},{ic:"fa-clock",n:"10",s:"Semaines"}],
-    doc: "Rapport-4.pdf"
+    tech:[{i:"fab fa-microsoft",n:"C# .NET"},{i:"fas fa-layer-group",n:"Entity Framework"},{i:"fas fa-database",n:"SQL Server"},{i:"fas fa-desktop",n:"WPF"}],
+    results:"Ce projet m'a permis de maîtriser Entity Framework (<strong>Code First et Database First</strong>), ainsi que LINQ pour les requêtes de données. J'ai également appris à concevoir une interface WPF avec le pattern MVVM. Le projet a été <strong>validé avec 18/20</strong>.",
+    stats:[{ic:"fa-star",n:"18",s:"/20 — note"},{ic:"fa-car",n:"50+",s:"Véhicules gérés"},{ic:"fa-plug",n:"EF",s:"Code First"},{ic:"fa-clock",n:"10",s:"Semaines"}],
+    doc:"Rapport-4.pdf"
   },
   adaweb: {
-    title: "ADA Location", titleEm: "Version Web Laravel",
-    cat: "Projet Pédagogique", year: "2024", type: "Application Web", dur: "8 semaines",
-    tags: ["PHP","Eloquent ORM","MySQL","Laravel","MVC"],
-    desc: "Version web du projet ADA Location. Application utilisant PHP et l'ORM Eloquent pour la gestion des données liées aux locations de véhicules, avec une architecture MVC moderne.",
-    ctx: "<p>Après la version desktop ADA, j'ai développé une version web pour rendre le système accessible en ligne. J'ai profité de ce projet pour découvrir <strong>Laravel et son ORM Eloquent</strong>, standards de l'industrie pour le développement PHP moderne.</p><p>L'application inclut un système d'authentification, des rôles utilisateur et une génération automatique de PDF.</p>",
-    images: ["adaweb1.png","adaweb2.png"],
-    imageCaptions: ["Dashboard location","Formulaire réservation"],
-    features: [
-      { icon:"fa-globe", t:"Multi-utilisateurs", d:"Gestion simultanée des réservations par plusieurs employés de l'agence." },
-      { icon:"fa-mobile-alt", t:"Interface mobile", d:"Application responsive accessible depuis smartphone et tablette." },
-      { icon:"fa-shield-alt", t:"Sécurité renforcée", d:"Authentification sécurisée, gestion des sessions et protection CSRF." },
-      { icon:"fa-file-pdf", t:"Documents PDF", d:"Génération automatique de contrats et factures au format PDF." }
+    title:"ADA Location",titleEm:"Version Web Laravel",
+    cat:"Projet Pédagogique",year:"2024",type:"Application Web",dur:"8 semaines",
+    tags:["PHP","Eloquent ORM","MySQL","Laravel","MVC"],
+    desc:"Version web du projet ADA Location. Application utilisant PHP et l'ORM Eloquent pour la gestion des données liées aux locations de véhicules, avec une architecture MVC moderne.",
+    ctx:"<p>Après la version desktop ADA, j'ai développé une version web pour rendre le système accessible en ligne. J'ai profité de ce projet pour découvrir <strong>Laravel et son ORM Eloquent</strong>, standards de l'industrie pour le développement PHP moderne.</p><p>L'application inclut un système d'authentification, des rôles utilisateur et une génération automatique de PDF.</p>",
+    images:["adaweb1.png","adaweb2.png"],
+    imageCaptions:["Dashboard location","Formulaire réservation"],
+    features:[
+      {icon:"fa-globe",t:"Multi-utilisateurs",d:"Gestion simultanée des réservations par plusieurs employés de l'agence."},
+      {icon:"fa-mobile-alt",t:"Interface mobile",d:"Application responsive accessible depuis smartphone et tablette."},
+      {icon:"fa-shield-alt",t:"Sécurité renforcée",d:"Authentification sécurisée, gestion des sessions et protection CSRF."},
+      {icon:"fa-file-pdf",t:"Documents PDF",d:"Génération automatique de contrats et factures au format PDF."}
     ],
-    tech: [{i:"fab fa-php",n:"PHP 8"},{i:"fab fa-laravel",n:"Laravel"},{i:"fas fa-gem",n:"Eloquent ORM"},{i:"fas fa-database",n:"MySQL"}],
-    results: "La migration vers <strong>Laravel</strong> a considérablement accéléré le développement grâce aux fonctionnalités intégrées (routing, authentification, migrations). J'ai appris à utiliser Eloquent pour gérer les relations entre tables et à créer des seeders. Le projet a été déployé sur un serveur Heroku.",
-    stats: [{ic:"fa-laravel",n:"Laravel",s:"Framework"},{ic:"fa-gem",n:"ORM",s:"Eloquent"},{ic:"fa-lock",n:"CSRF",s:"Protégé"},{ic:"fa-clock",n:"8",s:"Semaines"}],
-    doc: "adaweb.pdf"
+    tech:[{i:"fab fa-php",n:"PHP 8"},{i:"fab fa-laravel",n:"Laravel"},{i:"fas fa-gem",n:"Eloquent ORM"},{i:"fas fa-database",n:"MySQL"}],
+    results:"La migration vers <strong>Laravel</strong> a considérablement accéléré le développement grâce aux fonctionnalités intégrées (routing, authentification, migrations). Le projet a été déployé sur un serveur Heroku.",
+    stats:[{ic:"fa-laravel",n:"Laravel",s:"Framework"},{ic:"fa-gem",n:"ORM",s:"Eloquent"},{ic:"fa-lock",n:"CSRF",s:"Protégé"},{ic:"fa-clock",n:"8",s:"Semaines"}],
+    doc:"adaweb.pdf"
   },
   protherm: {
-    title: "Protherm71", titleEm: "Gestion articles VBA",
-    cat: "Stage Professionnel", year: "2025", type: "Automatisation Excel", dur: "5 semaines",
-    tags: ["Excel","VBA","Automatisation","IA","Data Management"],
-    desc: "Stage de 5 semaines chez Protherm71 à Mâcon. Développement d'outils VBA sur Excel pour la gestion et l'automatisation d'une base d'articles avec intelligence artificielle.",
-    ctx: "<p>Lors de mon stage chez Protherm71, j'ai été confronté à une problématique concrète : l'entreprise gérait plus de <strong>2000 articles</strong> dans des fichiers Excel mal structurés. Mon objectif : développer des macros VBA pour automatiser les tâches répétitives.</p><p>J'ai également exploré l'utilisation de l'<strong>IA via des APIs</strong> pour enrichir automatiquement les descriptions produits à partir des références.</p>",
-    images: ["interface.png","vba.png"],
-    imageCaptions: ["Interface Excel","Code VBA macro"],
-    features: [
-      { icon:"fa-robot", t:"Enrichissement IA", d:"APIs d'IA pour générer automatiquement des descriptions produits à partir de références." },
-      { icon:"fa-magic", t:"Automatisation VBA", d:"Macros pour nettoyer, formater et valider automatiquement les données des articles." },
-      { icon:"fa-search", t:"Recherche avancée", d:"Système de filtrage et recherche multi-critères pour retrouver rapidement un article." },
-      { icon:"fa-table", t:"Export automatisé", d:"Génération de catalogues PDF et de listes de prix formatées pour les clients." }
+    title:"Protherm71",titleEm:"Gestion articles VBA",
+    cat:"Stage Professionnel",year:"2025",type:"Automatisation Excel",dur:"5 semaines",
+    tags:["Excel","VBA","Automatisation","IA","Data Management"],
+    desc:"Stage de 5 semaines chez Protherm71 à Mâcon. Développement d'outils VBA sur Excel pour la gestion et l'automatisation d'une base d'articles avec intelligence artificielle.",
+    ctx:"<p>Lors de mon stage chez Protherm71, j'ai été confronté à une problématique concrète : l'entreprise gérait plus de <strong>2000 articles</strong> dans des fichiers Excel mal structurés. Mon objectif : développer des macros VBA pour automatiser les tâches répétitives.</p><p>J'ai également exploré l'utilisation de l'<strong>IA via des APIs</strong> pour enrichir automatiquement les descriptions produits à partir des références.</p>",
+    images:["interface.png","vba.png"],
+    imageCaptions:["Interface Excel","Code VBA macro"],
+    features:[
+      {icon:"fa-robot",t:"Enrichissement IA",d:"APIs d'IA pour générer automatiquement des descriptions produits à partir de références."},
+      {icon:"fa-magic",t:"Automatisation VBA",d:"Macros pour nettoyer, formater et valider automatiquement les données des articles."},
+      {icon:"fa-search",t:"Recherche avancée",d:"Système de filtrage et recherche multi-critères pour retrouver rapidement un article."},
+      {icon:"fa-table",t:"Export automatisé",d:"Génération de catalogues PDF et de listes de prix formatées pour les clients."}
     ],
-    tech: [{i:"fab fa-microsoft",n:"Excel VBA"},{i:"fas fa-brain",n:"API OpenAI"},{i:"fas fa-file-excel",n:"Macros"},{i:"fas fa-cogs",n:"Automatisation"}],
-    results: "Les outils développés ont permis de réduire de <strong>70 %</strong> le temps de mise à jour du catalogue. L'intégration de l'IA a été particulièrement appréciée : en quelques secondes, le système génère des descriptions professionnelles pour les nouveaux produits.",
-    stats: [{ic:"fa-chart-line",n:"-70%",s:"Temps mise à jour"},{ic:"fa-boxes",n:"2000+",s:"Articles gérés"},{ic:"fa-brain",n:"IA",s:"Intégrée"},{ic:"fa-clock",n:"5",s:"Semaines"}],
-    doc: "Rapport.pdf"
+    tech:[{i:"fab fa-microsoft",n:"Excel VBA"},{i:"fas fa-brain",n:"API OpenAI"},{i:"fas fa-file-excel",n:"Macros"},{i:"fas fa-cogs",n:"Automatisation"}],
+    results:"Les outils développés ont permis de réduire de <strong>70 %</strong> le temps de mise à jour du catalogue. L'intégration de l'IA a été particulièrement appréciée : en quelques secondes, le système génère des descriptions professionnelles pour les nouveaux produits.",
+    stats:[{ic:"fa-chart-line",n:"-70%",s:"Temps mise à jour"},{ic:"fa-boxes",n:"2000+",s:"Articles gérés"},{ic:"fa-brain",n:"IA",s:"Intégrée"},{ic:"fa-clock",n:"5",s:"Semaines"}],
+    doc:"Rapport.pdf"
   }
 };
 
-/* ══════════════════════════════════════════
-   AMBIENT CANVAS
-══════════════════════════════════════════ */
+/* AMBIENT CANVAS */
 (function(){
   const c=document.getElementById('ambient-canvas'),ctx=c.getContext('2d');
   let W,H,pts=[];
   function resize(){W=c.width=innerWidth;H=c.height=innerHeight}
   resize();addEventListener('resize',resize);
-  class P{
-    constructor(){this.reset()}
-    reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.4+.4;this.s=Math.random()*.25+.08;this.a=Math.random()*Math.PI*2;this.sp=(.5-Math.random())*.008;this.o=Math.random()*.3+.07;this.col=Math.random()>.5?'41,151,255':'48,209,88'}
-    update(){this.a+=this.sp;this.x+=Math.cos(this.a)*this.s;this.y+=Math.sin(this.a)*this.s;if(this.x<-5||this.x>W+5||this.y<-5||this.y>H+5)this.reset()}
-    draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(${this.col},${this.o})`;ctx.fill()}
-  }
+  class P{constructor(){this.reset()}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.4+.4;this.s=Math.random()*.25+.08;this.a=Math.random()*Math.PI*2;this.sp=(.5-Math.random())*.008;this.o=Math.random()*.3+.07;this.col=Math.random()>.5?'41,151,255':'48,209,88'}update(){this.a+=this.sp;this.x+=Math.cos(this.a)*this.s;this.y+=Math.sin(this.a)*this.s;if(this.x<-5||this.x>W+5||this.y<-5||this.y>H+5)this.reset()}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(${this.col},${this.o})`;ctx.fill()}}
   for(let i=0;i<55;i++)pts.push(new P());
   (function loop(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.update();p.draw()});requestAnimationFrame(loop)})();
 })();
 
-/* ══ HERO CANVAS ══ */
+/* HERO CANVAS */
 (function(){
-  const canvas=document.getElementById('hero-canvas');
-  const ctx=canvas.getContext('2d');
-  let W,H,nodes=[],t=0;
-  function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;initNodes()}
-  function initNodes(){nodes=[];const count=Math.floor((W*H)/18000);for(let i=0;i<count;i++)nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.5+.5,pulse:Math.random()*Math.PI*2,pulseSpeed:Math.random()*.02+.007})}
+  const canvas=document.getElementById('hero-canvas'),ctx=canvas.getContext('2d');
+  let W,H,nodes=[];
+  function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;nodes=[];const count=Math.floor((W*H)/18000);for(let i=0;i<count;i++)nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.5+.5,pulse:Math.random()*Math.PI*2,pulseSpeed:Math.random()*.02+.007})}
   resize();addEventListener('resize',resize);
-  function loop(){
-    ctx.clearRect(0,0,W,H);t+=.01;
-    const g=ctx.createRadialGradient(W*.5,0,0,W*.5,0,W*.7);
-    g.addColorStop(0,'rgba(41,151,255,0.05)');g.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  (function loop(){
+    ctx.clearRect(0,0,W,H);
+    const g=ctx.createRadialGradient(W*.5,0,0,W*.5,0,W*.7);g.addColorStop(0,'rgba(41,151,255,0.05)');g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
     nodes.forEach(n=>{n.x+=n.vx;n.y+=n.vy;n.pulse+=n.pulseSpeed;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1});
     for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<120){ctx.beginPath();ctx.strokeStyle=`rgba(41,151,255,${(1-d/120)*0.12})`;ctx.lineWidth=.7;ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.stroke()}}
     nodes.forEach(n=>{const glow=(Math.sin(n.pulse)+1)*.5;ctx.beginPath();ctx.arc(n.x,n.y,n.r*(0.8+glow*.4),0,Math.PI*2);ctx.fillStyle=`rgba(41,151,255,${0.25+glow*.35})`;ctx.fill()});
     requestAnimationFrame(loop);
-  }
-  loop();
+  })();
 })();
 
-/* ══ CURSOR ══ */
+/* CURSOR */
 const dot=document.getElementById('cursor-dot'),ring=document.getElementById('cursor-ring');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
 (function rLoop(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(rLoop)})();
-function addCursorGrow(selector){document.querySelectorAll(selector).forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-grow'));el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-grow'))})}
+function addCursorGrow(s){document.querySelectorAll(s).forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-grow'));el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-grow'))})}
 
-/* ══ SCROLL ══ */
-window.addEventListener('scroll',()=>{
-  document.getElementById('scrollBar').style.width=Math.min((scrollY/(document.body.scrollHeight-innerHeight))*100,100)+'%';
+/* SCROLL */
+window.addEventListener('scroll',()=>{document.getElementById('scrollBar').style.width=Math.min((scrollY/(document.body.scrollHeight-innerHeight))*100,100)+'%'});
+
+/* INIT (sans loader) */
+window.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('navbar').classList.add('in');
+  setTimeout(()=>{document.getElementById('ai-robot').classList.add('show');setTimeout(()=>{document.getElementById('rcbBubble').style.display='block'},800)},400);
 });
 
-/* ══ LOADER ══ */
-window.addEventListener('load',()=>{
-  setTimeout(()=>{
-    document.getElementById('loader').classList.add('out');
-    setTimeout(()=>{
-      document.getElementById('navbar').classList.add('in');
-      setTimeout(()=>{document.getElementById('ai-robot').classList.add('show');setTimeout(showBot,1200)},600);
-    },300);
-  },1600);
-});
-
-/* ══ REVEAL ══ */
+/* REVEAL */
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v')}),{threshold:.07});
 document.querySelectorAll('.r').forEach(el=>ro.observe(el));
 
-/* ══ BOT ══ */
-function showBot(){
-  const b=document.getElementById('rcbBubble');
-  b.style.display='block';
-}
-function toggleBot(){
-  const b=document.getElementById('rcbBubble');
-  b.style.display=b.style.display==='none'?'block':'none';
-}
-function dismissBot(){
-  document.getElementById('rcbBubble').style.display='none';
-}
+/* BOT */
+function toggleBot(){const b=document.getElementById('rcbBubble');b.style.display=b.style.display==='none'?'block':'none'}
+function dismissBot(){document.getElementById('rcbBubble').style.display='none'}
 
-/* ══════════════════════════════════════════
-   GALLERY STATE
-══════════════════════════════════════════ */
-let galleryImages = []; // {src, caption, isBlob}
-let lbIdx = 0;
-let currentCols = 2;
-
-/* ══ SET COLUMNS ══ */
+/* GALLERY */
+let galleryImages=[],lbIdx=0;
 function setCol(n){
-  currentCols=n;
-  const grid=document.getElementById('pGal');
-  grid.className=`gallery-grid cols-${n} r v`;
+  document.getElementById('pGal').className=`gallery-grid cols-${n} r v`;
   document.querySelectorAll('#colBtns .gvb').forEach((b,i)=>b.classList.toggle('active',i===n-1));
 }
-
-/* ══ RENDER GALLERY ══ */
 function renderGallery(){
   const grid=document.getElementById('pGal');
   document.getElementById('imgCount').textContent=galleryImages.length;
-  if(!galleryImages.length){
-    grid.innerHTML=`<div class="gal-empty"><i class="fas fa-images"></i><span>Aucune capture — ajoutez-en via la zone ci-dessous</span></div>`;
-    return;
-  }
+  if(!galleryImages.length){grid.innerHTML=`<div style="color:var(--muted);font-size:.8rem;padding:40px 0;">Aucune image disponible.</div>`;return}
   grid.innerHTML=galleryImages.map((img,i)=>`
     <div class="gal-item${i===0&&galleryImages.length>1?' featured':''}" onclick="openLB(${i})">
       <div class="gal-idx">${String(i+1).padStart(2,'0')}</div>
       <img src="${img.src}" alt="${img.caption}" loading="lazy">
       <div class="gal-overlay">
-        <div class="gal-overlay-top">
-          <div class="gal-zoom-btn"><i class="fas fa-expand-alt"></i></div>
-        </div>
+        <div class="gal-overlay-top"><div class="gal-zoom-btn"><i class="fas fa-expand-alt"></i></div></div>
         <div class="gal-caption">${img.caption}</div>
         <div class="gal-sub">Capture ${i+1} / ${galleryImages.length}</div>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
   addCursorGrow('.gal-item');
 }
 
-/* ══ HANDLE UPLOAD ══ */
-function handleUpload(input){
-  const files=Array.from(input.files);
-  files.forEach(file=>{
-    const reader=new FileReader();
-    reader.onload=e=>{
-      const caption=file.name.replace(/\.[^.]+$/,'').replace(/[-_]/g,' ');
-      galleryImages.push({src:e.target.result,caption,isBlob:true});
-      renderGallery();
-      rebuildLBStrip();
-    };
-    reader.readAsDataURL(file);
-  });
-  input.value='';
-}
-
-/* ══ DRAG & DROP ══ */
-const dropZone=document.getElementById('dropZone');
-dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('drag')});
-dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('drag'));
-dropZone.addEventListener('drop',e=>{
-  e.preventDefault();dropZone.classList.remove('drag');
-  const files=Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith('image/'));
-  files.forEach(file=>{
-    const reader=new FileReader();
-    reader.onload=ev=>{
-      galleryImages.push({src:ev.target.result,caption:file.name.replace(/\.[^.]+$/,'').replace(/[-_]/g,' '),isBlob:true});
-      renderGallery();rebuildLBStrip();
-    };
-    reader.readAsDataURL(file);
-  });
-});
-
-/* ══════════════════════════════════════════
-   LIGHTBOX
-══════════════════════════════════════════ */
-function openLB(i){
-  lbIdx=i;
-  const lb=document.getElementById('lightbox');
-  lb.style.display='flex';
-  requestAnimationFrame(()=>requestAnimationFrame(()=>lb.classList.add('vis')));
-  document.body.style.overflow='hidden';
-  renderLB();
-  rebuildLBStrip();
-}
+/* LIGHTBOX */
+function openLB(i){lbIdx=i;const lb=document.getElementById('lightbox');lb.style.display='flex';requestAnimationFrame(()=>requestAnimationFrame(()=>lb.classList.add('vis')));document.body.style.overflow='hidden';renderLB();rebuildLBStrip()}
 function renderLB(){
   if(!galleryImages.length)return;
-  const img=galleryImages[lbIdx];
-  const lbImg=document.getElementById('lbImg');
+  const img=galleryImages[lbIdx],lbImg=document.getElementById('lbImg');
   lbImg.classList.add('out');
-  setTimeout(()=>{
-    lbImg.src=img.src;
-    lbImg.classList.remove('out');
-    lbImg.classList.add('in');
-    lbImg.addEventListener('animationend',()=>lbImg.classList.remove('in'),{once:true});
-  },180);
+  setTimeout(()=>{lbImg.src=img.src;lbImg.classList.remove('out');lbImg.classList.add('in');lbImg.addEventListener('animationend',()=>lbImg.classList.remove('in'),{once:true})},180);
   document.getElementById('lbCaption').textContent=img.caption;
   document.getElementById('lbCount').textContent=`${lbIdx+1} / ${galleryImages.length}`;
   document.getElementById('lbDl').href=img.src;
   document.getElementById('lbDl').download=img.caption||'image';
-  document.getElementById('lbPrev').disabled=lbIdx===0;
-  document.getElementById('lbNext').disabled=lbIdx===galleryImages.length-1;
-  document.getElementById('lbPrevBtn').disabled=lbIdx===0;
-  document.getElementById('lbNextBtn').disabled=lbIdx===galleryImages.length-1;
+  ['lbPrev','lbPrevBtn'].forEach(id=>document.getElementById(id).disabled=lbIdx===0);
+  ['lbNext','lbNextBtn'].forEach(id=>document.getElementById(id).disabled=lbIdx===galleryImages.length-1);
   document.querySelectorAll('.lb-thumb').forEach((t,i)=>t.classList.toggle('active',i===lbIdx));
 }
-function rebuildLBStrip(){
-  document.getElementById('lbStrip').innerHTML=galleryImages.map((img,i)=>`
-    <div class="lb-thumb${i===lbIdx?' active':''}" onclick="lbGo(${i})">
-      <img src="${img.src}" alt="">
-    </div>
-  `).join('');
-}
-function lbNav(d){
-  lbIdx=Math.max(0,Math.min(galleryImages.length-1,lbIdx+d));
-  renderLB();
-  document.querySelectorAll('.lb-thumb').forEach((t,i)=>t.classList.toggle('active',i===lbIdx));
-}
+function rebuildLBStrip(){document.getElementById('lbStrip').innerHTML=galleryImages.map((img,i)=>`<div class="lb-thumb${i===lbIdx?' active':''}" onclick="lbGo(${i})"><img src="${img.src}" alt=""></div>`).join('')}
+function lbNav(d){lbIdx=Math.max(0,Math.min(galleryImages.length-1,lbIdx+d));renderLB();document.querySelectorAll('.lb-thumb').forEach((t,i)=>t.classList.toggle('active',i===lbIdx))}
 function lbGo(i){lbIdx=i;renderLB();document.querySelectorAll('.lb-thumb').forEach((t,j)=>t.classList.toggle('active',j===i))}
-function closeLB(){
-  const lb=document.getElementById('lightbox');
-  lb.classList.remove('vis');
-  setTimeout(()=>{lb.style.display='none';document.body.style.overflow=''},400);
-}
+function closeLB(){const lb=document.getElementById('lightbox');lb.classList.remove('vis');setTimeout(()=>{lb.style.display='none';document.body.style.overflow=''},400)}
 document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this)closeLB()});
-document.addEventListener('keydown',e=>{
-  if(document.getElementById('lightbox').classList.contains('vis')){
-    if(e.key==='Escape')closeLB();
-    if(e.key==='ArrowLeft')lbNav(-1);
-    if(e.key==='ArrowRight')lbNav(1);
-  }
-});
+document.addEventListener('keydown',e=>{if(document.getElementById('lightbox').classList.contains('vis')){if(e.key==='Escape')closeLB();if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='ArrowRight')lbNav(1)}});
 
-/* ══════════════════════════════════════════
-   LOAD PROJECT
-══════════════════════════════════════════ */
+/* LOAD PROJECT */
 const id=new URLSearchParams(window.location.search).get('project');
 const p=PD[id];
 if(!p){window.location.href='index.html'}
@@ -844,49 +667,16 @@ else{
   document.getElementById('pCtx').innerHTML=p.ctx;
   document.getElementById('pRes').innerHTML=p.results;
   document.getElementById('dlBtn').href=p.doc;
-
-  /* META STRIP */
   document.getElementById('pMeta').innerHTML=`
     <div class="pms-item"><div class="pms-label">Année</div><div class="pms-val">${p.year}</div></div>
     <div class="pms-item"><div class="pms-label">Type</div><div class="pms-val">${p.type}</div></div>
-    <div class="pms-item"><div class="pms-label">Durée</div><div class="pms-val">${p.dur}</div></div>
-  `;
-
-  /* TAGS */
+    <div class="pms-item"><div class="pms-label">Durée</div><div class="pms-val">${p.dur}</div></div>`;
   document.getElementById('pTags').innerHTML=p.tags.map(t=>`<span class="ptag">${t}</span>`).join('');
-
-  /* GALLERY — init depuis les images du projet */
-  galleryImages=p.images.filter(Boolean).map((src,i)=>({src,caption:p.imageCaptions?.[i]||`Capture ${i+1}`,isBlob:false}));
+  galleryImages=p.images.filter(Boolean).map((src,i)=>({src,caption:p.imageCaptions?.[i]||`Capture ${i+1}`}));
   renderGallery();
-
-  /* FEATURES */
-  document.getElementById('pFeat').innerHTML=p.features.map(f=>`
-    <div class="feat-card">
-      <div class="feat-ic"><i class="fas ${f.icon}"></i></div>
-      <div class="feat-title">${f.t}</div>
-      <div class="feat-desc">${f.d}</div>
-    </div>
-  `).join('');
-
-  /* TECH */
-  document.getElementById('pTech').innerHTML=p.tech.map(t=>`
-    <div class="tech-pill"><i class="${t.i}"></i><span>${t.n}</span></div>
-  `).join('');
-
-  /* STATS */
-  if(p.stats){
-    document.getElementById('pStats').innerHTML=p.stats.map(s=>`
-      <div class="stat-card">
-        <div class="stat-ic"><i class="fas ${s.ic}"></i></div>
-        <div>
-          <div class="stat-n">${s.n}</div>
-          <div class="stat-l">${s.s}</div>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  /* CURSOR GROW */
+  document.getElementById('pFeat').innerHTML=p.features.map(f=>`<div class="feat-card"><div class="feat-ic"><i class="fas ${f.icon}"></i></div><div class="feat-title">${f.t}</div><div class="feat-desc">${f.d}</div></div>`).join('');
+  document.getElementById('pTech').innerHTML=p.tech.map(t=>`<div class="tech-pill"><i class="${t.i}"></i><span>${t.n}</span></div>`).join('');
+  if(p.stats)document.getElementById('pStats').innerHTML=p.stats.map(s=>`<div class="stat-card"><div class="stat-ic"><i class="fas ${s.ic}"></i></div><div><div class="stat-n">${s.n}</div><div class="stat-l">${s.s}</div></div></div>`).join('');
   addCursorGrow('a,button,.feat-card,.tech-pill,.stat-card,.ptag,.gvb,.lb-btn,.lb-nav,.companion-wrap');
 }
 </script>
