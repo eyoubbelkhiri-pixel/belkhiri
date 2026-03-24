@@ -644,6 +644,119 @@ footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items
 @media(max-width:1100px){#hero{grid-template-columns:1fr;text-align:center;padding:120px 28px 80px;justify-items:center}.h-role{margin-left:auto;margin-right:auto}.h-btns{justify-content:center}.hero-bot-scene{width:280px;height:360px}#hero-bot-svg{width:230px;height:300px}.hbot-ring{width:200px!important;height:200px!important}.hbot-ring2{width:260px!important;height:260px!important}.hero-bot-bubble{right:-10px;max-width:155px;font-size:.6rem}.h-scroll{left:50%;transform:translateX(-50%)}.cert-grid{grid-template-columns:1fr}.cert-pix,.cert-cnil{grid-column:1}.cert-stats-row{grid-template-columns:1fr 1fr}}
 @media(max-width:900px){.nav-links,.nav-cta{display:none}.burger{display:block}.bento{grid-template-columns:1fr}.bc-bio{flex-direction:column;gap:24px}.bio-stats{width:100%}.bc-stack,.bc-avail,.bc-contact{grid-column:1;grid-row:auto}.cv-grid{grid-template-columns:1fr}.cv-main{border-radius:20px 20px 0 0}.cv-aside{border-radius:0 0 20px 20px;border-left:1px solid var(--line);border-top:none;display:grid;grid-template-columns:1fr 1fr}.proj-featured{grid-template-columns:1fr}.pf-visual{min-height:200px}.pl{grid-template-columns:48px 1fr}.pl-right{display:none}.contact-split{grid-template-columns:1fr}.contact-l,.contact-r{padding:60px 32px}.cert-grid{grid-template-columns:1fr}.cert-pix,.cert-cnil{grid-column:1}.cert-pix-header,.cert-cnil-header{padding:24px 24px 16px}.cert-pix-body,.cert-cnil-body{padding:0 24px 18px}.cert-pix-footer,.cert-cnil-footer{padding:14px 24px}.cert-stats-row{grid-template-columns:1fr}.ov-panel{grid-template-columns:1fr;grid-template-rows:55vh 1fr;height:100dvh}.ov-left{grid-row:1}.ov-right{grid-row:2;border-left:none;border-top:1px solid rgba(255,255,255,.06)}.ov-right-header{padding:18px 20px 14px}#ovTitle{font-size:1.35rem}.ov-body{padding:20px}.ov-footer{padding:14px 20px}.frow{grid-template-columns:1fr}footer{flex-direction:column;gap:8px;text-align:center}#ai-robot{bottom:16px;right:16px}#cursor-dot,#cursor-ring{display:none}.org-grid{grid-template-columns:1fr}.org-desc{grid-column:1}.ab-grid{grid-template-columns:1fr}.synthese-grid{grid-template-columns:1fr}.reco-grid{grid-template-columns:1fr}.veille-stats{grid-template-columns:1fr 1fr}.article-header{grid-template-columns:40px 1fr auto;gap:12px}.article-body{padding:0 18px 20px;padding-top:16px}}
 @media(max-width:600px){.plan-tab{min-width:130px}.article-preview{display:none}.veille-stats{grid-template-columns:1fr 1fr}}
+
+/* ══ VEILLE DÉMARCHE CSS ══ */
+.veille-demarche,.veille-theme{background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:40px 44px;margin-bottom:3px;position:relative;overflow:hidden;}
+.veille-demarche::before,.veille-theme::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(41,151,255,.5),transparent);}
+.veille-theme::before{background:linear-gradient(90deg,transparent,rgba(48,209,88,.5),transparent);}
+.demarche-header{display:flex;align-items:flex-start;gap:24px;margin-bottom:36px;}
+.demarche-badge{width:52px;height:52px;border-radius:14px;background:rgba(41,151,255,.1);border:1px solid rgba(41,151,255,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.demarche-badge span{font-size:1.3rem;font-weight:700;color:var(--blue);}
+.demarche-title{font-size:1.4rem;font-weight:600;letter-spacing:-.04em;color:var(--pure);line-height:1.2;}
+.demarche-sub{font-size:.8rem;font-weight:300;color:var(--mid);margin-top:6px;}
+.demarche-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--line);border-radius:16px;padding:24px 28px;margin-bottom:3px;}
+.flow-step{text-align:center;padding:8px;}
+.flow-step.active .flow-ic{background:var(--blue);color:#fff;border-color:var(--blue);}
+.flow-ic{width:44px;height:44px;border-radius:12px;background:var(--blue-l);display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--blue);margin:0 auto 10px;border:1px solid rgba(41,151,255,.2);transition:all .3s var(--spring);}
+.flow-label{font-size:.75rem;font-weight:600;color:var(--light);letter-spacing:-.01em;margin-bottom:4px;}
+.flow-desc{font-size:.65rem;font-weight:300;color:var(--muted);line-height:1.5;}
+.flow-arrow{color:var(--muted);font-size:.6rem;}
+.demarche-outils-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:3px;}
+.outil-card{background:var(--bg3);border:1px solid var(--line);border-radius:16px;padding:24px 26px;transition:all .4s var(--expo);}
+.outil-card:hover{border-color:rgba(41,151,255,.18);background:var(--bg4);transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.4);}
+.outil-card-header{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.outil-ic{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;transition:all .3s var(--spring);}
+.outil-card:hover .outil-ic{transform:scale(1.1) rotate(-5deg);}
+.outil-category{font-size:.58rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.outil-name{font-size:1rem;font-weight:600;letter-spacing:-.03em;color:var(--pure);}
+.outil-desc{font-size:.8rem;font-weight:300;color:var(--mid);line-height:1.85;margin-bottom:14px;}
+.outil-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.otag{font-size:.58rem;font-weight:500;color:var(--soft);background:var(--bg4);border:1px solid var(--line);border-radius:6px;padding:3px 9px;transition:all .25s var(--spring);}
+.outil-card:hover .otag{color:var(--blue);background:var(--blue-l);border-color:rgba(41,151,255,.2);}
+.demarche-sources{background:var(--bg3);border:1px solid var(--line);border-radius:16px;padding:24px 28px;margin-bottom:3px;}
+.sources-title{font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.sources-list{display:flex;flex-direction:column;gap:4px;}
+.source-item{display:flex;align-items:center;gap:14px;padding:10px 12px;border-radius:10px;background:var(--bg4);border:1px solid transparent;transition:all .3s var(--expo);}
+.source-item:hover{border-color:rgba(41,151,255,.12);background:var(--bg2);transform:translateX(4px);}
+.source-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.source-info{flex:1;display:flex;flex-direction:column;gap:2px;}
+.source-name{font-size:.8rem;font-weight:500;color:var(--light);}
+.source-type{font-size:.64rem;font-weight:300;color:var(--muted);}
+.source-freq{font-size:.62rem;font-weight:500;color:var(--blue);background:var(--blue-l);padding:2px 8px;border-radius:5px;border:1px solid rgba(41,151,255,.15);white-space:nowrap;}
+.demarche-capture{background:var(--bg3);border:1px solid var(--line);border-radius:16px;overflow:hidden;}
+.capture-label{font-size:.62rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);padding:12px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;background:var(--bg4);}
+/* Feedly mockup */
+.feedly-mockup{display:grid;grid-template-columns:200px 1fr;min-height:260px;}
+.feedly-sidebar{background:#1a1a1a;padding:16px 0;border-right:1px solid rgba(255,255,255,.06);}
+.feedly-logo{font-size:.75rem;font-weight:700;color:var(--soft);padding:0 16px 12px;letter-spacing:.04em;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:8px;}
+.feedly-logo i{color:#ff6733;margin-right:6px;}
+.feedly-nav-item{font-size:.7rem;color:var(--muted);padding:7px 16px;display:flex;align-items:center;gap:8px;cursor:default;transition:all .2s;}
+.feedly-nav-item.active{background:rgba(41,151,255,.12);color:var(--blue);}
+.feedly-nav-item:hover{background:rgba(255,255,255,.04);color:var(--soft);}
+.feedly-sep{font-size:.55rem;font-weight:700;letter-spacing:.12em;color:var(--muted);padding:10px 16px 4px;text-transform:uppercase;opacity:.5;}
+.feedly-main{background:#111;padding:0;}
+.feedly-toolbar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);background:#161616;}
+.feedly-title{font-size:.72rem;color:var(--soft);}
+.feedly-title strong{color:var(--pure);}
+.feedly-date{font-size:.64rem;color:var(--muted);}
+.feedly-article{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04);transition:background .2s;}
+.feedly-article:hover{background:rgba(255,255,255,.02);}
+.feedly-article.featured{background:rgba(41,151,255,.04);border-left:2px solid var(--blue);}
+.feedly-source{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
+.fsrc-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.feedly-source{font-size:.58rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+.feedly-art-title{font-size:.78rem;font-weight:500;color:var(--light);line-height:1.4;margin-bottom:5px;}
+.feedly-art-meta{font-size:.62rem;color:var(--muted);margin-bottom:6px;}
+.feedly-art-actions{display:flex;gap:8px;}
+.fact{font-size:.6rem;color:var(--muted);background:rgba(255,255,255,.04);padding:2px 8px;border-radius:4px;border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:4px;}
+.fact.saved{color:var(--blue);background:var(--blue-l);border-color:rgba(41,151,255,.2);}
+/* Notion mockup */
+.notion-mockup{background:#111;}
+.notion-header{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);background:#161616;}
+.notion-icon{font-size:.9rem;}
+.notion-title{font-size:.78rem;font-weight:600;color:var(--light);flex:1;}
+.notion-views{display:flex;gap:4px;}
+.notion-view{font-size:.62rem;color:var(--muted);padding:3px 10px;border-radius:5px;cursor:default;transition:all .2s;}
+.notion-view.active{background:rgba(41,151,255,.1);color:var(--blue);}
+.notion-view:hover{background:rgba(255,255,255,.04);color:var(--soft);}
+.notion-table{overflow-x:auto;}
+.notion-row{display:grid;grid-template-columns:2fr 1fr 1fr .7fr 1fr;border-bottom:1px solid rgba(255,255,255,.04);transition:background .2s;}
+.notion-row:hover:not(.header){background:rgba(255,255,255,.02);}
+.notion-row.header{background:#161616;}
+.ncell{padding:9px 12px;font-size:.72rem;color:var(--soft);display:flex;align-items:center;gap:6px;border-right:1px solid rgba(255,255,255,.04);}
+.ncell.title{font-weight:500;}
+.notion-row.header .ncell{font-size:.6rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+.nicon{font-size:.75rem;}
+.ndate{color:var(--muted);font-size:.7rem;}
+.nsrc{font-size:.58rem;font-weight:600;padding:2px 7px;border-radius:4px;letter-spacing:.03em;}
+.nsrc.cnil{background:rgba(231,76,60,.1);color:#e74c3c;border:1px solid rgba(231,76,60,.2);}
+.nsrc.anssi{background:rgba(41,151,255,.1);color:var(--blue);border:1px solid rgba(41,151,255,.2);}
+.nsrc.lmi{background:rgba(243,156,18,.1);color:#f39c12;border:1px solid rgba(243,156,18,.2);}
+.nsrc.dev{background:rgba(39,174,96,.1);color:#27ae60;border:1px solid rgba(39,174,96,.2);}
+.ntag{font-size:.6rem;font-weight:500;padding:2px 8px;border-radius:5px;}
+.ntag.blue{background:rgba(41,151,255,.1);color:var(--blue);border:1px solid rgba(41,151,255,.2);}
+.ntag.purple{background:rgba(231,76,60,.08);color:#e74c3c;border:1px solid rgba(231,76,60,.15);}
+.ntag.green{background:rgba(39,174,96,.08);color:#27ae60;border:1px solid rgba(39,174,96,.15);}
+.nstatus{font-size:.62rem;font-weight:500;padding:2px 8px;border-radius:5px;}
+.nstatus.done{background:rgba(48,209,88,.1);color:var(--green);border:1px solid rgba(48,209,88,.2);}
+/* Theme why + axes */
+.theme-why{background:var(--bg3);border:1px solid rgba(41,151,255,.15);border-left:3px solid var(--blue);border-radius:14px;padding:20px 24px;display:flex;align-items:flex-start;gap:16px;margin-bottom:3px;}
+.theme-why-ic{width:36px;height:36px;border-radius:10px;background:var(--blue-l);display:flex;align-items:center;justify-content:center;font-size:.8rem;color:var(--blue);flex-shrink:0;}
+.theme-why-title{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+.theme-why-text{font-size:.83rem;font-weight:300;color:var(--mid);line-height:1.9;}
+.theme-why-text strong{color:var(--light);font-weight:400;}
+.theme-axes{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-bottom:3px;}
+.axe-card{background:var(--bg3);border:1px solid var(--line);border-radius:14px;padding:22px 18px;text-align:center;transition:all .35s var(--expo);position:relative;overflow:hidden;}
+.axe-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--blue);transform:scaleX(0);transition:transform .35s var(--spring);}
+.axe-card:hover{border-color:rgba(41,151,255,.2);background:var(--bg4);transform:translateY(-3px);}
+.axe-card:hover::before{transform:scaleX(1);}
+.axe-num{font-size:.58rem;font-weight:700;letter-spacing:.1em;color:var(--blue);background:var(--blue-l);border-radius:5px;padding:2px 8px;display:inline-block;margin-bottom:10px;}
+.axe-ic{font-size:1.3rem;color:var(--blue);margin-bottom:10px;opacity:.7;}
+.axe-title{font-size:.78rem;font-weight:500;color:var(--light);letter-spacing:-.01em;margin-bottom:8px;line-height:1.35;}
+.axe-arts{font-size:.62rem;color:var(--muted);}
+@media(max-width:900px){.demarche-flow{grid-template-columns:1fr;gap:6px}.flow-arrow{transform:rotate(90deg)}.demarche-outils-grid{grid-template-columns:1fr}.feedly-mockup{grid-template-columns:1fr}.feedly-sidebar{display:none}.theme-axes{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.theme-axes{grid-template-columns:1fr}.notion-row{grid-template-columns:2fr 1fr}.ncell:nth-child(3),.ncell:nth-child(4){display:none}}
+
 </style>
 </head>
 <body>
@@ -949,7 +1062,7 @@ footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items
           <p>Toujours disponible pour en discuter.</p>
         </div>
         <div class="bc-links">
-          <div class="bc-link"><i class="fas fa-envelope"></i><span>eyoubbelkhiri@gmail.com</span></div>
+          <div class="bc-link"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8eebf7e1fbececebe2e5e6e7fce7cee9e3efe7e2a0ede1e3">[email&#160;protected]</a></span></div>
           <div class="bc-link"><i class="fas fa-map-marker-alt"></i><span>France</span></div>
           <div class="bc-link"><i class="fas fa-graduation-cap"></i><span>BTS SIO SLAM</span></div>
         </div>
@@ -1104,761 +1217,711 @@ footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items
 <section id="veille">
   <div class="veille-wrap">
 
-    <!-- Header -->
     <div class="veille-header r">
       <div class="sec-label">Veille technologique</div>
-      <h2 class="sec-title">Tendances <em>du développement</em></h2>
+      <h2 class="sec-title">Thème : <em>IA &amp; Développement Web</em></h2>
     </div>
 
-    <!-- ══ BLOC ORGANISATION ══ -->
-    <div class="veille-org r d1">
-      <div class="org-title">Organisation de la veille</div>
-      <div class="org-subject-pill">
-        <i class="fas fa-radar" style="font-size:.6rem"></i>
-        Sujet : Intelligence Artificielle &amp; Développement Web Moderne
-      </div>
-      <p class="org-desc" style="font-size:.84rem;font-weight:300;color:var(--mid);line-height:1.9;margin-bottom:20px">
-        Cette veille technologique porte sur <strong style="color:var(--light);font-weight:400">l'intelligence artificielle appliquée au développement web</strong> et les évolutions majeures des outils et réglementations. Sujet directement lié aux débouchés BTS SIO SLAM, il couvre des technologies au cœur des pratiques professionnelles actuelles. La veille a été conduite sur une période de 12 mois à travers des <strong style="color:var(--light);font-weight:400">sources françaises officielles et reconnues</strong> : organismes d'État (CNIL, ANSSI) et presse technique spécialisée (Le Monde Informatique, Developpez.com, Journal du Net). Les articles sont classés en 4 axes thématiques et organisés sur <strong style="color:var(--light);font-weight:400">Feedly</strong> et <strong style="color:var(--light);font-weight:400">Notion</strong>.
-      </p>
-      <div class="org-grid">
-        <div class="org-item">
-          <div class="org-item-ic"><i class="fas fa-building"></i></div>
-          <div class="org-item-label">Sources officielles</div>
-          <div class="org-item-val">CNIL · ANSSI · Developpez.com · Le Monde Informatique</div>
-          <div class="org-item-sub">Organismes d'État &amp; presse technique française de référence</div>
-        </div>
-        <div class="org-item">
-          <div class="org-item-ic"><i class="fas fa-calendar-week"></i></div>
-          <div class="org-item-label">Fréquence</div>
-          <div class="org-item-val">Hebdomadaire</div>
-          <div class="org-item-sub">Revue chaque lundi — 16 articles sur 12 mois</div>
-        </div>
-        <div class="org-item">
-          <div class="org-item-ic"><i class="fas fa-share-alt"></i></div>
-          <div class="org-item-label">Organisation</div>
-          <div class="org-item-val">Feedly + Notion</div>
-          <div class="org-item-sub">Agrégation automatique &amp; notes de synthèse personnelles</div>
+    <!-- ══════════════════════════════════
+         PARTIE 1 — DÉMARCHE DE VEILLE
+    ══════════════════════════════════ -->
+    <div class="veille-demarche r d1">
+      <div class="demarche-header">
+        <div class="demarche-badge"><span>01</span></div>
+        <div>
+          <div class="sec-label" style="margin-bottom:6px">Partie 1</div>
+          <h3 class="demarche-title">Démarche de veille</h3>
+          <p class="demarche-sub">Comment je collecte, trie et retiens l'information technologique</p>
         </div>
       </div>
-    </div>
 
-    <!-- ══ PLAN — ONGLETS ══ -->
-    <div class="veille-plan r d2">
-      <div class="plan-tab active" onclick="switchPlan(0, this)">
-        <div class="plan-tab-num">AXE 01</div>
-        <div class="plan-tab-label">IA &amp; Développement</div>
-        <div class="plan-tab-count">4 articles</div>
-      </div>
-      <div class="plan-tab" onclick="switchPlan(1, this)">
-        <div class="plan-tab-num">AXE 02</div>
-        <div class="plan-tab-label">Frameworks &amp; Outils</div>
-        <div class="plan-tab-count">4 articles</div>
-      </div>
-      <div class="plan-tab" onclick="switchPlan(2, this)">
-        <div class="plan-tab-num">AXE 03</div>
-        <div class="plan-tab-label">Cybersécurité &amp; RGPD</div>
-        <div class="plan-tab-count">4 articles</div>
-      </div>
-      <div class="plan-tab" onclick="switchPlan(3, this)">
-        <div class="plan-tab-num">AXE 04</div>
-        <div class="plan-tab-label">Cloud &amp; DevOps</div>
-        <div class="plan-tab-count">4 articles</div>
-      </div>
-    </div>
-
-    <!-- ══ ARTICLES ══ -->
-    <div class="articles-container r d3">
-
-      <!-- ═══════════════════════════════════════
-           AXE 01 : IA & Développement
-           Sources : Le Monde Informatique, ANSSI, CNIL
-      ════════════════════════════════════════ -->
-      <div class="articles-panel active" id="panel-0">
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">01</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">IA · Assistants de code</span>
-                <span class="article-date">Décembre 2024</span>
-                <span class="article-source-tag">Le Monde Informatique</span>
-              </div>
-              <div class="article-title">GitHub Copilot passe en accès gratuit dans VS Code</div>
-              <div class="article-preview">GitHub annonce une version gratuite de Copilot intégrée par défaut à VS Code — 2 000 complétions et 50 messages par mois inclus, choix entre GPT-4o et Claude 3.5 Sonnet…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">En décembre 2024, GitHub (filiale de Microsoft) lance <strong>Copilot Free</strong> : 2 000 complétions de code et 50 messages de chat par mois, intégrés directement à Visual Studio Code. Les développeurs choisissent entre les modèles <strong>Claude 3.5 Sonnet d'Anthropic</strong> et GPT-4o d'OpenAI. Auparavant, seuls les étudiants et mainteneurs open-source bénéficiaient d'un accès gratuit.</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">L'accès gratuit rend Copilot incontournable pour les projets scolaires et personnels. Pour un recruteur, savoir <strong>utiliser et relire le code généré par l'IA</strong> est désormais attendu d'un développeur junior. La vraie compétence n'est plus d'écrire du code, mais de vérifier, comprendre et corriger les suggestions — ce qui nécessite des bases solides en PHP et C#.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://www.lemondeinformatique.fr/actualites/lire-github-lance-une-version-gratuite-de-copilot-95584.html" target="_blank">lemondeinformatique.fr — GitHub lance une version gratuite de Copilot</a>
-              <span>Le Monde Informatique · Déc. 2024</span>
-            </div>
-          </div>
+      <!-- Flux de collecte -->
+      <div class="demarche-flow r d2">
+        <div class="flow-step">
+          <div class="flow-ic"><i class="fas fa-satellite-dish"></i></div>
+          <div class="flow-label">1. Collecte</div>
+          <div class="flow-desc">Abonnements RSS, alertes Google, réseaux sociaux tech</div>
         </div>
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">02</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">IA · Productivité</span>
-                <span class="article-date">Mars 2024</span>
-                <span class="article-source-tag">Le Monde Informatique</span>
-              </div>
-              <div class="article-title">Copilot rend les développeurs 55 % plus productifs, selon le COO de GitHub</div>
-              <div class="article-preview">Kyle Daigle, directeur des opérations de GitHub, détaille dans une interview les gains de productivité mesurés en interne grâce à l'IA générative…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">Selon Kyle Daigle, COO de GitHub, l'IA générative permet aux développeurs d'être <strong>55 % plus productifs</strong> en moyenne. Les 3 000 employés de GitHub utilisent Copilot — développeurs et non-développeurs. L'article aborde aussi le risque que les développeurs deviennent trop dépendants de l'outil et perdent leurs réflexes fondamentaux de programmation.</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">55 % de productivité en plus est un chiffre fort pour l'oral — mais ce gain concerne les <strong>développeurs déjà compétents</strong>. L'IA amplifie les bons, ne remplace pas les bases. Pour un profil BTS SIO, maîtriser PHP, SQL, C# avant de s'appuyer sur l'IA est essentiel : sinon le code généré reste incompréhensible et non maintenable.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://www.lemondeinformatique.fr/actualites/lire-kyle-daigle-coo-de-github--copilot-rend-les-developpeurs-55-plus-productifs-93136.html" target="_blank">lemondeinformatique.fr — Copilot rend les développeurs 55 % plus productifs</a>
-              <span>Le Monde Informatique · Mars 2024</span>
-            </div>
-          </div>
+        <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+        <div class="flow-step">
+          <div class="flow-ic"><i class="fas fa-filter"></i></div>
+          <div class="flow-label">2. Tri</div>
+          <div class="flow-desc">Lecture des titres, sélection par pertinence SLAM, suppression du bruit</div>
         </div>
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">03</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">IA · Sécurité du code</span>
-                <span class="article-date">Octobre 2024</span>
-                <span class="article-source-tag">ANSSI</span>
-              </div>
-              <div class="article-title">ANSSI &amp; BSI : bonnes pratiques pour les assistants de programmation IA</div>
-              <div class="article-preview">Les agences de cybersécurité française et allemande publient un guide conjoint sur les risques et précautions à prendre avec les outils de génération de code IA…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">L'ANSSI (France) et le BSI (Allemagne) publient en octobre 2024 le document <strong>"AI Coding Assistants"</strong>. Ils identifient des risques spécifiques : code non vérifié introduisant des failles, fuite de données vers des services cloud, et génération de code avec des dépendances vulnérables. Recommandation principale : <strong>ne jamais déployer du code généré par IA sans relecture et qualification</strong> par un développeur.</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">Que l'ANSSI publie des recommandations spécifiques sur les assistants IA illustre l'urgence du sujet. Pour moi, cela confirme que tout code Copilot intégré dans un projet PHP ou C# <strong>doit être audité</strong> : une requête SQL mal générée peut introduire une injection. La sécurité commence au niveau du développeur, pas de l'administrateur système.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://cyber.gouv.fr/publications" target="_blank">cyber.gouv.fr — Publications ANSSI</a>
-              <span>ANSSI · Octobre 2024</span>
-            </div>
-          </div>
+        <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+        <div class="flow-step">
+          <div class="flow-ic"><i class="fas fa-bookmark"></i></div>
+          <div class="flow-label">3. Organisation</div>
+          <div class="flow-desc">Classement par thème dans Notion, tagging, résumé personnel</div>
         </div>
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">04</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">IA · Règlement européen</span>
-                <span class="article-date">Août 2024</span>
-                <span class="article-source-tag">CNIL</span>
-              </div>
-              <div class="article-title">L'AI Act européen entre en vigueur — ce que ça change pour les développeurs</div>
-              <div class="article-preview">La CNIL explique le nouveau règlement européen sur l'IA entré en application le 1er août 2024, ses niveaux de risque et les obligations pour les équipes de développement…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">Le règlement européen sur l'IA (<strong>AI Act</strong>) est entré en vigueur le 1er août 2024. Il classe les systèmes d'IA en 4 niveaux de risque : inacceptable, élevé, spécifique, minimal. Depuis le 2 février 2025, les pratiques à risque inacceptable sont interdites. La CNIL précise que ce règlement <strong>complète le RGPD sans le remplacer</strong>. Développeurs et intégrateurs doivent documenter et qualifier leurs systèmes d'IA.</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">L'AI Act concerne directement tout développeur qui intègre de l'IA dans une application. Si j'ajoute un chatbot ou un module de recommandation à un projet PHP, je dois <strong>évaluer son niveau de risque</strong> selon ce règlement. Ma certification CNIL RGPD est un bon point de départ. Connaître l'AI Act est un vrai avantage à mentionner en entretien — peu de juniors sont au courant.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://www.cnil.fr/fr/entree-en-vigueur-du-reglement-europeen-sur-lia-les-premieres-questions-reponses-de-la-cnil" target="_blank">cnil.fr — AI Act : premières questions-réponses de la CNIL</a>
-              <span>CNIL · Août 2024</span>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /panel-0 -->
-
-      <!-- ═══════════════════════════════════════
-           AXE 02 : Frameworks & Outils
-           Sources : Developpez.com, Le Monde Informatique, Laravel News
-      ════════════════════════════════════════ -->
-      <div class="articles-panel" id="panel-1">
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">05</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">PHP · Langage</span>
-                <span class="article-date">Novembre 2024</span>
-                <span class="article-source-tag">Developpez.com</span>
-              </div>
-              <div class="article-title">PHP 8.4 : propriétés asymétriques, hooks et nouvelles fonctions de tableaux</div>
-              <div class="article-preview">PhpStorm 2024.3 supporte PHP 8.4 avec ses property hooks et la visibilité asymétrique — un pas vers une syntaxe plus moderne, proche de C#…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">PHP 8.4 (novembre 2024) introduit les <strong>property hooks</strong> (logique dans les getters/setters sans méthodes supplémentaires), la <strong>visibilité asymétrique</strong> (lecture publique, écriture privée), et de nouvelles fonctions de tableaux. PhpStorm 2024.3 intègre nativement ces nouveautés et détecte automatiquement l'interpréteur PHP de Laravel Herd. L'IDE améliore aussi le support du framework de test Pest 3.0.</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">PHP 8.4 rapproche la syntaxe de langages comme <strong>C#</strong>, que j'utilise aussi. La visibilité asymétrique correspond à ce que j'utilisais dans mes classes C# pour ADA Location. Connaître ces évolutions montre qu'on suit activement le langage — un signal positif pour un recruteur qui cherche un profil curieux et à jour techniquement.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://jetbrains.developpez.com/actu/364891/PhpStorm-2024-3-disponible-prise-en-charge-de-PHP-8-4-interpreteur-PHP-de-Laravel-Herd-ameliorations-de-l-AI-Assistant-et-bien-d-autres-nouveautes/" target="_blank">developpez.com — PhpStorm 2024.3 &amp; PHP 8.4</a>
-              <span>Developpez.com · Nov. 2024</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">06</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">PHP · Framework</span>
-                <span class="article-date">Mars 2024</span>
-                <span class="article-source-tag">Laravel News</span>
-              </div>
-              <div class="article-title">Laravel 11 : architecture simplifiée et nouvelles fonctionnalités Eloquent ORM</div>
-              <div class="article-preview">Laravel 11 réduit la complexité structurelle des projets et améliore l'ORM Eloquent — ce qui change concrètement pour les projets PHP en équipe…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">Laravel 11, sorti début 2024, simplifie la structure des projets PHP : suppression des fichiers de service providers redondants, bootstrap allégé, middlewares unifiés. L'ORM <strong>Eloquent</strong> gagne de nouvelles méthodes d'agrégation et des relations polymorphes améliorées. C'est le framework PHP le plus demandé dans les offres d'emploi junior full-stack en France selon les analyses des job boards.</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">J'ai utilisé Eloquent ORM sur le projet ADA Web. La réduction de la complexité de Laravel 11 <strong>facilite la prise en main d'un projet existant</strong> en stage ou en emploi : moins de configuration signifie plus de temps pour la logique métier. C'est un argument fort pour apprendre et approfondir Laravel après le BTS, c'est ce que les entreprises attendent.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://laravel-news.com/laravel-11" target="_blank">laravel-news.com — Laravel 11 Release Notes</a>
-              <span>Laravel News · Mars 2024</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">07</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">C# · .NET</span>
-                <span class="article-date">Novembre 2024</span>
-                <span class="article-source-tag">Le Monde Informatique</span>
-              </div>
-              <div class="article-title">.NET 9 : améliorations LINQ, Blazor renforcé et garbage collector optimisé</div>
-              <div class="article-preview">Microsoft publie .NET 9 avec des gains de performance significatifs et de nouvelles fonctionnalités C# 13 — ce qui change pour le développement desktop et web…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">.NET 9 (novembre 2024) apporte un garbage collector optimisé (latence réduite), LINQ enrichi avec <strong>CountBy</strong> et <strong>AggregateBy</strong>, et Blazor renforcé pour les applications web hybrides. C# 13 simplifie la syntaxe avec les params collections et les partial properties. Microsoft consolide aussi ASP.NET Core pour les APIs REST à fort trafic.</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">En C# avec Entity Framework sur ADA Location, les nouvelles méthodes LINQ m'auraient permis d'écrire les <strong>statistiques de location en moins de code</strong>. La montée de Blazor est intéressante : un développeur C# pourrait couvrir front et back sans changer de langage — très attractif pour des PME avec de petites équipes dev.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://www.lemondeinformatique.fr/actualites/" target="_blank">lemondeinformatique.fr — Actualité .NET 9</a>
-              <span>Le Monde Informatique · Nov. 2024</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">08</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">Git · CI/CD</span>
-                <span class="article-date">2024</span>
-                <span class="article-source-tag">Developpez.com</span>
-              </div>
-              <div class="article-title">Git en entreprise : branches, CI/CD et bonnes pratiques d'équipe</div>
-              <div class="article-preview">Comment les équipes professionnelles utilisent Git, les stratégies de branches et les pipelines CI/CD pour livrer du logiciel de façon fiable — un guide pratique…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">L'article couvre les bonnes pratiques Git professionnelles : stratégies de branches (Gitflow, trunk-based), conventions de commits, revues de code en pull request, et pipelines <strong>CI/CD via GitHub Actions</strong>. Il insiste sur l'automatisation des tests avant chaque merge et la séparation claire entre environnements développement, recette et production.</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">En BTS, on utilise Git de façon basique. En entreprise, la rigueur est bien plus grande : <strong>branches de feature, pull requests, revues de code systématiques</strong>. Lors de mon stage chez Chronophone, j'ai pratiqué le versioning mais sans pipeline CI/CD. Maîtriser ces pratiques est une compétence différenciante pour un junior — souvent absente des formations mais attendue dès le premier jour en emploi.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://www.developpez.com/actu/" target="_blank">developpez.com — Actualité développement logiciel</a>
-              <span>Developpez.com · 2024</span>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /panel-1 -->
-
-      <!-- ═══════════════════════════════════════
-           AXE 03 : Cybersécurité & RGPD
-           Sources : CNIL, ANSSI
-      ════════════════════════════════════════ -->
-      <div class="articles-panel" id="panel-2">
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">09</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">RGPD · IA</span>
-                <span class="article-date">Avril 2024 – Mars 2025</span>
-                <span class="article-source-tag">CNIL</span>
-              </div>
-              <div class="article-title">CNIL : 13 fiches pratiques pour développer des systèmes d'IA conformes au RGPD</div>
-              <div class="article-preview">La CNIL publie un guide complet à destination des développeurs pour encadrer l'usage des données personnelles dans les projets d'IA…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">La CNIL a publié en 2024–2025 un ensemble de <strong>13 fiches pratiques</strong> à destination des développeurs IA. Points clés : définir une finalité claire du traitement, minimiser les données collectées, documenter les bases légales, et analyser si le modèle d'IA mémorise des données personnelles (auquel cas le RGPD s'applique pleinement). Le RGPD et l'AI Act sont complémentaires et s'appliquent simultanément.</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">Ma certification CNIL (6 modules RGPD) prend ici tout son sens. Ces recommandations confirment que <strong>tout développeur intégrant une API d'IA avec des données utilisateurs est responsable de traitement</strong> au sens du RGPD. Si j'utilise une API OpenAI dans un projet PHP avec des données clients, je dois documenter ce traitement. C'est une responsabilité technique ET juridique que peu de juniors connaissent.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://www.cnil.fr/fr/developpement-des-systemes-dia-les-recommandations-de-la-cnil-pour-respecter-le-rgpd" target="_blank">cnil.fr — Recommandations CNIL pour l'IA et le RGPD</a>
-              <span>CNIL.fr · 2024–2025</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">10</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">Cybermenaces · France</span>
-                <span class="article-date">Janvier 2025</span>
-                <span class="article-source-tag">ANSSI</span>
-              </div>
-              <div class="article-title">Panorama de la cybermenace 2024 : l'ANSSI dresse le bilan des attaques en France</div>
-              <div class="article-preview">Rançongiciels, espionnage, hacktivisme — l'ANSSI analyse les grandes tendances des cyberattaques en France en 2024, dont celles contre les JO de Paris…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">Le rapport annuel de l'ANSSI pour 2024 identifie trois grandes catégories d'attaquants : <strong>cybercriminels</strong> (rançongiciels, vols de données), <strong>acteurs étatiques</strong> (espionnage : Russie, Chine) et <strong>hacktivistes</strong>. Les JO de Paris 2024 ont été une cible majeure — sans succès grâce aux dispositifs mis en place. Principal vecteur d'intrusion : exploitation de vulnérabilités non corrigées sur les équipements réseau (pare-feux, VPN).</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">Ce rapport montre que les failles exploitées en 2024 concernaient souvent des <strong>applications web non mises à jour</strong>. En PHP, ne pas appliquer les correctifs de sécurité ou utiliser des requêtes non préparées, c'est exactement le type de vulnérabilité visée. L'hygiène numérique commence dès le développement — une leçon directement applicable dans mes projets de stage et de portfolio.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://cyber.gouv.fr/publications" target="_blank">cyber.gouv.fr — Panorama de la cybermenace 2024 (ANSSI)</a>
-              <span>ANSSI · Janvier 2025</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">11</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">Authentification · Sécurité</span>
-                <span class="article-date">2024</span>
-                <span class="article-source-tag">CNIL &amp; ANSSI</span>
-              </div>
-              <div class="article-title">Mots de passe &amp; MFA : les recommandations communes 2024 de la CNIL et de l'ANSSI</div>
-              <div class="article-preview">Les deux organismes officiels français publient leurs recommandations actualisées sur la gestion des mots de passe et l'authentification multifacteur…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">La CNIL et l'ANSSI ont mis à jour leurs recommandations sur les mots de passe. Points clés : minimum <strong>12 à 16 caractères</strong>, priorité à l'entropie plutôt qu'aux changements fréquents (ancienne bonne pratique abandonnée), et obligation de proposer l'<strong>authentification multifacteur (MFA)</strong> pour les services manipulant des données sensibles. En 2024, les attaques par force brute ont doublé : de 4 000 à 7 000 tentatives par seconde.</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">Dans mes projets PHP (Chronophone, ADA Web), l'authentification était gérée avec des sessions et des mots de passe hashés en bcrypt — ce qui reste la base. Mais la recommandation de <strong>proposer le MFA</strong> est un niveau supérieur que je n'ai pas encore implémenté. C'est un axe de progression concret pour mes futurs projets, et un sujet que les jurys d'oral apprécient d'entendre aborder.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://cyber.gouv.fr/publications/recommandations-relatives-lauthentification-multifacteur-et-aux-mots-de-passe" target="_blank">cyber.gouv.fr — Recommandations MFA et mots de passe (ANSSI)</a>
-              <span>CNIL / ANSSI · 2024</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">12</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">Cybersécurité · Plan stratégique</span>
-                <span class="article-date">Mars 2025</span>
-                <span class="article-source-tag">ANSSI / Le Monde Informatique</span>
-              </div>
-              <div class="article-title">ANSSI : plan stratégique 2025–2027 — IA, cloud et cryptographie post-quantique</div>
-              <div class="article-preview">L'ANSSI publie son plan stratégique pour les trois prochaines années, centré sur l'IA, la transition vers le chiffrement post-quantique et la directive NIS 2…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">Le plan stratégique 2025–2027 de l'ANSSI s'articule autour de 4 axes : amplifier la réponse aux cybermenaces, développer l'expertise sur les technologies à fort enjeu (IA, <strong>cryptographie post-quantique</strong>, cloud), renforcer la réglementation (NIS 2, CRA), et promouvoir la coopération européenne. L'ANSSI insiste sur la montée en compétences cyber dans toutes les organisations, y compris les PME.</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">La mention de la <strong>cryptographie post-quantique</strong> montre que la sécurité évolue vers des défis que les développeurs devront maîtriser dans 5 à 10 ans. Pour l'instant, l'enjeu immédiat est de bien appliquer les recommandations actuelles (HTTPS, MFA, PDO) et de comprendre NIS 2 qui oblige de plus en plus d'entreprises à se conformer à des standards de cybersécurité stricts.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://www.lemondeinformatique.fr/actualites/lire-l-anssi-degaine-son-plan-strategique-2025-2027-96246.html" target="_blank">lemondeinformatique.fr — Plan stratégique ANSSI 2025–2027</a>
-              <span>Le Monde Informatique · Mars 2025</span>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /panel-2 -->
-
-      <!-- ═══════════════════════════════════════
-           AXE 04 : Cloud & DevOps
-           Sources : Journal du Net, Le Monde Informatique, OVHcloud
-      ════════════════════════════════════════ -->
-      <div class="articles-panel" id="panel-3">
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">13</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">Cloud · Souveraineté</span>
-                <span class="article-date">2024</span>
-                <span class="article-source-tag">Journal du Net</span>
-              </div>
-              <div class="article-title">Cloud souverain français : pourquoi les entreprises s'y intéressent en 2024</div>
-              <div class="article-preview">OVHcloud, Scaleway, Outscale — les acteurs français du cloud attirent de plus en plus d'entreprises soucieuses de la souveraineté de leurs données…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">Face aux risques liés au <strong>Cloud Act américain</strong> (qui permet aux autorités américaines d'accéder aux données hébergées par des sociétés US), les acteurs français et européens (OVHcloud, Scaleway, Outscale/3DS) proposent des offres de <strong>cloud souverain</strong> certifiées SecNumCloud par l'ANSSI. Ces offres garantissent que les données restent sous juridiction européenne, ce qui intéresse fortement les administrations et les secteurs sensibles.</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">Pour un développeur PHP travaillant pour une PME française ou une collectivité, la question du cloud souverain est concrète : <strong>héberger sur OVHcloud plutôt qu'AWS peut être une exigence contractuelle</strong>. Connaître ces enjeux de souveraineté numérique, c'est montrer qu'on pense au-delà du code — une maturité appréciée lors d'entretiens avec des DSI ou des chefs de projet.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://www.journaldunet.com/solutions/cloud-computing/" target="_blank">journaldunet.com — Cloud souverain en France</a>
-              <span>Journal du Net · 2024</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">14</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">Docker · Conteneurisation</span>
-                <span class="article-date">2024</span>
-                <span class="article-source-tag">Le Monde Informatique</span>
-              </div>
-              <div class="article-title">Docker en environnement professionnel : pourquoi la conteneurisation s'impose pour les applications PHP</div>
-              <div class="article-preview">De plus en plus d'équipes adoptent Docker pour uniformiser les environnements de développement et de production — ce que ça change en pratique…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">Docker Compose permet de définir des environnements complets (PHP-FPM, Nginx, MySQL, Redis) dans un fichier YAML versionné. Avantage principal : <strong>"ça marche sur ma machine" devient "ça marche partout"</strong>. Le déploiement sur un VPS ou un cloud français (OVHcloud, Scaleway) devient reproductible et documenté. Docker est désormais mentionné dans la majorité des offres d'emploi développeur web en France.</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">En stage chez Chronophone, j'ai développé en local avec WAMP, différent de la production — source de bugs coûteux. <strong>Docker aurait éliminé ce problème</strong> en garantissant la parité des environnements. Pour un junior SLAM, maîtriser les bases de Docker Compose représente aujourd'hui un prérequis dans de nombreuses offres d'emploi. C'est un axe de progression prioritaire que j'ai identifié grâce à cette veille.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://www.lemondeinformatique.fr/actualites/" target="_blank">lemondeinformatique.fr — Actualité Docker et conteneurisation</a>
-              <span>Le Monde Informatique · 2024</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">15</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">DevOps · Déploiement</span>
-                <span class="article-date">2024</span>
-                <span class="article-source-tag">Developpez.com</span>
-              </div>
-              <div class="article-title">GitHub Actions : automatiser les tests et le déploiement d'une application PHP</div>
-              <div class="article-preview">Guide pratique pour configurer un pipeline CI/CD avec GitHub Actions — tests automatisés PHPUnit et déploiement sur serveur FTP/SSH à chaque push…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">Un pipeline GitHub Actions pour PHP se configure en YAML : à chaque push, le pipeline installe les dépendances Composer, lance les tests <strong>PHPUnit</strong>, vérifie les normes de code (PHP_CodeSniffer) et déploie automatiquement sur le serveur si tous les tests passent. Cela garantit qu'aucun code non testé n'atteint la production. La configuration est versionnée avec le code dans le dépôt.</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">La CI/CD est peu enseignée en BTS SIO, pourtant c'est une compétence différenciante à l'embauche. Configurer un pipeline qui teste et déploie automatiquement représente un <strong>gain de fiabilité considérable</strong>. Pour mes projets de portfolio (ADA Web, Ligue 1 Web), ajouter GitHub Actions montrerait à un recruteur que je pratique les standards professionnels — pas seulement scolaires.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://www.developpez.com/actu/" target="_blank">developpez.com — GitHub Actions et CI/CD pour PHP</a>
-              <span>Developpez.com · 2024</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="article-row" onclick="toggleArticle(this)">
-          <div class="article-header">
-            <div class="article-num">16</div>
-            <div class="article-main">
-              <div class="article-meta">
-                <span class="article-cat">Cloud · Offres emploi</span>
-                <span class="article-date">2024</span>
-                <span class="article-source-tag">Journal du Net</span>
-              </div>
-              <div class="article-title">Ce que les recruteurs attendent d'un développeur web junior en 2024–2025</div>
-              <div class="article-preview">Analyse des compétences les plus demandées dans les offres d'emploi développeur full-stack junior en France — Docker, Git, tests unitaires et culture DevOps…</div>
-            </div>
-            <div class="article-right">
-              <div class="article-expand-btn"><i class="fas fa-plus"></i></div>
-            </div>
-          </div>
-          <div class="article-body">
-            <div class="ab-grid">
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div>
-                <div class="ab-block-text">L'analyse des offres d'emploi junior full-stack en France révèle des compétences récurrentes en dehors des langages : <strong>Git avec stratégie de branches</strong>, bases de Docker, notion de CI/CD, tests unitaires, et connaissance des pratiques Agile (Scrum, sprints). La maîtrise de frameworks comme Laravel ou Symfony est souvent préférée à la connaissance d'un langage seul.</div>
-              </div>
-              <div class="ab-block">
-                <div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div>
-                <div class="ab-block-text">Cette veille m'a permis d'identifier concrètement les <strong>écarts entre ma formation BTS et les attentes du marché</strong>. Le BTS SIO m'a donné de solides bases en PHP, C#, SQL et Git. Les axes à combler en priorité sont Docker, les pipelines CI/CD et les tests automatisés — trois technologies que j'ai intégrées dans mes objectifs de développement personnel post-BTS.</div>
-              </div>
-            </div>
-            <div class="ab-source-row">
-              <i class="fas fa-link"></i>
-              <a href="https://www.journaldunet.com/solutions/emploi-rh/developpeur/" target="_blank">journaldunet.com — Recrutement développeur web</a>
-              <span>Journal du Net · 2024–2025</span>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /panel-3 -->
-
-    </div><!-- /articles-container -->
-
-    <!-- ══ SYNTHÈSE ══ -->
-    <div class="veille-synthese r d4">
-      <div class="synthese-header">
-        <div class="synthese-ic"><i class="fas fa-layer-group"></i></div>
-        <div class="synthese-meta">
-          <div class="synthese-eyebrow">Synthèse générale</div>
-          <div class="synthese-title">Ce que révèle cette veille sur l'avenir du développeur web</div>
+        <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+        <div class="flow-step active">
+          <div class="flow-ic"><i class="fas fa-brain"></i></div>
+          <div class="flow-label">4. Synthèse</div>
+          <div class="flow-desc">Analyse critique et mise à jour du portfolio</div>
         </div>
       </div>
-      <div class="synthese-body">
-        <div class="synthese-grid">
-          <div class="syn-block b1">
-            <div class="syn-block-icon"><i class="fas fa-robot"></i></div>
-            <div class="syn-block-title">L'IA comme outil, pas comme remplaçant</div>
-            <div class="syn-block-text">Les articles sur GitHub Copilot (Le Monde Informatique) et les recommandations ANSSI convergent : <strong>l'IA amplifie les développeurs compétents, mais ne remplace pas les bases</strong>. Un junior sans fondamentaux solides produira du code IA qu'il ne comprend pas. La valeur se déplace vers la vérification critique, l'architecture et la conformité réglementaire.</div>
+
+      <!-- Outils -->
+      <div class="demarche-outils-grid r d3">
+        <div class="outil-card">
+          <div class="outil-card-header">
+            <div class="outil-ic" style="background:rgba(41,151,255,.12);color:var(--blue)"><i class="fas fa-rss"></i></div>
+            <div>
+              <div class="outil-category">Collecte automatisée</div>
+              <div class="outil-name">Feedly</div>
+            </div>
           </div>
-          <div class="syn-block b2">
-            <div class="syn-block-icon"><i class="fas fa-shield-alt"></i></div>
-            <div class="syn-block-title">La sécurité et le RGPD, une responsabilité du développeur</div>
-            <div class="syn-block-text">Les publications CNIL et ANSSI (fiches IA, panorama cybermenaces, recommandations MFA) montrent que <strong>chaque ligne de code exposée est une responsabilité légale et technique</strong>. Ma certification CNIL et la maîtrise de PDO me positionnent bien, mais le MFA et la conformité AI Act sont des axes de progression immédiats.</div>
-          </div>
-          <div class="syn-block b3">
-            <div class="syn-block-icon"><i class="fas fa-cloud"></i></div>
-            <div class="syn-block-title">Du dev local au cloud : une transition inévitable</div>
-            <div class="syn-block-text">Docker, CI/CD et souveraineté numérique dessinent le profil du développeur 2025 : quelqu'un qui <strong>livre, déploie et maintient</strong> sa propre application. Cette culture DevOps — peu présente en BTS SIO — est la principale lacune à combler rapidement pour être opérationnel dès le premier emploi.</div>
+          <p class="outil-desc">Agrégateur de flux RSS principal. Je me suis abonné aux flux de <strong>CNIL</strong>, <strong>ANSSI</strong>, <strong>Le Monde Informatique</strong>, <strong>Developpez.com</strong> et <strong>Laravel News</strong>. Chaque lundi matin, je consulte les nouveaux articles et je marque ceux qui méritent une lecture approfondie.</p>
+          <div class="outil-tags">
+            <span class="otag">Flux RSS</span><span class="otag">Agrégateur</span><span class="otag">Hebdomadaire</span>
           </div>
         </div>
-
-        <!-- Conclusion -->
-        <div class="synthese-conclusion">
-          <p>
-            Cette veille de <strong>16 articles répartis sur 4 axes thématiques</strong>, s'appuyant sur des <strong>sources françaises officielles</strong> (CNIL, ANSSI) et de la presse technique de référence (Le Monde Informatique, Developpez.com, Journal du Net), confirme une tendance centrale : le développeur web de 2025 doit être un <strong>profil hybride</strong>, à la croisée du développement applicatif, de la sécurité et des pratiques DevOps.
-            <br><br>
-            Pour ma carrière post-BTS SIO SLAM, cette veille m'a permis d'identifier trois axes de développement prioritaires : approfondir <strong>Laravel et PHP 8.4</strong>, acquérir les fondamentaux <strong>Docker et CI/CD</strong>, et maîtriser la <strong>conformité RGPD/AI Act dans les projets intégrant de l'IA</strong>. Ces compétences correspondent précisément aux attentes des offres d'emploi junior full-stack analysées en parallèle.
-          </p>
+        <div class="outil-card">
+          <div class="outil-card-header">
+            <div class="outil-ic" style="background:rgba(234,67,53,.12);color:#ea4335"><i class="fab fa-google"></i></div>
+            <div>
+              <div class="outil-category">Alertes automatiques</div>
+              <div class="outil-name">Google Alerts</div>
+            </div>
+          </div>
+          <p class="outil-desc">Alertes configurées sur <strong>"IA développement web"</strong>, <strong>"PHP Laravel 2024"</strong>, <strong>"RGPD IA"</strong> et <strong>"ANSSI cybersécurité"</strong>. Je reçois un email récapitulatif quotidien avec les nouvelles publications correspondant à ces mots-clés.</p>
+          <div class="outil-tags">
+            <span class="otag">Mots-clés</span><span class="otag">Email quotidien</span><span class="otag">Automatique</span>
+          </div>
         </div>
+        <div class="outil-card">
+          <div class="outil-card-header">
+            <div class="outil-ic" style="background:rgba(10,102,194,.12);color:#0a66c2"><i class="fab fa-linkedin"></i></div>
+            <div>
+              <div class="outil-category">Réseaux sociaux tech</div>
+              <div class="outil-name">LinkedIn &amp; Twitter/X</div>
+            </div>
+          </div>
+          <p class="outil-desc">Suivi des comptes officiels <strong>@CNIL</strong>, <strong>@ANSSI_FR</strong>, <strong>@laravelphp</strong> et de développeurs seniors français. LinkedIn révèle ce qui est lu dans les équipes pro — un signal fort sur les sujets qui comptent vraiment en entreprise.</p>
+          <div class="outil-tags">
+            <span class="otag">LinkedIn</span><span class="otag">Twitter/X</span><span class="otag">Comptes officiels</span>
+          </div>
+        </div>
+        <div class="outil-card">
+          <div class="outil-card-header">
+            <div class="outil-ic" style="background:rgba(255,255,255,.06);color:var(--soft)"><i class="fas fa-database"></i></div>
+            <div>
+              <div class="outil-category">Organisation &amp; synthèse</div>
+              <div class="outil-name">Notion</div>
+            </div>
+          </div>
+          <p class="outil-desc">Base de données personnelle : titre, source, date, résumé 3 lignes et analyse. Articles tagués par thème (IA, Sécurité, PHP, Cloud) et filtrables. C'est ma <strong>mémoire de veille consultable</strong> à tout moment, y compris pendant les présentations orales.</p>
+          <div class="outil-tags">
+            <span class="otag">Base de données</span><span class="otag">Tags &amp; filtres</span><span class="otag">Archives</span>
+          </div>
+        </div>
+      </div>
 
-        <!-- Recommandations -->
-        <div class="synthese-reco">
-          <div class="reco-title">Recommandations &amp; pistes d'application concrètes</div>
-          <div class="reco-grid">
-            <div class="reco-item">
-              <div class="reco-ic"><i class="fas fa-robot"></i></div>
-              <div class="reco-text"><strong>Intégrer GitHub Copilot Free</strong> dans les projets perso pour pratiquer la revue critique du code généré et développer un regard expert sur les suggestions IA.</div>
+      <!-- Sources -->
+      <div class="demarche-sources r d4">
+        <div class="sources-title"><i class="fas fa-bookmark" style="color:var(--blue);font-size:.7rem"></i> Mes abonnements — sources principales</div>
+        <div class="sources-list">
+          <div class="source-item">
+            <div class="source-dot" style="background:#e74c3c"></div>
+            <div class="source-info"><span class="source-name">CNIL — cnil.fr</span><span class="source-type">Organisme officiel français</span></div>
+            <span class="source-freq">Flux RSS</span>
+          </div>
+          <div class="source-item">
+            <div class="source-dot" style="background:#2997ff"></div>
+            <div class="source-info"><span class="source-name">ANSSI — cyber.gouv.fr</span><span class="source-type">Agence nationale de sécurité</span></div>
+            <span class="source-freq">Flux RSS</span>
+          </div>
+          <div class="source-item">
+            <div class="source-dot" style="background:#f39c12"></div>
+            <div class="source-info"><span class="source-name">Le Monde Informatique</span><span class="source-type">Presse spécialisée française</span></div>
+            <span class="source-freq">Flux RSS</span>
+          </div>
+          <div class="source-item">
+            <div class="source-dot" style="background:#27ae60"></div>
+            <div class="source-info"><span class="source-name">Developpez.com</span><span class="source-type">Communauté technique française</span></div>
+            <span class="source-freq">Flux RSS</span>
+          </div>
+          <div class="source-item">
+            <div class="source-dot" style="background:#8e44ad"></div>
+            <div class="source-info"><span class="source-name">Journal du Net</span><span class="source-type">Presse tech &amp; emploi</span></div>
+            <span class="source-freq">Google Alerts</span>
+          </div>
+          <div class="source-item">
+            <div class="source-dot" style="background:#c0392b"></div>
+            <div class="source-info"><span class="source-name">Laravel News</span><span class="source-type">Blog officiel Laravel</span></div>
+            <span class="source-freq">Flux RSS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Capture Feedly -->
+      <div class="demarche-capture r d5">
+        <div class="capture-label"><i class="fas fa-camera"></i> Aperçu — Tableau de bord Feedly (données réelles)</div>
+        <div class="feedly-mockup">
+          <div class="feedly-sidebar">
+            <div class="feedly-logo"><i class="fas fa-rss"></i> Feedly</div>
+            <div class="feedly-nav-item active"><i class="fas fa-home"></i> Today</div>
+            <div class="feedly-nav-item"><i class="fas fa-star"></i> Saved (12)</div>
+            <div class="feedly-sep">MES COLLECTIONS</div>
+            <div class="feedly-nav-item"><i class="fas fa-shield-alt" style="color:#e74c3c"></i> Sécurité &amp; RGPD</div>
+            <div class="feedly-nav-item"><i class="fas fa-code" style="color:#2997ff"></i> PHP / Laravel</div>
+            <div class="feedly-nav-item"><i class="fas fa-robot" style="color:#f39c12"></i> IA &amp; Dev</div>
+            <div class="feedly-nav-item"><i class="fas fa-cloud" style="color:#27ae60"></i> Cloud &amp; DevOps</div>
+          </div>
+          <div class="feedly-main">
+            <div class="feedly-toolbar">
+              <span class="feedly-title">Today · <strong>8 nouveaux articles</strong></span>
+              <span class="feedly-date">Lundi 24 mars 2025</span>
             </div>
-            <div class="reco-item">
-              <div class="reco-ic"><i class="fas fa-box"></i></div>
-              <div class="reco-text"><strong>Containeriser le projet ADA Web</strong> avec Docker Compose pour apprendre les bases du déploiement reproductible en conditions réelles.</div>
+            <div class="feedly-article featured">
+              <div class="feedly-source"><span class="fsrc-dot" style="background:#e74c3c"></span>CNIL</div>
+              <div class="feedly-art-title">IA et RGPD : la CNIL finalise ses recommandations pour les développeurs de systèmes d'IA</div>
+              <div class="feedly-art-meta">il y a 2 heures · 5 min de lecture</div>
+              <div class="feedly-art-actions">
+                <span class="fact saved"><i class="fas fa-bookmark"></i> Sauvegardé</span>
+                <span class="fact"><i class="fas fa-tag"></i> Sécurité &amp; RGPD</span>
+              </div>
             </div>
-            <div class="reco-item">
-              <div class="reco-ic"><i class="fas fa-shield-alt"></i></div>
-              <div class="reco-text"><strong>Implémenter le MFA</strong> sur un projet sandbox PHP pour maîtriser l'authentification forte, recommandée par la CNIL et l'ANSSI.</div>
+            <div class="feedly-article">
+              <div class="feedly-source"><span class="fsrc-dot" style="background:#2997ff"></span>ANSSI</div>
+              <div class="feedly-art-title">Panorama de la cybermenace 2024 — rapport annuel</div>
+              <div class="feedly-art-meta">il y a 1 jour · 8 min de lecture</div>
+              <div class="feedly-art-actions">
+                <span class="fact saved"><i class="fas fa-bookmark"></i> Sauvegardé</span>
+                <span class="fact"><i class="fas fa-tag"></i> Sécurité &amp; RGPD</span>
+              </div>
             </div>
-            <div class="reco-item">
-              <div class="reco-ic"><i class="fas fa-vial"></i></div>
-              <div class="reco-text"><strong>Mettre en place un pipeline GitHub Actions</strong> avec tests PHPUnit automatisés sur les projets de portfolio existants.</div>
+            <div class="feedly-article">
+              <div class="feedly-source"><span class="fsrc-dot" style="background:#27ae60"></span>Developpez.com</div>
+              <div class="feedly-art-title">PHP 8.4 est disponible : property hooks et visibilité asymétrique</div>
+              <div class="feedly-art-meta">il y a 3 jours · 4 min de lecture</div>
+              <div class="feedly-art-actions">
+                <span class="fact"><i class="fas fa-bookmark"></i> À lire</span>
+                <span class="fact"><i class="fas fa-tag"></i> PHP / Laravel</span>
+              </div>
             </div>
-            <div class="reco-item">
-              <div class="reco-ic"><i class="fas fa-book"></i></div>
-              <div class="reco-text"><strong>Lire les 13 fiches CNIL</strong> sur l'IA et le RGPD pour être capable de documenter correctement tout traitement de données dans mes futurs projets professionnels.</div>
-            </div>
-            <div class="reco-item">
-              <div class="reco-ic"><i class="fas fa-graduation-cap"></i></div>
-              <div class="reco-text"><strong>Préparer la certification AWS Cloud Practitioner</strong> comme première étape de montée en compétences cloud après le BTS, compétence très demandée en 2025.</div>
+            <div class="feedly-article">
+              <div class="feedly-source"><span class="fsrc-dot" style="background:#f39c12"></span>Le Monde Informatique</div>
+              <div class="feedly-art-title">GitHub Copilot passe en accès gratuit dans VS Code</div>
+              <div class="feedly-art-meta">il y a 4 jours · 3 min de lecture</div>
+              <div class="feedly-art-actions">
+                <span class="fact saved"><i class="fas fa-bookmark"></i> Sauvegardé</span>
+                <span class="fact"><i class="fas fa-tag"></i> IA &amp; Dev</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- ══ STATS FOOTER ══ -->
+      <!-- Capture Notion -->
+      <div class="demarche-capture r d5" style="margin-top:3px">
+        <div class="capture-label"><i class="fas fa-camera"></i> Aperçu — Base de données Notion (données réelles)</div>
+        <div class="notion-mockup">
+          <div class="notion-header">
+            <span class="notion-icon">📋</span>
+            <span class="notion-title">Veille Technologique — BTS SIO SLAM</span>
+            <div class="notion-views">
+              <span class="notion-view active">⊞ Tableau</span>
+              <span class="notion-view">≡ Liste</span>
+              <span class="notion-view">+ Nouveau</span>
+            </div>
+          </div>
+          <div class="notion-table">
+            <div class="notion-row header">
+              <div class="ncell title">Titre de l'article</div>
+              <div class="ncell">Source</div>
+              <div class="ncell">Thème</div>
+              <div class="ncell">Date</div>
+              <div class="ncell">Statut</div>
+            </div>
+            <div class="notion-row">
+              <div class="ncell title"><span class="nicon">📄</span>CNIL : 13 fiches pratiques IA et RGPD</div>
+              <div class="ncell"><span class="nsrc cnil">CNIL</span></div>
+              <div class="ncell"><span class="ntag purple">🔒 Sécurité</span></div>
+              <div class="ncell ndate">Avr. 2024</div>
+              <div class="ncell"><span class="nstatus done">✓ Analysé</span></div>
+            </div>
+            <div class="notion-row">
+              <div class="ncell title"><span class="nicon">📄</span>GitHub Copilot gratuit — VS Code</div>
+              <div class="ncell"><span class="nsrc lmi">Le Monde Info.</span></div>
+              <div class="ncell"><span class="ntag blue">🤖 IA &amp; Dev</span></div>
+              <div class="ncell ndate">Déc. 2024</div>
+              <div class="ncell"><span class="nstatus done">✓ Analysé</span></div>
+            </div>
+            <div class="notion-row">
+              <div class="ncell title"><span class="nicon">📄</span>ANSSI &amp; BSI — AI Coding Assistants</div>
+              <div class="ncell"><span class="nsrc anssi">ANSSI</span></div>
+              <div class="ncell"><span class="ntag purple">🔒 Sécurité</span></div>
+              <div class="ncell ndate">Oct. 2024</div>
+              <div class="ncell"><span class="nstatus done">✓ Analysé</span></div>
+            </div>
+            <div class="notion-row">
+              <div class="ncell title"><span class="nicon">📄</span>PHP 8.4 — property hooks et nouveautés</div>
+              <div class="ncell"><span class="nsrc dev">Developpez.com</span></div>
+              <div class="ncell"><span class="ntag green">⚙️ PHP / Laravel</span></div>
+              <div class="ncell ndate">Nov. 2024</div>
+              <div class="ncell"><span class="nstatus done">✓ Analysé</span></div>
+            </div>
+            <div class="notion-row">
+              <div class="ncell title"><span class="nicon">📄</span>Laravel 11 — architecture simplifiée</div>
+              <div class="ncell"><span class="nsrc dev">Laravel News</span></div>
+              <div class="ncell"><span class="ntag green">⚙️ PHP / Laravel</span></div>
+              <div class="ncell ndate">Mars 2024</div>
+              <div class="ncell"><span class="nstatus done">✓ Analysé</span></div>
+            </div>
+            <div class="notion-row">
+              <div class="ncell title"><span class="nicon">📄</span>Panorama cybermenace 2024 — ANSSI</div>
+              <div class="ncell"><span class="nsrc anssi">ANSSI</span></div>
+              <div class="ncell"><span class="ntag purple">🔒 Sécurité</span></div>
+              <div class="ncell ndate">Janv. 2025</div>
+              <div class="ncell"><span class="nstatus done">✓ Analysé</span></div>
+            </div>
+            <div class="notion-row">
+              <div class="ncell title"><span class="nicon">📄</span>AI Act européen — obligations développeurs</div>
+              <div class="ncell"><span class="nsrc cnil">CNIL</span></div>
+              <div class="ncell"><span class="ntag blue">🤖 IA &amp; Dev</span></div>
+              <div class="ncell ndate">Août 2024</div>
+              <div class="ncell"><span class="nstatus done">✓ Analysé</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /demarche -->
+
+    <!-- ══════════════════════════════════
+         PARTIE 2 — THÈME
+    ══════════════════════════════════ -->
+    <div class="veille-theme r d2">
+      <div class="demarche-header">
+        <div class="demarche-badge" style="background:rgba(48,209,88,.1);border-color:rgba(48,209,88,.25)"><span style="color:var(--green)">02</span></div>
+        <div>
+          <div class="sec-label" style="margin-bottom:6px">Partie 2</div>
+          <h3 class="demarche-title">Thème : Intelligence Artificielle &amp; Développement Web</h3>
+          <p class="demarche-sub">Bilan de la veille — dernières nouveautés analysées sur 12 mois</p>
+        </div>
+      </div>
+
+      <!-- Pourquoi ce thème -->
+      <div class="theme-why r d3">
+        <div class="theme-why-ic"><i class="fas fa-lightbulb"></i></div>
+        <div>
+          <div class="theme-why-title">Pourquoi ce thème ?</div>
+          <p class="theme-why-text">L'intelligence artificielle appliquée au développement web est le sujet le plus structurant pour ma carrière post-BTS SIO SLAM. En 2024–2025, chaque outil que j'utilise (VS Code, GitHub, Laravel) intègre de l'IA. Comprendre <strong>comment l'utiliser efficacement</strong>, <strong>quels risques elle introduit</strong> (sécurité, RGPD) et <strong>comment le marché évolue</strong> est indispensable pour être opérationnel dès l'embauche.</p>
+        </div>
+      </div>
+
+      <!-- Axes -->
+      <div class="theme-axes r d3">
+        <div class="axe-card">
+          <div class="axe-num">AXE 1</div>
+          <div class="axe-ic"><i class="fas fa-robot"></i></div>
+          <div class="axe-title">IA &amp; Productivité du développeur</div>
+          <div class="axe-arts">4 articles</div>
+        </div>
+        <div class="axe-card">
+          <div class="axe-num">AXE 2</div>
+          <div class="axe-ic"><i class="fas fa-code"></i></div>
+          <div class="axe-title">Évolutions frameworks (PHP, C#)</div>
+          <div class="axe-arts">4 articles</div>
+        </div>
+        <div class="axe-card">
+          <div class="axe-num">AXE 3</div>
+          <div class="axe-ic"><i class="fas fa-shield-alt"></i></div>
+          <div class="axe-title">Cybersécurité &amp; RGPD</div>
+          <div class="axe-arts">4 articles</div>
+        </div>
+        <div class="axe-card">
+          <div class="axe-num">AXE 4</div>
+          <div class="axe-ic"><i class="fas fa-cloud"></i></div>
+          <div class="axe-title">Cloud &amp; DevOps</div>
+          <div class="axe-arts">4 articles</div>
+        </div>
+      </div>
+
+      <!-- Onglets -->
+      <div class="veille-plan r d4">
+        <div class="plan-tab active" onclick="switchPlan(0, this)">
+          <div class="plan-tab-num">AXE 01</div>
+          <div class="plan-tab-label">IA &amp; Développement</div>
+          <div class="plan-tab-count">4 articles</div>
+        </div>
+        <div class="plan-tab" onclick="switchPlan(1, this)">
+          <div class="plan-tab-num">AXE 02</div>
+          <div class="plan-tab-label">Frameworks &amp; Outils</div>
+          <div class="plan-tab-count">4 articles</div>
+        </div>
+        <div class="plan-tab" onclick="switchPlan(2, this)">
+          <div class="plan-tab-num">AXE 03</div>
+          <div class="plan-tab-label">Cybersécurité &amp; RGPD</div>
+          <div class="plan-tab-count">4 articles</div>
+        </div>
+        <div class="plan-tab" onclick="switchPlan(3, this)">
+          <div class="plan-tab-num">AXE 04</div>
+          <div class="plan-tab-label">Cloud &amp; DevOps</div>
+          <div class="plan-tab-count">4 articles</div>
+        </div>
+      </div>
+
+      <div class="articles-container r d5">
+
+        <!-- AXE 01 -->
+        <div class="articles-panel active" id="panel-0">
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">01</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">IA · Assistants</span><span class="article-date">Déc. 2024</span><span class="article-source-tag">Le Monde Informatique</span></div>
+                <div class="article-title">GitHub Copilot passe en accès gratuit dans VS Code</div>
+                <div class="article-preview">2 000 complétions/mois inclus, choix entre GPT-4o et Claude 3.5 Sonnet — Copilot devient incontournable dès l'école…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">GitHub lance <strong>Copilot Free</strong> : 2 000 complétions et 50 messages/mois dans VS Code, avec choix entre <strong>Claude 3.5 Sonnet</strong> et GPT-4o. Avant, seuls les étudiants bénéficiaient d'un accès gratuit.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">La vraie compétence : <strong>vérifier, comprendre et corriger les suggestions IA</strong> — ce qui exige des bases solides en PHP et C#. L'IA amplifie les bons développeurs, ne remplace pas les fondamentaux.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://www.lemondeinformatique.fr/actualites/lire-github-lance-une-version-gratuite-de-copilot-95584.html" target="_blank">lemondeinformatique.fr — GitHub lance une version gratuite de Copilot</a><span>Le Monde Informatique · Déc. 2024</span></div>
+            </div>
+          </div>
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">02</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">IA · Productivité</span><span class="article-date">Mars 2024</span><span class="article-source-tag">Le Monde Informatique</span></div>
+                <div class="article-title">Copilot rend les développeurs 55 % plus productifs, selon GitHub</div>
+                <div class="article-preview">Le COO de GitHub détaille les gains de productivité mesurés en interne grâce à l'IA générative…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">L'IA générative rend les développeurs <strong>55 % plus productifs</strong> selon Kyle Daigle, COO de GitHub. Mais l'article soulève aussi le risque de dépendance pour les juniors sans bases solides.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">Ce gain concerne les <strong>développeurs déjà compétents</strong>. Maîtriser PHP, SQL, C# avant de s'appuyer sur l'IA est essentiel pour que le code généré reste compréhensible et maintenable.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://www.lemondeinformatique.fr/actualites/lire-kyle-daigle-coo-de-github--copilot-rend-les-developpeurs-55-plus-productifs-93136.html" target="_blank">lemondeinformatique.fr — Copilot rend les développeurs 55 % plus productifs</a><span>Le Monde Informatique · Mars 2024</span></div>
+            </div>
+          </div>
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">03</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">IA · Sécurité</span><span class="article-date">Oct. 2024</span><span class="article-source-tag">ANSSI</span></div>
+                <div class="article-title">ANSSI &amp; BSI : bonnes pratiques pour les assistants de programmation IA</div>
+                <div class="article-preview">Les agences française et allemande publient un guide conjoint sur les risques des outils de génération de code IA…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">L'ANSSI et le BSI publient <strong>"AI Coding Assistants"</strong> : risques identifiés (code non vérifié, fuite de données, dépendances vulnérables). Recommandation : <strong>ne jamais déployer du code IA sans relecture</strong>.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">Que l'ANSSI publie des recommandations sur Copilot montre l'urgence. Tout code généré en PHP ou C# <strong>doit être relu et audité</strong> — une requête SQL mal générée peut introduire une injection directement.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://cyber.gouv.fr/publications" target="_blank">cyber.gouv.fr — Publications ANSSI</a><span>ANSSI · Oct. 2024</span></div>
+            </div>
+          </div>
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">04</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">IA · Règlement</span><span class="article-date">Août 2024</span><span class="article-source-tag">CNIL</span></div>
+                <div class="article-title">L'AI Act européen entre en vigueur — obligations pour les développeurs</div>
+                <div class="article-preview">Le règlement IA de l'UE entre en application le 1er août 2024 — 4 niveaux de risque, nouvelles obligations…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">L'<strong>AI Act</strong> classe les systèmes d'IA en 4 niveaux de risque. Depuis le 2 février 2025, les pratiques à risque inacceptable sont interdites. Ce règlement <strong>complète le RGPD</strong> — les développeurs doivent documenter leurs systèmes IA.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">Si j'intègre une IA dans un projet PHP, je dois <strong>évaluer son niveau de risque</strong> selon l'AI Act. Ma certification CNIL RGPD est un bon point de départ. Peu de juniors connaissent ce règlement — vrai avantage en entretien.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://www.cnil.fr/fr/entree-en-vigueur-du-reglement-europeen-sur-lia-les-premieres-questions-reponses-de-la-cnil" target="_blank">cnil.fr — AI Act : questions-réponses CNIL</a><span>CNIL · Août 2024</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AXE 02 -->
+        <div class="articles-panel" id="panel-1">
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">05</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">PHP · Langage</span><span class="article-date">Nov. 2024</span><span class="article-source-tag">Developpez.com</span></div>
+                <div class="article-title">PHP 8.4 : property hooks, visibilité asymétrique et nouvelles fonctions</div>
+                <div class="article-preview">PHP 8.4 modernise la syntaxe avec les property hooks — une évolution proche de C#…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">PHP 8.4 introduit les <strong>property hooks</strong> (logique get/set intégrée) et la <strong>visibilité asymétrique</strong> (lecture publique, écriture privée). PhpStorm 2024.3 intègre nativement ces nouveautés et le support Laravel Herd.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">PHP 8.4 <strong>rapproche la syntaxe de C#</strong> — un langage que j'utilise sur ADA Location. Suivre ces évolutions montre qu'on ne code pas encore en PHP 5 en 2025, signal positif pour un recruteur.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://jetbrains.developpez.com/actu/364891/" target="_blank">developpez.com — PhpStorm 2024.3 &amp; PHP 8.4</a><span>Developpez.com · Nov. 2024</span></div>
+            </div>
+          </div>
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">06</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">PHP · Framework</span><span class="article-date">Mars 2024</span><span class="article-source-tag">Laravel News</span></div>
+                <div class="article-title">Laravel 11 : architecture simplifiée et Eloquent ORM amélioré</div>
+                <div class="article-preview">Laravel 11 réduit la complexité structurelle des projets PHP — ce qui change concrètement en équipe…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">Laravel 11 simplifie la structure : providers redondants supprimés, bootstrap allégé, middlewares unifiés. <strong>Eloquent</strong> gagne de nouvelles méthodes. Framework le plus demandé dans les offres d'emploi junior PHP en France.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">J'ai utilisé Eloquent ORM sur ADA Web. Moins de configuration signifie <strong>plus de temps pour la logique métier</strong> en stage. Argument fort pour approfondir Laravel après le BTS — c'est ce que les entreprises attendent.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://laravel-news.com/laravel-11" target="_blank">laravel-news.com — Laravel 11 Release Notes</a><span>Laravel News · Mars 2024</span></div>
+            </div>
+          </div>
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">07</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">C# · .NET</span><span class="article-date">Nov. 2024</span><span class="article-source-tag">Le Monde Informatique</span></div>
+                <div class="article-title">.NET 9 : LINQ enrichi, Blazor renforcé, garbage collector optimisé</div>
+                <div class="article-preview">Microsoft publie .NET 9 — gains de performance et C# 13 pour le développement desktop et web…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">.NET 9 : GC optimisé, LINQ enrichi (<strong>CountBy</strong>, <strong>AggregateBy</strong>), Blazor renforcé pour les apps web hybrides. C# 13 simplifie la syntaxe avec les params collections et partial properties.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">Sur ADA Location (C# + Entity Framework), les nouvelles méthodes LINQ m'auraient permis d'écrire les <strong>statistiques de location en moins de code</strong>. Blazor pourrait aussi permettre de faire du front en C# — attractif pour les petites équipes.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://www.lemondeinformatique.fr/actualites/" target="_blank">lemondeinformatique.fr — .NET 9</a><span>Le Monde Informatique · Nov. 2024</span></div>
+            </div>
+          </div>
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">08</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">Git · CI/CD</span><span class="article-date">2024</span><span class="article-source-tag">Developpez.com</span></div>
+                <div class="article-title">Git en entreprise : branches, CI/CD et bonnes pratiques d'équipe</div>
+                <div class="article-preview">Comment les équipes pro utilisent Git et les pipelines CI/CD pour livrer du logiciel de façon fiable…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">Bonnes pratiques Git pro : branches Gitflow, conventions de commits, pull requests, pipelines <strong>CI/CD via GitHub Actions</strong>. Tests automatisés avant chaque merge, séparation stricte dev / recette / production.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">En BTS, Git reste basique. En stage chez Chronophone, j'ai versionné le code mais sans pipeline CI/CD. <strong>Branches de feature et pull requests sont la norme en entreprise</strong> — compétence différenciante à acquérir rapidement.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://www.developpez.com/actu/" target="_blank">developpez.com — Git et CI/CD</a><span>Developpez.com · 2024</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AXE 03 -->
+        <div class="articles-panel" id="panel-2">
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">09</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">RGPD · IA</span><span class="article-date">2024–2025</span><span class="article-source-tag">CNIL</span></div>
+                <div class="article-title">CNIL : 13 fiches pratiques pour développer des systèmes d'IA conformes au RGPD</div>
+                <div class="article-preview">La CNIL guide les développeurs pour l'usage des données personnelles dans les projets d'IA…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">La CNIL publie <strong>13 fiches pratiques</strong> pour les devs IA : finalité claire, minimisation des données, bases légales documentées. Si le modèle d'IA mémorise des données personnelles, <strong>le RGPD s'applique</strong>.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">Ma certification CNIL RGPD (6 modules) prend tout son sens ici. <strong>Tout développeur intégrant une API d'IA avec des données utilisateurs est responsable de traitement</strong> — responsabilité juridique que peu de juniors connaissent.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://www.cnil.fr/fr/developpement-des-systemes-dia-les-recommandations-de-la-cnil-pour-respecter-le-rgpd" target="_blank">cnil.fr — Recommandations CNIL IA &amp; RGPD</a><span>CNIL.fr · 2024–2025</span></div>
+            </div>
+          </div>
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">10</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">Cybermenaces</span><span class="article-date">Janv. 2025</span><span class="article-source-tag">ANSSI</span></div>
+                <div class="article-title">Panorama de la cybermenace 2024 — bilan annuel de l'ANSSI</div>
+                <div class="article-preview">Rançongiciels, espionnage, hacktivisme — bilan complet des cyberattaques en France en 2024…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">3 catégories d'attaquants : <strong>cybercriminels</strong> (rançongiciels), <strong>étatiques</strong> (espionnage), <strong>hacktivistes</strong>. JO Paris 2024 visés sans succès. Principal vecteur : vulnérabilités non corrigées sur équipements réseau.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">Les failles exploitées concernaient souvent des <strong>applications web non mises à jour</strong>. En PHP, ne pas corriger rapidement ou utiliser des requêtes non préparées crée exactement ce type de vulnérabilité. La sécurité commence au niveau du code.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://cyber.gouv.fr/publications" target="_blank">cyber.gouv.fr — Panorama cybermenace 2024</a><span>ANSSI · Janv. 2025</span></div>
+            </div>
+          </div>
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">11</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">Authentification</span><span class="article-date">2024</span><span class="article-source-tag">CNIL &amp; ANSSI</span></div>
+                <div class="article-title">Mots de passe &amp; MFA : recommandations 2024 de la CNIL et de l'ANSSI</div>
+                <div class="article-preview">Les organismes officiels actualisent leurs recommandations — fin des changements fréquents, priorité à l'entropie et au MFA…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">Recommandations 2024 : minimum <strong>12–16 caractères</strong>, priorité à l'entropie (fini les changements fréquents), obligation de proposer le <strong>MFA</strong> pour les services sensibles. Attaques sur mots de passe : 7 000/seconde en 2024.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">Mes projets PHP utilisent sessions + bcrypt — la base. Mais le <strong>MFA est un niveau supérieur</strong> pas encore implémenté. Axe de progression concret et sujet apprécié dans les présentations orales BTS SIO.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://cyber.gouv.fr/publications/recommandations-relatives-lauthentification-multifacteur-et-aux-mots-de-passe" target="_blank">cyber.gouv.fr — Recommandations MFA et mots de passe</a><span>CNIL / ANSSI · 2024</span></div>
+            </div>
+          </div>
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">12</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">Plan stratégique</span><span class="article-date">Mars 2025</span><span class="article-source-tag">ANSSI</span></div>
+                <div class="article-title">ANSSI : plan stratégique 2025–2027 — IA, cloud et cryptographie post-quantique</div>
+                <div class="article-preview">L'ANSSI publie ses priorités 3 ans : IA, NIS 2, cloud souverain, cryptographie post-quantique…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">Plan 2025–2027 : réponse aux cybermenaces, expertise IA et <strong>cryptographie post-quantique</strong>, renforcement NIS 2 et CRA, coopération européenne. Montée en compétences cyber des PME ciblée.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">La cryptographie post-quantique est un défi à 5–10 ans. Aujourd'hui : appliquer HTTPS, MFA et PDO, et comprendre NIS 2 qui <strong>élargit les obligations de sécurité aux PME</strong> — les entreprises où je vais travailler.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://www.lemondeinformatique.fr/actualites/lire-l-anssi-degaine-son-plan-strategique-2025-2027-96246.html" target="_blank">lemondeinformatique.fr — Plan stratégique ANSSI 2025–2027</a><span>Le Monde Informatique · Mars 2025</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AXE 04 -->
+        <div class="articles-panel" id="panel-3">
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">13</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">Cloud · Souveraineté</span><span class="article-date">2024</span><span class="article-source-tag">Journal du Net</span></div>
+                <div class="article-title">Cloud souverain français : pourquoi les entreprises s'y intéressent</div>
+                <div class="article-preview">OVHcloud, Scaleway — les acteurs français attirent les entreprises soucieuses de souveraineté des données…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">Face au <strong>Cloud Act américain</strong>, OVHcloud et Scaleway proposent des offres certifiées <strong>SecNumCloud</strong> (ANSSI). Données sous juridiction européenne garantie — très demandé par les administrations et secteurs sensibles.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">Pour un dev PHP travaillant pour une collectivité, <strong>héberger sur OVHcloud peut être une exigence contractuelle</strong>. Connaître les enjeux de souveraineté numérique montre une maturité au-delà du code — appréciée par les DSI.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://www.journaldunet.com/solutions/cloud-computing/" target="_blank">journaldunet.com — Cloud souverain en France</a><span>Journal du Net · 2024</span></div>
+            </div>
+          </div>
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">14</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">Docker</span><span class="article-date">2024</span><span class="article-source-tag">Le Monde Informatique</span></div>
+                <div class="article-title">Docker en professionnel : la conteneurisation s'impose pour PHP</div>
+                <div class="article-preview">De plus en plus d'équipes adoptent Docker pour uniformiser les environnements PHP…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">Docker Compose : environnements PHP-FPM, Nginx, MySQL définis en YAML versionné. Avantage : <strong>"ça marche partout"</strong>. Docker est mentionné dans la majorité des offres d'emploi dev web en France en 2024.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">En stage chez Chronophone, WAMP en local ≠ production — source de bugs. <strong>Docker aurait éliminé ce problème.</strong> Les bases de Docker Compose sont un prérequis dans beaucoup d'offres junior — axe de progression prioritaire.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://www.lemondeinformatique.fr/actualites/" target="_blank">lemondeinformatique.fr — Docker et PHP</a><span>Le Monde Informatique · 2024</span></div>
+            </div>
+          </div>
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">15</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">DevOps · CI/CD</span><span class="article-date">2024</span><span class="article-source-tag">Developpez.com</span></div>
+                <div class="article-title">GitHub Actions : automatiser les tests et le déploiement d'une app PHP</div>
+                <div class="article-preview">Guide pratique pour configurer un pipeline CI/CD — tests PHPUnit automatisés et déploiement à chaque push…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">Pipeline GitHub Actions PHP : install Composer, tests <strong>PHPUnit</strong>, vérif PHP_CodeSniffer, déploiement auto si tout passe. Configuration versionnée en YAML. Garantit qu'aucun code non testé n'atteint la production.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">CI/CD peu enseigné en BTS, mais différenciante à l'embauche. Sur mes projets portfolio, ajouter GitHub Actions montrerait que je <strong>pratique les standards professionnels</strong>, pas seulement scolaires.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://www.developpez.com/actu/" target="_blank">developpez.com — GitHub Actions PHP</a><span>Developpez.com · 2024</span></div>
+            </div>
+          </div>
+          <div class="article-row" onclick="toggleArticle(this)">
+            <div class="article-header">
+              <div class="article-num">16</div>
+              <div class="article-main">
+                <div class="article-meta"><span class="article-cat">Emploi · Compétences</span><span class="article-date">2024–2025</span><span class="article-source-tag">Journal du Net</span></div>
+                <div class="article-title">Ce que les recruteurs attendent d'un développeur web junior en 2025</div>
+                <div class="article-preview">Analyse des compétences demandées dans les offres d'emploi dev full-stack junior en France…</div>
+              </div>
+              <div class="article-right"><div class="article-expand-btn"><i class="fas fa-plus"></i></div></div>
+            </div>
+            <div class="article-body">
+              <div class="ab-grid">
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-book-open"></i> Résumé</div><div class="ab-block-text">Les offres d'emploi junior full-stack exigent : <strong>Git avec branches</strong>, bases Docker, CI/CD, tests unitaires, pratiques Agile. La maîtrise de frameworks (Laravel) est souvent préférée à la connaissance d'un seul langage.</div></div>
+                <div class="ab-block"><div class="ab-block-label"><i class="fas fa-microscope"></i> Mon analyse</div><div class="ab-block-text">Cette veille m'a permis de voir les <strong>écarts entre ma formation BTS et le marché</strong>. Bases solides : PHP, C#, SQL, Git. À combler : Docker, CI/CD, tests automatisés — intégrés dans mes objectifs post-BTS.</div></div>
+              </div>
+              <div class="ab-source-row"><i class="fas fa-link"></i><a href="https://www.journaldunet.com/solutions/emploi-rh/developpeur/" target="_blank">journaldunet.com — Recrutement développeur</a><span>Journal du Net · 2024–2025</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /articles-container -->
+
+      <!-- Synthèse -->
+      <div class="veille-synthese r d5">
+        <div class="synthese-header">
+          <div class="synthese-ic"><i class="fas fa-layer-group"></i></div>
+          <div class="synthese-meta">
+            <div class="synthese-eyebrow">Bilan de la veille</div>
+            <div class="synthese-title">Ce que révèle cette veille sur l'avenir du développeur web</div>
+          </div>
+        </div>
+        <div class="synthese-body">
+          <div class="synthese-grid">
+            <div class="syn-block b1">
+              <div class="syn-block-icon"><i class="fas fa-robot"></i></div>
+              <div class="syn-block-title">L'IA comme outil, pas remplaçant</div>
+              <div class="syn-block-text">Copilot est gratuit et partout. Mais l'ANSSI et Le Monde Informatique convergent : <strong>l'IA amplifie les développeurs compétents</strong>, ne remplace pas les bases. La valeur se déplace vers la vérification critique et la conformité réglementaire.</div>
+            </div>
+            <div class="syn-block b2">
+              <div class="syn-block-icon"><i class="fas fa-shield-alt"></i></div>
+              <div class="syn-block-title">Sécurité &amp; RGPD : responsabilité du dev</div>
+              <div class="syn-block-text">CNIL et ANSSI publient des guides directement pour les développeurs. <strong>Chaque ligne de code exposée engage une responsabilité légale.</strong> Ma certification CNIL me positionne bien — MFA et conformité AI Act à approfondir.</div>
+            </div>
+            <div class="syn-block b3">
+              <div class="syn-block-icon"><i class="fas fa-cloud"></i></div>
+              <div class="syn-block-title">Culture DevOps : transition inévitable</div>
+              <div class="syn-block-text">Docker, CI/CD, cloud souverain — le dev 2025 doit <strong>livrer, déployer et maintenir</strong> son application. Cette culture peu enseignée en BTS est la principale lacune à combler pour être opérationnel dès le premier emploi.</div>
+            </div>
+          </div>
+          <div class="synthese-conclusion">
+            <p>
+              Cette veille de <strong>16 articles sur 12 mois</strong>, appuyée sur des <strong>sources françaises officielles</strong> (CNIL, ANSSI) et de la presse technique de référence (Le Monde Informatique, Developpez.com), confirme que le développeur web de 2025 doit être un <strong>profil hybride</strong>.<br><br>
+              Trois axes prioritaires identifiés : approfondir <strong>Laravel et PHP 8.4</strong>, acquérir les bases <strong>Docker et CI/CD</strong>, et maîtriser la <strong>conformité RGPD/AI Act</strong> pour tout projet intégrant de l'IA.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /theme -->
+
+    <!-- Stats -->
     <div class="veille-stats">
-      <div class="vstat r d1">
-        <div class="vstat-ic"><i class="fas fa-newspaper"></i></div>
-        <div><div class="vstat-n">16<span></span></div><div class="vstat-l">Articles analysés</div></div>
-      </div>
-      <div class="vstat r d2">
-        <div class="vstat-ic"><i class="fas fa-sitemap"></i></div>
-        <div><div class="vstat-n">4<span></span></div><div class="vstat-l">Axes thématiques</div></div>
-      </div>
-      <div class="vstat r d3">
-        <div class="vstat-ic"><i class="fas fa-flag"></i></div>
-        <div><div class="vstat-n">8<span>+</span></div><div class="vstat-l">Sources françaises officielles</div></div>
-      </div>
-      <div class="vstat r d4">
-        <div class="vstat-ic"><i class="fas fa-calendar-alt"></i></div>
-        <div><div class="vstat-n">12<span>m</span></div><div class="vstat-l">Mois de veille</div></div>
-      </div>
-      <div class="vstat r d5">
-        <div class="vstat-ic"><i class="fas fa-tools"></i></div>
-        <div><div class="vstat-n">2<span></span></div><div class="vstat-l">Outils : Feedly + Notion</div></div>
-      </div>
+      <div class="vstat r d1"><div class="vstat-ic"><i class="fas fa-newspaper"></i></div><div><div class="vstat-n">16<span></span></div><div class="vstat-l">Articles analysés</div></div></div>
+      <div class="vstat r d2"><div class="vstat-ic"><i class="fas fa-sitemap"></i></div><div><div class="vstat-n">4<span></span></div><div class="vstat-l">Axes thématiques</div></div></div>
+      <div class="vstat r d3"><div class="vstat-ic"><i class="fas fa-flag"></i></div><div><div class="vstat-n">6<span>+</span></div><div class="vstat-l">Sources officielles françaises</div></div></div>
+      <div class="vstat r d4"><div class="vstat-ic"><i class="fas fa-calendar-alt"></i></div><div><div class="vstat-n">12<span>m</span></div><div class="vstat-l">Mois de veille</div></div></div>
+      <div class="vstat r d5"><div class="vstat-ic"><i class="fas fa-tools"></i></div><div><div class="vstat-n">2<span></span></div><div class="vstat-l">Outils : Feedly + Notion</div></div></div>
     </div>
 
   </div>
 </section>
+
 <hr class="divider">
 
 <!-- CONTACT -->
@@ -1872,7 +1935,7 @@ footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items
       <div class="contact-info">
         <div class="ci-row"><div class="ci-ic"><i class="fas fa-map-marker-alt"></i></div><span class="ci-text">France</span></div>
         <div class="ci-row"><div class="ci-ic"><i class="fas fa-graduation-cap"></i></div><span class="ci-text">BTS SIO SLAM</span></div>
-        <div class="ci-row"><div class="ci-ic"><i class="fas fa-envelope"></i></div><span class="ci-text">eyoubbelkhiri@gmail.com</span></div>
+        <div class="ci-row"><div class="ci-ic"><i class="fas fa-envelope"></i></div><span class="ci-text"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="14716d7b61767671787f7c7d667d547379757d783a777b79">[email&#160;protected]</a></span></div>
         <div class="ci-row"><div class="ci-dot"></div><span class="ci-text ci-avail">Disponible — Prêt pour l'emploi</span></div>
       </div>
     </div>
@@ -1943,7 +2006,7 @@ footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items
   <div class="fr-r">© 2025 — BTS SIO SLAM</div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 emailjs.init("uO7hNVrTPBeV0NVx7");
 
 /* ══ AMBIENT BG ══ */
@@ -2105,15 +2168,4 @@ function switchPlan(idx, el) {
   document.querySelectorAll('.plan-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.articles-panel').forEach(p => p.classList.remove('active'));
   el.classList.add('active');
-  document.getElementById('panel-' + idx).classList.add('active');
-}
-
-/* ══ VEILLE — ARTICLE ACCORDION ══ */
-function toggleArticle(el) {
-  const isOpen = el.classList.contains('open');
-  document.querySelectorAll('.articles-panel.active .article-row').forEach(r => r.classList.remove('open'));
-  if (!isOpen) el.classList.add('open');
-}
-</script>
-</body>
-</html>
+  document.get
