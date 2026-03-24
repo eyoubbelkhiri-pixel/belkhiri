@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -758,6 +757,15 @@ footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items
 @media(max-width:900px){.demarche-flow{grid-template-columns:1fr;gap:6px}.flow-arrow{transform:rotate(90deg)}.demarche-outils-grid{grid-template-columns:1fr}.feedly-mockup{grid-template-columns:1fr}.feedly-sidebar{display:none}.theme-axes{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.theme-axes{grid-template-columns:1fr}.notion-row{grid-template-columns:2fr 1fr}.ncell:nth-child(3),.ncell:nth-child(4){display:none}}
 
+
+.feedly-topbar{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:4px;}
+.feedly-user{display:flex;align-items:center;gap:8px;cursor:default;}
+.feedly-avatar{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff;flex-shrink:0;}
+.feedly-username{font-size:.68rem;font-weight:600;color:var(--light);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px;}
+.feedly-nav-item.fav{padding-left:20px;font-size:.7rem;color:var(--soft);gap:6px;}
+
+.feedly-screenshot{background:var(--bg4);border-radius:0 0 12px 12px;overflow:hidden;line-height:0;}
+.feedly-real-img{width:100%;height:auto;display:block;border-radius:0 0 12px 12px;object-fit:cover;}
 </style>
 </head>
 <body>
@@ -1359,59 +1367,8 @@ footer{max-width:1100px;margin:0 auto;padding:32px 28px;display:flex;align-items
       <!-- Capture Feedly -->
       <div class="demarche-capture r d5">
         <div class="capture-label"><i class="fas fa-camera"></i> Aperçu — Tableau de bord Feedly (données réelles)</div>
-        <div class="feedly-mockup">
-          <div class="feedly-sidebar">
-            <div class="feedly-logo"><i class="fas fa-rss"></i> Feedly</div>
-            <div class="feedly-nav-item active"><i class="fas fa-home"></i> Today</div>
-            <div class="feedly-nav-item"><i class="fas fa-star"></i> Saved (12)</div>
-            <div class="feedly-sep">MES COLLECTIONS</div>
-            <div class="feedly-nav-item"><i class="fas fa-shield-alt" style="color:#e74c3c"></i> Sécurité &amp; RGPD</div>
-            <div class="feedly-nav-item"><i class="fas fa-code" style="color:#2997ff"></i> PHP / Laravel</div>
-            <div class="feedly-nav-item"><i class="fas fa-robot" style="color:#f39c12"></i> IA &amp; Dev</div>
-            <div class="feedly-nav-item"><i class="fas fa-cloud" style="color:#27ae60"></i> Cloud &amp; DevOps</div>
-          </div>
-          <div class="feedly-main">
-            <div class="feedly-toolbar">
-              <span class="feedly-title">Today · <strong>8 nouveaux articles</strong></span>
-              <span class="feedly-date">Lundi 24 mars 2025</span>
-            </div>
-            <div class="feedly-article featured">
-              <div class="feedly-source"><span class="fsrc-dot" style="background:#e74c3c"></span>CNIL</div>
-              <div class="feedly-art-title">IA et RGPD : la CNIL finalise ses recommandations pour les développeurs de systèmes d'IA</div>
-              <div class="feedly-art-meta">il y a 2 heures · 5 min de lecture</div>
-              <div class="feedly-art-actions">
-                <span class="fact saved"><i class="fas fa-bookmark"></i> Sauvegardé</span>
-                <span class="fact"><i class="fas fa-tag"></i> Sécurité &amp; RGPD</span>
-              </div>
-            </div>
-            <div class="feedly-article">
-              <div class="feedly-source"><span class="fsrc-dot" style="background:#2997ff"></span>ANSSI</div>
-              <div class="feedly-art-title">Panorama de la cybermenace 2024 — rapport annuel</div>
-              <div class="feedly-art-meta">il y a 1 jour · 8 min de lecture</div>
-              <div class="feedly-art-actions">
-                <span class="fact saved"><i class="fas fa-bookmark"></i> Sauvegardé</span>
-                <span class="fact"><i class="fas fa-tag"></i> Sécurité &amp; RGPD</span>
-              </div>
-            </div>
-            <div class="feedly-article">
-              <div class="feedly-source"><span class="fsrc-dot" style="background:#27ae60"></span>Developpez.com</div>
-              <div class="feedly-art-title">PHP 8.4 est disponible : property hooks et visibilité asymétrique</div>
-              <div class="feedly-art-meta">il y a 3 jours · 4 min de lecture</div>
-              <div class="feedly-art-actions">
-                <span class="fact"><i class="fas fa-bookmark"></i> À lire</span>
-                <span class="fact"><i class="fas fa-tag"></i> PHP / Laravel</span>
-              </div>
-            </div>
-            <div class="feedly-article">
-              <div class="feedly-source"><span class="fsrc-dot" style="background:#f39c12"></span>Le Monde Informatique</div>
-              <div class="feedly-art-title">GitHub Copilot passe en accès gratuit dans VS Code</div>
-              <div class="feedly-art-meta">il y a 4 jours · 3 min de lecture</div>
-              <div class="feedly-art-actions">
-                <span class="fact saved"><i class="fas fa-bookmark"></i> Sauvegardé</span>
-                <span class="fact"><i class="fas fa-tag"></i> IA &amp; Dev</span>
-              </div>
-            </div>
-          </div>
+        <div class="feedly-screenshot">
+          <img src="feedly-capture.png" alt="Capture réelle du tableau de bord Feedly — Eyoub Belkhiri" class="feedly-real-img">
         </div>
       </div>
 
