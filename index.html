@@ -1405,6 +1405,246 @@ body {
   transition: background .3s;
 }
 .cv-dl-btn:hover { background: rgba(255,255,255,.85); }
+
+/* ══ YKP DESIGN OVERRIDES — injected after original CSS ══ */
+* { cursor: none !important; }
+#ykp-cursor {
+  position:fixed;width:8px;height:8px;background:#fff;border-radius:50%;
+  pointer-events:none;z-index:99999;transform:translate(-50%,-50%);
+  mix-blend-mode:difference;
+  transition:width .25s cubic-bezier(.16,1,.3,1),height .25s cubic-bezier(.16,1,.3,1);
+}
+#ykp-cursor.grow{width:44px;height:44px;}
+@media(hover:none){#ykp-cursor{display:none;}*{cursor:auto!important;}}
+#cursor-dot,#cursor-ring{display:none!important;}
+
+/* Fonts */
+body,nav,.logo,.nav-links a,.nav-cta,.sec-label,.sec-title,
+.h-name,.h-role,.hero-avail span,.btn-fill,.btn-out,
+.bstat-n,.bstat-l,.bc-stack-label,.sk-name,.sk-sub,.stag,
+.av-status,.av-btn,.bc-link span,.bio-quote,.bio-body,
+.pf-eyebrow,.pf-title,.pf-desc,.pftag,.pl-cat,.pl-title,.pl-desc,.pltag,
+.cert-pix-title,.cert-pix-issuer,.cert-pix-desc,.cert-comp-tag,.cert-cnil-title,
+.cert-module-name,.cert-stat-n,.cert-stat-l,
+.cv-aside-name,.cv-aside-role,.cv-aside-bio,.cv-hl span,.cv-dl-btn,
+.contact-big,.contact-sub,.ci-text,.form-head,.fsub,
+.fi input,.fi textarea,.fm,
+#ovTitle,.ov-rh-eyebrow,.ov-mrow span,.ov-pill,.ov-cta,.ov-secondary-link,#ovDesc,
+.ov-section-label,.ov-cnt,.ov-noimg span,
+.plan-tab-num,.plan-tab-label,.plan-tab-count,
+.article-num,.article-cat,.article-title,.article-preview,
+.ab-block-label,.ab-block-text,.ab-source-row a,.ab-source-row span,
+.vstat-n,.vstat-l,
+.demarche-title,.demarche-sub,.demarche-badge span,.flow-label,.flow-desc,
+.outil-category,.outil-name,.outil-desc,.otag,.source-name,.source-type,.source-freq,
+.capture-label,.theme-why-title,.theme-why-text,.axe-num,.axe-title,.axe-arts,
+.syn-block-title,.syn-block-text,.synthese-conclusion p,.synthese-eyebrow,.synthese-title,
+.reco-text,.reco-title,.org-title,.org-item-label,.org-item-val,.org-item-sub,
+.fl,.fr-r,footer{
+  font-family:'Poppins','Inter',-apple-system,sans-serif!important;
+}
+
+/* Loader */
+#loader{background:#000!important;}
+.ld-logo{font-weight:300!important;letter-spacing:.22em!important;font-size:.9rem!important;text-transform:uppercase!important;color:rgba(255,255,255,.5)!important;}
+.ld-bar{border-radius:0!important;}
+.ld-progress{background:#fff!important;border-radius:0!important;}
+
+/* Nav */
+nav{background:rgba(0,0,0,.88)!important;}
+.logo{mix-blend-mode:difference;letter-spacing:-.04em!important;font-weight:600!important;}
+.logo-dot{color:#fff!important;animation:none!important;}
+.nav-links a{font-size:.62rem!important;letter-spacing:.16em!important;text-transform:uppercase!important;font-weight:300!important;color:rgba(255,255,255,.3)!important;}
+.nav-links a:hover{color:#fff!important;}
+.nav-links a::after{background:#fff!important;}
+.nav-cta{border-radius:0!important;font-size:.62rem!important;letter-spacing:.14em!important;text-transform:uppercase!important;font-weight:300!important;color:rgba(255,255,255,.4)!important;border:1px solid rgba(255,255,255,.18)!important;}
+.nav-cta::before{background:#fff!important;border-radius:0!important;}
+.nav-cta:hover{color:#000!important;border-color:#fff!important;}
+
+/* Hero */
+.h-name{font-weight:700!important;letter-spacing:-.055em!important;line-height:.9!important;color:#fff!important;}
+.h-name em{font-weight:200!important;color:rgba(255,255,255,.35)!important;}
+.hero-avail{background:rgba(255,255,255,.04)!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:0!important;}
+.hero-avail span{font-size:.58rem!important;letter-spacing:.16em!important;text-transform:uppercase!important;font-weight:300!important;color:rgba(255,255,255,.45)!important;}
+.avail-dot{background:#4ade80!important;box-shadow:0 0 8px rgba(74,222,128,.7)!important;}
+.btn-fill{background:#fff!important;color:#000!important;border-radius:0!important;border:1px solid #fff!important;font-size:.68rem!important;letter-spacing:.12em!important;text-transform:uppercase!important;font-weight:400!important;}
+.btn-fill:hover{background:rgba(255,255,255,.88)!important;transform:none!important;box-shadow:none!important;}
+.btn-fill::before{background:rgba(0,0,0,.08)!important;border-radius:0!important;}
+.btn-out{border-radius:0!important;font-size:.68rem!important;letter-spacing:.12em!important;text-transform:uppercase!important;font-weight:300!important;color:rgba(255,255,255,.35)!important;border:1px solid rgba(255,255,255,.14)!important;}
+.btn-out:hover{background:rgba(255,255,255,.05)!important;transform:none!important;}
+
+/* Sections */
+.sec-label{font-size:.56rem!important;letter-spacing:.22em!important;font-weight:400!important;color:rgba(255,255,255,.28)!important;}
+.sec-label::before{background:rgba(255,255,255,.28)!important;}
+.sec-title{font-weight:700!important;letter-spacing:-.05em!important;line-height:.9!important;}
+.sec-title em{font-weight:200!important;color:rgba(255,255,255,.28)!important;}
+.divider{background:rgba(255,255,255,.07)!important;}
+
+/* About */
+#about{background:#080808!important;}
+.bcard{border-radius:0!important;}
+.bcard:hover{border-color:rgba(255,255,255,.14)!important;transform:none!important;box-shadow:none!important;}
+.bcard::after{display:none!important;}
+.bcard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);opacity:0;transition:opacity .4s;}
+.bcard:hover::before{opacity:1!important;}
+.bio-quote{font-weight:500!important;letter-spacing:-.03em!important;}
+.bstat{background:#111!important;border-radius:0!important;}
+.bstat::before{display:none!important;}
+.bstat-n{font-weight:700!important;letter-spacing:-.06em!important;color:#fff!important;}
+.bstat-l{font-size:.58rem!important;letter-spacing:.1em!important;color:rgba(255,255,255,.3)!important;}
+.sk-name{font-weight:400!important;color:rgba(255,255,255,.7)!important;}
+.skrow{border-radius:0!important;}
+.skrow:hover{transform:translateX(4px)!important;}
+.skrow::before{background:#fff!important;}
+.sk-ic{border-radius:0!important;}
+.skrow:hover .sk-ic{background:rgba(255,255,255,.08)!important;color:#fff!important;transform:none!important;}
+.stag{border-radius:0!important;background:rgba(255,255,255,.04)!important;color:rgba(255,255,255,.25)!important;}
+.skrow:hover .stag{color:rgba(255,255,255,.6)!important;background:rgba(255,255,255,.07)!important;transform:none!important;}
+.av-status{font-size:.62rem!important;letter-spacing:.1em!important;}
+.av-btn{border-radius:0!important;color:#fff!important;border-bottom:1px solid rgba(255,255,255,.15)!important;padding:10px 0!important;font-size:.62rem!important;letter-spacing:.12em!important;text-transform:uppercase!important;}
+.bc-link{border-radius:0!important;}
+.bc-link:hover{transform:translateX(4px)!important;}
+
+/* CV */
+#cv{background:#000!important;}
+.cv-main,.cv-aside{border-radius:0!important;}
+.cv-hl{border-radius:0!important;}
+.cv-hl:hover{transform:translateX(4px)!important;}
+.cv-dl-btn{border-radius:0!important;background:#fff!important;color:#000!important;font-size:.62rem!important;letter-spacing:.12em!important;text-transform:uppercase!important;font-weight:400!important;}
+.cv-dl-btn:hover{background:rgba(255,255,255,.88)!important;transform:none!important;box-shadow:none!important;}
+.cv-dl-btn::before{display:none!important;}
+
+/* Projects */
+#projects{background:#080808!important;}
+.proj-featured{border-radius:0!important;}
+.proj-featured:hover{box-shadow:none!important;}
+.pf-badge{border-radius:0!important;font-size:.5rem!important;letter-spacing:.16em!important;font-weight:400!important;color:rgba(255,255,255,.4)!important;background:rgba(0,0,0,.6)!important;border-color:rgba(255,255,255,.12)!important;}
+.proj-featured:hover .pf-badge{background:rgba(255,255,255,.05)!important;border-color:rgba(255,255,255,.2)!important;}
+.pf-eyebrow{font-size:.52rem!important;letter-spacing:.2em!important;font-weight:400!important;color:rgba(255,255,255,.3)!important;}
+.pf-title{font-weight:600!important;letter-spacing:-.04em!important;color:#fff!important;}
+.proj-featured:hover .pf-title{color:rgba(255,255,255,.7)!important;}
+.pftag{border-radius:0!important;font-size:.5rem!important;color:rgba(255,255,255,.3)!important;background:rgba(255,255,255,.05)!important;border:1px solid rgba(255,255,255,.08)!important;}
+.proj-featured:hover .pftag{transform:none!important;color:rgba(255,255,255,.7)!important;}
+.pf-arr{border-radius:0!important;border-color:rgba(255,255,255,.15)!important;}
+.proj-featured:hover .pf-arr{background:#fff!important;color:#000!important;border-color:#fff!important;box-shadow:none!important;}
+.pl{border-radius:0!important;}
+.pl:hover{transform:translateX(4px)!important;}
+.pl::before{background:#fff!important;width:2px!important;}
+.pl::after{display:none!important;}
+.pl-cat{font-size:.5rem!important;letter-spacing:.12em!important;color:rgba(255,255,255,.3)!important;}
+.pl-title{font-weight:500!important;color:rgba(255,255,255,.8)!important;}
+.pl:hover .pl-title{color:#fff!important;}
+.pltag{border-radius:0!important;font-size:.5rem!important;color:rgba(255,255,255,.25)!important;background:rgba(255,255,255,.04)!important;border:1px solid rgba(255,255,255,.07)!important;}
+.pl:hover .pltag{transform:none!important;color:rgba(255,255,255,.6)!important;}
+.pl-arr{border-radius:0!important;}
+.pl:hover .pl-arr{background:#fff!important;color:#000!important;border-color:#fff!important;}
+
+/* Certifications */
+#certifications{background:#000!important;}
+.cert-card{border-radius:0!important;}
+.cert-card:hover{transform:translateY(-2px)!important;box-shadow:none!important;}
+.cert-pix-logo,.cert-cnil-logo{border-radius:0!important;}
+.cert-pix-title,.cert-cnil-title{font-weight:600!important;letter-spacing:-.04em!important;}
+.cert-pix-badge,.cert-cnil-badge{border-radius:0!important;}
+.cert-dl-btn{border-radius:0!important;}
+.cert-dl-btn:hover{transform:none!important;box-shadow:none!important;}
+.cert-dl-btn::before{display:none!important;}
+.cert-module{border-radius:0!important;}
+.cert-module:hover{transform:translateX(4px)!important;}
+.cert-stat{border-radius:0!important;}
+.cert-stat:hover{transform:translateY(-2px)!important;box-shadow:none!important;}
+.cert-stat-ic{border-radius:0!important;background:rgba(255,255,255,.05)!important;}
+.cert-stat:hover .cert-stat-ic{background:rgba(255,255,255,.1)!important;transform:none!important;}
+.cert-stat-n{font-weight:700!important;letter-spacing:-.06em!important;color:#fff!important;}
+.cert-comp-tag{border-radius:0!important;}
+
+/* Overlay */
+.ov-left{background:#050505!important;}
+.ov-corner.tl,.ov-corner.tr,.ov-corner.bl,.ov-corner.br{border-color:rgba(255,255,255,.3)!important;}
+.ov-nbtn{border-radius:0!important;border-color:rgba(255,255,255,.12)!important;}
+.ov-nbtn:hover{background:#fff!important;border-color:#fff!important;color:#000!important;transform:translateY(-50%)!important;box-shadow:none!important;}
+.ov-cnt{border-radius:0!important;font-size:.56rem!important;letter-spacing:.14em!important;font-weight:300!important;}
+.ov-thumb{border-radius:0!important;}
+.ov-thumb.active,.ov-thumb:hover{border-color:rgba(255,255,255,.4)!important;box-shadow:none!important;}
+.ov-right{background:#0a0a0a!important;}
+.ov-right-header,.ov-footer{background:#0d0d0d!important;}
+.ov-rh-eyebrow{font-size:.54rem!important;letter-spacing:.2em!important;font-weight:400!important;color:rgba(255,255,255,.3)!important;}
+.ov-rh-eyebrow::before{background:rgba(255,255,255,.3)!important;}
+#ovTitle{font-weight:600!important;letter-spacing:-.04em!important;}
+.ov-desc-block{border-left:2px solid rgba(255,255,255,.2)!important;background:rgba(255,255,255,.03)!important;border-radius:0!important;border-color:rgba(255,255,255,.08)!important;}
+.ov-section-label{font-size:.52rem!important;letter-spacing:.18em!important;color:rgba(255,255,255,.25)!important;}
+.ov-mrow{border-radius:0!important;}
+.ov-mrow:hover{transform:translateX(4px)!important;}
+.ov-mrow-ic{border-radius:0!important;background:rgba(255,255,255,.06)!important;}
+.ov-mrow:hover .ov-mrow-ic{background:rgba(255,255,255,.1)!important;}
+.ov-mrow-ic i{color:rgba(255,255,255,.4)!important;}
+.ov-mrow:hover .ov-mrow-ic i{color:#fff!important;}
+.ov-pill{border-radius:0!important;font-size:.62rem!important;background:#111!important;color:rgba(255,255,255,.6)!important;border-color:rgba(255,255,255,.1)!important;}
+.ov-pill:hover{background:#fff!important;color:#000!important;border-color:#fff!important;transform:translateY(-2px)!important;box-shadow:none!important;}
+.ov-cta{border-radius:0!important;background:#fff!important;color:#000!important;font-size:.68rem!important;letter-spacing:.12em!important;text-transform:uppercase!important;font-weight:400!important;}
+.ov-cta::before{display:none!important;}
+.ov-cta:hover{background:rgba(255,255,255,.9)!important;transform:none!important;box-shadow:none!important;}
+.ov-secondary-link{font-size:.58rem!important;letter-spacing:.12em!important;text-transform:uppercase!important;color:rgba(255,255,255,.2)!important;}
+.ov-secondary-link:hover{color:rgba(255,255,255,.5)!important;}
+
+/* Contact */
+#contact{background:#000!important;}
+.contact-l{background:#080808!important;}
+.contact-big{font-weight:700!important;letter-spacing:-.05em!important;color:#fff!important;}
+.contact-big em{font-weight:200!important;color:rgba(255,255,255,.3)!important;}
+.ci-row{border-radius:0!important;}
+.ci-row:hover{transform:translateX(4px)!important;}
+.ci-ic{border-radius:0!important;background:rgba(255,255,255,.06)!important;color:rgba(255,255,255,.4)!important;}
+.ci-row:hover .ci-ic{background:rgba(255,255,255,.1)!important;color:#fff!important;transform:none!important;}
+.contact-r{background:#050505!important;}
+.fi input,.fi textarea{border-radius:0!important;}
+.fi input:focus,.fi textarea:focus{box-shadow:none!important;transform:none!important;border-color:rgba(255,255,255,.3)!important;}
+.fsub{border-radius:0!important;background:#fff!important;color:#000!important;font-size:.68rem!important;letter-spacing:.12em!important;text-transform:uppercase!important;font-weight:400!important;}
+.fsub::before{display:none!important;}
+.fsub:hover{background:rgba(255,255,255,.9)!important;transform:none!important;box-shadow:none!important;}
+.fm{border-radius:0!important;}
+
+/* Veille */
+#veille{background:#080808!important;}
+#veille::before{background:none!important;}
+.veille-demarche,.veille-theme,.veille-org,.veille-synthese{border-radius:0!important;}
+.plan-tab{border-radius:0!important;}
+.plan-tab-num{font-size:.5rem!important;letter-spacing:.16em!important;}
+.plan-tab-label{font-size:.72rem!important;font-weight:400!important;}
+.article-row{border-radius:0!important;}
+.article-row::before{background:#fff!important;}
+.article-cat{border-radius:0!important;background:rgba(255,255,255,.06)!important;color:rgba(255,255,255,.5)!important;border-color:rgba(255,255,255,.1)!important;}
+.article-row:hover .article-title{color:#fff!important;}
+.article-expand-btn{border-radius:0!important;border-color:rgba(255,255,255,.12)!important;}
+.article-row:hover .article-expand-btn,.article-row.open .article-expand-btn{background:#fff!important;border-color:#fff!important;color:#000!important;}
+.ab-block{border-radius:0!important;}
+.ab-block-label{color:rgba(255,255,255,.35)!important;font-size:.52rem!important;letter-spacing:.16em!important;}
+.ab-source-row{border-radius:0!important;background:rgba(255,255,255,.03)!important;border-color:rgba(255,255,255,.08)!important;}
+.ab-source-row a{color:rgba(255,255,255,.5)!important;}
+.ab-source-row a:hover{color:#fff!important;}
+.vstat{border-radius:0!important;}
+.vstat:hover{transform:translateY(-2px)!important;box-shadow:none!important;}
+.vstat-ic{border-radius:0!important;background:rgba(255,255,255,.05)!important;color:rgba(255,255,255,.3)!important;}
+.vstat:hover .vstat-ic{background:rgba(255,255,255,.1)!important;color:#fff!important;transform:none!important;}
+.vstat-n{font-weight:800!important;letter-spacing:-.06em!important;color:#fff!important;}
+
+/* All misc border-radius -> 0 */
+.demarche-badge,.demarche-capture,.flow-ic,.outil-card,.outil-ic,.otag,
+.source-freq,.source-item,.axe-card,.axe-num,.syn-block,.reco-item,.reco-ic,
+.org-item,.org-item-ic,.cert-module-num,.cert-module-check,
+.org-subject-pill,.theme-why,.notion-view{border-radius:0!important;}
+
+.axe-card:hover,.org-item:hover,.outil-card:hover,.reco-item:hover{transform:translateY(-2px)!important;box-shadow:none!important;}
+.reco-item:hover{transform:translateX(4px)!important;}
+
+/* Footer */
+footer{border-top:1px solid rgba(255,255,255,.07)!important;}
+.fl{font-weight:500!important;letter-spacing:-.04em!important;color:rgba(255,255,255,.3)!important;}
+.fl span{color:#fff!important;}
+
+/* Scroll progress */
+.scroll-progress-bar{background:#fff!important;box-shadow:none!important;}
+
 </style>
 </head>
 <body>
@@ -1871,12 +2111,51 @@ body {
   </div>
 </footer>
 
-<!-- ═══ PROJECT OVERLAY ═══ -->
+<!-- OVERLAY PROJECTS -->
 <div id="ov">
   <div class="ov-panel">
     <div class="ov-left">
       <div class="ov-statusbar">
-        <div class="ov-sb-left"><div class="ov-sb-dot"></div><span class="ov-sb-label">Portfolio</span>&nbsp;&nbsp;<span class="ov-sb-tag" id="ovTag">PROJET</span></div>
+        <div class="ov-statusbar-l"><div class="ov-sb-dot"></div><span class="ov-sb-label">Portfolio</span><span class="ov-sb-tag" id="ovTag">PROJET</span></div>
+        <button class="ov-sb-close" onclick="closeOv()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="ov-scanline"></div>
+      <div class="ov-img-area" id="ovImgArea">
+        <div class="ov-corner tl"></div><div class="ov-corner tr"></div><div class="ov-corner bl"></div><div class="ov-corner br"></div>
+        <div class="ov-noimg" id="ovNoImg">
+          <svg class="ov-noimg-robot" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="28" width="40" height="32" rx="8" fill="none" stroke="white" stroke-width="2"/>
+            <rect x="28" y="8" width="24" height="20" rx="6" fill="none" stroke="white" stroke-width="2"/>
+            <circle cx="33" cy="18" r="3" fill="white"/><circle cx="47" cy="18" r="3" fill="white"/>
+            <line x1="40" y1="8" x2="40" y2="4" stroke="white" stroke-width="2"/><circle cx="40" cy="3" r="2" fill="white"/>
+          </svg>
+          <span>Aucune capture disponible</span>
+        </div>
+        <img id="ovImg" src="" alt="" style="display:none">
+        <div class="ov-cnt" id="ovCount" style="display:none">1/2</div>
+        <button class="ov-nbtn prev" id="ovPrev" onclick="chImg(-1)" disabled><i class="fas fa-chevron-left"></i></button>
+        <button class="ov-nbtn next" id="ovNext" onclick="chImg(1)" disabled><i class="fas fa-chevron-right"></i></button>
+      </div>
+      <div class="ov-thumbs" id="ovStrip"></div>
+    </div>
+    <div class="ov-right">
+      <div class="ov-right-header">
+        <div class="ov-rh-eyebrow" id="ovEyebrow">Projet</div>
+        <h2 id="ovTitle">Titre du projet</h2>
+      </div>
+      <div class="ov-body">
+        <div><div class="ov-section-label">Description</div><div class="ov-desc-block"><p id="ovDesc"></p></div></div>
+        <div><div class="ov-section-label">Détails</div><div class="ov-meta" id="ovMeta"></div></div>
+        <div><div class="ov-section-label">Technologies utilisées</div><div class="ov-pills" id="ovTech"></div></div>
+      </div>
+      <div class="ov-footer">
+        <a id="ovBtn" class="ov-cta" href="#"><i class="fas fa-arrow-right"></i> Voir plus de détails</a>
+        <span class="ov-secondary-link" onclick="closeOv()"><i class="fas fa-times" style="font-size:.55rem"></i> Fermer</span>
+      </div>
+    </div>
+  </div>
+</div>
+
         <button class="ov-sb-close" onclick="closeOv()"><i class="fas fa-times"></i></button>
       </div>
       <div class="ov-img-area" id="ovImgArea">
@@ -1905,7 +2184,23 @@ body {
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+/* ══ YKP CURSOR ══ */
+(function(){
+  const c = document.getElementById('ykp-cursor');
+  if(!c) return;
+  let mx=0, my=0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    c.style.left = mx + 'px'; c.style.top = my + 'px';
+  });
+  document.querySelectorAll('a,button,.bcard,.pl,.proj-featured,.skrow,.ract,.cert-card,.cert-stat,.plan-tab,.article-row,.vstat,.org-item,.ov-pill,.ov-nbtn,.ov-thumb,.companion-wrap').forEach(el => {
+    el.addEventListener('mouseenter', () => c.classList.add('grow'));
+    el.addEventListener('mouseleave', () => c.classList.remove('grow'));
+  });
+})();
+
+</script><script>
 emailjs.init("uO7hNVrTPBeV0NVx7");
 
 /* ── CURSOR ── */
@@ -1989,100 +2284,48 @@ function toggleArt(row) {
   if(!open) row.classList.add('open');
 }
 
-/* ── PROJECT OVERLAY ── */
-const PD = {
-  ligue1web: { tag:'PHP · WEB', eyebrow:'Application Web — Projet Phare', title:'Gestion Ligue 1 — Web', desc:'Refonte complète en site web du projet Ligue 1. PHP, MySQL, Bootstrap. Interface responsive, requêtes SQL optimisées.', meta:[{i:'fa-globe',v:'Application Web Responsive'},{i:'fa-database',v:'Base MySQL'},{i:'fa-layer-group',v:'Architecture MVC'}], tech:['PHP','HTML5','CSS3','MySQL','Bootstrap','JavaScript'], images:['ligue1web1.png','ligue1web2.png'], href:'details.html?project=ligue1web' },
-  ligue1:    { tag:'C# · DESKTOP', eyebrow:'Application Desktop — 1ère année', title:'Gestion Ligue 1 — C#', desc:'Application C# pour la gestion complète du championnat Ligue 1 : clubs, matchs, statistiques et classements.', meta:[{i:'fa-desktop',v:'Application Desktop Windows'},{i:'fa-code',v:'Architecture POO'},{i:'fa-database',v:'SQL Server'}], tech:['C#','POO','SQL Server','Visual Studio','.NET'], images:['ligue1app.png','ligue1app1.png'], href:'details.html?project=ligue1' },
-  chronophone:{ tag:'PHP · STAGE', eyebrow:'Stage 6 semaines — Bourg-en-Bresse', title:'Site interne Chronophone', desc:"Développement d'une application interne de gestion des interventions techniques et suivi des réparations smartphones.", meta:[{i:'fa-building',v:'Chronophone — Bourg-en-Bresse'},{i:'fa-clock',v:'Stage 6 semaines'},{i:'fa-tools',v:'Gestion réparations SAV'}], tech:['PHP','MySQL','Bootstrap','HTML/CSS','JavaScript'], images:['stage1.png','stage2.png'], href:'details.html?project=chronophone' },
-  ada:       { tag:'C# · ENTITY', eyebrow:'Application Desktop — 2ème année', title:'ADA Location — C#', desc:"Application desktop ADA Location avec Entity Framework. Gestion véhicules, clients, contrats et réservations.", meta:[{i:'fa-car',v:'Gestion location'},{i:'fa-plug',v:'Entity Framework Code First'},{i:'fa-desktop',v:'WinForms'}], tech:['C#','Entity Framework','SQL Server','Windows Forms','LINQ'], images:['ada1.png','ada2.png'], href:'details.html?project=ada' },
-  adaweb:    { tag:'PHP · MVC', eyebrow:'Application Web — 2ème année', title:'ADA Location — Web', desc:"Version web complète du projet ADA avec PHP et ORM Eloquent. Architecture MVC stricte.", meta:[{i:'fa-globe',v:'Application Web Full-Stack'},{i:'fa-code-branch',v:'Architecture MVC'},{i:'fa-database',v:'ORM Eloquent MySQL'}], tech:['PHP','Eloquent ORM','MySQL','MVC','Bootstrap','AJAX'], images:['adaweb1.png','adaweb2.png'], href:'details.html?project=adaweb' },
-  protherm:  { tag:'VBA · EXCEL', eyebrow:'Stage 5 semaines — Mâcon', title:'Protherm71 — Gestion articles', desc:"Outils VBA Excel avancés pour l'automatisation d'une base d'articles avec intégration IA chez Protherm71.", meta:[{i:'fa-building',v:'Protherm71 — Mâcon'},{i:'fa-clock',v:'Stage 5 semaines'},{i:'fa-robot',v:'Intégration IA'}], tech:['Excel','VBA','Automatisation','IA','Macros'], images:['interface.png','vba.png'], href:'details.html?project=protherm' }
+/* ══ PROJECTS OVERLAY ══ */
+const PD={
+  ligue1:{tag:'C# · DESKTOP',eyebrow:'Application Desktop — 1ère année',title:'Gestion de la Ligue 1',desc:"Application développée en 1ère année pour la gestion complète du championnat Ligue 1 : clubs, matchs, statistiques et classements. Architecture orientée objet en C#.",meta:[{i:'fa-calendar-alt',v:'1ère année BTS SIO'},{i:'fa-code',v:'Architecture POO complète'},{i:'fa-desktop',v:'Application Desktop Windows'},{i:'fa-database',v:'SQL Server'}],tech:['C#','POO','SQL Server','Visual Studio','.NET Framework'],images:['ligue1app.png','ligue1app1.png'],href:'details.html?project=ligue1'},
+  ligue1web:{tag:'PHP · WEB APP',eyebrow:'Application Web — Projet Phare',title:'Gestion Ligue 1 — Version Web',desc:"Refonte complète en site web du projet Ligue 1. Consultation et gestion des données sportives via navigateur avec PHP et MySQL. Interface responsive avec Bootstrap, requêtes SQL optimisées.",meta:[{i:'fa-calendar-alt',v:'1ère année BTS SIO'},{i:'fa-globe',v:'Application Web Responsive'},{i:'fa-database',v:'Base de données MySQL'},{i:'fa-layer-group',v:'Architecture MVC'}],tech:['PHP','HTML5','CSS3','MySQL','Bootstrap','JavaScript'],images:['ligue1web1.png','ligue1web2.png'],href:'details.html?project=ligue1web'},
+  chronophone:{tag:'PHP · STAGE',eyebrow:'Stage 6 semaines — Bourg-en-Bresse',title:'Site interne Chronophone',desc:"Stage de 6 semaines chez Chronophone à Bourg-en-Bresse. Développement d'une application interne de gestion des interventions techniques et suivi complet des réparations de smartphones.",meta:[{i:'fa-building',v:'Chronophone — Bourg-en-Bresse'},{i:'fa-clock',v:'Stage de 6 semaines'},{i:'fa-tools',v:'Gestion réparations & SAV'},{i:'fa-users',v:'Interface techniciens'}],tech:['PHP','MySQL','Bootstrap','HTML/CSS','JavaScript'],images:['stage1.png','stage2.png'],href:'details.html?project=chronophone'},
+  ada:{tag:'C# · ENTITY FRAMEWORK',eyebrow:'Application Desktop — 2ème année',title:'ADA Location — Application C#',desc:"Application desktop complète pour ADA Location avec Entity Framework. Gestion avancée des véhicules, clients, contrats et réservations. Interface Windows Forms avec navigation intuitive et validation des données.",meta:[{i:'fa-calendar-alt',v:'2ème année BTS SIO'},{i:'fa-car',v:'Gestion location véhicules'},{i:'fa-desktop',v:'Application Desktop WinForms'},{i:'fa-plug',v:'Entity Framework — Code First'}],tech:['C#','Entity Framework','SQL Server','Windows Forms','LINQ'],images:['ada1.png','ada2.png'],href:'details.html?project=ada'},
+  adaweb:{tag:'PHP · MVC',eyebrow:'Application Web — 2ème année',title:'ADA Location — Version Web',desc:"Version web complète du projet ADA avec PHP et ORM Eloquent. Architecture MVC rigoureuse pour la gestion des données de location avec interface responsive moderne.",meta:[{i:'fa-calendar-alt',v:'2ème année BTS SIO'},{i:'fa-globe',v:'Application Web Full-Stack'},{i:'fa-code-branch',v:'Architecture MVC stricte'},{i:'fa-database',v:'ORM Eloquent — MySQL'}],tech:['PHP','Eloquent ORM','MySQL','MVC','Bootstrap','AJAX'],images:['adaweb1.png','adaweb2.png'],href:'details.html?project=adaweb'},
+  protherm:{tag:'VBA · EXCEL',eyebrow:'Stage 5 semaines — Mâcon',title:'Protherm71 — Gestion articles',desc:"Stage de 5 semaines chez Protherm71 à Mâcon. Développement d'outils VBA Excel avancés pour l'automatisation complète d'une base d'articles avec intégration IA pour la suggestion et catégorisation.",meta:[{i:'fa-building',v:'Protherm71 — Mâcon (71)'},{i:'fa-clock',v:'Stage de 5 semaines'},{i:'fa-robot',v:'Intégration IA — Automatisation'},{i:'fa-file-excel',v:'Excel VBA avancé'}],tech:['Excel','VBA','Automatisation','IA','Macros','API REST'],images:['interface.png','vba.png'],href:'details.html?project=protherm'}
 };
-
-let imgs = [], imgIdx = 0;
-
-function renderImg() {
-  const img   = document.getElementById('ovImg');
-  const noImg = document.getElementById('ovNoImg');
-  const cnt   = document.getElementById('ovCount');
-  const prev  = document.getElementById('ovPrev');
-  const next  = document.getElementById('ovNext');
-
-  if (!imgs.length) {
-    img.style.display = 'none';
-    noImg.style.display = 'flex';
-    cnt.style.display = 'none';
-    prev.disabled = next.disabled = true;
-    return;
-  }
-
-  noImg.style.display = 'none';
-  img.style.display = 'block';
-  img.classList.add('img-enter');
-  img.addEventListener('animationend', () => img.classList.remove('img-enter'), { once: true });
-  img.src = imgs[imgIdx];
-  cnt.style.display = 'block';
-  cnt.textContent = (imgIdx + 1) + ' / ' + imgs.length;
-  prev.disabled = imgIdx === 0;
-  next.disabled = imgIdx === imgs.length - 1;
-
-  document.querySelectorAll('.ov-thumb').forEach((t, i) => t.classList.toggle('active', i === imgIdx));
+let imgs=[],idx=0;
+function openOv(id){
+  const p=PD[id];
+  document.getElementById('ovTag').textContent=p.tag;
+  document.getElementById('ovEyebrow').textContent=p.eyebrow;
+  document.getElementById('ovTitle').textContent=p.title;
+  document.getElementById('ovDesc').textContent=p.desc;
+  document.getElementById('ovBtn').href=p.href;
+  document.getElementById('ovMeta').innerHTML=p.meta.map(m=>`<div class="ov-mrow"><div class="ov-mrow-ic"><i class="fas ${m.i}"></i></div><span>${m.v}</span></div>`).join('');
+  document.getElementById('ovTech').innerHTML=p.tech.map(t=>`<span class="ov-pill">${t}</span>`).join('');
+  imgs=p.images.filter(Boolean);idx=0;renderImg();
+  const strip=document.getElementById('ovStrip');strip.innerHTML='';
+  if(imgs.length)imgs.forEach((s,i)=>{strip.innerHTML+=`<div class="ov-thumb${i===0?' active':''}" id="th${i}" onclick="goImg(${i})"><img src="${s}" alt=""></div>`});
+  const ov=document.getElementById('ov');
+  ov.style.display='flex';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>ov.classList.add('vis')));
+  document.body.style.overflow='hidden';
 }
-
-function chImg(dir) {
-  const img = document.getElementById('ovImg');
-  img.classList.add('img-exit');
-  setTimeout(() => {
-    img.classList.remove('img-exit');
-    imgIdx = Math.max(0, Math.min(imgs.length - 1, imgIdx + dir));
-    renderImg();
-  }, 180);
+function renderImg(){
+  const img=document.getElementById('ovImg'),no=document.getElementById('ovNoImg'),cnt=document.getElementById('ovCount'),prev=document.getElementById('ovPrev'),next=document.getElementById('ovNext');
+  if(!imgs.length){img.style.display='none';no.style.display='flex';cnt.style.display='none';prev.disabled=next.disabled=true;return}
+  no.style.display='none';img.style.display='block';
+  img.classList.add('ii');img.addEventListener('animationend',()=>img.classList.remove('ii'),{once:true});
+  img.src=imgs[idx];cnt.style.display='block';cnt.textContent=(idx+1)+'/'+imgs.length;
+  prev.disabled=idx===0;next.disabled=idx===imgs.length-1;
+  document.querySelectorAll('.ov-thumb').forEach((t,i)=>t.classList.toggle('active',i===idx));
 }
+function chImg(d){const img=document.getElementById('ovImg');img.classList.add('ie');setTimeout(()=>{img.classList.remove('ie');idx=Math.max(0,Math.min(imgs.length-1,idx+d));renderImg()},180);}
+function goImg(i){idx=i;renderImg()}
+function closeOv(){const ov=document.getElementById('ov');ov.classList.remove('vis');setTimeout(()=>{ov.style.display='none';document.body.style.overflow=''},450);}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeOv();if(e.key==='ArrowRight')chImg(1);if(e.key==='ArrowLeft')chImg(-1);});
+document.getElementById('ov').addEventListener('click',function(e){if(e.target===this)closeOv()});
 
-function goImg(i) { imgIdx = i; renderImg(); }
-
-function openOv(id) {
-  const p = PD[id];
-  document.getElementById('ovTag').textContent      = p.tag;
-  document.getElementById('ovEyebrow').textContent  = p.eyebrow;
-  document.getElementById('ovTitle').textContent    = p.title;
-  document.getElementById('ovDesc').textContent     = p.desc;
-  document.getElementById('ovBtn').href             = p.href;
-  document.getElementById('ovMeta').innerHTML = p.meta.map(m =>
-    `<div class="ov-mrow"><i class="fas ${m.i}"></i><span>${m.v}</span></div>`
-  ).join('');
-  document.getElementById('ovTech').innerHTML = p.tech.map(t =>
-    `<span class="ov-pill">${t}</span>`
-  ).join('');
-
-  imgs = (p.images || []).filter(Boolean);
-  imgIdx = 0;
-  renderImg();
-
-  const strip = document.getElementById('ovStrip');
-  strip.innerHTML = '';
-  imgs.forEach((src, i) => {
-    strip.innerHTML += `<div class="ov-thumb${i===0?' active':''}" id="ovTh${i}" onclick="goImg(${i})"><img src="${src}" alt=""></div>`;
-  });
-
-  const ov = document.getElementById('ov');
-  ov.style.display = 'flex';
-  requestAnimationFrame(() => requestAnimationFrame(() => ov.classList.add('open', 'vis')));
-  document.body.style.overflow = 'hidden';
-}
-
-function closeOv() {
-  const ov = document.getElementById('ov');
-  ov.classList.remove('vis');
-  setTimeout(() => { ov.style.display = 'none'; ov.classList.remove('open'); document.body.style.overflow = ''; }, 400);
-}
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape')      closeOv();
-  if (e.key === 'ArrowRight')  chImg(1);
-  if (e.key === 'ArrowLeft')   chImg(-1);
-});
-document.getElementById('ov').addEventListener('click', function(e) { if (e.target === this) closeOv(); });
 
 /* ── FORM ── */
 document.getElementById('cform').addEventListener('submit', async function(e) {
