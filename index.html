@@ -1079,6 +1079,7 @@ body {
 .ov-img-area img {
   max-width: 80%; max-height: 80%;
   object-fit: contain; filter: drop-shadow(0 20px 40px rgba(0,0,0,.8));
+  transition: opacity .2s, transform .3s var(--ease-expo);
 }
 .ov-noimg {
   display: flex; flex-direction: column; align-items: center;
@@ -1089,6 +1090,63 @@ body {
   font-family: var(--sans-en); font-size: .6rem; letter-spacing: .14em;
   text-transform: uppercase;
 }
+/* Corner brackets */
+.ov-corner {
+  position: absolute; width: 24px; height: 24px;
+  opacity: 0; transition: opacity .5s var(--ease-expo) .3s; z-index: 4;
+}
+#ov.vis .ov-corner { opacity: .5; }
+.ov-corner.tl { top: 68px; left: 18px; border-top: 1px solid rgba(255,255,255,.4); border-left: 1px solid rgba(255,255,255,.4); }
+.ov-corner.tr { top: 68px; right: 18px; border-top: 1px solid rgba(255,255,255,.4); border-right: 1px solid rgba(255,255,255,.4); }
+.ov-corner.bl { bottom: 90px; left: 18px; border-bottom: 1px solid rgba(255,255,255,.4); border-left: 1px solid rgba(255,255,255,.4); }
+.ov-corner.br { bottom: 90px; right: 18px; border-bottom: 1px solid rgba(255,255,255,.4); border-right: 1px solid rgba(255,255,255,.4); }
+/* Nav buttons */
+.ov-nbtn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 40px; height: 40px;
+  background: rgba(0,0,0,.7); backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.12);
+  display: flex; align-items: center; justify-content: center;
+  cursor: none; color: rgba(255,255,255,.45); font-size: .65rem;
+  transition: all .3s var(--ease-expo); z-index: 4;
+}
+.ov-nbtn:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+.ov-nbtn:disabled { opacity: .15; pointer-events: none; }
+.ov-nbtn.prev { left: 16px; }
+.ov-nbtn.next { right: 16px; }
+/* Image counter */
+.ov-cnt {
+  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+  font-family: var(--sans-en); font-size: .55rem; font-weight: 400;
+  letter-spacing: .12em;
+  background: rgba(0,0,0,.7); backdrop-filter: blur(12px);
+  padding: 4px 14px; color: rgba(255,255,255,.5);
+  border: 1px solid rgba(255,255,255,.1); z-index: 4;
+}
+/* Thumbnails strip */
+.ov-thumbs {
+  display: flex; gap: 6px; padding: 12px 18px;
+  background: rgba(0,0,0,.6); backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255,255,255,.06);
+  min-height: 72px; align-items: center;
+  overflow-x: auto; flex-shrink: 0; z-index: 2;
+}
+.ov-thumbs::-webkit-scrollbar { height: 0; }
+.ov-thumb {
+  width: 68px; height: 44px; overflow: hidden; cursor: none;
+  border: 1px solid transparent; opacity: .3;
+  transition: all .3s var(--ease-expo); flex-shrink: 0;
+}
+.ov-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.ov-thumb.active, .ov-thumb:hover {
+  border-color: rgba(255,255,255,.4); opacity: 1;
+  transform: scale(1.06) translateY(-2px);
+}
+/* Image enter/exit animations */
+.img-exit { animation: imgExit .18s var(--ease-expo) forwards; }
+.img-enter { animation: imgEnter .3s var(--ease-expo) forwards; }
+@keyframes imgExit  { to { opacity:0; transform: scale(.96); } }
+@keyframes imgEnter { from { opacity:0; transform: scale(1.03); } to { opacity:1; transform: scale(1); } }
 .ov-statusbar {
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 24px; height: 48px;
@@ -1529,7 +1587,7 @@ body {
           <p>Toujours disponible pour en discuter.</p>
         </div>
         <div class="bc-links">
-          <div class="bc-link"><i class="fas fa-envelope"></i><span>eyoubbelkhiri@gmail.com</span></div>
+          <div class="bc-link"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7a1f03150f18181f1611121308133a1d171b131654191517">[email&#160;protected]</a></span></div>
           <div class="bc-link"><i class="fas fa-map-marker-alt"></i><span>France</span></div>
           <div class="bc-link"><i class="fas fa-graduation-cap"></i><span>BTS SIO SLAM</span></div>
         </div>
@@ -1785,7 +1843,7 @@ body {
       <div class="contact-infos">
         <div class="ci-row"><div class="ci-ic"><i class="fas fa-map-marker-alt"></i></div><span class="ci-text">France</span></div>
         <div class="ci-row"><div class="ci-ic"><i class="fas fa-graduation-cap"></i></div><span class="ci-text">BTS SIO SLAM</span></div>
-        <div class="ci-row"><div class="ci-ic"><i class="fas fa-envelope"></i></div><span class="ci-text">eyoubbelkhiri@gmail.com</span></div>
+        <div class="ci-row"><div class="ci-ic"><i class="fas fa-envelope"></i></div><span class="ci-text"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="37524e58425555525b5c5f5e455e77505a565e5b1954585a">[email&#160;protected]</a></span></div>
         <div class="ci-row"><div class="ci-ic"><div class="av-dot"></div></div><span class="ci-text ci-avail">Disponible — Prêt pour l'emploi</span></div>
       </div>
     </div>
@@ -1821,10 +1879,16 @@ body {
         <div class="ov-sb-left"><div class="ov-sb-dot"></div><span class="ov-sb-label">Portfolio</span>&nbsp;&nbsp;<span class="ov-sb-tag" id="ovTag">PROJET</span></div>
         <button class="ov-sb-close" onclick="closeOv()"><i class="fas fa-times"></i></button>
       </div>
-      <div class="ov-img-area">
+      <div class="ov-img-area" id="ovImgArea">
+        <div class="ov-corner tl"></div><div class="ov-corner tr"></div>
+        <div class="ov-corner bl"></div><div class="ov-corner br"></div>
         <div class="ov-noimg" id="ovNoImg"><i class="fas fa-robot"></i><span>Aucune capture disponible</span></div>
         <img id="ovImg" src="" alt="" style="display:none">
+        <div class="ov-cnt" id="ovCount" style="display:none">1/2</div>
+        <button class="ov-nbtn prev" id="ovPrev" onclick="chImg(-1)" disabled><i class="fas fa-chevron-left"></i></button>
+        <button class="ov-nbtn next" id="ovNext" onclick="chImg(1)" disabled><i class="fas fa-chevron-right"></i></button>
       </div>
+      <div class="ov-thumbs" id="ovStrip"></div>
     </div>
     <div class="ov-right">
       <div class="ov-rh"><div class="ov-rh-eyebrow" id="ovEyebrow">Projet</div><h2 id="ovTitle">Titre</h2></div>
@@ -1841,7 +1905,7 @@ body {
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 emailjs.init("uO7hNVrTPBeV0NVx7");
 
 /* ── CURSOR ── */
@@ -1927,36 +1991,98 @@ function toggleArt(row) {
 
 /* ── PROJECT OVERLAY ── */
 const PD = {
-  ligue1web: { tag:'PHP · WEB', eyebrow:'Application Web — Projet Phare', title:'Gestion Ligue 1 — Web', desc:'Refonte complète en site web du projet Ligue 1. PHP, MySQL, Bootstrap. Interface responsive, requêtes SQL optimisées.', meta:[{i:'fa-globe',v:'Application Web Responsive'},{i:'fa-database',v:'Base MySQL'},{i:'fa-layer-group',v:'Architecture MVC'}], tech:['PHP','HTML5','CSS3','MySQL','Bootstrap','JavaScript'], href:'details.html?project=ligue1web' },
-  ligue1: { tag:'C# · DESKTOP', eyebrow:'Application Desktop — 1ère année', title:'Gestion Ligue 1 — C#', desc:'Application C# pour la gestion complète du championnat Ligue 1 : clubs, matchs, statistiques et classements.', meta:[{i:'fa-desktop',v:'Application Desktop Windows'},{i:'fa-code',v:'Architecture POO'},{i:'fa-database',v:'SQL Server'}], tech:['C#','POO','SQL Server','Visual Studio','.NET'], href:'details.html?project=ligue1' },
-  chronophone: { tag:'PHP · STAGE', eyebrow:'Stage 6 semaines — Bourg-en-Bresse', title:'Site interne Chronophone', desc:'Développement d\'une application interne de gestion des interventions techniques et suivi des réparations smartphones.', meta:[{i:'fa-building',v:'Chronophone — Bourg-en-Bresse'},{i:'fa-clock',v:'Stage 6 semaines'},{i:'fa-tools',v:'Gestion réparations SAV'}], tech:['PHP','MySQL','Bootstrap','HTML/CSS','JavaScript'], href:'details.html?project=chronophone' },
-  ada: { tag:'C# · ENTITY', eyebrow:'Application Desktop — 2ème année', title:'ADA Location — C#', desc:'Application desktop ADA Location avec Entity Framework. Gestion véhicules, clients, contrats et réservations.', meta:[{i:'fa-car',v:'Gestion location'},{i:'fa-plug',v:'Entity Framework Code First'},{i:'fa-desktop',v:'WinForms'}], tech:['C#','Entity Framework','SQL Server','Windows Forms','LINQ'], href:'details.html?project=ada' },
-  adaweb: { tag:'PHP · MVC', eyebrow:'Application Web — 2ème année', title:'ADA Location — Web', desc:'Version web complète du projet ADA avec PHP et ORM Eloquent. Architecture MVC stricte.', meta:[{i:'fa-globe',v:'Application Web Full-Stack'},{i:'fa-code-branch',v:'Architecture MVC'},{i:'fa-database',v:'ORM Eloquent MySQL'}], tech:['PHP','Eloquent ORM','MySQL','MVC','Bootstrap','AJAX'], href:'details.html?project=adaweb' },
-  protherm: { tag:'VBA · EXCEL', eyebrow:'Stage 5 semaines — Mâcon', title:'Protherm71 — Gestion articles', desc:'Outils VBA Excel avancés pour l\'automatisation d\'une base d\'articles avec intégration IA chez Protherm71.', meta:[{i:'fa-building',v:'Protherm71 — Mâcon'},{i:'fa-clock',v:'Stage 5 semaines'},{i:'fa-robot',v:'Intégration IA'}], tech:['Excel','VBA','Automatisation','IA','Macros'], href:'details.html?project=protherm' }
+  ligue1web: { tag:'PHP · WEB', eyebrow:'Application Web — Projet Phare', title:'Gestion Ligue 1 — Web', desc:'Refonte complète en site web du projet Ligue 1. PHP, MySQL, Bootstrap. Interface responsive, requêtes SQL optimisées.', meta:[{i:'fa-globe',v:'Application Web Responsive'},{i:'fa-database',v:'Base MySQL'},{i:'fa-layer-group',v:'Architecture MVC'}], tech:['PHP','HTML5','CSS3','MySQL','Bootstrap','JavaScript'], images:['ligue1web1.png','ligue1web2.png'], href:'details.html?project=ligue1web' },
+  ligue1:    { tag:'C# · DESKTOP', eyebrow:'Application Desktop — 1ère année', title:'Gestion Ligue 1 — C#', desc:'Application C# pour la gestion complète du championnat Ligue 1 : clubs, matchs, statistiques et classements.', meta:[{i:'fa-desktop',v:'Application Desktop Windows'},{i:'fa-code',v:'Architecture POO'},{i:'fa-database',v:'SQL Server'}], tech:['C#','POO','SQL Server','Visual Studio','.NET'], images:['ligue1app.png','ligue1app1.png'], href:'details.html?project=ligue1' },
+  chronophone:{ tag:'PHP · STAGE', eyebrow:'Stage 6 semaines — Bourg-en-Bresse', title:'Site interne Chronophone', desc:"Développement d'une application interne de gestion des interventions techniques et suivi des réparations smartphones.", meta:[{i:'fa-building',v:'Chronophone — Bourg-en-Bresse'},{i:'fa-clock',v:'Stage 6 semaines'},{i:'fa-tools',v:'Gestion réparations SAV'}], tech:['PHP','MySQL','Bootstrap','HTML/CSS','JavaScript'], images:['stage1.png','stage2.png'], href:'details.html?project=chronophone' },
+  ada:       { tag:'C# · ENTITY', eyebrow:'Application Desktop — 2ème année', title:'ADA Location — C#', desc:"Application desktop ADA Location avec Entity Framework. Gestion véhicules, clients, contrats et réservations.", meta:[{i:'fa-car',v:'Gestion location'},{i:'fa-plug',v:'Entity Framework Code First'},{i:'fa-desktop',v:'WinForms'}], tech:['C#','Entity Framework','SQL Server','Windows Forms','LINQ'], images:['ada1.png','ada2.png'], href:'details.html?project=ada' },
+  adaweb:    { tag:'PHP · MVC', eyebrow:'Application Web — 2ème année', title:'ADA Location — Web', desc:"Version web complète du projet ADA avec PHP et ORM Eloquent. Architecture MVC stricte.", meta:[{i:'fa-globe',v:'Application Web Full-Stack'},{i:'fa-code-branch',v:'Architecture MVC'},{i:'fa-database',v:'ORM Eloquent MySQL'}], tech:['PHP','Eloquent ORM','MySQL','MVC','Bootstrap','AJAX'], images:['adaweb1.png','adaweb2.png'], href:'details.html?project=adaweb' },
+  protherm:  { tag:'VBA · EXCEL', eyebrow:'Stage 5 semaines — Mâcon', title:'Protherm71 — Gestion articles', desc:"Outils VBA Excel avancés pour l'automatisation d'une base d'articles avec intégration IA chez Protherm71.", meta:[{i:'fa-building',v:'Protherm71 — Mâcon'},{i:'fa-clock',v:'Stage 5 semaines'},{i:'fa-robot',v:'Intégration IA'}], tech:['Excel','VBA','Automatisation','IA','Macros'], images:['interface.png','vba.png'], href:'details.html?project=protherm' }
 };
+
+let imgs = [], imgIdx = 0;
+
+function renderImg() {
+  const img   = document.getElementById('ovImg');
+  const noImg = document.getElementById('ovNoImg');
+  const cnt   = document.getElementById('ovCount');
+  const prev  = document.getElementById('ovPrev');
+  const next  = document.getElementById('ovNext');
+
+  if (!imgs.length) {
+    img.style.display = 'none';
+    noImg.style.display = 'flex';
+    cnt.style.display = 'none';
+    prev.disabled = next.disabled = true;
+    return;
+  }
+
+  noImg.style.display = 'none';
+  img.style.display = 'block';
+  img.classList.add('img-enter');
+  img.addEventListener('animationend', () => img.classList.remove('img-enter'), { once: true });
+  img.src = imgs[imgIdx];
+  cnt.style.display = 'block';
+  cnt.textContent = (imgIdx + 1) + ' / ' + imgs.length;
+  prev.disabled = imgIdx === 0;
+  next.disabled = imgIdx === imgs.length - 1;
+
+  document.querySelectorAll('.ov-thumb').forEach((t, i) => t.classList.toggle('active', i === imgIdx));
+}
+
+function chImg(dir) {
+  const img = document.getElementById('ovImg');
+  img.classList.add('img-exit');
+  setTimeout(() => {
+    img.classList.remove('img-exit');
+    imgIdx = Math.max(0, Math.min(imgs.length - 1, imgIdx + dir));
+    renderImg();
+  }, 180);
+}
+
+function goImg(i) { imgIdx = i; renderImg(); }
+
 function openOv(id) {
   const p = PD[id];
-  document.getElementById('ovTag').textContent = p.tag;
-  document.getElementById('ovEyebrow').textContent = p.eyebrow;
-  document.getElementById('ovTitle').textContent = p.title;
-  document.getElementById('ovDesc').textContent = p.desc;
-  document.getElementById('ovBtn').href = p.href;
-  document.getElementById('ovMeta').innerHTML = p.meta.map(m=>`<div class="ov-mrow"><i class="fas ${m.i}"></i><span>${m.v}</span></div>`).join('');
-  document.getElementById('ovTech').innerHTML = p.tech.map(t=>`<span class="ov-pill">${t}</span>`).join('');
-  document.getElementById('ovNoImg').style.display = 'flex';
-  document.getElementById('ovImg').style.display = 'none';
+  document.getElementById('ovTag').textContent      = p.tag;
+  document.getElementById('ovEyebrow').textContent  = p.eyebrow;
+  document.getElementById('ovTitle').textContent    = p.title;
+  document.getElementById('ovDesc').textContent     = p.desc;
+  document.getElementById('ovBtn').href             = p.href;
+  document.getElementById('ovMeta').innerHTML = p.meta.map(m =>
+    `<div class="ov-mrow"><i class="fas ${m.i}"></i><span>${m.v}</span></div>`
+  ).join('');
+  document.getElementById('ovTech').innerHTML = p.tech.map(t =>
+    `<span class="ov-pill">${t}</span>`
+  ).join('');
+
+  imgs = (p.images || []).filter(Boolean);
+  imgIdx = 0;
+  renderImg();
+
+  const strip = document.getElementById('ovStrip');
+  strip.innerHTML = '';
+  imgs.forEach((src, i) => {
+    strip.innerHTML += `<div class="ov-thumb${i===0?' active':''}" id="ovTh${i}" onclick="goImg(${i})"><img src="${src}" alt=""></div>`;
+  });
+
   const ov = document.getElementById('ov');
   ov.style.display = 'flex';
-  requestAnimationFrame(() => requestAnimationFrame(() => ov.classList.add('open','vis')));
+  requestAnimationFrame(() => requestAnimationFrame(() => ov.classList.add('open', 'vis')));
   document.body.style.overflow = 'hidden';
 }
+
 function closeOv() {
   const ov = document.getElementById('ov');
   ov.classList.remove('vis');
-  setTimeout(() => { ov.style.display='none'; ov.classList.remove('open'); document.body.style.overflow=''; }, 400);
+  setTimeout(() => { ov.style.display = 'none'; ov.classList.remove('open'); document.body.style.overflow = ''; }, 400);
 }
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeOv(); });
-document.getElementById('ov').addEventListener('click', function(e) { if(e.target===this) closeOv(); });
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape')      closeOv();
+  if (e.key === 'ArrowRight')  chImg(1);
+  if (e.key === 'ArrowLeft')   chImg(-1);
+});
+document.getElementById('ov').addEventListener('click', function(e) { if (e.target === this) closeOv(); });
 
 /* ── FORM ── */
 document.getElementById('cform').addEventListener('submit', async function(e) {
@@ -1967,13 +2093,4 @@ document.getElementById('cform').addEventListener('submit', async function(e) {
   if(!name||!email||!subject||!message) return;
   msg.style.display='block'; msg.className='fm ld'; msg.innerHTML='<i class="fas fa-circle-notch fa-spin"></i> Envoi…'; btn.disabled=true;
   try {
-    await emailjs.send("service_ekaqcev","template_qqixklr",{from_name:name,from_email:email,subject,message});
-    msg.className='fm ok'; msg.innerHTML='<i class="fas fa-check"></i> Message envoyé !'; e.target.reset();
-  } catch(err) {
-    msg.className='fm ko'; msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Erreur — Réessayez.';
-  }
-  btn.disabled=false;
-});
-</script>
-</body>
-</html>
+    await emailjs.send("service_ekaqcev","t
