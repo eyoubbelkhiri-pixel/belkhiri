@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -1408,14 +1409,14 @@ body {
 
 /* ══ YKP DESIGN OVERRIDES — injected after original CSS ══ */
 * { cursor: none !important; }
-#ykp-cursor {
+#cursor {
   position:fixed;width:8px;height:8px;background:#fff;border-radius:50%;
   pointer-events:none;z-index:99999;transform:translate(-50%,-50%);
   mix-blend-mode:difference;
   transition:width .25s cubic-bezier(.16,1,.3,1),height .25s cubic-bezier(.16,1,.3,1);
 }
-#ykp-cursor.grow{width:44px;height:44px;}
-@media(hover:none){#ykp-cursor{display:none;}*{cursor:auto!important;}}
+#cursor.grow{width:44px;height:44px;}
+@media(hover:none){#cursor{display:none;}*{cursor:auto!important;}}
 #cursor-dot,#cursor-ring{display:none!important;}
 
 /* Fonts */
@@ -2184,10 +2185,11 @@ footer{border-top:1px solid rgba(255,255,255,.07)!important;}
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script>
 /* ══ YKP CURSOR ══ */
 (function(){
-  const c = document.getElementById('ykp-cursor');
+  const c = document.getElementById('cursor');
   if(!c) return;
   let mx=0, my=0;
   document.addEventListener('mousemove', e => {
