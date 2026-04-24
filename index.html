@@ -3,1282 +3,1181 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eyoub Belkhiri — Développeur Web</title>
+<title>Eyoub Belkhiri — Développeur Web Full-Stack</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:ital,wght@0,200;0,400;0,600;0,700;0,800;0,900;1,200;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
-/* ════════════════════════════════
-   RESET & DESIGN TOKENS (DOC 5)
-════════════════════════════════ */
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+/* =========================================================
+   CIRIDAE DESIGN SYSTEM
+   ========================================================= */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
 :root {
-  --black: #050505;
-  --white: #f0ece4;
-  --accent: #c8f040;
-  --mid: #333;
-  --line-color: rgba(240,236,228,.12);
-  --line-color-dark: rgba(0,0,0,.08);
-  --ease-expo: cubic-bezier(.16,1,.3,1);
-  --ease-spring: cubic-bezier(.34,1.56,.64,1);
-  --sans-en: 'Space Mono', monospace;
-  --sans-jp: 'Barlow Condensed', sans-serif;
-  --transition: .7s var(--ease-expo);
+  /* ── DARK MODE PALETTE ── */
+  --c-black: #f0f0f0;          /* texte principal → blanc cassé */
+  --c-white: #0c0c0c;          /* fond le plus sombre → quasi-noir */
+  --c-off-white: #111111;      /* fond de base */
+  --c-light: #1a1a1a;          /* fond légèrement surélevé */
+  --c-muted: rgba(240,240,240,.38);
+  --c-muted2: rgba(240,240,240,.14);
+  --c-muted3: rgba(240,240,240,.06);
+  --c-orange: #d4d4d4;         /* accent → gris clair neutre */
+  --c-line: rgba(255,255,255,.08);
+  --c-line-w: rgba(255,255,255,.1);
+  --mono: 'Roboto Mono', monospace;
+  --ease: cubic-bezier(.16,1,.3,1);
+  --ease-in: cubic-bezier(.55,0,.15,1);
+  --spring: cubic-bezier(.34,1.56,.64,1);
 }
-html { scroll-behavior: smooth; font-size: 10px; }
+
+html { font-size: 16px; scroll-behavior: auto; }
+
 body {
-  font-family: var(--sans-en);
-  background: var(--black);
-  color: var(--white);
+  font-family: var(--mono);
+  background: var(--c-off-white);
+  color: var(--c-black);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   cursor: none;
 }
-::selection { background: var(--accent); color: #000; }
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-thumb { background: var(--mid); }
+
+::selection { background: var(--c-black); color: var(--c-white); }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0c0c0c; }
+::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+
 a { text-decoration: none; color: inherit; }
+* { cursor: none !important; }
+@media(hover:none){ * { cursor:auto!important; } }
 
-/* CURSOR */
-#cursor {
-  position: fixed;
-  width: 10px; height: 10px;
-  background: var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
+/* ── CURSOR ── */
+.cursor-dot {
+  position: fixed; width: 6px; height: 6px;
+  background: var(--c-black); border-radius: 50%;
+  pointer-events: none; z-index: 99999;
   transform: translate(-50%,-50%);
-  mix-blend-mode: difference;
-  transition: width .2s var(--ease-expo), height .2s var(--ease-expo);
+  transition: transform .1s, background .3s, width .2s, height .2s;
 }
-#cursor.grow { width: 44px; height: 44px; }
-@media (hover: none) { #cursor { display:none; } body { cursor: auto; } }
+.cursor-ring {
+  position: fixed; width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid var(--c-black); pointer-events: none; z-index: 99998;
+  transform: translate(-50%,-50%);
+  transition: width .35s var(--ease), height .35s var(--ease), opacity .3s, border-color .3s;
+  opacity: .4;
+}
+.cursor-ring.hover { width: 52px; height: 52px; opacity: 1; }
+.cursor-ring.white-mode { border-color: rgba(255,255,255,.6); }
+.cursor-dot.white-mode { background: var(--c-white); }
+@media(hover:none){ .cursor-dot,.cursor-ring { display:none; } }
 
-/* SCROLL PROGRESS */
-.c-scroll-progress {
-  position: fixed; top: 0; left: 0;
-  width: 0%; height: 2px;
-  background: var(--accent);
-  z-index: 9001; transition: width .1s;
-}
-
-/* LOADER */
-#c-loading {
-  position: fixed; inset: 0; z-index: 9000;
-  background: var(--black);
-  display: flex; align-items: center; justify-content: flex-end;
-  padding: 60px;
-  transition: opacity .9s var(--ease-expo), visibility .9s;
-}
-#c-loading.out { opacity: 0; visibility: hidden; pointer-events: none; }
-.c-loading__num {
-  font-family: var(--sans-jp);
-  font-size: clamp(8rem,14vw,16rem);
-  font-weight: 900; letter-spacing: -.05em;
-  color: var(--white); line-height: 1;
-  opacity: .06;
-}
-.c-loading__bar {
-  position: absolute; bottom: 0; left: 0;
-  height: 2px; background: var(--accent);
-  width: 0%; transition: width 2s var(--ease-expo);
-}
-
-/* HEADER */
-.l-header {
-  position: fixed; top: 0; left: 0; right: 0;
-  z-index: 800; height: 56px;
-  transform: translateY(-100%);
-  transition: transform .7s var(--ease-expo);
-}
-.l-header.in { transform: none; }
-.l-header__inner {
-  height: 100%;
-  display: flex; align-items: center; justify-content: space-between;
+/* ── NAV ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  height: 60px; display: flex; align-items: center; justify-content: space-between;
   padding: 0 32px;
-  border-bottom: 1px solid var(--line-color);
-  background: rgba(5,5,5,.85);
-  backdrop-filter: blur(24px);
+  transition: background .5s, border-color .5s;
 }
-.l-header__logo {
-  font-family: var(--sans-jp);
-  font-size: 2rem; font-weight: 900;
-  letter-spacing: -.02em;
-  color: var(--white);
-  text-decoration: none;
-}
-.l-header__logo span { color: var(--accent); }
-.l-header__nav { display: flex; align-items: center; }
-.l-header__ul { display: flex; list-style: none; }
-.l-header__list a {
-  font-family: var(--sans-en);
-  font-size: .65rem; font-weight: 400;
-  letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(240,236,228,.4);
-  text-decoration: none;
-  padding: 0 16px; height: 56px;
-  display: flex; align-items: center;
-  position: relative;
+.nav.is-white { background: rgba(10,10,10,.0); }
+.nav-logo {
+  font-size: .75rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
   transition: color .3s;
 }
-.l-header__list a::after {
-  content: '';
-  position: absolute; bottom: 0; left: 16px; right: 16px;
-  height: 2px; background: var(--accent);
-  transform: scaleX(0);
-  transition: transform .4s var(--ease-expo);
+.nav.is-white .nav-logo { color: var(--c-white); }
+.nav-start {
+  font-size: .75rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase;
+  padding: 9px 22px; border: 1px solid var(--c-black);
+  transition: all .3s; background: transparent;
 }
-.l-header__list a:hover { color: var(--white); }
-.l-header__list a:hover::after { transform: scaleX(1); }
-@media (max-width: 900px) { .l-header__nav { display: none; } }
+.nav.is-white .nav-start { border-color: rgba(255,255,255,.5); color: var(--c-white); }
+.nav-start:hover { background: var(--c-black); color: var(--c-white); }
+.nav.is-white .nav-start:hover { background: rgba(255,255,255,.15); color: var(--c-black); }
+.nav-burger {
+  display: flex; align-items: center; gap: 14px; cursor: pointer;
+  padding: 8px 0;
+}
+.nav-burger-txt {
+  font-size: .7rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase;
+  transition: color .3s;
+}
+.nav.is-white .nav-burger-txt { color: var(--c-white); }
+.nav-burger-icon { display: flex; flex-direction: column; gap: 4px; }
+.nav-burger-line {
+  width: 20px; height: 1px; background: var(--c-black);
+  transform-origin: center; transition: transform .4s var(--ease), opacity .3s, background .3s;
+}
+.nav.is-white .nav-burger-line { background: var(--c-white); }
+.burger-open .nav-burger-line:nth-child(1) { transform: translateY(2.5px) rotate(45deg); }
+.burger-open .nav-burger-line:nth-child(2) { transform: translateY(-2.5px) rotate(-45deg); }
 
-/* MOBILE MENU */
-.l-menu-button {
-  position: fixed; top: 14px; right: 20px; z-index: 801;
-  background: none; border: none; cursor: none;
+/* ── BURGER MENU ── */
+.burger {
+  position: fixed; inset: 0; z-index: 890;
+  background: var(--c-black); color: var(--c-white);
   display: flex; flex-direction: column;
-  align-items: center; gap: 6px; padding: 8px;
+  opacity: 0; pointer-events: none; visibility: hidden;
+  transition: opacity .5s var(--ease), visibility .5s;
 }
-@media (min-width: 900px) { .l-menu-button { display: none; } }
-.l-menu-button__text {
-  font-family: var(--sans-en);
-  font-size: .55rem; font-weight: 400;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--white);
+.burger.open { opacity: 1; pointer-events: all; visibility: visible; }
+.burger-inner {
+  max-width: 1400px; width: 100%; margin: 0 auto; padding: 0 32px;
+  height: 100%; display: flex; flex-direction: column;
 }
-.l-menu-button__line { display: flex; flex-direction: column; gap: 4px; }
-.l-menu-button__line span {
-  display: block; width: 22px; height: 1px; background: var(--accent);
-  transition: transform .4s var(--ease-expo), opacity .3s;
-}
-.l-menu-button.open .l-menu-button__line span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
-.l-menu-button.open .l-menu-button__line span:nth-child(2) { opacity: 0; }
-.l-menu-button.open .l-menu-button__line span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
-.l-menu-body {
-  position: fixed; inset: 0; z-index: 799;
-  background: rgba(5,5,5,.97);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 8px;
-  transform: translateY(-100%);
-  transition: transform .5s cubic-bezier(.77,0,.175,1);
-}
-.l-menu-body.open { transform: none; }
-.l-menu-body a {
-  font-family: var(--sans-jp);
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  font-weight: 700; letter-spacing: -.04em;
-  color: rgba(240,236,228,.4);
-  text-decoration: none;
+.burger-top { height: 60px; flex-shrink: 0; display: flex; align-items: center; }
+.burger-list { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+.burger-item {
+  font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 400;
+  letter-spacing: -.04em; text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  transform: translateY(30px); opacity: 0;
   transition: color .2s;
+  display: block;
 }
-.l-menu-body a:hover { color: var(--accent); }
+.burger.open .burger-item { animation: burgerIn .6s var(--ease) forwards; }
+.burger.open .burger-item:nth-child(1) { animation-delay: .05s; }
+.burger.open .burger-item:nth-child(2) { animation-delay: .1s; }
+.burger.open .burger-item:nth-child(3) { animation-delay: .15s; }
+.burger.open .burger-item:nth-child(4) { animation-delay: .2s; }
+.burger.open .burger-item:nth-child(5) { animation-delay: .25s; }
+.burger.open .burger-item:nth-child(6) { animation-delay: .3s; }
+@keyframes burgerIn { to { transform: none; opacity: 1; } }
+.burger-item:hover { color: var(--c-white); }
+.burger-bottom {
+  flex-shrink: 0; padding: 28px 0;
+  border-top: 1px solid var(--c-line-w);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.burger-bottom-txt { font-size: .65rem; font-weight: 400; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.3); }
 
-/* HERO */
-.p-home-mv {
-  position: relative; min-height: 100vh;
-  display: flex; flex-direction: column;
-  align-items: flex-end; justify-content: flex-end;
-  padding: 0 32px 60px;
-  overflow: hidden;
-  border-bottom: 1px solid var(--line-color);
-}
-.p-home-mv__grid-lines {
-  position: absolute; inset: 0; pointer-events: none;
-  background-image:
-    linear-gradient(var(--line-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line-color) 1px, transparent 1px);
-  background-size: 80px 80px;
-  opacity: .5;
-}
-.p-home-mv__symbol {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  opacity: .03; pointer-events: none;
-  font-family: var(--sans-jp); font-size: 40vw;
-  font-weight: 900; letter-spacing: -.06em;
-  color: var(--white); line-height: 1;
-  text-transform: uppercase; user-select: none;
-}
-.p-home-mv__content {
-  position: relative; z-index: 2; width: 100%;
-}
-.mv-avail {
-  display: inline-flex; align-items: center; gap: 12px;
-  margin-bottom: 24px;
-  font-family: var(--sans-en);
-  font-size: .6rem; font-weight: 400;
-  letter-spacing: .2em; text-transform: uppercase;
-  color: var(--accent);
-  opacity: 0; transform: translateY(12px);
-  animation: fadeUp .6s 1.8s var(--ease-expo) forwards;
-}
-.mv-avail::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
-.mv-avail-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: #4ade80;
-  box-shadow: 0 0 10px rgba(74,222,128,.8);
-  animation: pulseDot 2s ease-in-out infinite;
-}
-@keyframes pulseDot {
-  0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,.5); }
-  50%      { box-shadow: 0 0 0 8px rgba(74,222,128,0); }
-}
-.mv-name {
-  font-family: var(--sans-jp);
-  font-size: clamp(6rem, 14vw, 18rem);
-  font-weight: 900;
-  letter-spacing: -.04em; line-height: .88;
-  text-transform: uppercase;
-  color: var(--white);
-  margin-bottom: 0;
-  opacity: 0; transform: translateY(40px);
-  animation: fadeUp 1s 1.9s var(--ease-expo) forwards;
-}
-.mv-name .ghost { color: transparent; -webkit-text-stroke: 1px rgba(240,236,228,.18); }
-.mv-name .acc { color: var(--accent); }
-.mv-foot {
-  margin-top: 40px;
-  display: flex; align-items: flex-end; justify-content: space-between;
-  flex-wrap: wrap; gap: 24px;
-  opacity: 0; transform: translateY(16px);
-  animation: fadeUp .7s 2.2s var(--ease-expo) forwards;
-}
-.mv-role {
-  font-family: var(--sans-en);
-  font-size: clamp(.75rem, 1.2vw, .9rem);
-  font-weight: 400; line-height: 2;
-  color: rgba(240,236,228,.45);
-  max-width: 440px;
-}
-.mv-role strong { color: var(--white); font-weight: 700; }
-.mv-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-@media (max-width: 900px) {
-  .p-home-mv { align-items: flex-start; justify-content: flex-end; padding: 0 24px 60px; }
-  .mv-btns { justify-content: flex-start; }
-}
-.c-primary-link {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--sans-en);
-  font-size: .65rem; font-weight: 400;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--black); background: var(--accent);
-  padding: 13px 28px; border: 2px solid var(--accent);
-  position: relative; overflow: hidden;
-  transition: color .3s, background .3s;
-}
-.c-primary-link:hover { background: transparent; color: var(--accent); }
-.c-primary-link span { position: relative; z-index: 1; }
-.c-primary-link i { position: relative; z-index: 1; font-size: .7rem; }
-.c-secondary-link {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--sans-en);
-  font-size: .65rem; font-weight: 400;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: rgba(240,236,228,.4); text-decoration: none;
-  padding: 13px 28px; border: 2px solid var(--line-color);
-  transition: color .3s, border-color .3s;
-}
-.c-secondary-link:hover { color: var(--white); border-color: rgba(240,236,228,.4); }
-.mv-scroll {
-  position: absolute; right: 32px; bottom: 60px; z-index: 2;
-  display: flex; flex-direction: column; align-items: center; gap: 12px;
-  opacity: 0; animation: fadeUp .5s 2.6s var(--ease-expo) forwards;
-}
-.mv-scroll-track { width: 1px; height: 56px; background: rgba(240,236,228,.1); overflow: hidden; }
-.mv-scroll-fill { width: 100%; height: 50%; background: var(--accent); animation: scrollFill 2s ease-in-out infinite; }
-@keyframes scrollFill { 0%{transform:translateY(-100%)} 50%{transform:translateY(100%)} 100%{transform:translateY(-100%)} }
-.mv-scroll-label {
-  font-family: var(--sans-en); font-size: .52rem; font-weight: 400;
-  letter-spacing: .2em; text-transform: uppercase;
-  color: rgba(240,236,228,.25); writing-mode: vertical-rl;
-}
-@keyframes fadeUp { to { opacity: 1; transform: none; } }
+/* ── CONTAINERS ── */
+.container { max-width: 1400px; margin: 0 auto; padding: 0 32px; }
+@media(max-width:600px){ .container { padding: 0 20px; } }
 
-/* SECTIONS */
-.l-section { padding: 120px 32px; max-width: 1200px; margin: 0 auto; }
-.l-divider { height: 1px; background: var(--line-color); border: none; margin: 0; }
+/* ── BTN ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: .72rem; font-weight: 400;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 12px 28px; border: 1px solid var(--c-black);
+  background: transparent; color: var(--c-black);
+  transition: background .3s, color .3s; position: relative; overflow: hidden;
+  white-space: nowrap;
+}
+.btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--c-black); transform: translateY(101%);
+  transition: transform .4s var(--ease);
+}
+.btn span, .btn i { position: relative; z-index: 1; }
+.btn:hover { color: var(--c-white); }
+.btn:hover::before { transform: none; }
+.btn-large { font-size: .8rem; padding: 16px 36px; }
+.btn-white {
+  border-color: rgba(255,255,255,.25); color: var(--c-black);
+}
+.btn-white::before { background: rgba(255,255,255,.12); }
+.btn-white:hover { color: var(--c-black); }
+
+/* ── SECTION LABEL ── */
 .sec-label {
-  font-family: var(--sans-en);
-  font-size: .6rem; font-weight: 400;
-  letter-spacing: .2em; text-transform: uppercase;
-  color: var(--accent);
-  display: flex; align-items: center; gap: 12px;
-  margin-bottom: 12px;
+  font-size: .65rem; font-weight: 400; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--c-muted);
+  margin-bottom: 32px; display: block;
 }
-.sec-label::before { content: '//'; opacity: .5; }
-.sec-title {
-  font-family: var(--sans-jp);
-  font-size: clamp(3rem, 6vw, 7rem);
-  font-weight: 900; letter-spacing: -.04em; line-height: .9;
-  text-transform: uppercase;
-  color: var(--white);
-  margin-bottom: 60px;
-}
-.sec-title em { font-style: italic; font-weight: 200; color: transparent; -webkit-text-stroke: 1px rgba(240,236,228,.2); }
-.reveal {
-  opacity: 0; transform: translateY(32px);
-  transition: opacity .9s var(--ease-expo), transform .9s var(--ease-expo);
-}
-.reveal.visible { opacity: 1; transform: none; }
-.reveal-delay-1 { transition-delay: .08s; }
-.reveal-delay-2 { transition-delay: .16s; }
-.reveal-delay-3 { transition-delay: .24s; }
-.reveal-delay-4 { transition-delay: .32s; }
+.sec-label-white { color: rgba(255,255,255,.4); }
 
-/* ABOUT BENTO */
-.about-wrap { max-width: 1200px; margin: 0 auto; }
-.bento { display: grid; grid-template-columns: 2fr 1.2fr 1fr; grid-template-rows: auto auto; gap: 2px; }
-@media (max-width: 900px) { .bento { grid-template-columns: 1fr; } }
-.bcard {
-  background: #0c0c0c; border: 1px solid var(--line-color);
-  position: relative; overflow: hidden; transition: border-color .4s;
-}
-.bcard::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  opacity: 0; transition: opacity .4s;
-}
-.bcard:hover { border-color: rgba(240,236,228,.2); }
-.bcard:hover::before { opacity: .4; }
-.bc-bio {
-  grid-column: 1 / 3; grid-row: 1;
-  padding: 52px 48px; display: flex; gap: 52px;
-}
-@media (max-width: 900px) { .bc-bio { flex-direction: column; grid-column: 1; } }
-.bio-quote {
-  font-family: var(--sans-jp);
-  font-size: clamp(1.8rem, 2.5vw, 3rem);
-  font-weight: 700; letter-spacing: -.03em; line-height: 1.2;
-  color: var(--white); margin-bottom: 18px;
-  text-transform: uppercase;
-}
-.bio-body { font-family: var(--sans-en); font-size: .75rem; font-weight: 400; color: rgba(240,236,228,.45); line-height: 2.2; }
-.bio-body p { margin-bottom: 10px; }
-.bio-body strong { color: var(--white); }
-.bio-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; width: 220px; flex-shrink: 0; align-self: start; }
-@media (max-width: 900px) { .bio-stats { width: 100%; } }
-.bstat { padding: 24px 20px; background: #111; }
-.bstat-n { font-family: var(--sans-jp); font-size: 4rem; font-weight: 900; letter-spacing: -.06em; color: var(--white); line-height: 1; }
-.bstat-l { font-family: var(--sans-en); font-size: .55rem; font-weight: 400; letter-spacing: .14em; text-transform: uppercase; color: rgba(240,236,228,.3); margin-top: 6px; }
-.bc-stack { grid-column: 3; grid-row: 1 / 3; padding: 36px 28px; display: flex; flex-direction: column; }
-@media (max-width: 900px) { .bc-stack { grid-column: 1; grid-row: auto; } }
-.bc-stack-label {
-  font-family: var(--sans-en); font-size: .55rem; font-weight: 400; letter-spacing: .18em;
-  text-transform: uppercase; color: rgba(240,236,228,.25); margin-bottom: 20px;
-  display: flex; align-items: center; gap: 10px;
-}
-.bc-stack-label::after { content: ''; flex: 1; height: 1px; background: var(--line-color); }
-.sk-rows { display: flex; flex-direction: column; gap: 2px; }
-.skrow {
-  display: flex; align-items: center; gap: 14px; padding: 13px 14px;
-  background: #111; transition: background .25s, transform .3s var(--ease-expo); cursor: default;
-}
-.skrow:hover { background: #1c1c1c; transform: translateX(5px); }
-.sk-ic { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: rgba(240,236,228,.4); transition: color .3s; }
-.skrow:hover .sk-ic { color: var(--accent); }
-.sk-name { font-family: var(--sans-en); font-size: .72rem; font-weight: 400; color: rgba(240,236,228,.7); transition: color .3s; }
-.skrow:hover .sk-name { color: var(--white); }
-.sk-sub { font-family: var(--sans-en); font-size: .6rem; color: rgba(240,236,228,.3); }
-.sk-tags { display: flex; gap: 4px; margin-left: auto; }
-.stag { font-family: var(--sans-en); font-size: .5rem; font-weight: 400; letter-spacing: .06em; color: rgba(240,236,228,.2); border: 1px solid var(--line-color); padding: 2px 8px; }
-.bc-avail { grid-column: 1; grid-row: 2; padding: 32px 36px; display: flex; flex-direction: column; justify-content: space-between; }
-.bc-avail h3 { font-family: var(--sans-jp); font-size: 3.5rem; font-weight: 900; letter-spacing: -.04em; color: var(--white); text-transform: uppercase; }
-.bc-avail p { font-family: var(--sans-en); font-size: .72rem; color: rgba(240,236,228,.4); margin-top: 8px; line-height: 1.8; }
-.av-status { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-.av-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; animation: pulseDot 2s ease-in-out infinite; }
-.av-label { font-family: var(--sans-en); font-size: .62rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: #4ade80; }
-.av-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--sans-en); font-size: .65rem; font-weight: 400;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--white); text-decoration: none;
-  padding: 10px 0; border-bottom: 1px solid var(--line-color);
-  transition: gap .3s var(--ease-expo), border-color .3s, color .3s; width: fit-content; margin-top: 20px;
-}
-.av-btn:hover { gap: 16px; border-color: var(--accent); color: var(--accent); }
-.bc-contact { grid-column: 2; grid-row: 2; padding: 32px 36px; display: flex; flex-direction: column; justify-content: space-between; }
-.bc-contact h3 { font-family: var(--sans-jp); font-size: 2.2rem; font-weight: 700; letter-spacing: -.03em; color: var(--white); margin-bottom: 6px; text-transform: uppercase; }
-.bc-contact p { font-family: var(--sans-en); font-size: .7rem; color: rgba(240,236,228,.4); margin-bottom: 16px; line-height: 1.8; }
-.bc-links { display: flex; flex-direction: column; gap: 2px; }
-.bc-link { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: #111; transition: background .2s, transform .3s var(--ease-expo); }
-.bc-link:hover { background: #1c1c1c; transform: translateX(5px); }
-.bc-link i { font-size: .7rem; color: rgba(240,236,228,.3); width: 12px; transition: color .2s; }
-.bc-link:hover i { color: var(--accent); }
-.bc-link span { font-family: var(--sans-en); font-size: .65rem; font-weight: 400; color: rgba(240,236,228,.6); }
+/* ── REVEAL SYSTEM ── */
+.reveal-word { overflow: hidden; display: inline-block; }
+.reveal-word-inner { display: inline-block; transform: translateY(110%); }
+.reveal-up { opacity: 0; transform: translateY(30px); }
+.reveal-left { opacity: 0; transform: translateX(-30px); }
+.reveal-scale { opacity: 0; transform: scale(.95); }
 
-/* MARQUEE */
-.p-home-what { background: var(--white); overflow: hidden; padding: 80px 0; position: relative; }
-.p-home-what__big {
-  font-family: var(--sans-jp);
-  font-size: clamp(5rem, 10vw, 12rem);
-  font-weight: 900; letter-spacing: -.06em;
-  color: #000; line-height: .88;
-  white-space: nowrap; text-transform: uppercase;
+/* ── HERO ── */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: flex-end; padding: 0;
+  position: relative; overflow: hidden;
+  background: var(--c-off-white);
 }
-.p-home-what__big-cover { display: flex; flex-direction: column; gap: 0; overflow: hidden; }
-.marquee-row { display: flex; }
-.marquee-inner { display: flex; gap: 60px; white-space: nowrap; animation: marqueeScroll 12s linear infinite; }
-.marquee-inner.rev { animation-direction: reverse; }
-@keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.p-home-what__contents { max-width: 1200px; margin: 80px auto 0; padding: 0 32px; }
-.p-home-what__contents-copy {
-  font-family: var(--sans-jp);
-  font-size: clamp(2rem, 4vw, 4rem);
-  font-weight: 700; color: #000;
-  margin-bottom: 20px; line-height: 1.1;
-  text-transform: uppercase; letter-spacing: -.03em;
+[change-nav-color="white"] { --nav-color: white; }
+[change-nav-color="dark"] { --nav-color: dark; }
+.hero-inner {
+  padding: 80px 32px 72px; max-width: 1400px; margin: 0 auto; width: 100%;
 }
-.p-home-what__contents-text { font-family: var(--sans-en); font-size: .8rem; font-weight: 400; color: rgba(0,0,0,.5); line-height: 2.2; max-width: 560px; margin-bottom: 40px; }
-.c-primary-link--black {
-  color: #000; background: transparent;
-  border: 2px solid rgba(0,0,0,.3);
-  transition: background .3s, color .3s, border-color .3s;
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: .65rem; font-weight: 400; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--c-muted); margin-bottom: 40px;
+  opacity: 0; transform: translateY(12px);
+  animation: fadeUp .7s 2s var(--ease) forwards;
 }
-.c-primary-link--black:hover { background: #000; color: var(--white); border-color: #000; }
+.hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,.5); animation: pulseGreen 2s ease-in-out infinite; }
+@keyframes pulseGreen { 0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4);}50%{box-shadow:0 0 0 8px rgba(34,197,94,0);} }
+.hero-title {
+  font-size: clamp(4rem, 10vw, 11rem); font-weight: 400;
+  letter-spacing: -.04em; line-height: .9; text-transform: uppercase;
+  color: var(--c-black); margin-bottom: 0;
+}
+.hero-grid {
+  margin-top: 52px; padding-top: 32px; border-top: 1px solid var(--c-line);
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
+}
+@media(max-width:900px){ .hero-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:600px){ .hero-grid { grid-template-columns: 1fr; } }
+.hero-grid-col { padding: 24px 0; border-right: 1px solid var(--c-line); padding-right: 32px; padding-left: 32px; }
+.hero-grid-col:first-child { padding-left: 0; }
+.hero-grid-col:last-child { border-right: none; }
+@media(max-width:900px){ .hero-grid-col:nth-child(2) { border-right: none; } }
+.hero-col-label { font-size: .6rem; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 10px; display: block; }
+.hero-col-val { font-size: .85rem; font-weight: 400; letter-spacing: -.01em; color: var(--c-black); line-height: 1.5; }
+.hero-col-val strong { font-weight: 700; }
 
-/* PROJECTS */
+/* ── SECTION LIGHT ── */
+.sec-light { background: var(--c-light); }
+.sec-white { background: var(--c-white); }
+.sec-dark { background: var(--c-black); color: var(--c-white); }
+
+/* ── ABOUT ── */
+.about-wrap { padding: 120px 0; }
+.about-top { display: grid; grid-template-columns: 1fr 1fr; gap: 120px; align-items: start; margin-bottom: 80px; }
+@media(max-width:900px){ .about-top { grid-template-columns: 1fr; gap: 60px; } }
+.about-heading { font-size: clamp(2.5rem, 5vw, 6rem); font-weight: 400; letter-spacing: -.04em; line-height: .95; text-transform: uppercase; }
+.about-heading em { font-style: italic; font-weight: 300; opacity: .4; }
+.about-body-txt { font-size: .8rem; font-weight: 300; line-height: 2; color: var(--c-muted); margin-bottom: 32px; }
+.about-body-txt strong { color: var(--c-black); font-weight: 500; }
+.about-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--c-line); margin-bottom: 1px; }
+@media(max-width:700px){ .about-stats { grid-template-columns: repeat(2,1fr); } }
+.stat-box { background: var(--c-off-white); padding: 32px 28px; transition: background .3s; }
+.stat-box:hover { background: var(--c-black); }
+.stat-n { font-size: 3.5rem; font-weight: 400; letter-spacing: -.06em; color: var(--c-black); line-height: 1; display: block; transition: color .3s; }
+.stat-box:hover .stat-n { color: var(--c-white); }
+.stat-l { font-size: .6rem; font-weight: 400; letter-spacing: .15em; text-transform: uppercase; color: var(--c-muted); margin-top: 6px; display: block; transition: color .3s; }
+.stat-box:hover .stat-l { color: rgba(255,255,255,.4); }
+.stack-wrap { background: var(--c-off-white); border: 1px solid var(--c-line); }
+.stack-head { padding: 16px 24px; border-bottom: 1px solid var(--c-line); }
+.stack-head-lbl { font-size: .6rem; font-weight: 400; letter-spacing: .22em; text-transform: uppercase; color: var(--c-muted); }
+.sk-row {
+  display: flex; align-items: center; gap: 20px; padding: 15px 24px;
+  border-bottom: 1px solid var(--c-line);
+  transition: padding-left .3s var(--ease), background .2s;
+}
+.sk-row:last-child { border-bottom: none; }
+.sk-row:hover { padding-left: 36px; background: var(--c-black); }
+.sk-ic { font-size: 1rem; color: var(--c-muted); width: 20px; text-align: center; transition: color .2s; }
+.sk-row:hover .sk-ic { color: var(--c-orange); }
+.sk-name { font-size: .72rem; font-weight: 500; letter-spacing: .02em; text-transform: uppercase; flex: 1; transition: color .2s; }
+.sk-row:hover .sk-name { color: var(--c-white); }
+.sk-sub { font-size: .6rem; font-weight: 300; color: var(--c-muted); transition: color .2s; }
+.sk-row:hover .sk-sub { color: rgba(255,255,255,.4); }
+.sk-tag { font-size: .55rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px; background: var(--c-muted3); color: var(--c-muted); transition: all .2s; }
+.sk-row:hover .sk-tag { background: var(--c-orange); color: #fff; }
+.about-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--c-line); }
+@media(max-width:700px){ .about-cards { grid-template-columns: 1fr; } }
+.about-card { background: var(--c-off-white); padding: 36px 36px; }
+.about-card-title { font-size: 1.8rem; font-weight: 400; letter-spacing: -.03em; text-transform: uppercase; margin-bottom: 10px; }
+.about-card-txt { font-size: .72rem; font-weight: 300; color: var(--c-muted); line-height: 1.9; margin-bottom: 20px; }
+.avail-pill { display: inline-flex; align-items: center; gap: 8px; font-size: .62rem; font-weight: 400; letter-spacing: .15em; text-transform: uppercase; color: #22c55e; }
+.avail-pill-dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; animation: pulseGreen 2s ease-in-out infinite; }
+.contact-rows { display: flex; flex-direction: column; gap: 1px; }
+.c-row { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--c-line); transition: padding-left .3s var(--ease); }
+.c-row:hover { padding-left: 8px; }
+.c-row-ic { font-size: .65rem; color: var(--c-muted); width: 14px; }
+.c-row-txt { font-size: .7rem; font-weight: 300; color: var(--c-muted); }
+
+/* ── MARQUEE ── */
+.marquee-wrap { background: #080808; overflow: hidden; padding: 64px 0; }
+.mq-row { display: flex; overflow: hidden; line-height: 1; }
+.mq-inner { display: flex; gap: 60px; white-space: nowrap; animation: mqScroll 18s linear infinite; }
+.mq-inner.rev { animation-direction: reverse; }
+@keyframes mqScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.mq-word { font-size: clamp(4rem, 8vw, 9rem); font-weight: 400; letter-spacing: -.05em; text-transform: uppercase; color: var(--c-white); line-height: .9; }
+.mq-word.ghost { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.15); font-style: italic; }
+.mq-sep { font-size: clamp(4rem, 8vw, 9rem); color: var(--c-orange); }
+.mq-sub { max-width: 1400px; margin: 60px auto 0; padding: 0 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+@media(max-width:700px){ .mq-sub { grid-template-columns: 1fr; gap: 40px; } }
+.mq-copy { font-size: clamp(1.8rem, 3.5vw, 3.5rem); font-weight: 400; letter-spacing: -.04em; text-transform: uppercase; color: var(--c-white); line-height: 1.05; }
+.mq-body { font-size: .8rem; font-weight: 300; line-height: 2; color: rgba(255,255,255,.5); margin-bottom: 28px; }
+
+/* ── PROJECTS ── */
+.projects-wrap { padding: 120px 0; }
 .proj-featured {
-  display: grid; grid-template-columns: 1fr 400px;
-  border: 1px solid var(--line-color);
-  margin-bottom: 2px; cursor: pointer;
-  transition: border-color .4s; position: relative; overflow: hidden;
+  display: grid; grid-template-columns: 1fr 400px; border: 1px solid var(--c-line);
+  margin-bottom: 1px; cursor: pointer; transition: border-color .3s;
+  position: relative; overflow: hidden;
 }
-@media (max-width: 900px) { .proj-featured { grid-template-columns: 1fr; } }
-.proj-featured:hover { border-color: rgba(240,236,228,.25); }
-.pf-visual { background: #0c0c0c; display: flex; align-items: center; justify-content: center; min-height: 280px; position: relative; overflow: hidden; }
-.pf-icon { font-size: 5rem; color: rgba(240,236,228,.06); transition: all .6s var(--ease-expo); }
-.proj-featured:hover .pf-icon { color: rgba(240,236,228,.15); transform: scale(1.1); }
-.pf-num { position: absolute; top: 20px; left: 24px; font-family: var(--sans-jp); font-size: 8rem; font-weight: 900; letter-spacing: -.08em; color: rgba(240,236,228,.03); line-height: 1; pointer-events: none; }
-.pf-badge { position: absolute; top: 20px; right: 20px; font-family: var(--sans-en); font-size: .52rem; font-weight: 400; letter-spacing: .12em; color: rgba(240,236,228,.5); border: 1px solid var(--line-color); padding: 5px 12px; }
-.pf-info { padding: 40px 36px; display: flex; flex-direction: column; justify-content: space-between; background: #0c0c0c; border-left: 1px solid var(--line-color); }
-.pf-eyebrow { font-family: var(--sans-en); font-size: .58rem; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; color: rgba(240,236,228,.3); margin-bottom: 10px; }
-.pf-title { font-family: var(--sans-jp); font-size: 3rem; font-weight: 900; letter-spacing: -.04em; color: var(--white); line-height: 1; margin-bottom: 14px; transition: color .2s; text-transform: uppercase; }
-.proj-featured:hover .pf-title { color: rgba(240,236,228,.7); }
-.pf-desc { font-family: var(--sans-en); font-size: .7rem; color: rgba(240,236,228,.45); line-height: 2; flex: 1; margin-bottom: 28px; }
+@media(max-width:900px){ .proj-featured { grid-template-columns: 1fr; } }
+.proj-featured:hover { border-color: rgba(10,10,10,.25); }
+.pf-vis {
+  background: var(--c-light); display: flex; align-items: center; justify-content: center;
+  min-height: 280px; position: relative; overflow: hidden;
+}
+.pf-vis-bg { position: absolute; inset: 0; opacity: 0; transition: opacity .6s; background: radial-gradient(ellipse at center, rgba(232,93,47,.1) 0%, transparent 70%); }
+.proj-featured:hover .pf-vis-bg { opacity: 1; }
+.pf-icon { font-size: 4.5rem; color: rgba(10,10,10,.06); transition: all .6s var(--ease); position: relative; z-index: 1; }
+.proj-featured:hover .pf-icon { color: rgba(10,10,10,.15); transform: scale(1.08) rotate(-4deg); }
+.pf-num { position: absolute; top: 20px; left: 24px; font-size: 8rem; font-weight: 700; letter-spacing: -.08em; color: rgba(10,10,10,.04); line-height: 1; pointer-events: none; }
+.pf-badge { position: absolute; top: 18px; right: 18px; font-size: .55rem; font-weight: 400; letter-spacing: .14em; text-transform: uppercase; color: var(--c-muted); border: 1px solid var(--c-line); padding: 5px 12px; background: rgba(245,243,239,.9); }
+.pf-info { padding: 40px 40px; display: flex; flex-direction: column; justify-content: space-between; border-left: 1px solid var(--c-line); }
+@media(max-width:900px){ .pf-info { border-left: none; border-top: 1px solid var(--c-line); } }
+.pf-tag { font-size: .58rem; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 14px; display: block; }
+.pf-title { font-size: clamp(2rem, 3vw, 3.2rem); font-weight: 400; letter-spacing: -.04em; text-transform: uppercase; color: var(--c-black); line-height: .95; margin-bottom: 16px; transition: opacity .2s; }
+.proj-featured:hover .pf-title { opacity: .6; }
+.pf-desc { font-size: .72rem; font-weight: 300; color: var(--c-muted); line-height: 2; flex: 1; margin-bottom: 28px; }
 .pf-foot { display: flex; align-items: center; justify-content: space-between; }
-.pf-tags { display: flex; gap: 4px; flex-wrap: wrap; }
-.pftag { font-family: var(--sans-en); font-size: .52rem; font-weight: 400; color: rgba(240,236,228,.35); border: 1px solid var(--line-color); padding: 3px 10px; transition: all .3s var(--ease-expo); }
-.proj-featured:hover .pftag { color: var(--white); border-color: rgba(240,236,228,.3); }
-.pf-arr { width: 38px; height: 38px; border: 1px solid var(--line-color); display: flex; align-items: center; justify-content: center; color: rgba(240,236,228,.3); font-size: .6rem; transition: all .4s var(--ease-expo); }
-.proj-featured:hover .pf-arr { background: var(--accent); color: var(--black); border-color: var(--accent); transform: rotate(45deg); }
-.proj-list { display: flex; flex-direction: column; gap: 2px; margin-top: 2px; }
+.pf-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+.pf-tag-item { font-size: .52rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: var(--c-muted); border: 1px solid var(--c-line); padding: 4px 10px; transition: all .3s; }
+.proj-featured:hover .pf-tag-item { border-color: rgba(10,10,10,.2); color: rgba(10,10,10,.6); }
+.pf-arr { width: 38px; height: 38px; border: 1px solid var(--c-line); display: flex; align-items: center; justify-content: center; color: var(--c-muted); font-size: .6rem; transition: all .4s var(--ease); }
+.proj-featured:hover .pf-arr { background: var(--c-black); color: var(--c-white); border-color: var(--c-black); transform: rotate(45deg); }
+.proj-list { display: flex; flex-direction: column; gap: 1px; margin-top: 1px; }
 .pl {
-  display: grid; grid-template-columns: 64px 1fr auto;
-  align-items: center; gap: 20px; padding: 22px 28px;
-  background: #0c0c0c; border: 1px solid var(--line-color);
-  cursor: pointer; transition: all .4s var(--ease-expo); position: relative; overflow: hidden;
+  display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: 20px;
+  padding: 22px 28px; background: var(--c-off-white); border: 1px solid var(--c-line);
+  cursor: pointer; transition: all .35s var(--ease); position: relative; overflow: hidden;
 }
-.pl::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); transform: scaleY(0); transform-origin: bottom; transition: transform .45s var(--ease-expo); }
-.pl:hover { background: #111; transform: translateX(5px); border-color: rgba(240,236,228,.15); }
+.pl::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--c-orange); transform: scaleY(0); transform-origin: bottom; transition: transform .4s var(--ease); }
+.pl:hover { background: var(--c-light); transform: translateX(5px); border-color: rgba(10,10,10,.18); }
 .pl:hover::before { transform: scaleY(1); }
-.pl-num { font-family: var(--sans-jp); font-size: 2.8rem; font-weight: 900; letter-spacing: -.06em; color: rgba(240,236,228,.05); line-height: 1; transition: color .3s; }
-.pl:hover .pl-num { color: rgba(240,236,228,.12); }
-.pl-cat { font-family: var(--sans-en); font-size: .52rem; font-weight: 400; letter-spacing: .12em; color: rgba(240,236,228,.3); margin-bottom: 4px; }
-.pl-title { font-family: var(--sans-jp); font-size: 2rem; font-weight: 700; letter-spacing: -.02em; color: rgba(240,236,228,.8); margin-bottom: 3px; transition: color .2s; text-transform: uppercase; }
-.pl:hover .pl-title { color: var(--white); }
-.pl-desc { font-family: var(--sans-en); font-size: .62rem; color: rgba(240,236,228,.3); }
-.pl-right { display: flex; align-items: center; gap: 12px; }
-@media (max-width: 700px) { .pl-right { display: none; } }
-.pl-tags { display: flex; gap: 4px; }
-.pltag { font-family: var(--sans-en); font-size: .52rem; color: rgba(240,236,228,.2); border: 1px solid rgba(240,236,228,.07); padding: 2px 8px; transition: all .3s var(--ease-expo); }
-.pl:hover .pltag { color: rgba(240,236,228,.6); border-color: rgba(240,236,228,.2); }
-.pl-arr { width: 32px; height: 32px; border: 1px solid var(--line-color); display: flex; align-items: center; justify-content: center; color: rgba(240,236,228,.2); font-size: .55rem; transition: all .4s var(--ease-expo); }
-.pl:hover .pl-arr { background: var(--accent); color: var(--black); border-color: var(--accent); transform: rotate(45deg); }
+.pl-num { font-size: 2.5rem; font-weight: 400; letter-spacing: -.06em; color: rgba(10,10,10,.07); line-height: 1; transition: color .3s; }
+.pl:hover .pl-num { color: rgba(10,10,10,.15); }
+.pl-cat { font-size: .52rem; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 3px; }
+.pl-title { font-size: 1.4rem; font-weight: 400; letter-spacing: -.02em; text-transform: uppercase; color: var(--c-black); transition: opacity .2s; }
+.pl:hover .pl-title { opacity: .7; }
+.pl-desc { font-size: .62rem; font-weight: 300; color: var(--c-muted); margin-top: 3px; }
+.pl-right { display: flex; align-items: center; gap: 10px; }
+@media(max-width:700px){ .pl-right { display: none; } }
+.pl-tag { font-size: .5rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: var(--c-muted); border: 1px solid var(--c-line); padding: 3px 9px; transition: all .3s; }
+.pl:hover .pl-tag { border-color: rgba(10,10,10,.2); }
+.pl-arr { width: 30px; height: 30px; border: 1px solid var(--c-line); display: flex; align-items: center; justify-content: center; color: var(--c-muted); font-size: .55rem; transition: all .4s var(--ease); }
+.pl:hover .pl-arr { background: var(--c-black); color: var(--c-white); border-color: var(--c-black); transform: rotate(45deg); }
 
-/* CERTIFICATIONS */
-.cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-@media (max-width: 900px) { .cert-grid { grid-template-columns: 1fr; } }
-.cert-card { background: #0c0c0c; border: 1px solid var(--line-color); transition: border-color .4s, transform .4s var(--ease-expo); position: relative; overflow: hidden; }
-.cert-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity .4s; }
-.cert-card:hover { border-color: rgba(240,236,228,.2); transform: translateY(-3px); }
-.cert-card:hover::before { opacity: .4; }
-.cert-header { padding: 36px 40px 24px; display: flex; align-items: flex-start; gap: 22px; }
-.cert-logo { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; font-family: var(--sans-jp); font-size: 1.4rem; font-weight: 900; border: 1px solid var(--line-color); color: var(--white); flex-shrink: 0; }
-.cert-meta-title { font-family: var(--sans-jp); font-size: 3rem; font-weight: 900; letter-spacing: -.04em; color: var(--white); line-height: 1; text-transform: uppercase; }
-.cert-issuer { font-family: var(--sans-en); font-size: .55rem; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: rgba(240,236,228,.25); margin-bottom: 6px; }
-.cert-badge { display: inline-flex; align-items: center; gap: 5px; font-family: var(--sans-en); font-size: .52rem; font-weight: 400; letter-spacing: .08em; color: var(--accent); border: 1px solid rgba(200,240,64,.25); padding: 4px 10px; margin-top: 8px; }
-.cert-badge-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
-.cert-body { padding: 0 40px 24px; }
-.cert-desc { font-family: var(--sans-en); font-size: .7rem; color: rgba(240,236,228,.4); line-height: 2; margin-bottom: 16px; }
-.cert-modules { display: flex; flex-direction: column; gap: 2px; }
-.cert-module { display: flex; align-items: center; gap: 14px; padding: 10px 14px; background: #111; transition: background .2s, transform .3s var(--ease-expo); }
-.cert-module:hover { background: #1c1c1c; transform: translateX(5px); }
-.cert-module-num { font-family: var(--sans-en); font-size: .52rem; font-weight: 700; color: rgba(240,236,228,.4); letter-spacing: .06em; min-width: 2ch; }
-.cert-module-name { font-family: var(--sans-en); font-size: .65rem; color: rgba(240,236,228,.6); flex: 1; }
-.cert-module-check { font-size: .6rem; color: var(--accent); }
-.cert-footer { padding: 18px 40px; border-top: 1px solid var(--line-color); display: flex; align-items: center; justify-content: space-between; background: #080808; }
-.cert-date { font-family: var(--sans-en); font-size: .62rem; color: rgba(240,236,228,.25); }
-.cert-dl { display: inline-flex; align-items: center; gap: 7px; font-family: var(--sans-en); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--white); text-decoration: none; padding: 9px 18px; border: 1px solid var(--line-color); transition: all .3s var(--ease-expo); }
-.cert-dl:hover { background: var(--accent); color: var(--black); border-color: var(--accent); }
-.cert-competences { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; }
-.cert-comp-tag { font-family: var(--sans-en); font-size: .58rem; color: rgba(240,236,228,.4); border: 1px solid var(--line-color); padding: 4px 10px; transition: all .3s var(--ease-expo); }
-.cert-card:hover .cert-comp-tag { color: rgba(240,236,228,.7); border-color: rgba(240,236,228,.2); }
-.cert-stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 2px; }
-@media (max-width: 700px) { .cert-stats-row { grid-template-columns: 1fr; } }
-.cert-stat { background: #0c0c0c; border: 1px solid var(--line-color); padding: 28px 32px; display: flex; align-items: center; gap: 20px; transition: border-color .4s; }
-.cert-stat:hover { border-color: rgba(240,236,228,.2); }
-.cert-stat-ic { font-size: 1.6rem; color: rgba(240,236,228,.2); transition: color .3s; }
-.cert-stat:hover .cert-stat-ic { color: var(--accent); }
-.cert-stat-n { font-family: var(--sans-jp); font-size: 4rem; font-weight: 900; letter-spacing: -.06em; color: var(--white); line-height: 1; }
-.cert-stat-l { font-family: var(--sans-en); font-size: .58rem; color: rgba(240,236,228,.3); margin-top: 4px; }
+/* ── CERTIFICATIONS ── */
+.certs-wrap { padding: 120px 0; background: var(--c-white); }
+.cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--c-line); }
+@media(max-width:820px){ .cert-grid { grid-template-columns: 1fr; } }
+.cert-card {
+  background: var(--c-white); padding: 0;
+  transition: background .3s; position: relative; overflow: hidden;
+}
+.cert-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--c-orange); transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease); }
+.cert-card:hover::after { transform: scaleX(1); }
+.cert-hd { padding: 36px 40px 24px; display: flex; align-items: flex-start; gap: 20px; border-bottom: 1px solid var(--c-line); }
+.cert-logo-box { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 700; background: var(--c-off-white); border: 1px solid var(--c-line); color: var(--c-black); flex-shrink: 0; letter-spacing: -.02em; }
+.cert-issuer { font-size: .55rem; font-weight: 400; letter-spacing: .18em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 6px; display: block; }
+.cert-title { font-size: 1.8rem; font-weight: 400; letter-spacing: -.03em; text-transform: uppercase; color: var(--c-black); line-height: 1; }
+.cert-badge { display: inline-flex; align-items: center; gap: 5px; font-size: .52rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--c-orange); border: 1px solid rgba(232,93,47,.2); padding: 4px 10px; margin-top: 8px; background: rgba(232,93,47,.04); }
+.cert-badge-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--c-orange); }
+.cert-body { padding: 24px 40px; }
+.cert-desc { font-size: .7rem; font-weight: 300; color: var(--c-muted); line-height: 2; margin-bottom: 16px; }
+.cert-comps { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
+.cert-comp { font-size: .56rem; font-weight: 400; letter-spacing: .06em; color: var(--c-muted); border: 1px solid var(--c-line); padding: 4px 10px; transition: all .3s; }
+.cert-card:hover .cert-comp { border-color: rgba(10,10,10,.2); }
+.cert-mods { display: flex; flex-direction: column; gap: 1px; }
+.cert-mod { display: flex; align-items: center; gap: 14px; padding: 10px 14px; background: var(--c-off-white); transition: padding-left .3s var(--ease), background .2s; }
+.cert-mod:hover { padding-left: 22px; background: var(--c-black); }
+.cert-mod-n { font-size: .52rem; font-weight: 700; color: var(--c-muted); letter-spacing: .06em; min-width: 2ch; transition: color .2s; }
+.cert-mod:hover .cert-mod-n { color: rgba(255,255,255,.3); }
+.cert-mod-name { font-size: .66rem; font-weight: 300; color: var(--c-muted); flex: 1; transition: color .2s; }
+.cert-mod:hover .cert-mod-name { color: var(--c-white); }
+.cert-mod-check { font-size: .58rem; color: var(--c-orange); transition: color .2s; }
+.cert-foot { padding: 16px 40px; border-top: 1px solid var(--c-line); display: flex; align-items: center; justify-content: space-between; background: var(--c-off-white); }
+.cert-date { font-size: .6rem; font-weight: 300; color: var(--c-muted); }
+.cert-dl { display: inline-flex; align-items: center; gap: 7px; font-size: .6rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: var(--c-black); padding: 8px 16px; border: 1px solid var(--c-line); transition: all .3s; }
+.cert-dl:hover { background: var(--c-black); color: var(--c-white); border-color: var(--c-black); }
+.cert-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--c-line); margin-top: 1px; }
+@media(max-width:600px){ .cert-stats { grid-template-columns: 1fr; } }
+.cert-stat { background: var(--c-white); padding: 28px 28px; display: flex; align-items: center; gap: 18px; transition: background .3s; }
+.cert-stat:hover { background: var(--c-black); }
+.cert-stat-ic { font-size: 1.2rem; color: var(--c-muted); transition: color .2s; }
+.cert-stat:hover .cert-stat-ic { color: var(--c-orange); }
+.cert-stat-n { font-size: 3rem; font-weight: 400; letter-spacing: -.05em; color: var(--c-black); line-height: 1; transition: color .2s; }
+.cert-stat:hover .cert-stat-n { color: var(--c-white); }
+.cert-stat-l { font-size: .58rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: var(--c-muted); margin-top: 3px; transition: color .2s; }
+.cert-stat:hover .cert-stat-l { color: rgba(255,255,255,.4); }
 
-/* CV */
-.cv-grid { display: grid; grid-template-columns: 1fr 300px; gap: 2px; }
-@media (max-width: 900px) { .cv-grid { grid-template-columns: 1fr; } }
-.cv-main { background: #0c0c0c; border: 1px solid var(--line-color); overflow: hidden; }
-.cv-titlebar { display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: #080808; border-bottom: 1px solid var(--line-color); }
-.cv-dots span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; }
-.cv-dots span:nth-child(1) { background: #ff5f57; }
-.cv-dots span:nth-child(2) { background: #ffbd2e; }
-.cv-dots span:nth-child(3) { background: #28c840; }
-.cv-fn { font-family: var(--sans-en); font-size: .6rem; letter-spacing: .1em; color: rgba(240,236,228,.25); }
-.cv-preview object { width: 100%; height: 520px; border: none; display: block; }
-.cv-aside { background: #0c0c0c; border: 1px solid var(--line-color); display: flex; flex-direction: column; }
+/* ── CV ── */
+.cv-wrap { padding: 120px 0; background: var(--c-light); }
+.cv-grid { display: grid; grid-template-columns: 1fr 300px; gap: 1px; background: var(--c-line); }
+@media(max-width:900px){ .cv-grid { grid-template-columns: 1fr; } }
+.cv-main { background: var(--c-white); border: 1px solid var(--c-line); }
+.cv-bar { display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: var(--c-off-white); border-bottom: 1px solid var(--c-line); }
+.cv-dots span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+.cv-dots span:nth-child(1){ background:#ff5f57; } .cv-dots span:nth-child(2){ background:#ffbd2e; } .cv-dots span:nth-child(3){ background:#28c840; }
+.cv-fn { font-size: .6rem; font-weight: 300; letter-spacing: .1em; color: var(--c-muted); }
+.cv-preview object { width: 100%; height: 500px; border: none; display: block; }
+.cv-aside { background: var(--c-white); border: 1px solid var(--c-line); display: flex; flex-direction: column; }
 .cv-aside-top { padding: 32px 28px; flex: 1; }
-.cv-aside-name { font-family: var(--sans-jp); font-size: 2.4rem; font-weight: 900; letter-spacing: -.04em; color: var(--white); margin-bottom: 4px; text-transform: uppercase; }
-.cv-aside-role { font-family: var(--sans-en); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(240,236,228,.3); margin-bottom: 16px; }
-.cv-aside-bio { font-family: var(--sans-en); font-size: .68rem; color: rgba(240,236,228,.4); line-height: 2; }
-.cv-highlights { margin-top: 20px; display: flex; flex-direction: column; gap: 2px; }
-.cv-hl { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: #111; transition: background .2s, transform .3s var(--ease-expo); }
-.cv-hl:hover { background: #1c1c1c; transform: translateX(5px); }
-.cv-hl i { font-size: .6rem; color: rgba(240,236,228,.3); transition: color .2s; }
-.cv-hl:hover i { color: var(--accent); }
-.cv-hl span { font-family: var(--sans-en); font-size: .65rem; color: rgba(240,236,228,.6); }
-.cv-aside-dl { padding: 24px 28px; border-top: 1px solid var(--line-color); }
-.cv-dl-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--accent); color: var(--black); padding: 13px; text-decoration: none; font-family: var(--sans-en); font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; transition: background .3s, color .3s; border: 2px solid var(--accent); }
-.cv-dl-btn:hover { background: transparent; color: var(--accent); }
+.cv-name { font-size: 1.8rem; font-weight: 400; letter-spacing: -.03em; text-transform: uppercase; color: var(--c-black); line-height: 1; margin-bottom: 4px; }
+.cv-role { font-size: .58rem; font-weight: 400; letter-spacing: .18em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 16px; display: block; }
+.cv-bio { font-size: .7rem; font-weight: 300; color: var(--c-muted); line-height: 2; }
+.cv-hls { margin-top: 20px; display: flex; flex-direction: column; gap: 1px; }
+.cv-hl { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: var(--c-off-white); transition: background .2s, padding-left .3s var(--ease); }
+.cv-hl:hover { background: var(--c-black); padding-left: 20px; }
+.cv-hl i { font-size: .6rem; color: var(--c-muted); width: 14px; transition: color .2s; }
+.cv-hl:hover i { color: var(--c-orange); }
+.cv-hl span { font-size: .67rem; font-weight: 300; color: var(--c-muted); transition: color .2s; }
+.cv-hl:hover span { color: var(--c-white); }
+.cv-dl-area { padding: 22px 28px; border-top: 1px solid var(--c-line); }
+.cv-dl-btn { display: flex; align-items: center; justify-content: center; gap: 9px; width: 100%; background: var(--c-black); color: var(--c-white); padding: 14px; text-decoration: none; font-size: .7rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; transition: all .3s; border: 1px solid var(--c-black); }
+.cv-dl-btn:hover { background: transparent; color: var(--c-black); }
 
-/* VEILLE */
-.veille-org { background: #0c0c0c; border: 1px solid var(--line-color); padding: 48px 52px; margin-bottom: 2px; position: relative; overflow: hidden; transition: border-color .4s; }
-.veille-org::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: .3; }
-.veille-org:hover { border-color: rgba(240,236,228,.15); }
-.veille-org-title { font-family: var(--sans-jp); font-size: 2.4rem; font-weight: 900; letter-spacing: -.03em; color: var(--white); margin-bottom: 8px; text-transform: uppercase; }
-.veille-org-sub { font-family: var(--sans-en); font-size: .72rem; color: rgba(240,236,228,.4); margin-bottom: 28px; line-height: 1.8; }
-.veille-plan { display: flex; gap: 2px; margin-bottom: 2px; overflow-x: auto; }
-.veille-plan::-webkit-scrollbar { height: 0; }
-.plan-tab { flex-shrink: 0; background: #0c0c0c; border: 1px solid var(--line-color); padding: 16px 24px; cursor: pointer; transition: all .3s; text-align: center; position: relative; }
-.plan-tab::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transition: transform .35s var(--ease-expo); }
-.plan-tab:hover, .plan-tab.active { background: #111; border-color: rgba(240,236,228,.15); }
-.plan-tab.active::after { transform: scaleX(1); }
-.plan-tab-num { font-family: var(--sans-en); font-size: .52rem; font-weight: 700; letter-spacing: .12em; color: rgba(240,236,228,.3); margin-bottom: 4px; }
-.plan-tab-label { font-family: var(--sans-jp); font-size: 1.8rem; font-weight: 700; color: rgba(240,236,228,.7); text-transform: uppercase; letter-spacing: -.02em; }
-.plan-tab-count { font-family: var(--sans-en); font-size: .58rem; color: rgba(240,236,228,.25); margin-top: 4px; }
-.articles-panel { display: none; flex-direction: column; gap: 2px; }
-.articles-panel.active { display: flex; }
-.article-row { background: #0c0c0c; border: 1px solid var(--line-color); cursor: pointer; transition: border-color .3s; position: relative; overflow: hidden; }
-.article-row::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); transform: scaleY(0); transform-origin: bottom; transition: transform .4s var(--ease-expo); }
-.article-row:hover { border-color: rgba(240,236,228,.15); }
-.article-row:hover::before, .article-row.open::before { transform: scaleY(1); }
-.article-header { display: grid; grid-template-columns: 56px 1fr auto; align-items: center; gap: 20px; padding: 22px 28px; }
-.article-num { font-family: var(--sans-jp); font-size: 3.5rem; font-weight: 900; letter-spacing: -.06em; color: rgba(240,236,228,.04); line-height: 1; transition: color .3s; }
-.article-row:hover .article-num { color: rgba(240,236,228,.1); }
-.article-cat { font-family: var(--sans-en); font-size: .52rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: rgba(240,236,228,.3); margin-bottom: 4px; }
-.article-title { font-family: var(--sans-jp); font-size: 1.8rem; font-weight: 700; color: rgba(240,236,228,.8); line-height: 1.2; transition: color .2s; text-transform: uppercase; letter-spacing: -.02em; }
-.article-row:hover .article-title { color: var(--white); }
-.article-preview { font-family: var(--sans-en); font-size: .65rem; color: rgba(240,236,228,.3); }
-.article-expand { width: 30px; height: 30px; border: 1px solid var(--line-color); display: flex; align-items: center; justify-content: center; color: rgba(240,236,228,.3); font-size: .55rem; transition: all .4s var(--ease-expo); flex-shrink: 0; }
-.article-row.open .article-expand, .article-row:hover .article-expand { background: var(--accent); color: var(--black); border-color: var(--accent); }
-.article-row.open .article-expand { transform: rotate(45deg); }
-.article-body { display: none; padding: 0 28px 28px 104px; border-top: 1px solid var(--line-color); padding-top: 22px; animation: slideDown .4s var(--ease-expo); }
-@keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
-.article-row.open .article-body { display: block; }
-@media (max-width: 700px) { .article-body { padding: 20px 20px; } }
-.ab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-@media (max-width: 700px) { .ab-grid { grid-template-columns: 1fr; } }
-.ab-block { padding: 18px 20px; background: #111; border-left: 2px solid rgba(200,240,64,.15); }
-.ab-label { font-family: var(--sans-en); font-size: .52rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(240,236,228,.3); margin-bottom: 8px; }
-.ab-text { font-family: var(--sans-en); font-size: .68rem; color: rgba(240,236,228,.5); line-height: 2; }
-.ab-text strong { color: var(--white); font-weight: 700; }
-.ab-source { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: rgba(200,240,64,.04); border: 1px solid rgba(200,240,64,.1); margin-top: 10px; }
-.ab-source i { color: rgba(240,236,228,.3); font-size: .65rem; }
-.ab-source a { font-family: var(--sans-en); font-size: .65rem; color: rgba(240,236,228,.5); text-decoration: none; transition: color .2s; }
-.ab-source a:hover { color: var(--accent); }
-.veille-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; margin-top: 2px; }
-@media (max-width: 900px) { .veille-stats { grid-template-columns: repeat(2, 1fr); } }
-.vstat { background: #0c0c0c; border: 1px solid var(--line-color); padding: 24px 22px; display: flex; align-items: center; gap: 14px; transition: border-color .4s; }
-.vstat:hover { border-color: rgba(240,236,228,.2); }
-.vstat-ic { font-size: 1.4rem; color: rgba(240,236,228,.15); transition: color .3s; }
-.vstat:hover .vstat-ic { color: var(--accent); }
-.vstat-n { font-family: var(--sans-jp); font-size: 3.5rem; font-weight: 900; letter-spacing: -.06em; color: var(--white); line-height: 1; }
-.vstat-l { font-family: var(--sans-en); font-size: .58rem; color: rgba(240,236,228,.3); margin-top: 4px; }
+/* ── POINTS / VEILLE ── */
+.veille-wrap { padding: 120px 0; background: var(--c-off-white); }
+.points-sticky { position: sticky; top: 120px; }
+.veille-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+@media(max-width:1000px){ .veille-layout { grid-template-columns: 1fr; gap: 50px; } }
+.point-items { display: flex; flex-direction: column; gap: 1px; }
+.point-item { padding: 32px 0; border-bottom: 1px solid var(--c-line); }
+.point-item:first-child { border-top: 1px solid var(--c-line); }
+.pi-tag { font-size: .6rem; font-weight: 400; letter-spacing: .18em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 14px; display: block; }
+.pi-title { font-size: 1.4rem; font-weight: 400; letter-spacing: -.03em; text-transform: uppercase; color: var(--c-black); margin-bottom: 12px; line-height: 1.1; }
+.pi-body { font-size: .72rem; font-weight: 300; color: var(--c-muted); line-height: 2; }
+.pi-body strong { color: var(--c-black); font-weight: 500; }
+.vplan { display: flex; gap: 1px; background: var(--c-line); overflow-x: auto; scrollbar-width: none; margin-bottom: 1px; }
+.vplan::-webkit-scrollbar { display: none; }
+.vtab { flex-shrink: 0; background: var(--c-off-white); padding: 16px 24px; cursor: pointer; transition: all .3s; position: relative; }
+.vtab::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--c-orange); transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease); }
+.vtab:hover { background: var(--c-light); }
+.vtab.active { background: var(--c-white); }
+.vtab.active::after { transform: scaleX(1); }
+.vtab-n { font-size: .52rem; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 4px; }
+.vtab-l { font-size: 1rem; font-weight: 400; letter-spacing: -.02em; text-transform: uppercase; color: var(--c-black); }
+.vtab-c { font-size: .55rem; font-weight: 300; color: var(--c-muted); margin-top: 3px; }
+.vpanel { display: none; flex-direction: column; gap: 1px; background: var(--c-line); }
+.vpanel.active { display: flex; }
+.art-row { background: var(--c-off-white); cursor: pointer; border-left: 2px solid transparent; transition: all .3s; }
+.art-row:hover, .art-row.open { background: var(--c-white); border-left-color: var(--c-orange); }
+.art-hd { display: grid; grid-template-columns: 52px 1fr auto; align-items: center; gap: 18px; padding: 20px 28px; }
+.art-num { font-size: 2.5rem; font-weight: 400; letter-spacing: -.06em; color: rgba(10,10,10,.06); line-height: 1; transition: color .3s; }
+.art-row:hover .art-num { color: rgba(10,10,10,.14); }
+.art-cat { font-size: .52rem; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: var(--c-orange); margin-bottom: 3px; }
+.art-title { font-size: 1.1rem; font-weight: 400; letter-spacing: -.02em; text-transform: uppercase; color: var(--c-black); line-height: 1.2; transition: opacity .2s; }
+.art-row:hover .art-title { opacity: .7; }
+.art-prev { font-size: .62rem; font-weight: 300; color: var(--c-muted); margin-top: 3px; }
+.art-expand { width: 28px; height: 28px; border: 1px solid var(--c-line); display: flex; align-items: center; justify-content: center; color: var(--c-muted); font-size: .52rem; transition: all .4s var(--ease); flex-shrink: 0; }
+.art-row.open .art-expand, .art-row:hover .art-expand { background: var(--c-black); color: var(--c-white); border-color: var(--c-black); }
+.art-row.open .art-expand { transform: rotate(45deg); }
+.art-body { display: none; padding: 0 28px 24px 98px; border-top: 1px solid var(--c-line); padding-top: 20px; animation: slideD .4s var(--ease); }
+@keyframes slideD { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:none} }
+.art-row.open .art-body { display: block; }
+@media(max-width:600px){ .art-body { padding: 16px 18px; } }
+.ab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+@media(max-width:600px){ .ab-grid { grid-template-columns: 1fr; } }
+.ab-block { padding: 18px 20px; background: var(--c-light); border-left: 2px solid rgba(232,93,47,.2); }
+.ab-lbl { font-size: .52rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--c-orange); margin-bottom: 8px; }
+.ab-txt { font-size: .68rem; font-weight: 300; color: var(--c-muted); line-height: 2; }
+.ab-txt strong { color: var(--c-black); font-weight: 500; }
+.ab-src { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: rgba(232,93,47,.04); border: 1px solid rgba(232,93,47,.15); margin-top: 10px; }
+.ab-src i { color: var(--c-orange); font-size: .62rem; }
+.ab-src a { font-size: .63rem; font-weight: 300; color: var(--c-muted); transition: color .2s; }
+.ab-src a:hover { color: var(--c-orange); }
+.veille-stats { display: grid; grid-template-columns: repeat(5,1fr); gap: 1px; background: var(--c-line); margin-top: 60px; }
+@media(max-width:900px){ .veille-stats { grid-template-columns: repeat(2,1fr); } }
+.vstat { background: var(--c-off-white); padding: 24px 22px; display: flex; align-items: center; gap: 14px; transition: background .3s; }
+.vstat:hover { background: var(--c-black); }
+.vstat-ic { font-size: 1.2rem; color: var(--c-muted); transition: color .2s; }
+.vstat:hover .vstat-ic { color: var(--c-orange); }
+.vstat-n { font-size: 3rem; font-weight: 400; letter-spacing: -.06em; color: var(--c-black); line-height: 1; transition: color .2s; }
+.vstat:hover .vstat-n { color: var(--c-white); }
+.vstat-l { font-size: .56rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: var(--c-muted); margin-top: 3px; transition: color .2s; }
+.vstat:hover .vstat-l { color: rgba(255,255,255,.4); }
 
-/* CONTACT */
-.contact-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 600px; }
-@media (max-width: 900px) { .contact-split { grid-template-columns: 1fr; } }
-.contact-l { padding: 100px 80px; background: var(--black); border-right: 1px solid var(--line-color); display: flex; flex-direction: column; justify-content: center; }
-@media (max-width: 900px) { .contact-l { padding: 60px 32px; border-right: none; border-bottom: 1px solid var(--line-color); } }
-.contact-big { font-family: var(--sans-jp); font-size: clamp(4rem, 6vw, 7rem); font-weight: 900; letter-spacing: -.05em; line-height: .9; text-transform: uppercase; color: var(--white); margin-bottom: 24px; }
-.contact-big em { font-style: italic; font-weight: 200; color: transparent; -webkit-text-stroke: 1px rgba(240,236,228,.25); }
-.contact-sub { font-family: var(--sans-en); font-size: .75rem; color: rgba(240,236,228,.4); line-height: 2; margin-bottom: 40px; max-width: 380px; }
-.contact-infos { display: flex; flex-direction: column; gap: 2px; }
-.ci-row { display: flex; align-items: center; gap: 16px; padding: 13px 16px; background: #0c0c0c; border: 1px solid var(--line-color); transition: border-color .3s, transform .3s var(--ease-expo); }
-.ci-row:hover { border-color: rgba(240,236,228,.2); transform: translateX(5px); }
-.ci-ic { font-size: .7rem; color: rgba(240,236,228,.3); width: 16px; transition: color .2s; }
-.ci-row:hover .ci-ic { color: var(--accent); }
-.ci-text { font-family: var(--sans-en); font-size: .68rem; color: rgba(240,236,228,.6); }
-.ci-avail { color: #4ade80 !important; }
-.contact-r { padding: 100px 80px; background: #080808; display: flex; flex-direction: column; justify-content: center; }
-@media (max-width: 900px) { .contact-r { padding: 60px 32px; } }
-.form-head { font-family: var(--sans-jp); font-size: 3rem; font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; color: var(--white); margin-bottom: 28px; }
-.cform { display: flex; flex-direction: column; gap: 2px; }
-.frow { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-@media (max-width: 600px) { .frow { grid-template-columns: 1fr; } }
-.fi input, .fi textarea { width: 100%; background: #111; border: 1px solid var(--line-color); color: var(--white); padding: 15px 18px; font-family: var(--sans-en); font-size: .7rem; outline: none; transition: border-color .3s, background .3s; }
-.fi input::placeholder, .fi textarea::placeholder { color: rgba(240,236,228,.2); }
-.fi input:focus, .fi textarea:focus { border-color: var(--accent); background: #1a1a1a; }
-.fi textarea { height: 130px; resize: none; }
-.fsub { background: var(--accent); color: var(--black); border: 2px solid var(--accent); padding: 15px; width: 100%; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--sans-en); font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; transition: background .3s, color .3s; }
-.fsub:hover { background: transparent; color: var(--accent); }
+/* ── CONTACT ── */
+.contact-wrap { background: var(--c-black); color: var(--c-white); padding: 120px 0 0; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding-bottom: 120px; }
+@media(max-width:900px){ .contact-grid { grid-template-columns: 1fr; gap: 60px; } }
+.contact-l { padding-right: 80px; border-right: 1px solid var(--c-line-w); }
+@media(max-width:900px){ .contact-l { padding-right: 0; border-right: none; border-bottom: 1px solid var(--c-line-w); padding-bottom: 60px; } }
+.contact-big { font-size: clamp(3rem,7vw,8rem); font-weight: 400; letter-spacing: -.05em; line-height: .88; text-transform: uppercase; color: var(--c-white); margin-bottom: 28px; }
+.contact-big em { font-style: italic; font-weight: 300; opacity: .3; }
+.contact-sub { font-size: .8rem; font-weight: 300; color: rgba(255,255,255,.45); line-height: 2; margin-bottom: 48px; max-width: 360px; }
+.ci-rows { display: flex; flex-direction: column; gap: 1px; }
+.ci-row { display: flex; align-items: center; gap: 16px; padding: 14px 18px; background: rgba(255,255,255,.04); border: 1px solid var(--c-line-w); transition: all .3s var(--ease); }
+.ci-row:hover { background: rgba(255,255,255,.08); transform: translateX(5px); }
+.ci-ic { font-size: .65rem; color: rgba(255,255,255,.3); width: 16px; transition: color .2s; }
+.ci-row:hover .ci-ic { color: var(--c-orange); }
+.ci-txt { font-size: .7rem; font-weight: 300; color: rgba(255,255,255,.55); }
+.ci-avail { color: #22c55e !important; font-weight: 400; }
+.contact-r { padding-left: 80px; }
+@media(max-width:900px){ .contact-r { padding-left: 0; } }
+.form-hd { font-size: clamp(2rem, 4vw, 4rem); font-weight: 400; letter-spacing: -.04em; text-transform: uppercase; color: var(--c-white); margin-bottom: 32px; line-height: .95; }
+.cform { display: flex; flex-direction: column; gap: 1px; }
+.frow { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
+@media(max-width:500px){ .frow { grid-template-columns: 1fr; } }
+.fi input, .fi textarea { width: 100%; background: rgba(255,255,255,.05); border: 1px solid var(--c-line-w); color: var(--c-white); padding: 16px 20px; font-family: var(--mono); font-size: .72rem; font-weight: 300; outline: none; transition: all .3s; }
+.fi input::placeholder, .fi textarea::placeholder { color: rgba(255,255,255,.2); }
+.fi input:focus, .fi textarea:focus { border-color: var(--c-orange); background: rgba(255,255,255,.08); }
+.fi textarea { height: 140px; resize: none; }
+.fsub { background: var(--c-white); color: var(--c-black); border: 1px solid var(--c-white); padding: 16px; width: 100%; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--mono); font-size: .72rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; transition: all .3s; }
+.fsub:hover { background: transparent; color: var(--c-white); }
 .fsub:disabled { opacity: .3; cursor: default; }
-.fm { padding: 12px 16px; font-family: var(--sans-en); font-size: .68rem; display: none; margin-top: 2px; }
-.fm.ok { background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.2); color: #4ade80; }
-.fm.ko { background: rgba(255,60,60,.08); border: 1px solid rgba(255,60,60,.2); color: #ff6060; }
-.fm.ld { background: #111; border: 1px solid var(--line-color); color: rgba(240,236,228,.4); }
+.fmsg { padding: 12px 16px; font-size: .68rem; display: none; margin-top: 1px; font-family: var(--mono); }
+.fmsg.ok { background: rgba(34,197,94,.08); border: 1px solid rgba(34,197,94,.2); color: #22c55e; }
+.fmsg.ko { background: rgba(255,80,80,.08); border: 1px solid rgba(255,80,80,.2); color: #ff7070; }
+.fmsg.ld { background: rgba(255,255,255,.04); border: 1px solid var(--c-line-w); color: rgba(255,255,255,.4); }
 
-/* FOOTER */
-.l-footer { background: var(--black); border-top: 1px solid var(--line-color); }
-.l-footer__inner { max-width: 1200px; margin: 0 auto; padding: 40px 32px; display: flex; align-items: center; justify-content: space-between; }
-.l-footer__logo { font-family: var(--sans-jp); font-size: 2rem; font-weight: 900; letter-spacing: -.04em; color: var(--white); }
-.l-footer__logo span { color: var(--accent); }
-.l-footer__copyright { font-family: var(--sans-en); font-size: .58rem; letter-spacing: .1em; color: rgba(240,236,228,.2); }
+/* ── FOOTER ── */
+.footer {
+  background: var(--c-black); border-top: 1px solid var(--c-line-w);
+  position: relative; overflow: hidden;
+}
+.footer-blur {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 120%; height: 60%; pointer-events: none;
+  background: radial-gradient(ellipse at bottom center, rgba(232,93,47,.08) 0%, transparent 70%);
+}
+.footer-inner { max-width: 1400px; margin: 0 auto; padding: 40px 32px; position: relative; z-index: 1; }
+.footer-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 60px; }
+.footer-logo { font-size: clamp(3rem, 8vw, 8rem); font-weight: 400; letter-spacing: -.06em; text-transform: uppercase; color: var(--c-white); line-height: 1; }
+.footer-logo span { color: var(--c-orange); }
+.footer-tagline { font-size: .65rem; font-weight: 300; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.3); }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; border-top: 1px solid var(--c-line-w); }
+.footer-copy { font-size: .6rem; font-weight: 300; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.25); }
+.footer-links { display: flex; gap: 28px; }
+.footer-link { font-size: .62rem; font-weight: 300; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.35); transition: color .2s; }
+.footer-link:hover { color: var(--c-white); }
 
-/* OVERLAY */
+/* ── OVERLAY ── */
 #ov { position: fixed; inset: 0; z-index: 9000; display: none; background: rgba(0,0,0,0); transition: background .5s; }
 #ov.open { display: flex; align-items: stretch; }
-#ov.vis { background: rgba(0,0,0,.97); }
-.ov-panel { width: 100%; display: grid; grid-template-columns: 1fr 460px; opacity: 0; transform: translateY(20px) scale(.97); transition: all .6s var(--ease-expo); }
-@media (max-width: 900px) { .ov-panel { grid-template-columns: 1fr; grid-template-rows: 50vh 1fr; } }
+#ov.vis { background: rgba(10,10,10,.96); backdrop-filter: blur(12px); }
+.ov-panel { width: 100%; display: grid; grid-template-columns: 1fr 460px; opacity: 0; transform: scale(.97) translateY(20px); transition: all .65s var(--ease); }
+@media(max-width:900px){ .ov-panel { grid-template-columns: 1fr; grid-template-rows: 45vh 1fr; } }
 #ov.vis .ov-panel { opacity: 1; transform: none; }
-.ov-left { background: #050505; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.ov-left { background: var(--c-light); display: flex; flex-direction: column; position: relative; overflow: hidden; }
 .ov-img-area { flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-.ov-img-area img { max-width: 80%; max-height: 80%; object-fit: contain; filter: drop-shadow(0 20px 40px rgba(0,0,0,.8)); transition: opacity .2s, transform .3s var(--ease-expo); }
-.ov-noimg { display: flex; flex-direction: column; align-items: center; gap: 16px; opacity: .12; }
-.ov-noimg i { font-size: 4rem; color: var(--accent); }
-.ov-noimg span { font-family: var(--sans-en); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; }
-.ov-corner { position: absolute; width: 24px; height: 24px; opacity: 0; transition: opacity .5s var(--ease-expo) .3s; z-index: 4; }
-#ov.vis .ov-corner { opacity: .5; }
-.ov-corner.tl { top: 68px; left: 18px; border-top: 1px solid var(--accent); border-left: 1px solid var(--accent); }
-.ov-corner.tr { top: 68px; right: 18px; border-top: 1px solid var(--accent); border-right: 1px solid var(--accent); }
-.ov-corner.bl { bottom: 90px; left: 18px; border-bottom: 1px solid var(--accent); border-left: 1px solid var(--accent); }
-.ov-corner.br { bottom: 90px; right: 18px; border-bottom: 1px solid var(--accent); border-right: 1px solid var(--accent); }
-.ov-nbtn { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; background: rgba(0,0,0,.7); backdrop-filter: blur(12px); border: 1px solid var(--line-color); display: flex; align-items: center; justify-content: center; cursor: pointer; color: rgba(240,236,228,.45); font-size: .65rem; transition: all .3s var(--ease-expo); z-index: 4; }
-.ov-nbtn:hover { background: var(--accent); color: var(--black); border-color: var(--accent); }
-.ov-nbtn:disabled { opacity: .15; pointer-events: none; }
-.ov-nbtn.prev { left: 16px; } .ov-nbtn.next { right: 16px; }
-.ov-cnt { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); font-family: var(--sans-en); font-size: .55rem; background: rgba(0,0,0,.7); backdrop-filter: blur(12px); padding: 4px 14px; color: rgba(240,236,228,.5); border: 1px solid var(--line-color); z-index: 4; }
-.ov-thumbs { display: flex; gap: 6px; padding: 12px 18px; background: rgba(0,0,0,.6); backdrop-filter: blur(16px); border-top: 1px solid var(--line-color); min-height: 72px; align-items: center; overflow-x: auto; flex-shrink: 0; z-index: 2; }
-.ov-thumbs::-webkit-scrollbar { height: 0; }
-.ov-thumb { width: 68px; height: 44px; overflow: hidden; cursor: pointer; border: 1px solid transparent; opacity: .3; transition: all .3s var(--ease-expo); flex-shrink: 0; }
+.ov-img-area img { max-width: 80%; max-height: 80%; object-fit: contain; transition: opacity .2s, transform .3s var(--ease); }
+.ov-noimg { display: flex; flex-direction: column; align-items: center; gap: 14px; opacity: .12; }
+.ov-noimg i { font-size: 3rem; color: var(--c-black); }
+.ov-noimg span { font-size: .6rem; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; }
+.ov-nbtn { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; background: rgba(245,243,239,.9); backdrop-filter: blur(12px); border: 1px solid var(--c-line); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--c-muted); font-size: .6rem; transition: all .3s var(--ease); z-index: 4; }
+.ov-nbtn:hover { background: var(--c-black); color: var(--c-white); border-color: var(--c-black); }
+.ov-nbtn:disabled { opacity: .2; pointer-events: none; }
+.ov-nbtn.prev { left: 14px; } .ov-nbtn.next { right: 14px; }
+.ov-cnt { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); font-size: .55rem; font-weight: 400; letter-spacing: .14em; background: rgba(245,243,239,.9); backdrop-filter: blur(12px); padding: 4px 14px; color: var(--c-muted); border: 1px solid var(--c-line); z-index: 4; }
+.ov-thumbs { display: flex; gap: 6px; padding: 12px 18px; background: rgba(245,243,239,.8); backdrop-filter: blur(16px); border-top: 1px solid var(--c-line); min-height: 70px; align-items: center; overflow-x: auto; flex-shrink: 0; z-index: 2; scrollbar-width: none; }
+.ov-thumbs::-webkit-scrollbar { display: none; }
+.ov-thumb { width: 66px; height: 44px; overflow: hidden; cursor: pointer; border: 2px solid transparent; opacity: .4; transition: all .3s var(--ease); flex-shrink: 0; }
 .ov-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.ov-thumb.active, .ov-thumb:hover { border-color: var(--accent); opacity: 1; transform: scale(1.06) translateY(-2px); }
-.img-exit { animation: imgExit .18s var(--ease-expo) forwards; }
-.img-enter { animation: imgEnter .3s var(--ease-expo) forwards; }
-@keyframes imgExit { to { opacity:0; transform: scale(.96); } }
-@keyframes imgEnter { from { opacity:0; transform: scale(1.03); } to { opacity:1; transform: scale(1); } }
-.ov-statusbar { display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 48px; border-bottom: 1px solid var(--line-color); background: rgba(0,0,0,.8); backdrop-filter: blur(20px); flex-shrink: 0; position: relative; z-index: 2; }
-.ov-sb-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); margin-right: 8px; }
-.ov-sb-label { font-family: var(--sans-en); font-size: .55rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(240,236,228,.3); }
-.ov-sb-tag { font-family: var(--sans-en); font-size: .55rem; letter-spacing: .1em; color: rgba(240,236,228,.5); border: 1px solid var(--line-color); padding: 2px 10px; }
-.ov-sb-close { width: 28px; height: 28px; border: 1px solid var(--line-color); display: flex; align-items: center; justify-content: center; cursor: pointer; color: rgba(240,236,228,.4); font-size: .55rem; background: none; transition: all .2s; }
-.ov-sb-close:hover { background: var(--accent); color: var(--black); border-color: var(--accent); }
-.ov-sb-left { display: flex; align-items: center; }
-.ov-right { background: #0a0a0a; display: flex; flex-direction: column; border-left: 1px solid var(--line-color); overflow: hidden; }
-.ov-rh { padding: 28px 32px; border-bottom: 1px solid var(--line-color); }
-.ov-rh-eyebrow { font-family: var(--sans-en); font-size: .58rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(240,236,228,.3); margin-bottom: 8px; }
-#ovTitle { font-family: var(--sans-jp); font-size: 3rem; font-weight: 900; letter-spacing: -.04em; color: var(--white); line-height: 1; text-transform: uppercase; }
-.ov-body { flex: 1; overflow-y: auto; padding: 28px 32px; display: flex; flex-direction: column; gap: 24px; }
-.ov-body::-webkit-scrollbar { width: 2px; }
-.ov-body::-webkit-scrollbar-thumb { background: var(--accent); }
-.ov-section-label { font-family: var(--sans-en); font-size: .55rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(240,236,228,.2); display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-.ov-section-label::after { content: ''; flex: 1; height: 1px; background: var(--line-color); }
-#ovDesc { font-family: var(--sans-en); font-size: .7rem; color: rgba(240,236,228,.5); line-height: 2; }
-.ov-meta { display: flex; flex-direction: column; gap: 2px; }
-.ov-mrow { display: flex; align-items: center; gap: 14px; padding: 12px 14px; background: #111; transition: background .2s; }
-.ov-mrow:hover { background: #1c1c1c; }
-.ov-mrow i { font-size: .6rem; color: rgba(240,236,228,.3); width: 12px; }
-.ov-mrow span { font-family: var(--sans-en); font-size: .65rem; color: rgba(240,236,228,.6); }
-.ov-pills { display: flex; flex-wrap: wrap; gap: 4px; }
-.ov-pill { font-family: var(--sans-en); font-size: .62rem; color: rgba(240,236,228,.5); border: 1px solid var(--line-color); padding: 6px 14px; transition: all .3s var(--ease-expo); cursor: default; }
-.ov-pill:hover { border-color: var(--accent); color: var(--accent); }
-.ov-footer { padding: 20px 32px; border-top: 1px solid var(--line-color); background: #080808; display: flex; flex-direction: column; gap: 10px; }
-.ov-cta { display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--accent); color: var(--black); padding: 14px; text-decoration: none; font-family: var(--sans-en); font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; border: 2px solid var(--accent); cursor: pointer; width: 100%; transition: background .3s, color .3s; }
-.ov-cta:hover { background: transparent; color: var(--accent); }
-.ov-close-link { text-align: center; font-family: var(--sans-en); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(240,236,228,.2); cursor: pointer; transition: color .2s; }
-.ov-close-link:hover { color: rgba(240,236,228,.5); }
+.ov-thumb.active, .ov-thumb:hover { border-color: var(--c-orange); opacity: 1; transform: scale(1.06) translateY(-2px); }
+.ov-sb { display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 48px; border-bottom: 1px solid var(--c-line); background: rgba(245,243,239,.9); backdrop-filter: blur(20px); flex-shrink: 0; position: relative; z-index: 2; }
+.ov-sb-l { display: flex; align-items: center; gap: 8px; }
+.ov-sb-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--c-orange); }
+.ov-sb-lbl { font-size: .55rem; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; color: var(--c-muted); }
+.ov-sb-tag { font-size: .55rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: var(--c-muted); border: 1px solid var(--c-line); padding: 3px 10px; }
+.ov-sb-close { width: 28px; height: 28px; border: 1px solid var(--c-line); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--c-muted); font-size: .55rem; background: none; transition: all .2s; }
+.ov-sb-close:hover { background: var(--c-black); color: var(--c-white); border-color: var(--c-black); }
+.ov-right { background: var(--c-white); display: flex; flex-direction: column; border-left: 1px solid var(--c-line); overflow: hidden; }
+.ov-rh { padding: 28px 32px; border-bottom: 1px solid var(--c-line); }
+.ov-rh-ey { font-size: .58rem; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: var(--c-muted); margin-bottom: 8px; display: block; }
+#ovTitle { font-size: 2rem; font-weight: 400; letter-spacing: -.04em; text-transform: uppercase; color: var(--c-black); line-height: 1; }
+.ov-body { flex: 1; overflow-y: auto; padding: 28px 32px; display: flex; flex-direction: column; gap: 22px; scrollbar-width: thin; scrollbar-color: var(--c-orange) transparent; }
+.ov-sec-lbl { font-size: .55rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--c-muted); display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.ov-sec-lbl::after { content: ''; flex: 1; height: 1px; background: var(--c-line); }
+#ovDesc { font-size: .7rem; font-weight: 300; color: var(--c-muted); line-height: 2; }
+.ov-meta { display: flex; flex-direction: column; gap: 1px; }
+.ov-mrow { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: var(--c-off-white); transition: background .2s; }
+.ov-mrow:hover { background: var(--c-light); }
+.ov-mrow i { font-size: .6rem; color: var(--c-muted); width: 12px; }
+.ov-mrow span { font-size: .65rem; font-weight: 300; color: var(--c-muted); }
+.ov-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+.ov-pill { font-size: .6rem; font-weight: 300; color: var(--c-muted); border: 1px solid var(--c-line); padding: 6px 12px; transition: all .3s; cursor: default; }
+.ov-pill:hover { border-color: var(--c-orange); color: var(--c-orange); }
+.ov-footer { padding: 20px 32px; border-top: 1px solid var(--c-line); background: var(--c-off-white); display: flex; flex-direction: column; gap: 10px; }
+.ov-cta { display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--c-black); color: var(--c-white); padding: 14px; text-decoration: none; font-size: .7rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; border: 1px solid var(--c-black); cursor: pointer; width: 100%; transition: all .3s; }
+.ov-cta:hover { background: transparent; color: var(--c-black); }
+.ov-close-lnk { text-align: center; font-size: .6rem; font-weight: 300; letter-spacing: .1em; text-transform: uppercase; color: var(--c-muted); cursor: pointer; transition: color .2s; }
+.ov-close-lnk:hover { color: var(--c-black); }
 
-* { cursor: none !important; }
-@media(hover:none){ #cursor{display:none;} *{cursor:auto!important;} }
+/* ── SCROLL PROGRESS ── */
+.scroll-bar { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: var(--c-orange); z-index: 8000; transition: width .08s linear; }
+
+/* ── UTILS ── */
+@keyframes fadeUp { to { opacity: 1; transform: none; } }
+.gsap-init { opacity: 0; }
+.tag { display: inline-block; font-size: .6rem; font-weight: 400; letter-spacing: .18em; text-transform: uppercase; color: var(--c-muted); border: 1px solid var(--c-line); padding: 5px 12px; }
+.tag-dark { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.15); color: rgba(255,255,255,.5); }
+.divider { height: 1px; background: var(--c-line); border: none; margin: 0; }
+.divider-white { background: var(--c-line-w); }
 </style>
 </head>
 <body>
 
-<div class="c-scroll-progress" id="scrollProgress"></div>
-<div id="cursor"></div>
+<div class="scroll-bar" id="scrollBar"></div>
+<div class="cursor-dot" id="curDot"></div>
+<div class="cursor-ring" id="curRing"></div>
 
-<!-- LOADER -->
-<div id="c-loading">
-  <div class="c-loading__num" id="loadNum">00</div>
-  <div class="c-loading__bar" id="loadBar"></div>
-</div>
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">Eyoub Belkhiri</a>
+  <div style="display:flex;align-items:center;gap:16px">
+    <a href="#contact" class="btn nav-start"><span>Disponible</span></a>
+    <div class="nav-burger" id="burgerBtn">
+      <span class="nav-burger-txt sm-hide" style="display:none;">Menu</span>
+      <div class="nav-burger-icon">
+        <div class="nav-burger-line"></div>
+        <div class="nav-burger-line"></div>
+      </div>
+    </div>
+  </div>
+</nav>
 
-<!-- HEADER -->
-<header class="l-header" id="lHeader">
-  <div class="l-header__inner">
-    <a href="#" class="l-header__logo">E<span>.</span>B</a>
-    <nav class="l-header__nav">
-      <ul class="l-header__ul">
-        <li class="l-header__list"><a href="#about">Profil</a></li>
-        <li class="l-header__list"><a href="#cv">Parcours</a></li>
-        <li class="l-header__list"><a href="#projects">Projets</a></li>
-        <li class="l-header__list"><a href="#certifications">Certifs</a></li>
-        <li class="l-header__list"><a href="#veille">Veille</a></li>
-        <li class="l-header__list"><a href="#contact">Contact</a></li>
-      </ul>
+<!-- BURGER MENU -->
+<div class="burger" id="burgerMenu">
+  <div class="burger-inner">
+    <div class="burger-top">
+      <span style="font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--c-white)">Eyoub Belkhiri</span>
+    </div>
+    <nav class="burger-list">
+      <a href="#about" class="burger-item" onclick="closeBurger()">Profil</a>
+      <a href="#cv" class="burger-item" onclick="closeBurger()">Parcours</a>
+      <a href="#projects" class="burger-item" onclick="closeBurger()">Projets</a>
+      <a href="#certifications" class="burger-item" onclick="closeBurger()">Certifications</a>
+      <a href="#veille" class="burger-item" onclick="closeBurger()">Veille</a>
+      <a href="#contact" class="burger-item" onclick="closeBurger()">Contact</a>
     </nav>
+    <div class="burger-bottom">
+      <span class="burger-bottom-txt">BTS SIO SLAM · Full-Stack</span>
+      <span class="burger-bottom-txt">France · Mobile</span>
+    </div>
   </div>
-</header>
-
-<button class="l-menu-button" id="menuBtn" onclick="toggleMob()">
-  <span class="l-menu-button__text">Menu</span>
-  <span class="l-menu-button__line"><span></span><span></span><span></span></span>
-</button>
-<div class="l-menu-body" id="mobMenu">
-  <a href="#about" onclick="closeMob()">Profil</a>
-  <a href="#cv" onclick="closeMob()">Parcours</a>
-  <a href="#projects" onclick="closeMob()">Projets</a>
-  <a href="#certifications" onclick="closeMob()">Certifs</a>
-  <a href="#veille" onclick="closeMob()">Veille</a>
-  <a href="#contact" onclick="closeMob()">Contact</a>
 </div>
 
-<!-- HERO -->
-<section class="p-home-mv" id="hero">
-  <div class="p-home-mv__grid-lines"></div>
-  <div class="p-home-mv__symbol">EB</div>
-  <div class="p-home-mv__content">
-    <div class="mv-avail"><div class="mv-avail-dot"></div>Disponible · Open to work</div>
-    <h1 class="mv-name">EYOUB<br><span class="ghost">BELKHIRI</span></h1>
-    <div class="mv-foot">
-      <p class="mv-role">
-        Développeur Web <strong>Full‑Stack</strong><br>
-        BTS SIO option SLAM<br>
-        Du back-end solide à l'interface soignée.
-      </p>
-      <div class="mv-btns">
-        <a href="#projects" class="c-primary-link">
-          <span>Mes projets</span>
-          <i class="fas fa-arrow-down"></i>
-        </a>
-        <a href="#contact" class="c-secondary-link">Me contacter →</a>
+<!-- ── HERO ── -->
+<section change-nav-color="dark" id="hero" class="hero">
+  <div class="hero-inner container">
+    <div class="hero-badge gsap-init">
+      <div class="hero-badge-dot"></div>
+      Disponible · Open to work
+    </div>
+    <h1 class="hero-title gsap-init">
+      Eyoub<br>
+      <span style="font-style:italic;font-weight:300;opacity:.35">Belkhiri</span>
+    </h1>
+    <div class="hero-grid gsap-init">
+      <div class="hero-grid-col">
+        <span class="hero-col-label">Rôle</span>
+        <div class="hero-col-val">Développeur Web <strong>Full-Stack</strong></div>
+      </div>
+      <div class="hero-grid-col">
+        <span class="hero-col-label">Formation</span>
+        <div class="hero-col-val">BTS SIO option SLAM</div>
+      </div>
+      <div class="hero-grid-col">
+        <span class="hero-col-label">Action</span>
+        <div class="hero-col-val" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+          <a href="#projects" class="btn"><span>Mes projets</span></a>
+          <a href="#contact" class="btn" style="background:var(--c-black);color:var(--c-white)"><span>Contact</span></a>
+        </div>
       </div>
     </div>
   </div>
-  <div class="mv-scroll">
-    <div class="mv-scroll-track"><div class="mv-scroll-fill"></div></div>
-    <span class="mv-scroll-label">Défiler</span>
-  </div>
 </section>
 
-<hr class="l-divider">
+<hr class="divider">
 
-<!-- ABOUT -->
-<section id="about" style="padding:120px 32px;background:#080808;">
-  <div class="about-wrap">
-    <div class="reveal">
-      <div class="sec-label">À propos</div>
-      <h2 class="sec-title">Profil <em>&amp; compétences</em></h2>
+<!-- ── ABOUT ── -->
+<section id="about" change-nav-color="dark" class="about-wrap">
+  <div class="container">
+    <span class="sec-label gsap-init">// 01 — Profil</span>
+    <div class="about-top">
+      <div>
+        <h2 class="about-heading gsap-init">Profil<br>&amp; <em>Compétences</em></h2>
+      </div>
+      <div class="gsap-init">
+        <p class="about-body-txt">En BTS SIO option SLAM, j'apprends la création de solutions <strong>efficaces, sécurisées et performantes</strong>. Mon parcours m'a permis d'acquérir des compétences solides en POO et en gestion de bases de données.</p>
+        <p class="about-body-txt">Du back-end à l'interface, j'aborde chaque projet avec rigueur, en appliquant les meilleures pratiques du développement moderne.</p>
+      </div>
     </div>
-    <div class="bento">
-      <div class="bcard bc-bio reveal reveal-delay-1">
-        <div class="bio-text" style="flex:1">
-          <p class="bio-quote">En BTS SIO option SLAM,<br>passionné par l'informatique.</p>
-          <div class="bio-body">
-            <p>J'apprends la création de solutions <strong>efficaces, sécurisées et performantes</strong>. Mon parcours m'a permis d'acquérir des compétences solides en POO et en gestion de bases de données.</p>
-            <p>Du back-end à l'interface, j'aborde chaque projet avec rigueur, en appliquant les meilleures pratiques du développement moderne.</p>
+    <div class="about-stats gsap-init">
+      <div class="stat-box"><span class="stat-n" data-count="6">0</span><span class="stat-l">Projets</span></div>
+      <div class="stat-box"><span class="stat-n" data-count="2">0</span><span class="stat-l">Ans d'exp.</span></div>
+      <div class="stat-box"><span class="stat-n">SIO</span><span class="stat-l">SLAM</span></div>
+      <div class="stat-box"><span class="stat-n" data-count="10">0</span><span class="stat-l">Technos</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 360px;gap:1px;background:var(--c-line);margin-top:1px;" class="gsap-init" id="about-bottom-grid">
+      <div class="about-cards" style="grid-template-columns:1fr 1fr;background:none;gap:0;">
+        <div class="about-card" style="border-right:1px solid var(--c-line)">
+          <div class="about-card-title">Prêt.</div>
+          <div class="about-card-txt">BTS SIO SLAM, développeur disponible et mobile.</div>
+          <div class="avail-pill"><div class="avail-pill-dot"></div>Disponible maintenant</div>
+          <br><br>
+          <a href="#contact" class="btn" style="font-size:.65rem"><span>Prendre contact</span></a>
+        </div>
+        <div class="about-card">
+          <div class="about-card-title">Contact</div>
+          <div class="about-card-txt">Toujours disponible.</div>
+          <div class="contact-rows">
+            <div class="c-row"><i class="fas fa-envelope c-row-ic"></i><span class="c-row-txt">eyoub.belkhiri@email.com</span></div>
+            <div class="c-row"><i class="fas fa-map-marker-alt c-row-ic"></i><span class="c-row-txt">France</span></div>
+            <div class="c-row"><i class="fas fa-graduation-cap c-row-ic"></i><span class="c-row-txt">BTS SIO SLAM</span></div>
           </div>
         </div>
-        <div class="bio-stats">
-          <div class="bstat"><div class="bstat-n" data-count="6">0</div><div class="bstat-l">Projets</div></div>
-          <div class="bstat"><div class="bstat-n" data-count="2">0</div><div class="bstat-l">Ans exp.</div></div>
-          <div class="bstat"><div class="bstat-n">SIO</div><div class="bstat-l">SLAM</div></div>
-          <div class="bstat"><div class="bstat-n" data-count="10">0</div><div class="bstat-l">Technos</div></div>
-        </div>
       </div>
-      <div class="bcard bc-stack reveal reveal-delay-2">
-        <div class="bc-stack-label">Stack technique</div>
-        <div class="sk-rows">
-          <div class="skrow"><div class="sk-ic"><i class="fab fa-php"></i></div><div><div class="sk-name">PHP / Laravel</div><div class="sk-sub">MVC &amp; ORM</div></div><div class="sk-tags"><span class="stag">MVC</span><span class="stag">ORM</span></div></div>
-          <div class="skrow"><div class="sk-ic"><i class="fab fa-js"></i></div><div><div class="sk-name">JavaScript</div><div class="sk-sub">ES6+ &amp; DOM</div></div><div class="sk-tags"><span class="stag">ES6+</span></div></div>
-          <div class="skrow"><div class="sk-ic"><i class="fas fa-database"></i></div><div><div class="sk-name">SQL &amp; Data</div><div class="sk-sub">MySQL &amp; modélisation</div></div><div class="sk-tags"><span class="stag">MySQL</span></div></div>
-          <div class="skrow"><div class="sk-ic"><i class="fab fa-git-alt"></i></div><div><div class="sk-name">Framework &amp; Entity</div><div class="sk-sub">coding &amp; C#</div></div><div class="sk-tags"><span class="stag">Entity</span></div></div>
-          <div class="skrow"><div class="sk-ic"><i class="fab fa-windows"></i></div><div><div class="sk-name">C# / .NET</div><div class="sk-sub">Desktop &amp; EF</div></div><div class="sk-tags"><span class="stag">POO</span></div></div>
-          <div class="skrow"><div class="sk-ic"><i class="fas fa-file-excel"></i></div><div><div class="sk-name">Excel / VBA</div><div class="sk-sub">Automatisation</div></div><div class="sk-tags"><span class="stag">VBA</span></div></div>
-        </div>
-      </div>
-      <div class="bcard bc-avail reveal reveal-delay-3">
-        <div>
-          <div class="av-status"><div class="av-dot"></div><span class="av-label">Disponible maintenant</span></div>
-          <h3>Prêt.</h3>
-          <p>BTS SIO SLAM, développeur disponible et mobile.</p>
-        </div>
-        <a href="#contact" class="av-btn">Prendre contact <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="bcard bc-contact reveal reveal-delay-4">
-        <div>
-          <h3>Contact</h3>
-          <p>Toujours disponible pour en discuter.</p>
-        </div>
-        <div class="bc-links">
-          <div class="bc-link"><i class="fas fa-envelope"></i><span>eyoub.belkhiri@email.com</span></div>
-          <div class="bc-link"><i class="fas fa-map-marker-alt"></i><span>France</span></div>
-          <div class="bc-link"><i class="fas fa-graduation-cap"></i><span>BTS SIO SLAM</span></div>
-        </div>
+      <div class="stack-wrap">
+        <div class="stack-head"><span class="stack-head-lbl">// Stack Technique</span></div>
+        <div class="sk-row"><div class="sk-ic"><i class="fab fa-php"></i></div><div><div class="sk-name">PHP / Laravel</div><div class="sk-sub">MVC &amp; ORM</div></div><span class="sk-tag">MVC</span></div>
+        <div class="sk-row"><div class="sk-ic"><i class="fab fa-js"></i></div><div><div class="sk-name">JavaScript</div><div class="sk-sub">ES6+</div></div><span class="sk-tag">DOM</span></div>
+        <div class="sk-row"><div class="sk-ic"><i class="fas fa-database"></i></div><div><div class="sk-name">SQL &amp; MySQL</div><div class="sk-sub">Modélisation</div></div><span class="sk-tag">MySQL</span></div>
+        <div class="sk-row"><div class="sk-ic"><i class="fab fa-windows"></i></div><div><div class="sk-name">C# / .NET</div><div class="sk-sub">Desktop &amp; EF</div></div><span class="sk-tag">POO</span></div>
+        <div class="sk-row"><div class="sk-ic"><i class="fab fa-git-alt"></i></div><div><div class="sk-name">Entity Framework</div><div class="sk-sub">Code First</div></div><span class="sk-tag">EF</span></div>
+        <div class="sk-row"><div class="sk-ic"><i class="fas fa-file-excel"></i></div><div><div class="sk-name">Excel / VBA</div><div class="sk-sub">Automatisation</div></div><span class="sk-tag">VBA</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<hr class="l-divider">
+<hr class="divider">
 
-<!-- MARQUEE -->
-<div class="p-home-what">
-  <div class="p-home-what__big-cover">
-    <div class="marquee-row">
-      <div class="marquee-inner">
-        <div class="p-home-what__big">FULL·STACK</div>
-        <div class="p-home-what__big" style="color:rgba(0,0,0,.08)">DEVELOPER</div>
-        <div class="p-home-what__big">FULL·STACK</div>
-        <div class="p-home-what__big" style="color:rgba(0,0,0,.08)">DEVELOPER</div>
-      </div>
-    </div>
-    <div class="marquee-row">
-      <div class="marquee-inner rev">
-        <div class="p-home-what__big" style="color:rgba(0,0,0,.15)">PHP · C# · SQL</div>
-        <div class="p-home-what__big">PHP · C# · SQL</div>
-        <div class="p-home-what__big" style="color:rgba(0,0,0,.15)">PHP · C# · SQL</div>
-        <div class="p-home-what__big">PHP · C# · SQL</div>
-      </div>
+<!-- ── MARQUEE ── -->
+<div change-nav-color="white" class="marquee-wrap">
+  <div class="mq-row">
+    <div class="mq-inner">
+      <span class="mq-word">Full-Stack</span><span class="mq-sep">—</span>
+      <span class="mq-word ghost">Developer</span><span class="mq-sep">—</span>
+      <span class="mq-word">Full-Stack</span><span class="mq-sep">—</span>
+      <span class="mq-word ghost">Developer</span><span class="mq-sep">—</span>
     </div>
   </div>
-  <div class="p-home-what__contents reveal">
-    <p class="p-home-what__contents-copy">想いをカタチに。<br>カタチに遊びを。</p>
-    <p class="p-home-what__contents-text">Du back-end solide au front soigné, j'apporte rigueur et créativité à chaque projet. Disponible pour un poste ou un stage.</p>
-    <a href="#contact" class="c-primary-link c-primary-link--black"><span>Me contacter</span> <i class="fas fa-arrow-right" style="position:relative;z-index:1"></i></a>
+  <div class="mq-row" style="margin-top:8px">
+    <div class="mq-inner rev">
+      <span class="mq-word ghost" style="font-size:clamp(2.5rem,4.5vw,5.5rem)">PHP · C# · SQL · Laravel · .NET</span>
+      <span class="mq-sep" style="font-size:clamp(2.5rem,4.5vw,5.5rem)">—</span>
+      <span class="mq-word" style="font-size:clamp(2.5rem,4.5vw,5.5rem)">PHP · C# · SQL · Laravel · .NET</span>
+      <span class="mq-sep" style="font-size:clamp(2.5rem,4.5vw,5.5rem)">—</span>
+    </div>
+  </div>
+  <div class="mq-sub">
+    <p class="mq-copy gsap-init">Automate<br>the mundane.<br>Accelerate<br>the <em style="font-style:italic;opacity:.4">remarkable.</em></p>
+    <div class="gsap-init">
+      <p class="mq-body">Du back-end solide au front soigné, j'apporte rigueur et créativité à chaque projet. Disponible pour un poste ou un stage.</p>
+      <a href="#contact" class="btn btn-white"><span>Me contacter</span></a>
+    </div>
   </div>
 </div>
 
-<hr class="l-divider">
+<hr class="divider">
 
-<!-- PROJECTS -->
-<section id="projects" style="padding:120px 32px;background:var(--black);">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="reveal">
-      <div class="sec-label">Portfolio</div>
-      <h2 class="sec-title">Réalisations <em>techniques</em></h2>
-    </div>
-    <div class="proj-featured reveal reveal-delay-1" onclick="openOv('ligue1web')">
-      <div class="pf-visual"><div class="pf-num">01</div><i class="fas fa-futbol pf-icon"></i><div class="pf-badge">PHP · WEB</div></div>
+<!-- ── PROJECTS ── -->
+<section id="projects" change-nav-color="dark" class="projects-wrap">
+  <div class="container">
+    <span class="sec-label gsap-init">// 02 — Portfolio</span>
+    <h2 class="about-heading gsap-init" style="margin-bottom:48px">Réalisations <em>Techniques</em></h2>
+    <div class="proj-featured gsap-init" onclick="openOv('ligue1web')">
+      <div class="pf-vis"><div class="pf-vis-bg"></div><div class="pf-num">01</div><i class="fas fa-futbol pf-icon"></i><div class="pf-badge">PHP · WEB</div></div>
       <div class="pf-info">
-        <div><div class="pf-eyebrow">Application Web — Projet Phare</div><div class="pf-title">Gestion Ligue 1<br>Version Web</div><div class="pf-desc">Refonte web complète du projet Ligue 1. Consultation et gestion des données sportives via navigateur avec PHP et MySQL. Interface responsive, requêtes optimisées.</div></div>
-        <div class="pf-foot"><div class="pf-tags"><span class="pftag">PHP</span><span class="pftag">MySQL</span><span class="pftag">Bootstrap</span><span class="pftag">HTML/CSS</span></div><div class="pf-arr"><i class="fas fa-arrow-right"></i></div></div>
+        <div><span class="pf-tag">Application Web — Projet Phare</span><div class="pf-title">Gestion Ligue 1<br>Version Web</div><p class="pf-desc">Refonte web complète du projet Ligue 1. Consultation et gestion des données sportives via navigateur avec PHP et MySQL. Interface responsive, requêtes optimisées.</p></div>
+        <div class="pf-foot"><div class="pf-tags"><span class="pf-tag-item">PHP</span><span class="pf-tag-item">MySQL</span><span class="pf-tag-item">Bootstrap</span><span class="pf-tag-item">HTML/CSS</span></div><div class="pf-arr"><i class="fas fa-arrow-right"></i></div></div>
       </div>
     </div>
-    <div class="proj-list">
-      <div class="pl reveal reveal-delay-2" onclick="openOv('ligue1')"><div class="pl-num">02</div><div><div class="pl-cat">Desktop App — C#</div><div class="pl-title">Gestion Ligue 1 — C#</div><div class="pl-desc">Architecture POO complète. Gestion clubs, matchs, statistiques.</div></div><div class="pl-right"><div class="pl-tags"><span class="pltag">C#</span><span class="pltag">SQL Server</span></div><div class="pl-arr"><i class="fas fa-arrow-right"></i></div></div></div>
-      <div class="pl reveal reveal-delay-3" onclick="openOv('chronophone')"><div class="pl-num">03</div><div><div class="pl-cat">Stage · 6 semaines — PHP</div><div class="pl-title">Site interne Chronophone</div><div class="pl-desc">Gestion des interventions et suivi des réparations smartphones.</div></div><div class="pl-right"><div class="pl-tags"><span class="pltag">PHP</span><span class="pltag">MySQL</span></div><div class="pl-arr"><i class="fas fa-arrow-right"></i></div></div></div>
-      <div class="pl reveal reveal-delay-4" onclick="openOv('ada')"><div class="pl-num">04</div><div><div class="pl-cat">Desktop App — C# · Entity Framework</div><div class="pl-title">ADA Location — Desktop</div><div class="pl-desc">Véhicules, clients, contrats, réservations. Entity Framework complet.</div></div><div class="pl-right"><div class="pl-tags"><span class="pltag">C#</span><span class="pltag">Entity Framework</span></div><div class="pl-arr"><i class="fas fa-arrow-right"></i></div></div></div>
-      <div class="pl reveal" onclick="openOv('adaweb')"><div class="pl-num">05</div><div><div class="pl-cat">Application Web — PHP · MVC</div><div class="pl-title">ADA Location — Web</div><div class="pl-desc">Version web avec PHP et ORM Eloquent. Architecture MVC complète.</div></div><div class="pl-right"><div class="pl-tags"><span class="pltag">PHP</span><span class="pltag">MVC</span></div><div class="pl-arr"><i class="fas fa-arrow-right"></i></div></div></div>
-      <div class="pl reveal reveal-delay-1" onclick="openOv('protherm')"><div class="pl-num">06</div><div><div class="pl-cat">Stage · 5 semaines — VBA</div><div class="pl-title">Protherm71 — Gestion articles</div><div class="pl-desc">Outils VBA Excel avec IA pour automatisation d'une base d'articles.</div></div><div class="pl-right"><div class="pl-tags"><span class="pltag">Excel</span><span class="pltag">VBA</span><span class="pltag">IA</span></div><div class="pl-arr"><i class="fas fa-arrow-right"></i></div></div></div>
+    <div class="proj-list gsap-init">
+      <div class="pl" onclick="openOv('ligue1')"><div class="pl-num">02</div><div><div class="pl-cat">Desktop App — C#</div><div class="pl-title">Gestion Ligue 1 — C#</div><div class="pl-desc">Architecture POO. Clubs, matchs, statistiques.</div></div><div class="pl-right"><div class="pl-tag">C#</div><div class="pl-tag">SQL Server</div><div class="pl-arr"><i class="fas fa-arrow-right"></i></div></div></div>
+      <div class="pl" onclick="openOv('chronophone')"><div class="pl-num">03</div><div><div class="pl-cat">Stage · 6 semaines — PHP</div><div class="pl-title">Site interne Chronophone</div><div class="pl-desc">Gestion interventions et réparations smartphones.</div></div><div class="pl-right"><div class="pl-tag">PHP</div><div class="pl-tag">MySQL</div><div class="pl-arr"><i class="fas fa-arrow-right"></i></div></div></div>
+      <div class="pl" onclick="openOv('ada')"><div class="pl-num">04</div><div><div class="pl-cat">Desktop App — C# · Entity Framework</div><div class="pl-title">ADA Location — Desktop</div><div class="pl-desc">Véhicules, clients, contrats, réservations.</div></div><div class="pl-right"><div class="pl-tag">C#</div><div class="pl-tag">Entity Framework</div><div class="pl-arr"><i class="fas fa-arrow-right"></i></div></div></div>
+      <div class="pl" onclick="openOv('adaweb')"><div class="pl-num">05</div><div><div class="pl-cat">Application Web — PHP · MVC</div><div class="pl-title">ADA Location — Web</div><div class="pl-desc">PHP et ORM Eloquent. Architecture MVC complète.</div></div><div class="pl-right"><div class="pl-tag">PHP</div><div class="pl-tag">MVC</div><div class="pl-arr"><i class="fas fa-arrow-right"></i></div></div></div>
+      <div class="pl" onclick="openOv('protherm')"><div class="pl-num">06</div><div><div class="pl-cat">Stage · 5 semaines — VBA</div><div class="pl-title">Protherm71 — Gestion articles</div><div class="pl-desc">VBA Excel + IA pour automatisation base d'articles.</div></div><div class="pl-right"><div class="pl-tag">Excel</div><div class="pl-tag">VBA</div><div class="pl-arr"><i class="fas fa-arrow-right"></i></div></div></div>
     </div>
   </div>
 </section>
 
-<hr class="l-divider">
+<hr class="divider">
 
-<!-- CERTIFICATIONS -->
-<section id="certifications" style="padding:120px 32px;background:#080808;">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="reveal">
-      <div class="sec-label">Certifications</div>
-      <h2 class="sec-title">Diplômes <em>&amp; certifications</em></h2>
-    </div>
-    <div class="cert-grid">
-      <div class="cert-card reveal reveal-delay-1">
-        <div class="cert-header">
-          <div class="cert-logo">PIX</div>
-          <div>
-            <div class="cert-issuer">Certification nationale</div>
-            <div class="cert-meta-title">Certification Pix</div>
-            <div class="cert-badge"><div class="cert-badge-dot"></div>OBTENUE</div>
-          </div>
-        </div>
-        <div class="cert-body">
-          <p class="cert-desc">La certification Pix évalue et atteste les compétences numériques sur 5 grands domaines. Reconnue par l'Éducation Nationale.</p>
-          <div class="cert-competences">
-            <span class="cert-comp-tag">Informations &amp; données</span>
-            <span class="cert-comp-tag">Communication &amp; collaboration</span>
-            <span class="cert-comp-tag">Création de contenus</span>
-            <span class="cert-comp-tag">Protection &amp; sécurité</span>
-            <span class="cert-comp-tag">Environnement numérique</span>
-          </div>
-        </div>
-        <div class="cert-footer">
-          <span class="cert-date">GIP Pix</span>
-          <a href="pix.pdf" download class="cert-dl"><i class="fas fa-download"></i> Télécharger</a>
-        </div>
+<!-- ── CERTIFICATIONS ── -->
+<section id="certifications" change-nav-color="dark" class="certs-wrap">
+  <div class="container">
+    <span class="sec-label gsap-init">// 03 — Certifications</span>
+    <h2 class="about-heading gsap-init" style="margin-bottom:48px">Diplômes &amp; <em>Certifications</em></h2>
+    <div class="cert-grid gsap-init">
+      <div class="cert-card">
+        <div class="cert-hd"><div class="cert-logo-box">PIX</div><div><span class="cert-issuer">Certification nationale</span><div class="cert-title">Certification Pix</div><div class="cert-badge"><div class="cert-badge-dot"></div>Obtenue</div></div></div>
+        <div class="cert-body"><p class="cert-desc">La certification Pix évalue et atteste les compétences numériques sur 5 grands domaines. Reconnue par l'Éducation Nationale.</p><div class="cert-comps"><span class="cert-comp">Informations &amp; données</span><span class="cert-comp">Communication</span><span class="cert-comp">Création de contenus</span><span class="cert-comp">Protection &amp; sécurité</span><span class="cert-comp">Environnement numérique</span></div></div>
+        <div class="cert-foot"><span class="cert-date">GIP Pix</span><a href="pix.pdf" download class="cert-dl"><i class="fas fa-download"></i> Télécharger</a></div>
       </div>
-      <div class="cert-card reveal reveal-delay-2">
-        <div class="cert-header">
-          <div class="cert-logo"><i class="fas fa-shield-alt" style="font-size:1.6rem;color:var(--accent)"></i></div>
-          <div>
-            <div class="cert-issuer">CNIL — Atelier RGPD</div>
-            <div class="cert-meta-title">Modules RGPD</div>
-            <div class="cert-badge"><div class="cert-badge-dot"></div>6 / 6 MODULES</div>
-          </div>
-        </div>
-        <div class="cert-body">
-          <p class="cert-desc">Formation complète aux 6 modules de l'Atelier RGPD de la CNIL. Maîtrise des règles de protection des données personnelles.</p>
-          <div class="cert-modules">
-            <div class="cert-module"><span class="cert-module-num">01</span><span class="cert-module-name">Le RGPD et ses notions clés</span><i class="fas fa-check cert-module-check"></i></div>
-            <div class="cert-module"><span class="cert-module-num">02</span><span class="cert-module-name">Les principes de protection des données</span><i class="fas fa-check cert-module-check"></i></div>
-            <div class="cert-module"><span class="cert-module-num">03</span><span class="cert-module-name">Les responsabilités des acteurs</span><i class="fas fa-check cert-module-check"></i></div>
-            <div class="cert-module"><span class="cert-module-num">04</span><span class="cert-module-name">Le DPO et les outils de la conformité</span><i class="fas fa-check cert-module-check"></i></div>
-            <div class="cert-module"><span class="cert-module-num">05</span><span class="cert-module-name">Les collectivités territoriales</span><i class="fas fa-check cert-module-check"></i></div>
-            <div class="cert-module"><span class="cert-module-num">06</span><span class="cert-module-name">Travail et données personnelles</span><i class="fas fa-check cert-module-check"></i></div>
-          </div>
-        </div>
-        <div class="cert-footer">
-          <span class="cert-date">CNIL</span>
-          <span style="font-family:var(--sans-en);font-size:.62rem;color:var(--accent)"><i class="fas fa-check-circle"></i> 6 validés</span>
-        </div>
+      <div class="cert-card">
+        <div class="cert-hd"><div class="cert-logo-box"><i class="fas fa-shield-alt" style="color:var(--c-orange)"></i></div><div><span class="cert-issuer">CNIL — Atelier RGPD</span><div class="cert-title">Modules RGPD</div><div class="cert-badge"><div class="cert-badge-dot"></div>6 / 6 modules</div></div></div>
+        <div class="cert-body"><p class="cert-desc">Formation complète aux 6 modules de l'Atelier RGPD de la CNIL. Maîtrise des règles de protection des données personnelles.</p><div class="cert-mods"><div class="cert-mod"><span class="cert-mod-n">01</span><span class="cert-mod-name">Le RGPD et ses notions clés</span><i class="fas fa-check cert-mod-check"></i></div><div class="cert-mod"><span class="cert-mod-n">02</span><span class="cert-mod-name">Les principes de protection des données</span><i class="fas fa-check cert-mod-check"></i></div><div class="cert-mod"><span class="cert-mod-n">03</span><span class="cert-mod-name">Les responsabilités des acteurs</span><i class="fas fa-check cert-mod-check"></i></div><div class="cert-mod"><span class="cert-mod-n">04</span><span class="cert-mod-name">Le DPO et les outils de la conformité</span><i class="fas fa-check cert-mod-check"></i></div><div class="cert-mod"><span class="cert-mod-n">05</span><span class="cert-mod-name">Les collectivités territoriales</span><i class="fas fa-check cert-mod-check"></i></div><div class="cert-mod"><span class="cert-mod-n">06</span><span class="cert-mod-name">Travail et données personnelles</span><i class="fas fa-check cert-mod-check"></i></div></div></div>
+        <div class="cert-foot"><span class="cert-date">CNIL</span><span style="font-size:.62rem;font-weight:500;color:var(--c-orange)"><i class="fas fa-check-circle"></i> 6 validés</span></div>
       </div>
     </div>
-    <div class="cert-stats-row">
-      <div class="cert-stat reveal reveal-delay-2"><div class="cert-stat-ic"><i class="fas fa-certificate"></i></div><div><div class="cert-stat-n">2+</div><div class="cert-stat-l">Certifications obtenues</div></div></div>
-      <div class="cert-stat reveal reveal-delay-3"><div class="cert-stat-ic"><i class="fas fa-shield-alt"></i></div><div><div class="cert-stat-n">6</div><div class="cert-stat-l">Modules RGPD validés</div></div></div>
-      <div class="cert-stat reveal reveal-delay-4"><div class="cert-stat-ic"><i class="fas fa-laptop-code"></i></div><div><div class="cert-stat-n">5</div><div class="cert-stat-l">Domaines numériques Pix</div></div></div>
+    <div class="cert-stats gsap-init">
+      <div class="cert-stat"><div class="cert-stat-ic"><i class="fas fa-certificate"></i></div><div><div class="cert-stat-n">2+</div><div class="cert-stat-l">Certifications</div></div></div>
+      <div class="cert-stat"><div class="cert-stat-ic"><i class="fas fa-shield-alt"></i></div><div><div class="cert-stat-n">6</div><div class="cert-stat-l">Modules RGPD</div></div></div>
+      <div class="cert-stat"><div class="cert-stat-ic"><i class="fas fa-laptop-code"></i></div><div><div class="cert-stat-n">5</div><div class="cert-stat-l">Domaines Pix</div></div></div>
     </div>
   </div>
 </section>
 
-<hr class="l-divider">
+<hr class="divider">
 
-<!-- CV -->
-<section id="cv" style="padding:120px 32px;background:var(--black);">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="reveal">
-      <div class="sec-label">Curriculum</div>
-      <h2 class="sec-title">Mon parcours <em>professionnel</em></h2>
-    </div>
-    <div class="cv-grid reveal reveal-delay-1">
+<!-- ── CV ── -->
+<section id="cv" change-nav-color="dark" class="cv-wrap">
+  <div class="container">
+    <span class="sec-label gsap-init">// 04 — Curriculum</span>
+    <h2 class="about-heading gsap-init" style="margin-bottom:48px">Mon Parcours <em>Professionnel</em></h2>
+    <div class="cv-grid gsap-init">
       <div class="cv-main">
-        <div class="cv-titlebar"><div class="cv-dots"><span></span><span></span><span></span></div><span class="cv-fn">CV_EYOUB_BELKHIRI.PDF</span></div>
-        <div class="cv-preview">
-          <object data="CV_Stage.pdf" type="application/pdf">
-            <p style="padding:80px;text-align:center;font-family:var(--sans-en);font-size:.7rem;color:rgba(240,236,228,.2);line-height:3">AFFICHAGE NON SUPPORTÉ<br><a href="CV_Stage.pdf" style="color:var(--accent)">→ Ouvrir le PDF</a></p>
-          </object>
-        </div>
+        <div class="cv-bar"><div class="cv-dots"><span></span><span></span><span></span></div><span class="cv-fn">CV_EYOUB_BELKHIRI.PDF</span></div>
+        <div class="cv-preview"><object data="CV_Stage.pdf" type="application/pdf"><p style="padding:80px;text-align:center;font-size:.72rem;font-weight:300;color:var(--c-muted);line-height:3">Affichage non supporté<br><a href="CV_Stage.pdf" style="color:var(--c-orange)">→ Ouvrir le PDF</a></p></object></div>
       </div>
       <div class="cv-aside">
         <div class="cv-aside-top">
-          <div class="cv-aside-name">Eyoub Belkhiri</div>
-          <div class="cv-aside-role">Développeur Web Full‑Stack</div>
-          <div class="cv-aside-bio">BTS SIO option SLAM. Passionné par le développement d'applications et les solutions numériques performantes.</div>
-          <div class="cv-highlights">
+          <div class="cv-name">Eyoub Belkhiri</div>
+          <span class="cv-role">Développeur Web Full-Stack</span>
+          <p class="cv-bio">BTS SIO option SLAM. Passionné par le développement d'applications et les solutions numériques performantes.</p>
+          <div class="cv-hls">
             <div class="cv-hl"><i class="fas fa-code"></i><span>PHP, JavaScript, C#, SQL</span></div>
             <div class="cv-hl"><i class="fas fa-briefcase"></i><span>2 stages réalisés</span></div>
             <div class="cv-hl"><i class="fas fa-project-diagram"></i><span>6 projets au portfolio</span></div>
             <div class="cv-hl"><i class="fas fa-map-marker-alt"></i><span>France — Mobile</span></div>
           </div>
         </div>
-        <div class="cv-aside-dl">
-          <a href="CV_Stage.pdf" download class="cv-dl-btn"><i class="fas fa-download"></i> Télécharger le CV</a>
+        <div class="cv-dl-area"><a href="CV_Stage.pdf" download class="cv-dl-btn"><i class="fas fa-download"></i> Télécharger le CV</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── VEILLE ── -->
+<section id="veille" change-nav-color="dark" class="veille-wrap">
+  <div class="container">
+    <span class="sec-label gsap-init">// 05 — Veille Technologique</span>
+    <h2 class="about-heading gsap-init" style="margin-bottom:48px">IA &amp; <em>Développement Web</em></h2>
+    <!-- Démarche -->
+    <div style="background:var(--c-white);border:1px solid var(--c-line);padding:40px;margin-bottom:1px;" class="gsap-init">
+      <div style="font-size:1.5rem;font-weight:400;letter-spacing:-.03em;text-transform:uppercase;margin-bottom:8px">Démarche de veille</div>
+      <div style="font-size:.72rem;font-weight:300;color:var(--c-muted);margin-bottom:28px;font-style:italic">Feedly (flux RSS) → tri hebdomadaire → Notion (base de données) → synthèse critique</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--c-line)">
+        <div style="background:var(--c-off-white);padding:24px"><div style="font-size:.52rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--c-orange);margin-bottom:10px">Outil principal</div><div style="font-size:1.8rem;font-weight:400;letter-spacing:-.04em;text-transform:uppercase;margin-bottom:6px">Feedly</div><div style="font-size:.68rem;font-weight:300;color:var(--c-muted);line-height:1.9">Agrégateur RSS — CNIL, ANSSI, Le Monde Informatique, Developpez.com, Laravel News</div></div>
+        <div style="background:var(--c-off-white);padding:24px"><div style="font-size:.52rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--c-orange);margin-bottom:10px">Organisation</div><div style="font-size:1.8rem;font-weight:400;letter-spacing:-.04em;text-transform:uppercase;margin-bottom:6px">Notion</div><div style="font-size:.68rem;font-weight:300;color:var(--c-muted);line-height:1.9">Base de données — titre, source, date, résumé, analyse.</div></div>
+        <div style="background:var(--c-off-white);padding:24px"><div style="font-size:.52rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--c-orange);margin-bottom:10px">Alertes</div><div style="font-size:1.8rem;font-weight:400;letter-spacing:-.04em;text-transform:uppercase;margin-bottom:6px">Alerts</div><div style="font-size:.68rem;font-weight:300;color:var(--c-muted);line-height:1.9">"IA développement web", "PHP Laravel 2024", "RGPD IA", "ANSSI"</div></div>
+      </div>
+    </div>
+    <!-- Tabs -->
+    <div class="vplan gsap-init">
+      <div class="vtab active" onclick="switchPlan(0,this)"><div class="vtab-n">AXE 01</div><div class="vtab-l">IA &amp; Dev</div><div class="vtab-c">4 articles</div></div>
+      <div class="vtab" onclick="switchPlan(1,this)"><div class="vtab-n">AXE 02</div><div class="vtab-l">Frameworks</div><div class="vtab-c">2 articles</div></div>
+      <div class="vtab" onclick="switchPlan(2,this)"><div class="vtab-n">AXE 03</div><div class="vtab-l">Cybersécurité</div><div class="vtab-c">2 articles</div></div>
+      <div class="vtab" onclick="switchPlan(3,this)"><div class="vtab-n">AXE 04</div><div class="vtab-l">Cloud</div><div class="vtab-c">2 articles</div></div>
+    </div>
+    <div class="vpanel active" id="panel-0">
+      <div class="art-row" onclick="toggleArt(this)"><div class="art-hd"><div class="art-num">01</div><div><div class="art-cat">IA · Assistants — Déc. 2024</div><div class="art-title">GitHub Copilot passe en accès gratuit dans VS Code</div><div class="art-prev">2 000 complétions/mois inclus, choix entre GPT-4o et Claude 3.5 Sonnet…</div></div><div class="art-expand"><i class="fas fa-plus"></i></div></div><div class="art-body"><div class="ab-grid"><div class="ab-block"><div class="ab-lbl">Résumé</div><div class="ab-txt">GitHub lance <strong>Copilot Free</strong> : 2 000 complétions et 50 messages/mois dans VS Code, avec choix entre Claude 3.5 Sonnet et GPT-4o.</div></div><div class="ab-block"><div class="ab-lbl">Mon analyse</div><div class="ab-txt">La vraie compétence : <strong>vérifier, comprendre et corriger les suggestions IA</strong>. L'IA amplifie les bons développeurs, ne remplace pas les fondamentaux.</div></div></div><div class="ab-src"><i class="fas fa-link"></i><a href="https://www.lemondeinformatique.fr" target="_blank">lemondeinformatique.fr — GitHub lance une version gratuite de Copilot</a></div></div></div>
+      <div class="art-row" onclick="toggleArt(this)"><div class="art-hd"><div class="art-num">02</div><div><div class="art-cat">IA · Productivité — Mars 2024</div><div class="art-title">Copilot rend les développeurs 55 % plus productifs</div><div class="art-prev">Le COO de GitHub détaille les gains mesurés en interne…</div></div><div class="art-expand"><i class="fas fa-plus"></i></div></div><div class="art-body"><div class="ab-grid"><div class="ab-block"><div class="ab-lbl">Résumé</div><div class="ab-txt">L'IA générative rend les développeurs <strong>55 % plus productifs</strong> selon Kyle Daigle, COO de GitHub. Risque de dépendance pour les juniors sans bases solides.</div></div><div class="ab-block"><div class="ab-lbl">Mon analyse</div><div class="ab-txt">Ce gain concerne les <strong>développeurs déjà compétents</strong>. Maîtriser PHP, SQL, C# avant de s'appuyer sur l'IA est essentiel.</div></div></div><div class="ab-src"><i class="fas fa-link"></i><a href="https://www.lemondeinformatique.fr" target="_blank">lemondeinformatique.fr — Copilot 55% productifs</a></div></div></div>
+      <div class="art-row" onclick="toggleArt(this)"><div class="art-hd"><div class="art-num">03</div><div><div class="art-cat">IA · Sécurité — Oct. 2024 · ANSSI</div><div class="art-title">ANSSI &amp; BSI : bonnes pratiques pour les assistants IA</div><div class="art-prev">Les agences française et allemande publient un guide conjoint…</div></div><div class="art-expand"><i class="fas fa-plus"></i></div></div><div class="art-body"><div class="ab-grid"><div class="ab-block"><div class="ab-lbl">Résumé</div><div class="ab-txt">L'ANSSI et le BSI publient <strong>"AI Coding Assistants"</strong> : code non vérifié, fuite de données, dépendances vulnérables. Ne jamais déployer sans relecture.</div></div><div class="ab-block"><div class="ab-lbl">Mon analyse</div><div class="ab-txt">Tout code généré en PHP ou C# <strong>doit être relu et audité</strong>. Une requête SQL mal générée peut introduire une injection directement.</div></div></div><div class="ab-src"><i class="fas fa-link"></i><a href="https://cyber.gouv.fr/publications" target="_blank">cyber.gouv.fr — Publications ANSSI</a></div></div></div>
+      <div class="art-row" onclick="toggleArt(this)"><div class="art-hd"><div class="art-num">04</div><div><div class="art-cat">IA · Règlement — Août 2024 · CNIL</div><div class="art-title">L'AI Act européen entre en vigueur</div><div class="art-prev">4 niveaux de risque, nouvelles obligations pour les développeurs…</div></div><div class="art-expand"><i class="fas fa-plus"></i></div></div><div class="art-body"><div class="ab-grid"><div class="ab-block"><div class="ab-lbl">Résumé</div><div class="ab-txt">L'<strong>AI Act</strong> classe les systèmes d'IA en 4 niveaux de risque. Depuis février 2025, pratiques à risque inacceptable interdites. Complète le RGPD.</div></div><div class="ab-block"><div class="ab-lbl">Mon analyse</div><div class="ab-txt">Si j'intègre une IA dans un projet PHP, je dois <strong>évaluer son niveau de risque</strong>. Peu de juniors connaissent ce règlement — vrai avantage en entretien.</div></div></div><div class="ab-src"><i class="fas fa-link"></i><a href="https://www.cnil.fr" target="_blank">cnil.fr — AI Act : questions-réponses CNIL</a></div></div></div>
+    </div>
+    <div class="vpanel" id="panel-1">
+      <div class="art-row" onclick="toggleArt(this)"><div class="art-hd"><div class="art-num">05</div><div><div class="art-cat">PHP · Langage — Nov. 2024</div><div class="art-title">PHP 8.4 : property hooks et nouvelles fonctions</div><div class="art-prev">PHP 8.4 modernise la syntaxe avec les property hooks…</div></div><div class="art-expand"><i class="fas fa-plus"></i></div></div><div class="art-body"><div class="ab-grid"><div class="ab-block"><div class="ab-lbl">Résumé</div><div class="ab-txt">PHP 8.4 introduit les <strong>property hooks</strong> et la <strong>visibilité asymétrique</strong>. PhpStorm 2024.3 intègre nativement ces nouveautés.</div></div><div class="ab-block"><div class="ab-lbl">Mon analyse</div><div class="ab-txt">PHP 8.4 <strong>rapproche la syntaxe de C#</strong>. Signal positif pour un recruteur que de suivre ces évolutions.</div></div></div><div class="ab-src"><i class="fas fa-link"></i><a href="https://developpez.com" target="_blank">developpez.com — PHP 8.4</a></div></div></div>
+      <div class="art-row" onclick="toggleArt(this)"><div class="art-hd"><div class="art-num">06</div><div><div class="art-cat">PHP · Framework — Mars 2024</div><div class="art-title">Laravel 11 : architecture simplifiée</div><div class="art-prev">Laravel 11 réduit la complexité structurelle des projets PHP…</div></div><div class="art-expand"><i class="fas fa-plus"></i></div></div><div class="art-body"><div class="ab-grid"><div class="ab-block"><div class="ab-lbl">Résumé</div><div class="ab-txt">Laravel 11 : providers redondants supprimés, bootstrap allégé. <strong>Eloquent</strong> gagne de nouvelles méthodes.</div></div><div class="ab-block"><div class="ab-lbl">Mon analyse</div><div class="ab-txt">J'ai utilisé Eloquent ORM sur ADA Web. Moins de configuration → <strong>plus de temps pour la logique métier</strong> en stage.</div></div></div><div class="ab-src"><i class="fas fa-link"></i><a href="https://laravel-news.com" target="_blank">laravel-news.com — Laravel 11</a></div></div></div>
+    </div>
+    <div class="vpanel" id="panel-2">
+      <div class="art-row" onclick="toggleArt(this)"><div class="art-hd"><div class="art-num">09</div><div><div class="art-cat">RGPD · IA — CNIL</div><div class="art-title">CNIL : 13 fiches pratiques IA &amp; RGPD</div><div class="art-prev">La CNIL guide les développeurs pour l'usage des données personnelles…</div></div><div class="art-expand"><i class="fas fa-plus"></i></div></div><div class="art-body"><div class="ab-grid"><div class="ab-block"><div class="ab-lbl">Résumé</div><div class="ab-txt">La CNIL publie <strong>13 fiches pratiques</strong> pour les devs IA. Si le modèle mémorise des données personnelles, <strong>le RGPD s'applique</strong>.</div></div><div class="ab-block"><div class="ab-lbl">Mon analyse</div><div class="ab-txt"><strong>Tout développeur intégrant une API d'IA est responsable de traitement</strong>.</div></div></div><div class="ab-src"><i class="fas fa-link"></i><a href="https://www.cnil.fr" target="_blank">cnil.fr — Recommandations IA &amp; RGPD</a></div></div></div>
+      <div class="art-row" onclick="toggleArt(this)"><div class="art-hd"><div class="art-num">10</div><div><div class="art-cat">Cybermenaces — Janv. 2025 · ANSSI</div><div class="art-title">Panorama de la cybermenace 2024</div><div class="art-prev">Rançongiciels, espionnage, hacktivisme — bilan 2024…</div></div><div class="art-expand"><i class="fas fa-plus"></i></div></div><div class="art-body"><div class="ab-grid"><div class="ab-block"><div class="ab-lbl">Résumé</div><div class="ab-txt">3 catégories : <strong>cybercriminels</strong>, <strong>étatiques</strong>, <strong>hacktivistes</strong>. Principal vecteur : vulnérabilités non corrigées.</div></div><div class="ab-block"><div class="ab-lbl">Mon analyse</div><div class="ab-txt">Les failles exploitées concernaient des <strong>applications web non mises à jour</strong>. La sécurité commence au code.</div></div></div><div class="ab-src"><i class="fas fa-link"></i><a href="https://cyber.gouv.fr" target="_blank">cyber.gouv.fr — Panorama cybermenace 2024</a></div></div></div>
+    </div>
+    <div class="vpanel" id="panel-3">
+      <div class="art-row" onclick="toggleArt(this)"><div class="art-hd"><div class="art-num">13</div><div><div class="art-cat">Cloud · Souveraineté — Journal du Net</div><div class="art-title">Cloud souverain français</div><div class="art-prev">OVHcloud, Scaleway — les acteurs français…</div></div><div class="art-expand"><i class="fas fa-plus"></i></div></div><div class="art-body"><div class="ab-grid"><div class="ab-block"><div class="ab-lbl">Résumé</div><div class="ab-txt">OVHcloud et Scaleway proposent des offres certifiées <strong>SecNumCloud</strong>. Données sous juridiction européenne.</div></div><div class="ab-block"><div class="ab-lbl">Mon analyse</div><div class="ab-txt">Pour un dev PHP travaillant pour une collectivité, <strong>héberger sur OVHcloud peut être une exigence contractuelle</strong>.</div></div></div><div class="ab-src"><i class="fas fa-link"></i><a href="https://www.journaldunet.com" target="_blank">journaldunet.com — Cloud souverain</a></div></div></div>
+      <div class="art-row" onclick="toggleArt(this)"><div class="art-hd"><div class="art-num">14</div><div><div class="art-cat">Docker — Le Monde Informatique</div><div class="art-title">Docker en professionnel</div><div class="art-prev">De plus en plus d'équipes adoptent Docker pour uniformiser…</div></div><div class="art-expand"><i class="fas fa-plus"></i></div></div><div class="art-body"><div class="ab-grid"><div class="ab-block"><div class="ab-lbl">Résumé</div><div class="ab-txt">Docker Compose : environnements PHP-FPM, Nginx, MySQL définis en YAML. Mentionné dans la majorité des offres d'emploi dev web.</div></div><div class="ab-block"><div class="ab-lbl">Mon analyse</div><div class="ab-txt">En stage chez Chronophone, WAMP en local ≠ production. <strong>Docker aurait éliminé ce problème.</strong></div></div></div><div class="ab-src"><i class="fas fa-link"></i><a href="https://www.lemondeinformatique.fr" target="_blank">lemondeinformatique.fr — Docker PHP</a></div></div></div>
+    </div>
+    <div class="veille-stats gsap-init">
+      <div class="vstat"><div class="vstat-ic"><i class="fas fa-newspaper"></i></div><div><div class="vstat-n">16</div><div class="vstat-l">Articles analysés</div></div></div>
+      <div class="vstat"><div class="vstat-ic"><i class="fas fa-sitemap"></i></div><div><div class="vstat-n">4</div><div class="vstat-l">Axes thématiques</div></div></div>
+      <div class="vstat"><div class="vstat-ic"><i class="fas fa-flag"></i></div><div><div class="vstat-n">6+</div><div class="vstat-l">Sources officielles</div></div></div>
+      <div class="vstat"><div class="vstat-ic"><i class="fas fa-calendar-alt"></i></div><div><div class="vstat-n">12m</div><div class="vstat-l">Mois de veille</div></div></div>
+      <div class="vstat"><div class="vstat-ic"><i class="fas fa-tools"></i></div><div><div class="vstat-n">2</div><div class="vstat-l">Feedly + Notion</div></div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── CONTACT ── -->
+<section id="contact" change-nav-color="white" class="contact-wrap">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-l gsap-init">
+        <span class="sec-label sec-label-white">// 06 — Contact</span>
+        <h2 class="contact-big">Travaillons<br><em>ensemble.</em></h2>
+        <p class="contact-sub">Vous avez un projet, une question ? Je suis disponible et répondrai rapidement.</p>
+        <div class="ci-rows">
+          <div class="ci-row"><div class="ci-ic"><i class="fas fa-map-marker-alt"></i></div><span class="ci-txt">France</span></div>
+          <div class="ci-row"><div class="ci-ic"><i class="fas fa-graduation-cap"></i></div><span class="ci-txt">BTS SIO SLAM</span></div>
+          <div class="ci-row"><div class="ci-ic"><i class="fas fa-envelope"></i></div><span class="ci-txt">eyoub.belkhiri@email.com</span></div>
+          <div class="ci-row"><div class="ci-ic"><div class="avail-pill-dot" style="width:6px;height:6px;flex-shrink:0"></div></div><span class="ci-txt ci-avail">Disponible — Prêt pour l'emploi</span></div>
+        </div>
+      </div>
+      <div class="contact-r gsap-init">
+        <div class="form-hd">Envoyer<br>un message</div>
+        <form id="cform" class="cform" novalidate>
+          <div class="frow"><div class="fi"><input type="text" id="fn" placeholder="Nom &amp; Prénom" required></div><div class="fi"><input type="email" id="fe" placeholder="Adresse email" required></div></div>
+          <div class="fi"><input type="text" id="fs" placeholder="Sujet" required></div>
+          <div class="fi"><textarea id="fmsg-area" placeholder="Votre message" required></textarea></div>
+          <button type="submit" class="fsub" id="sbtn"><i class="fas fa-paper-plane"></i> <span>Envoyer le message</span></button>
+          <div id="fmsg" class="fmsg"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- FOOTER inside contact section (Ciridae style) -->
+  <div class="footer">
+    <div class="footer-blur"></div>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-logo">Eyoub<span>.</span></div>
+        <div class="footer-tagline">The New Intelligence<br>BTS SIO SLAM</div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2025 — Eyoub Belkhiri</span>
+        <div class="footer-links">
+          <a href="#about" class="footer-link">Profil</a>
+          <a href="#projects" class="footer-link">Projets</a>
+          <a href="#contact" class="footer-link">Contact</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<hr class="l-divider">
-
-<!-- VEILLE -->
-<section id="veille" style="padding:120px 32px;background:#080808;">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="reveal">
-      <div class="sec-label">Veille technologique</div>
-      <h2 class="sec-title">IA <em>&amp; Développement Web</em></h2>
-    </div>
-    <div class="veille-org reveal reveal-delay-1">
-      <div class="veille-org-title">Démarche de veille</div>
-      <div class="veille-org-sub">Feedly (flux RSS) → tri hebdomadaire → Notion (base de données) → synthèse critique</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
-        <div class="bcard" style="padding:24px 22px;">
-          <div style="font-family:var(--sans-en);font-size:.52rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">Outil principal</div>
-          <div style="font-family:var(--sans-jp);font-size:2.8rem;font-weight:900;color:var(--white);margin-bottom:8px;text-transform:uppercase;letter-spacing:-.03em;">Feedly</div>
-          <div style="font-family:var(--sans-en);font-size:.68rem;color:rgba(240,236,228,.4);line-height:2;">Agrégateur RSS — CNIL, ANSSI, Le Monde Informatique, Developpez.com, Laravel News</div>
-        </div>
-        <div class="bcard" style="padding:24px 22px;">
-          <div style="font-family:var(--sans-en);font-size:.52rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">Organisation</div>
-          <div style="font-family:var(--sans-jp);font-size:2.8rem;font-weight:900;color:var(--white);margin-bottom:8px;text-transform:uppercase;letter-spacing:-.03em;">Notion</div>
-          <div style="font-family:var(--sans-en);font-size:.68rem;color:rgba(240,236,228,.4);line-height:2;">Base de données personnelle — titre, source, date, résumé, analyse.</div>
-        </div>
-        <div class="bcard" style="padding:24px 22px;">
-          <div style="font-family:var(--sans-en);font-size:.52rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">Alertes</div>
-          <div style="font-family:var(--sans-jp);font-size:2.8rem;font-weight:900;color:var(--white);margin-bottom:8px;text-transform:uppercase;letter-spacing:-.03em;">Alerts</div>
-          <div style="font-family:var(--sans-en);font-size:.68rem;color:rgba(240,236,228,.4);line-height:2;">"IA développement web", "PHP Laravel 2024", "RGPD IA", "ANSSI"</div>
-        </div>
-      </div>
-    </div>
-    <div class="veille-plan reveal reveal-delay-2">
-      <div class="plan-tab active" onclick="switchPlan(0,this)"><div class="plan-tab-num">AXE 01</div><div class="plan-tab-label">IA &amp; Dev</div><div class="plan-tab-count">4 articles</div></div>
-      <div class="plan-tab" onclick="switchPlan(1,this)"><div class="plan-tab-num">AXE 02</div><div class="plan-tab-label">Frameworks</div><div class="plan-tab-count">4 articles</div></div>
-      <div class="plan-tab" onclick="switchPlan(2,this)"><div class="plan-tab-num">AXE 03</div><div class="plan-tab-label">Cybersécurité</div><div class="plan-tab-count">4 articles</div></div>
-      <div class="plan-tab" onclick="switchPlan(3,this)"><div class="plan-tab-num">AXE 04</div><div class="plan-tab-label">Cloud</div><div class="plan-tab-count">4 articles</div></div>
-    </div>
-    <div class="articles-panel active" id="panel-0">
-      <div class="article-row" onclick="toggleArt(this)"><div class="article-header"><div class="article-num">01</div><div><div class="article-cat">IA · Assistants — Déc. 2024 · Le Monde Informatique</div><div class="article-title">GitHub Copilot passe en accès gratuit dans VS Code</div><div class="article-preview">2 000 complétions/mois inclus, choix entre GPT-4o et Claude 3.5 Sonnet…</div></div><div class="article-expand"><i class="fas fa-plus"></i></div></div><div class="article-body"><div class="ab-grid"><div class="ab-block"><div class="ab-label">Résumé</div><div class="ab-text">GitHub lance <strong>Copilot Free</strong> : 2 000 complétions et 50 messages/mois dans VS Code, avec choix entre Claude 3.5 Sonnet et GPT-4o.</div></div><div class="ab-block"><div class="ab-label">Mon analyse</div><div class="ab-text">La vraie compétence : <strong>vérifier, comprendre et corriger les suggestions IA</strong>. L'IA amplifie les bons développeurs, ne remplace pas les fondamentaux.</div></div></div><div class="ab-source"><i class="fas fa-link"></i><a href="https://www.lemondeinformatique.fr" target="_blank">lemondeinformatique.fr — GitHub lance une version gratuite de Copilot</a></div></div></div>
-      <div class="article-row" onclick="toggleArt(this)"><div class="article-header"><div class="article-num">02</div><div><div class="article-cat">IA · Productivité — Mars 2024 · Le Monde Informatique</div><div class="article-title">Copilot rend les développeurs 55 % plus productifs</div><div class="article-preview">Le COO de GitHub détaille les gains mesurés en interne…</div></div><div class="article-expand"><i class="fas fa-plus"></i></div></div><div class="article-body"><div class="ab-grid"><div class="ab-block"><div class="ab-label">Résumé</div><div class="ab-text">L'IA générative rend les développeurs <strong>55 % plus productifs</strong> selon Kyle Daigle, COO de GitHub. Mais risque de dépendance pour les juniors sans bases solides.</div></div><div class="ab-block"><div class="ab-label">Mon analyse</div><div class="ab-text">Ce gain concerne les <strong>développeurs déjà compétents</strong>. Maîtriser PHP, SQL, C# avant de s'appuyer sur l'IA est essentiel.</div></div></div><div class="ab-source"><i class="fas fa-link"></i><a href="https://www.lemondeinformatique.fr" target="_blank">lemondeinformatique.fr — Copilot 55% productifs</a></div></div></div>
-      <div class="article-row" onclick="toggleArt(this)"><div class="article-header"><div class="article-num">03</div><div><div class="article-cat">IA · Sécurité — Oct. 2024 · ANSSI</div><div class="article-title">ANSSI &amp; BSI : bonnes pratiques pour les assistants IA</div><div class="article-preview">Les agences française et allemande publient un guide conjoint sur les risques…</div></div><div class="article-expand"><i class="fas fa-plus"></i></div></div><div class="article-body"><div class="ab-grid"><div class="ab-block"><div class="ab-label">Résumé</div><div class="ab-text">L'ANSSI et le BSI publient <strong>"AI Coding Assistants"</strong> : code non vérifié, fuite de données, dépendances vulnérables. Ne jamais déployer du code IA sans relecture.</div></div><div class="ab-block"><div class="ab-label">Mon analyse</div><div class="ab-text">Tout code généré en PHP ou C# <strong>doit être relu et audité</strong>. Une requête SQL mal générée peut introduire une injection directement.</div></div></div><div class="ab-source"><i class="fas fa-link"></i><a href="https://cyber.gouv.fr/publications" target="_blank">cyber.gouv.fr — Publications ANSSI</a></div></div></div>
-      <div class="article-row" onclick="toggleArt(this)"><div class="article-header"><div class="article-num">04</div><div><div class="article-cat">IA · Règlement — Août 2024 · CNIL</div><div class="article-title">L'AI Act européen entre en vigueur</div><div class="article-preview">4 niveaux de risque, nouvelles obligations pour les développeurs…</div></div><div class="article-expand"><i class="fas fa-plus"></i></div></div><div class="article-body"><div class="ab-grid"><div class="ab-block"><div class="ab-label">Résumé</div><div class="ab-text">L'<strong>AI Act</strong> classe les systèmes d'IA en 4 niveaux de risque. Depuis février 2025, pratiques à risque inacceptable interdites. Complète le RGPD.</div></div><div class="ab-block"><div class="ab-label">Mon analyse</div><div class="ab-text">Si j'intègre une IA dans un projet PHP, je dois <strong>évaluer son niveau de risque</strong>. Peu de juniors connaissent ce règlement — vrai avantage en entretien.</div></div></div><div class="ab-source"><i class="fas fa-link"></i><a href="https://www.cnil.fr" target="_blank">cnil.fr — AI Act : questions-réponses CNIL</a></div></div></div>
-    </div>
-    <div class="articles-panel" id="panel-1">
-      <div class="article-row" onclick="toggleArt(this)"><div class="article-header"><div class="article-num">05</div><div><div class="article-cat">PHP · Langage — Nov. 2024 · Developpez.com</div><div class="article-title">PHP 8.4 : property hooks et nouvelles fonctions</div><div class="article-preview">PHP 8.4 modernise la syntaxe avec les property hooks…</div></div><div class="article-expand"><i class="fas fa-plus"></i></div></div><div class="article-body"><div class="ab-grid"><div class="ab-block"><div class="ab-label">Résumé</div><div class="ab-text">PHP 8.4 introduit les <strong>property hooks</strong> (logique get/set intégrée) et la <strong>visibilité asymétrique</strong>. PhpStorm 2024.3 intègre nativement ces nouveautés.</div></div><div class="ab-block"><div class="ab-label">Mon analyse</div><div class="ab-text">PHP 8.4 <strong>rapproche la syntaxe de C#</strong> — un langage que j'utilise sur ADA Location. Signal positif pour un recruteur que de suivre ces évolutions.</div></div></div><div class="ab-source"><i class="fas fa-link"></i><a href="https://developpez.com" target="_blank">developpez.com — PHP 8.4</a></div></div></div>
-      <div class="article-row" onclick="toggleArt(this)"><div class="article-header"><div class="article-num">06</div><div><div class="article-cat">PHP · Framework — Mars 2024 · Laravel News</div><div class="article-title">Laravel 11 : architecture simplifiée</div><div class="article-preview">Laravel 11 réduit la complexité structurelle des projets PHP…</div></div><div class="article-expand"><i class="fas fa-plus"></i></div></div><div class="article-body"><div class="ab-grid"><div class="ab-block"><div class="ab-label">Résumé</div><div class="ab-text">Laravel 11 : providers redondants supprimés, bootstrap allégé, middlewares unifiés. <strong>Eloquent</strong> gagne de nouvelles méthodes. Framework le plus demandé junior PHP en France.</div></div><div class="ab-block"><div class="ab-label">Mon analyse</div><div class="ab-text">J'ai utilisé Eloquent ORM sur ADA Web. Moins de configuration → <strong>plus de temps pour la logique métier</strong> en stage.</div></div></div><div class="ab-source"><i class="fas fa-link"></i><a href="https://laravel-news.com" target="_blank">laravel-news.com — Laravel 11</a></div></div></div>
-    </div>
-    <div class="articles-panel" id="panel-2">
-      <div class="article-row" onclick="toggleArt(this)"><div class="article-header"><div class="article-num">09</div><div><div class="article-cat">RGPD · IA — CNIL</div><div class="article-title">CNIL : 13 fiches pratiques IA &amp; RGPD</div><div class="article-preview">La CNIL guide les développeurs pour l'usage des données personnelles dans les projets IA…</div></div><div class="article-expand"><i class="fas fa-plus"></i></div></div><div class="article-body"><div class="ab-grid"><div class="ab-block"><div class="ab-label">Résumé</div><div class="ab-text">La CNIL publie <strong>13 fiches pratiques</strong> pour les devs IA. Si le modèle mémorise des données personnelles, <strong>le RGPD s'applique</strong>.</div></div><div class="ab-block"><div class="ab-label">Mon analyse</div><div class="ab-text">Ma certification CNIL RGPD prend tout son sens ici. <strong>Tout développeur intégrant une API d'IA est responsable de traitement</strong>.</div></div></div><div class="ab-source"><i class="fas fa-link"></i><a href="https://www.cnil.fr" target="_blank">cnil.fr — Recommandations IA &amp; RGPD</a></div></div></div>
-      <div class="article-row" onclick="toggleArt(this)"><div class="article-header"><div class="article-num">10</div><div><div class="article-cat">Cybermenaces — Janv. 2025 · ANSSI</div><div class="article-title">Panorama de la cybermenace 2024</div><div class="article-preview">Rançongiciels, espionnage, hacktivisme — bilan complet 2024…</div></div><div class="article-expand"><i class="fas fa-plus"></i></div></div><div class="article-body"><div class="ab-grid"><div class="ab-block"><div class="ab-label">Résumé</div><div class="ab-text">3 catégories : <strong>cybercriminels</strong>, <strong>étatiques</strong>, <strong>hacktivistes</strong>. Principal vecteur : vulnérabilités non corrigées sur équipements réseau.</div></div><div class="ab-block"><div class="ab-label">Mon analyse</div><div class="ab-text">Les failles exploitées concernaient des <strong>applications web non mises à jour</strong>. La sécurité commence au niveau du code.</div></div></div><div class="ab-source"><i class="fas fa-link"></i><a href="https://cyber.gouv.fr" target="_blank">cyber.gouv.fr — Panorama cybermenace 2024</a></div></div></div>
-    </div>
-    <div class="articles-panel" id="panel-3">
-      <div class="article-row" onclick="toggleArt(this)"><div class="article-header"><div class="article-num">13</div><div><div class="article-cat">Cloud · Souveraineté — Journal du Net</div><div class="article-title">Cloud souverain français</div><div class="article-preview">OVHcloud, Scaleway — les acteurs français attirent les entreprises…</div></div><div class="article-expand"><i class="fas fa-plus"></i></div></div><div class="article-body"><div class="ab-grid"><div class="ab-block"><div class="ab-label">Résumé</div><div class="ab-text">OVHcloud et Scaleway proposent des offres certifiées <strong>SecNumCloud</strong>. Données sous juridiction européenne garantie.</div></div><div class="ab-block"><div class="ab-label">Mon analyse</div><div class="ab-text">Pour un dev PHP travaillant pour une collectivité, <strong>héberger sur OVHcloud peut être une exigence contractuelle</strong>.</div></div></div><div class="ab-source"><i class="fas fa-link"></i><a href="https://www.journaldunet.com" target="_blank">journaldunet.com — Cloud souverain</a></div></div></div>
-      <div class="article-row" onclick="toggleArt(this)"><div class="article-header"><div class="article-num">14</div><div><div class="article-cat">Docker — Le Monde Informatique</div><div class="article-title">Docker en professionnel</div><div class="article-preview">De plus en plus d'équipes adoptent Docker pour uniformiser les environnements PHP…</div></div><div class="article-expand"><i class="fas fa-plus"></i></div></div><div class="article-body"><div class="ab-grid"><div class="ab-block"><div class="ab-label">Résumé</div><div class="ab-text">Docker Compose : environnements PHP-FPM, Nginx, MySQL définis en YAML. <strong>"ça marche partout"</strong>. Mentionné dans la majorité des offres d'emploi dev web.</div></div><div class="ab-block"><div class="ab-label">Mon analyse</div><div class="ab-text">En stage chez Chronophone, WAMP en local ≠ production. <strong>Docker aurait éliminé ce problème.</strong></div></div></div><div class="ab-source"><i class="fas fa-link"></i><a href="https://www.lemondeinformatique.fr" target="_blank">lemondeinformatique.fr — Docker PHP</a></div></div></div>
-    </div>
-    <div class="veille-stats">
-      <div class="vstat reveal reveal-delay-1"><div class="vstat-ic"><i class="fas fa-newspaper"></i></div><div><div class="vstat-n">16</div><div class="vstat-l">Articles analysés</div></div></div>
-      <div class="vstat reveal reveal-delay-2"><div class="vstat-ic"><i class="fas fa-sitemap"></i></div><div><div class="vstat-n">4</div><div class="vstat-l">Axes thématiques</div></div></div>
-      <div class="vstat reveal reveal-delay-3"><div class="vstat-ic"><i class="fas fa-flag"></i></div><div><div class="vstat-n">6+</div><div class="vstat-l">Sources officielles</div></div></div>
-      <div class="vstat reveal reveal-delay-4"><div class="vstat-ic"><i class="fas fa-calendar-alt"></i></div><div><div class="vstat-n">12m</div><div class="vstat-l">Mois de veille</div></div></div>
-      <div class="vstat reveal"><div class="vstat-ic"><i class="fas fa-tools"></i></div><div><div class="vstat-n">2</div><div class="vstat-l">Feedly + Notion</div></div></div>
-    </div>
-  </div>
-</section>
-
-<hr class="l-divider">
-
-<!-- CONTACT -->
-<section id="contact" style="background:var(--black);">
-  <div class="contact-split">
-    <div class="contact-l reveal">
-      <div class="sec-label">Contact</div>
-      <h2 class="contact-big">Travaillons<br><em>ensemble.</em></h2>
-      <p class="contact-sub">Vous avez un projet, une question ? Je suis disponible et répondrai rapidement.</p>
-      <div class="contact-infos">
-        <div class="ci-row"><div class="ci-ic"><i class="fas fa-map-marker-alt"></i></div><span class="ci-text">France</span></div>
-        <div class="ci-row"><div class="ci-ic"><i class="fas fa-graduation-cap"></i></div><span class="ci-text">BTS SIO SLAM</span></div>
-        <div class="ci-row"><div class="ci-ic"><i class="fas fa-envelope"></i></div><span class="ci-text">eyoub.belkhiri@email.com</span></div>
-        <div class="ci-row"><div class="ci-ic"><div class="av-dot"></div></div><span class="ci-text ci-avail">Disponible — Prêt pour l'emploi</span></div>
-      </div>
-    </div>
-    <div class="contact-r reveal reveal-delay-2">
-      <div class="form-head">Envoyer un message</div>
-      <form id="cform" class="cform" novalidate>
-        <div class="frow">
-          <div class="fi"><input type="text" id="fn" placeholder="Nom &amp; Prénom" required></div>
-          <div class="fi"><input type="email" id="fe" placeholder="Adresse email" required></div>
-        </div>
-        <div class="fi"><input type="text" id="fs" placeholder="Sujet" required></div>
-        <div class="fi"><textarea id="fmsg-area" placeholder="Votre message" required></textarea></div>
-        <button type="submit" class="fsub" id="sbtn"><i class="fas fa-paper-plane"></i> <span>Envoyer le message</span></button>
-        <div id="fmsg" class="fm"></div>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="l-footer">
-  <div class="l-footer__inner">
-    <span class="l-footer__logo">E<span>.</span>B</span>
-    <span class="l-footer__copyright">© 2025 — Eyoub Belkhiri · BTS SIO SLAM</span>
-  </div>
-</footer>
-
-<!-- OVERLAY PROJECTS -->
+<!-- OVERLAY -->
 <div id="ov">
   <div class="ov-panel">
     <div class="ov-left">
-      <div class="ov-statusbar">
-        <div class="ov-sb-left"><div class="ov-sb-dot"></div><span class="ov-sb-label">Portfolio</span>&nbsp;<span class="ov-sb-tag" id="ovTag">PROJET</span></div>
-        <button class="ov-sb-close" onclick="closeOv()"><i class="fas fa-times"></i></button>
-      </div>
-      <div class="ov-img-area" id="ovImgArea">
-        <div class="ov-corner tl"></div><div class="ov-corner tr"></div><div class="ov-corner bl"></div><div class="ov-corner br"></div>
-        <div class="ov-noimg" id="ovNoImg"><i class="fas fa-robot"></i><span>Aucune capture disponible</span></div>
-        <img id="ovImg" src="" alt="" style="display:none">
-        <div class="ov-cnt" id="ovCount" style="display:none">1/2</div>
-        <button class="ov-nbtn prev" id="ovPrev" onclick="chImg(-1)" disabled><i class="fas fa-chevron-left"></i></button>
-        <button class="ov-nbtn next" id="ovNext" onclick="chImg(1)" disabled><i class="fas fa-chevron-right"></i></button>
-      </div>
+      <div class="ov-sb"><div class="ov-sb-l"><div class="ov-sb-dot"></div><span class="ov-sb-lbl">Portfolio</span>&nbsp;<span class="ov-sb-tag" id="ovTag">PROJET</span></div><button class="ov-sb-close" onclick="closeOv()"><i class="fas fa-times"></i></button></div>
+      <div class="ov-img-area" id="ovImgArea"><div class="ov-noimg" id="ovNoImg"><i class="fas fa-robot"></i><span>Aucune capture</span></div><img id="ovImg" src="" alt="" style="display:none"><div class="ov-cnt" id="ovCount" style="display:none">1/2</div><button class="ov-nbtn prev" id="ovPrev" onclick="chImg(-1)" disabled><i class="fas fa-chevron-left"></i></button><button class="ov-nbtn next" id="ovNext" onclick="chImg(1)" disabled><i class="fas fa-chevron-right"></i></button></div>
       <div class="ov-thumbs" id="ovStrip"></div>
     </div>
     <div class="ov-right">
-      <div class="ov-rh"><div class="ov-rh-eyebrow" id="ovEyebrow">Projet</div><h2 id="ovTitle">Titre</h2></div>
-      <div class="ov-body">
-        <div><div class="ov-section-label">Description</div><p id="ovDesc"></p></div>
-        <div><div class="ov-section-label">Détails</div><div class="ov-meta" id="ovMeta"></div></div>
-        <div><div class="ov-section-label">Technologies</div><div class="ov-pills" id="ovTech"></div></div>
-      </div>
-      <div class="ov-footer">
-        <a id="ovBtn" class="ov-cta" href="#"><i class="fas fa-arrow-right"></i> Voir les détails</a>
-        <div class="ov-close-link" onclick="closeOv()">Fermer</div>
-      </div>
+      <div class="ov-rh"><span class="ov-rh-ey" id="ovEyebrow">Projet</span><h2 id="ovTitle">Titre</h2></div>
+      <div class="ov-body"><div><div class="ov-sec-lbl">Description</div><p id="ovDesc"></p></div><div><div class="ov-sec-lbl">Détails</div><div class="ov-meta" id="ovMeta"></div></div><div><div class="ov-sec-lbl">Technologies</div><div class="ov-pills" id="ovTech"></div></div></div>
+      <div class="ov-footer"><a id="ovBtn" class="ov-cta" href="#"><i class="fas fa-arrow-right"></i> Voir les détails</a><div class="ov-close-lnk" onclick="closeOv()">Fermer</div></div>
     </div>
   </div>
 </div>
 
 <script>
-/* ── LOADER ── */
-(function(){
-  const loader  = document.getElementById('c-loading');
-  const loadNum = document.getElementById('loadNum');
-  const loadBar = document.getElementById('loadBar');
-  let n = 0, done = false;
-  function dismissLoader() {
-    if (done) return; done = true;
-    loadNum.textContent = '100';
-    loader.classList.add('out');
-    setTimeout(() => { document.getElementById('lHeader').classList.add('in'); }, 400);
-  }
-  const timer = setInterval(() => {
-    n += Math.floor(Math.random() * 6) + 2;
-    if (n >= 100) { n = 100; clearInterval(timer); }
-    loadNum.textContent = String(n).padStart(2, '0');
-  }, 28);
-  requestAnimationFrame(() => { requestAnimationFrame(() => { loadBar.style.width = '100%'; }); });
-  window.addEventListener('load', () => { setTimeout(dismissLoader, 600); });
-  setTimeout(dismissLoader, 2500);
-})();
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 /* ── CURSOR ── */
-const cur = document.getElementById('cursor');
-document.addEventListener('mousemove', e => { cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px'; });
-document.querySelectorAll('a,button,.bcard,.pl,.proj-featured,.article-row,.plan-tab,.cert-card,.cert-stat,.vstat,.skrow').forEach(el => {
-  el.addEventListener('mouseenter', () => cur.classList.add('grow'));
-  el.addEventListener('mouseleave', () => cur.classList.remove('grow'));
+const curDot = document.getElementById('curDot');
+const curRing = document.getElementById('curRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; curDot.style.left = mx+'px'; curDot.style.top = my+'px'; });
+(function animRing(){ rx += (mx-rx)*.12; ry += (my-ry)*.12; curRing.style.left = rx+'px'; curRing.style.top = ry+'px'; requestAnimationFrame(animRing); })();
+const hoverEls = 'a,button,.proj-featured,.pl,.cert-card,.cert-stat,.art-row,.vtab,.vstat,.sk-row,.c-row,.ci-row,.cv-hl,.cert-mod,.ov-thumb,.ov-nbtn,.ov-sb-close,.stat-box,.ov-cta';
+document.querySelectorAll(hoverEls).forEach(el => {
+  el.addEventListener('mouseenter', () => curRing.classList.add('hover'));
+  el.addEventListener('mouseleave', () => curRing.classList.remove('hover'));
 });
 
-/* ── SCROLL ── */
-window.addEventListener('scroll', () => {
-  const pct = Math.min((scrollY / (document.body.scrollHeight - innerHeight)) * 100, 100);
-  document.getElementById('scrollProgress').style.width = pct + '%';
-});
-
-/* ── REVEAL ── */
-const revealObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-/* ── COUNT ANIMATION ── */
-const countObs = new IntersectionObserver(entries => {
+/* ── NAV COLOR CHANGE (Ciridae pattern) ── */
+const nav = document.getElementById('nav');
+const sections = document.querySelectorAll('[change-nav-color]');
+const navObserver = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if(e.isIntersecting) {
-      const el = e.target, tgt = parseInt(el.dataset.count);
-      let c = 0; const step = Math.ceil(tgt / 18);
-      const t = setInterval(() => {
-        c += step;
-        if(c >= tgt) { el.textContent = tgt + '+'; clearInterval(t); }
-        else el.textContent = c;
-      }, 60);
-      countObs.unobserve(el);
+    if (e.isIntersecting && e.intersectionRatio >= .5) {
+      const color = e.target.getAttribute('change-nav-color');
+      if (color === 'white') {
+        nav.classList.add('is-white');
+        curDot.classList.add('white-mode');
+        curRing.classList.add('white-mode');
+      } else {
+        nav.classList.remove('is-white');
+        curDot.classList.remove('white-mode');
+        curRing.classList.remove('white-mode');
+      }
     }
   });
 }, { threshold: .5 });
-document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
+sections.forEach(s => navObserver.observe(s));
 
-/* ── MOBILE MENU ── */
-function toggleMob() { document.getElementById('mobMenu').classList.toggle('open'); document.getElementById('menuBtn').classList.toggle('open'); }
-function closeMob() { document.getElementById('mobMenu').classList.remove('open'); document.getElementById('menuBtn').classList.remove('open'); }
+/* ── BURGER ── */
+const burgerMenu = document.getElementById('burgerMenu');
+const burgerBtn = document.getElementById('burgerBtn');
+let burgerOpen = false;
+document.getElementById('burgerBtn').addEventListener('click', () => {
+  burgerOpen = !burgerOpen;
+  burgerMenu.classList.toggle('open', burgerOpen);
+  burgerBtn.classList.toggle('burger-open', burgerOpen);
+  document.body.style.overflow = burgerOpen ? 'hidden' : '';
+});
+function closeBurger() {
+  burgerOpen = false;
+  burgerMenu.classList.remove('open');
+  burgerBtn.classList.remove('burger-open');
+  document.body.style.overflow = '';
+}
+
+/* ── SCROLL PROGRESS ── */
+window.addEventListener('scroll', () => {
+  const pct = Math.min((scrollY/(document.body.scrollHeight-innerHeight))*100, 100);
+  document.getElementById('scrollBar').style.width = pct+'%';
+});
+
+/* ── GSAP SCROLL REVEALS ── */
+function initAnimations() {
+  // Badge & hero title
+  gsap.fromTo('.hero-badge',
+    { opacity: 0, y: 16 },
+    { opacity: 1, y: 0, duration: .8, ease: 'power3.out', delay: .2 }
+  );
+  gsap.fromTo('.hero-title',
+    { opacity: 0, y: 50, filter: 'blur(6px)' },
+    { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.1, ease: 'power3.out', delay: .35 }
+  );
+  gsap.fromTo('.hero-grid',
+    { opacity: 0, y: 24 },
+    { opacity: 1, y: 0, duration: .8, ease: 'power3.out', delay: .65 }
+  );
+
+  // Scroll-triggered reveals for .gsap-init
+  gsap.utils.toArray('.gsap-init').forEach((el) => {
+    if (el.closest('#hero')) return; // skip hero — already animated
+    gsap.fromTo(el,
+      { opacity: 0, y: 36, filter: 'blur(4px)' },
+      {
+        opacity: 1, y: 0, filter: 'blur(0px)',
+        duration: .9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+      }
+    );
+  });
+
+  // Stagger for proj-list items
+  gsap.utils.toArray('.pl').forEach((el, i) => {
+    gsap.fromTo(el,
+      { opacity: 0, x: -20 },
+      {
+        opacity: 1, x: 0,
+        duration: .7, ease: 'power3.out',
+        delay: i * .06,
+        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' }
+      }
+    );
+  });
+
+  // Scramble text on heading (Ciridae-style)
+  const headings = document.querySelectorAll('.about-heading');
+  headings.forEach(h => {
+    const orig = h.textContent;
+    ScrollTrigger.create({
+      trigger: h,
+      start: 'top 80%',
+      onEnter: () => scrambleText(h, orig)
+    });
+  });
+}
+
+function scrambleText(el, text) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let frame = 0;
+  const total = 22;
+  const interval = setInterval(() => {
+    el.textContent = text.split('').map((c, i) => {
+      if (c === ' ' || c === '\n') return c;
+      if (frame / total > i / text.length) return c;
+      return chars[Math.floor(Math.random()*chars.length)];
+    }).join('');
+    frame++;
+    if (frame >= total) { el.innerHTML = el.innerHTML; clearInterval(interval); }
+  }, 32);
+}
+
+// Count animation
+const co = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target, tgt = parseInt(el.dataset.count);
+      let c = 0; const step = Math.ceil(tgt/18);
+      const t = setInterval(() => { c += step; if(c>=tgt){el.textContent=tgt+'+';clearInterval(t);}else el.textContent=c; }, 60);
+      co.unobserve(el);
+    }
+  });
+}, { threshold: .5 });
+document.querySelectorAll('[data-count]').forEach(el => co.observe(el));
+
+window.addEventListener('load', initAnimations);
 
 /* ── VEILLE TABS ── */
 function switchPlan(idx, el) {
-  document.querySelectorAll('.plan-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.articles-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.vtab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.vpanel').forEach(p => p.classList.remove('active'));
   el.classList.add('active');
-  document.getElementById('panel-' + idx).classList.add('active');
+  document.getElementById('panel-'+idx).classList.add('active');
 }
 function toggleArt(row) {
   const open = row.classList.contains('open');
-  document.querySelectorAll('.article-row').forEach(r => r.classList.remove('open'));
-  if(!open) row.classList.add('open');
+  document.querySelectorAll('.art-row').forEach(r => r.classList.remove('open'));
+  if (!open) row.classList.add('open');
 }
 
-/* ── PROJECTS OVERLAY ── */
+/* ── OVERLAY ── */
 const PD = {
   ligue1:    {tag:'C# · DESKTOP',   eyebrow:'Application Desktop — 1ère année', title:'Gestion de la Ligue 1',       desc:"Application développée en 1ère année pour la gestion complète du championnat Ligue 1 : clubs, matchs, statistiques et classements. Architecture orientée objet en C#.", meta:[{i:'fa-calendar-alt',v:'1ère année BTS SIO'},{i:'fa-code',v:'Architecture POO complète'},{i:'fa-desktop',v:'Application Desktop Windows'},{i:'fa-database',v:'SQL Server'}], tech:['C#','POO','SQL Server','Visual Studio','.NET Framework'], images:['ligue1app.png','ligue1app1.png'], href:'details.html?project=ligue1'},
-  ligue1web: {tag:'PHP · WEB APP',  eyebrow:'Application Web — Projet Phare',   title:'Gestion Ligue 1 — Version Web', desc:"Refonte complète en site web du projet Ligue 1. Consultation et gestion des données sportives via navigateur avec PHP et MySQL. Interface responsive avec Bootstrap, requêtes SQL optimisées.", meta:[{i:'fa-calendar-alt',v:'1ère année BTS SIO'},{i:'fa-globe',v:'Application Web Responsive'},{i:'fa-database',v:'Base de données MySQL'},{i:'fa-layer-group',v:'Architecture MVC'}], tech:['PHP','HTML5','CSS3','MySQL','Bootstrap','JavaScript'], images:['ligue1web1.png','ligue1web2.png'], href:'details.html?project=ligue1web'},
+  ligue1web: {tag:'PHP · WEB APP',  eyebrow:'Application Web — Projet Phare',   title:'Gestion Ligue 1 — Web', desc:"Refonte complète en site web du projet Ligue 1. Consultation et gestion des données sportives via navigateur avec PHP et MySQL. Interface responsive avec Bootstrap, requêtes SQL optimisées.", meta:[{i:'fa-calendar-alt',v:'1ère année BTS SIO'},{i:'fa-globe',v:'Application Web Responsive'},{i:'fa-database',v:'Base de données MySQL'},{i:'fa-layer-group',v:'Architecture MVC'}], tech:['PHP','HTML5','CSS3','MySQL','Bootstrap','JavaScript'], images:['ligue1web1.png','ligue1web2.png'], href:'details.html?project=ligue1web'},
   chronophone:{tag:'PHP · STAGE',   eyebrow:'Stage 6 semaines — Bourg-en-Bresse',title:'Site interne Chronophone',   desc:"Stage de 6 semaines chez Chronophone à Bourg-en-Bresse. Développement d'une application interne de gestion des interventions techniques et suivi complet des réparations de smartphones.", meta:[{i:'fa-building',v:'Chronophone — Bourg-en-Bresse'},{i:'fa-clock',v:'Stage de 6 semaines'},{i:'fa-tools',v:'Gestion réparations & SAV'},{i:'fa-users',v:'Interface techniciens'}], tech:['PHP','MySQL','Bootstrap','HTML/CSS','JavaScript'], images:['stage1.png','stage2.png'], href:'details.html?project=chronophone'},
-  ada:       {tag:'C# · ENTITY',    eyebrow:'Application Desktop — 2ème année', title:'ADA Location — Application C#',desc:"Application desktop complète pour ADA Location avec Entity Framework. Gestion avancée des véhicules, clients, contrats et réservations. Interface Windows Forms.", meta:[{i:'fa-calendar-alt',v:'2ème année BTS SIO'},{i:'fa-car',v:'Gestion location véhicules'},{i:'fa-desktop',v:'Application Desktop WinForms'},{i:'fa-plug',v:'Entity Framework — Code First'}], tech:['C#','Entity Framework','SQL Server','Windows Forms','LINQ'], images:['ada1.png','ada2.png'], href:'details.html?project=ada'},
-  adaweb:    {tag:'PHP · MVC',      eyebrow:'Application Web — 2ème année',      title:'ADA Location — Version Web', desc:"Version web complète du projet ADA avec PHP et ORM Eloquent. Architecture MVC rigoureuse pour la gestion des données de location avec interface responsive moderne.", meta:[{i:'fa-calendar-alt',v:'2ème année BTS SIO'},{i:'fa-globe',v:'Application Web Full-Stack'},{i:'fa-code-branch',v:'Architecture MVC stricte'},{i:'fa-database',v:'ORM Eloquent — MySQL'}], tech:['PHP','Eloquent ORM','MySQL','MVC','Bootstrap','AJAX'], images:['adaweb1.png','adaweb2.png'], href:'details.html?project=adaweb'},
-  protherm:  {tag:'VBA · EXCEL',    eyebrow:'Stage 5 semaines — Mâcon',          title:'Protherm71 — Gestion articles',desc:"Stage de 5 semaines chez Protherm71 à Mâcon. Développement d'outils VBA Excel avancés pour l'automatisation complète d'une base d'articles avec intégration IA.", meta:[{i:'fa-building',v:'Protherm71 — Mâcon (71)'},{i:'fa-clock',v:'Stage de 5 semaines'},{i:'fa-robot',v:'Intégration IA — Automatisation'},{i:'fa-file-excel',v:'Excel VBA avancé'}], tech:['Excel','VBA','Automatisation','IA','Macros','API REST'], images:['interface.png','vba.png'], href:'details.html?project=protherm'}
+  ada:       {tag:'C# · ENTITY',    eyebrow:'Application Desktop — 2ème année', title:'ADA Location — C#',desc:"Application desktop complète pour ADA Location avec Entity Framework. Gestion avancée des véhicules, clients, contrats et réservations. Interface Windows Forms.", meta:[{i:'fa-calendar-alt',v:'2ème année BTS SIO'},{i:'fa-car',v:'Gestion location véhicules'},{i:'fa-desktop',v:'Application Desktop WinForms'},{i:'fa-plug',v:'Entity Framework — Code First'}], tech:['C#','Entity Framework','SQL Server','Windows Forms','LINQ'], images:['ada1.png','ada2.png'], href:'details.html?project=ada'},
+  adaweb:    {tag:'PHP · MVC',      eyebrow:'Application Web — 2ème année',      title:'ADA Location — Web', desc:"Version web complète du projet ADA avec PHP et ORM Eloquent. Architecture MVC rigoureuse pour la gestion des données de location avec interface responsive moderne.", meta:[{i:'fa-calendar-alt',v:'2ème année BTS SIO'},{i:'fa-globe',v:'Application Web Full-Stack'},{i:'fa-code-branch',v:'Architecture MVC stricte'},{i:'fa-database',v:'ORM Eloquent — MySQL'}], tech:['PHP','Eloquent ORM','MySQL','MVC','Bootstrap','AJAX'], images:['adaweb1.png','adaweb2.png'], href:'details.html?project=adaweb'},
+  protherm:  {tag:'VBA · EXCEL',    eyebrow:'Stage 5 semaines — Mâcon',          title:'Protherm71 — Articles',desc:"Stage de 5 semaines chez Protherm71 à Mâcon. Développement d'outils VBA Excel avancés pour l'automatisation complète d'une base d'articles avec intégration IA.", meta:[{i:'fa-building',v:'Protherm71 — Mâcon (71)'},{i:'fa-clock',v:'Stage de 5 semaines'},{i:'fa-robot',v:'Intégration IA — Automatisation'},{i:'fa-file-excel',v:'Excel VBA avancé'}], tech:['Excel','VBA','Automatisation','IA','Macros','API REST'], images:['interface.png','vba.png'], href:'details.html?project=protherm'}
 };
-let imgs = [], idx = 0;
-function openOv(id) {
-  const p = PD[id];
-  document.getElementById('ovTag').textContent      = p.tag;
-  document.getElementById('ovEyebrow').textContent  = p.eyebrow;
-  document.getElementById('ovTitle').textContent    = p.title;
-  document.getElementById('ovDesc').textContent     = p.desc;
-  document.getElementById('ovBtn').href             = p.href;
-  document.getElementById('ovMeta').innerHTML = p.meta.map(m => `<div class="ov-mrow"><i class="fas ${m.i}"></i><span>${m.v}</span></div>`).join('');
-  document.getElementById('ovTech').innerHTML = p.tech.map(t => `<span class="ov-pill">${t}</span>`).join('');
-  imgs = p.images.filter(Boolean); idx = 0; renderImg();
-  const strip = document.getElementById('ovStrip');
-  strip.innerHTML = '';
-  if(imgs.length) imgs.forEach((s, i) => { strip.innerHTML += `<div class="ov-thumb${i===0?' active':''}" id="th${i}" onclick="goImg(${i})"><img src="${s}" alt=""></div>`; });
-  const ov = document.getElementById('ov');
-  ov.style.display = 'flex';
-  requestAnimationFrame(() => requestAnimationFrame(() => ov.classList.add('vis')));
-  document.body.style.overflow = 'hidden';
+let imgs=[],imgIdx=0;
+function openOv(id){
+  const p=PD[id];
+  document.getElementById('ovTag').textContent=p.tag;
+  document.getElementById('ovEyebrow').textContent=p.eyebrow;
+  document.getElementById('ovTitle').textContent=p.title;
+  document.getElementById('ovDesc').textContent=p.desc;
+  document.getElementById('ovBtn').href=p.href;
+  document.getElementById('ovMeta').innerHTML=p.meta.map(m=>`<div class="ov-mrow"><i class="fas ${m.i}"></i><span>${m.v}</span></div>`).join('');
+  document.getElementById('ovTech').innerHTML=p.tech.map(t=>`<span class="ov-pill">${t}</span>`).join('');
+  imgs=p.images.filter(Boolean); imgIdx=0; renderImg();
+  const strip=document.getElementById('ovStrip');
+  strip.innerHTML='';
+  if(imgs.length) imgs.forEach((s,i)=>{ strip.innerHTML+=`<div class="ov-thumb${i===0?' active':''}" id="th${i}" onclick="goImg(${i})"><img src="${s}" alt=""></div>`; });
+  const ov=document.getElementById('ov');
+  ov.style.display='flex';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>ov.classList.add('vis')));
+  document.body.style.overflow='hidden';
 }
-function renderImg() {
-  const img = document.getElementById('ovImg'), no = document.getElementById('ovNoImg');
-  const cnt = document.getElementById('ovCount'), prev = document.getElementById('ovPrev'), next = document.getElementById('ovNext');
-  if(!imgs.length){ img.style.display='none'; no.style.display='flex'; cnt.style.display='none'; prev.disabled=next.disabled=true; return; }
-  no.style.display = 'none'; img.style.display = 'block'; img.src = imgs[idx];
-  cnt.style.display = 'block'; cnt.textContent = (idx+1)+'/'+imgs.length;
-  prev.disabled = idx === 0; next.disabled = idx === imgs.length-1;
-  document.querySelectorAll('.ov-thumb').forEach((t, i) => t.classList.toggle('active', i===idx));
+function renderImg(){
+  const img=document.getElementById('ovImg'),no=document.getElementById('ovNoImg');
+  const cnt=document.getElementById('ovCount'),prev=document.getElementById('ovPrev'),next=document.getElementById('ovNext');
+  if(!imgs.length){img.style.display='none';no.style.display='flex';cnt.style.display='none';prev.disabled=next.disabled=true;return;}
+  no.style.display='none';img.style.display='block';img.src=imgs[imgIdx];
+  cnt.style.display='block';cnt.textContent=(imgIdx+1)+'/'+imgs.length;
+  prev.disabled=imgIdx===0;next.disabled=imgIdx===imgs.length-1;
+  document.querySelectorAll('.ov-thumb').forEach((t,i)=>t.classList.toggle('active',i===imgIdx));
 }
-function chImg(d) { idx = Math.max(0, Math.min(imgs.length-1, idx+d)); renderImg(); }
-function goImg(i) { idx = i; renderImg(); }
-function closeOv() {
-  const ov = document.getElementById('ov');
+function chImg(d){imgIdx=Math.max(0,Math.min(imgs.length-1,imgIdx+d));renderImg();}
+function goImg(i){imgIdx=i;renderImg();}
+function closeOv(){
+  const ov=document.getElementById('ov');
   ov.classList.remove('vis');
-  setTimeout(() => { ov.style.display = 'none'; document.body.style.overflow = ''; }, 450);
+  setTimeout(()=>{ov.style.display='none';document.body.style.overflow='';},500);
 }
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeOv(); if(e.key === 'ArrowRight') chImg(1); if(e.key === 'ArrowLeft') chImg(-1); });
-document.getElementById('ov').addEventListener('click', function(e){ if(e.target===this) closeOv(); });
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeOv();if(e.key==='ArrowRight')chImg(1);if(e.key==='ArrowLeft')chImg(-1);});
+document.getElementById('ov').addEventListener('click',function(e){if(e.target===this)closeOv();});
 
-/* ── CONTACT FORM (EmailJS) ── */
-try { emailjs.init("uO7hNVrTPBeV0NVx7"); } catch(e){}
-document.getElementById('cform').addEventListener('submit', async function(e) {
+/* ── FORM ── */
+try{emailjs.init("uO7hNVrTPBeV0NVx7");}catch(e){}
+document.getElementById('cform').addEventListener('submit',async function(e){
   e.preventDefault();
-  const msg = document.getElementById('fmsg'), btn = document.getElementById('sbtn');
-  const name = document.getElementById('fn').value.trim(), email = document.getElementById('fe').value.trim();
-  const subject = document.getElementById('fs').value.trim(), message = document.getElementById('fmsg-area').value.trim();
-  if(!name || !email || !subject || !message) return;
-  msg.style.display = 'block'; msg.className = 'fm ld';
-  msg.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Envoi…'; btn.disabled = true;
-  try {
-    await emailjs.send("service_ekaqcev", "template_portfolio", { name, email, subject, message });
-    msg.className = 'fm ok'; msg.innerHTML = '<i class="fas fa-check-circle"></i> Message envoyé avec succès !'; this.reset();
-  } catch(err) { msg.className = 'fm ko'; msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Erreur lors de l\'envoi. Réessayez.'; }
-  btn.disabled = false;
+  const msg=document.getElementById('fmsg'),btn=document.getElementById('sbtn');
+  const name=document.getElementById('fn').value.trim(),email=document.getElementById('fe').value.trim();
+  const subject=document.getElementById('fs').value.trim(),message=document.getElementById('fmsg-area').value.trim();
+  if(!name||!email||!subject||!message)return;
+  msg.style.display='block';msg.className='fmsg ld';
+  msg.innerHTML='<i class="fas fa-circle-notch fa-spin"></i> Envoi…';btn.disabled=true;
+  try{
+    await emailjs.send("service_ekaqcev","template_portfolio",{name,email,subject,message});
+    msg.className='fmsg ok';msg.innerHTML='<i class="fas fa-check-circle"></i> Message envoyé avec succès !';this.reset();
+  }catch(err){msg.className='fmsg ko';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Erreur lors de l\'envoi. Réessayez.';}
+  btn.disabled=false;
 });
 </script>
 </body>
